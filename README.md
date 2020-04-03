@@ -3,7 +3,7 @@ Versicherungsunternehmen will Innerbetriebliches Vorschlagswesen modernisieren.
 Weg vom Briefkasten zur Webanwendung.
 
 Build Status:
-TODO
+![Git CI - mvnw](https://github.com/JeuJeus/awe1-digitaler-briefkasten/workflows/Git%20CI%20-%20mvnw/badge.svg)
  
  ---
  

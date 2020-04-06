@@ -39,6 +39,7 @@ public class IdeaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
+        //TODO when implementing security not anybody should be allowed to create
         try {
             return ideaRepository.save(idea);
         } catch (Exception e) {
@@ -49,6 +50,7 @@ public class IdeaController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        //TODO when implementing security not anybody should be allowed to delete
         ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
         ideaRepository.deleteById(id);
@@ -56,6 +58,7 @@ public class IdeaController {
 
     @PutMapping("/{id}")
     public Idea updateIdea(@RequestBody Idea idea, @PathVariable Long id) {
+        //TODO not any value should be possible to be updated
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }

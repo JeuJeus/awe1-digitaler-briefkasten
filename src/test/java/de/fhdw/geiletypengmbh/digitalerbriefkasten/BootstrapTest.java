@@ -5,6 +5,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -16,6 +17,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class BootstrapTest {
 
     private static final String API_ROOT

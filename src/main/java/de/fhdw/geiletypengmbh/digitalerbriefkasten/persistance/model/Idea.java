@@ -75,4 +75,5 @@ public class Idea {
     public void setCreationDate(java.sql.Date creationDate) {
         this.creationDate = creationDate;
     }
+
 }

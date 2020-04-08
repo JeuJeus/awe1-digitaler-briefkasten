@@ -1,27 +1,22 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.IdeaController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import java.util.List;
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -29,11 +24,10 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.security.config.http.MatcherType.mvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class IdeaControllerTest {
@@ -46,21 +40,41 @@ public class IdeaControllerTest {
 
     private Idea createRandomIdea() {
         Idea idea = new Idea();
+
         long millis = System.currentTimeMillis();
         java.sql.Date now = new java.sql.Date(millis);
+
         idea.setTitle(randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(UUID.randomUUID());
         idea.setCreationDate(now);
+
         return idea;
     }
 
-    private String createIdeaAsUri(Idea idea) {
-        Response response = RestAssured.given()
+    private static String parseIdeaToJson(Idea idea) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(idea);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String createIdeaAsUri(Idea idea) throws Exception {
+        String ideaJson = parseIdeaToJson(idea);
+        MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(idea)
-                .post(API_ROOT);
-        return API_ROOT + "/" + response.jsonPath().get("id");
+                .content(ideaJson))
+                .andReturn();
+
+        return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
+    }
+
+    private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
+        String jsonReturn = mvcResult.getResponse().getContentAsString();
+        return new JSONObject(jsonReturn);
     }
 
     @Test
@@ -70,30 +84,34 @@ public class IdeaControllerTest {
                 .andExpect(status().isOk());
     }
 
-    /*
     @Test
-    public void whenGetIdeasByTitle_thenOK() {
+    public void whenGetIdeasByTitle_thenOK() throws Exception {
         Idea idea = createRandomIdea();
         createIdeaAsUri(idea);
-        Response response = RestAssured.get(
-                API_ROOT + "/title/" + idea.getTitle());
 
-        assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        assertTrue(response.as(List.class)
-                .size() > 0);
+        MvcResult mvcResult = mockMvc.perform(
+                get(API_ROOT + "/title/" + idea.getTitle()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+
+        assertThat(response).isNotNull();
     }
 
     @Test
-    public void whenGetCreatedIdeaById_thenOK() {
+    public void whenGetCreatedIdeaById_thenOK() throws Exception {
         Idea idea = createRandomIdea();
         String location = createIdeaAsUri(idea);
-        Response response = RestAssured.get(location);
 
-        assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        assertEquals(idea.getTitle(), response.jsonPath()
-                .get("title"));
+        MvcResult mvcResult = mockMvc.perform(
+                get(location))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertEquals(idea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
     }
-
+/*
     @Test
     public void whenGetNotExistIdeaById_thenNotFound() {
         Response response = RestAssured.get(API_ROOT + "/" + randomNumeric(4));

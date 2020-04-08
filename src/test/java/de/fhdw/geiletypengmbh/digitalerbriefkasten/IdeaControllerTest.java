@@ -14,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
@@ -24,7 +22,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -111,58 +109,62 @@ public class IdeaControllerTest {
 
         assertEquals(idea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
     }
-/*
-    @Test
+
+   /* @Test
     public void whenGetNotExistIdeaById_thenNotFound() {
         Response response = RestAssured.get(API_ROOT + "/" + randomNumeric(4));
 
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
-    }
+    }*/
 
 
     @Test
-    public void whenCreateNewIdea_thenCreated() {
+    public void whenCreateNewIdea_thenCreated() throws Exception {
         Idea idea = createRandomIdea();
-        Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(idea)
-                .post(API_ROOT);
+        String ideaJson = parseIdeaToJson(idea);
 
-        assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson))
+                .andExpect(status().isCreated());
     }
 
 
     @Test
-    public void whenInvalidIdea_thenError() {
+    public void whenInvalidIdea_thenError() throws Exception {
         Idea idea = createRandomIdea();
         idea.setCreator(null);
-        Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(idea)
-                .post(API_ROOT);
+        String ideaJson = parseIdeaToJson(idea);
 
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatusCode());
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void whenUpdateCreatedBook_thenUpdated() {
+    public void whenUpdateCreatedBook_thenUpdated() throws Exception {
         UUID randomUuid = UUID.randomUUID();
         Idea idea = createRandomIdea();
         String location = createIdeaAsUri(idea);
         idea.setId(Long.parseLong(location.split("api/ideas/")[1]));
         idea.setCreator(randomUuid);
-        Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(idea)
-                .put(location);
+        String ideaJson = parseIdeaToJson(idea);
 
-        assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+        mockMvc.perform(
+                put(location)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson))
+                .andExpect(status().isOk());
 
-        response = RestAssured.get(location);
+        MvcResult mvcResult = mockMvc.perform(
+                get(location))
+                .andExpect(status().isOk())
+                .andReturn();
 
-        assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        assertEquals(randomUuid.toString(), response.jsonPath()
-                .get("creator"));
-    }*/
+        assertEquals(randomUuid.toString(), getJsonObjectFromReturn(mvcResult).get("creator"));
+    }
 }
 

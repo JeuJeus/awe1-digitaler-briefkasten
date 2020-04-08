@@ -1,27 +1,48 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.IdeaController;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.List;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.config.http.MatcherType.mvc;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
-public class BootstrapTest {
+@AutoConfigureMockMvc
+public class IdeaControllerTest {
 
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";
+
+    @Autowired
+    private MockMvc mockMvc;
 
     private Idea createRandomIdea() {
         Idea idea = new Idea();
@@ -43,12 +64,13 @@ public class BootstrapTest {
     }
 
     @Test
-    public void whenGetAllIdeas_thenOK() {
-        Response response = RestAssured.get(API_ROOT);
-
-        assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    public void whenGetAllIdeas_thenOK() throws Exception {
+        mockMvc.perform(get(API_ROOT))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
+    /*
     @Test
     public void whenGetIdeasByTitle_thenOK() {
         Idea idea = createRandomIdea();
@@ -123,5 +145,6 @@ public class BootstrapTest {
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         assertEquals(randomUuid.toString(), response.jsonPath()
                 .get("creator"));
-    }
+    }*/
 }
+

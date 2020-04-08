@@ -111,14 +111,14 @@ public class IdeaControllerTest {
 
         assertEquals(idea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
     }
-/*
+
     @Test
-    public void whenGetNotExistIdeaById_thenNotFound() {
-        Response response = RestAssured.get(API_ROOT + "/" + randomNumeric(4));
-
-        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
+    public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
+        mockMvc.perform(
+                get(API_ROOT + "/" + randomNumeric(4)))
+                .andExpect(status().isNotFound());
     }
-
+/*
 
     @Test
     public void whenCreateNewIdea_thenCreated() {

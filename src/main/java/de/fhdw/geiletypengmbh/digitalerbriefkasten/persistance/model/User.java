@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity

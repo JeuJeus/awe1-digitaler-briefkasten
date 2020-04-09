@@ -40,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService {
                         password,
                         userDetails.getAuthorities());
 
-        authenthicationManager.authenticate(authToken);
+        authenticationManager.authenticate(authToken);
 
         if (authToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authToken);

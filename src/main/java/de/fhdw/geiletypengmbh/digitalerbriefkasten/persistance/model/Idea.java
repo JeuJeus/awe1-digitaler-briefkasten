@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 @Entity
+@Table(name = "idea")
 public class Idea {
 
     @Id

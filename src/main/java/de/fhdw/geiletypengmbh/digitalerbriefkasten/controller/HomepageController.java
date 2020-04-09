@@ -10,8 +10,9 @@ public class HomepageController {
     @Value("${spring.application.name}")
     String appName;
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String homePage(Model model){
+        //TODO to be removed -> set home somewhere
         model.addAttribute("appName", appName);
         return "home";
     }

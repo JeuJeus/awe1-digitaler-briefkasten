@@ -30,7 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //TODO allow list ideas Request for unauthenticated
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/registration", "/api/ideas").permitAll()
+                .antMatchers("/registration", "/api/ideas").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

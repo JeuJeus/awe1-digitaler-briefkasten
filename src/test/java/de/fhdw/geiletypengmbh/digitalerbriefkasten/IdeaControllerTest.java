@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -71,6 +72,11 @@ public class IdeaControllerTest {
     private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
         String jsonReturn = mvcResult.getResponse().getContentAsString();
         return new JSONObject(jsonReturn);
+    }
+
+    @Before
+    public void setUp() {
+        //TODO implement Login/Access to API so Tests work again
     }
 
     @Test

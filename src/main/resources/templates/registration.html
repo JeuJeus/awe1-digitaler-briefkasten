@@ -14,8 +14,7 @@
 
 <div class="container">
     <!--        TODO DISPLAYING OF ERRORS IS NOT WORKING NEEDS TO BE FIXED-->
-    <form class="form-signin" action="#" th:action="@{/registration}" th:object="${userForm}" method="POST"
-          enctype="utf8">
+    <form class="form-signin" th:action="@{/registration}" th:object="${userForm}" method="POST" enctype="utf8">
         <div>
             <label class="form-heading">username</label>
             <input class="form-control" th:field="*{username}"/>
@@ -23,7 +22,7 @@
             <!--               th:text="${error}">Validation error</p>-->
         </div>
         <div>
-            <label class="form-heading"></label>password</label>
+            <label class="form-heading">password</label>
             <input class="form-control" type="password" th:field="*{password}"/>
             <!--            <p th:each="error : ${#fields.errors('password')}"-->
             <!--               th:text="${error}">Validation error</p>-->

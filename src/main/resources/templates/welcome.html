@@ -10,12 +10,10 @@
 </head>
 <body>
 <div class="container">
-    <!--        TODO FUNCTIONALITY IS NOT WORKING NEEDS TO BE FIXED-->
         <form id="logoutForm" method="POST" th:action="@{/logout}">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-
-    <h2>Welcome th:field="*{username} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+    <h2>Welcome <span th:text="${#authentication.getPrincipal().getUsername()}"></span> | <a
+            onclick="document.forms['logoutForm'].submit()">Logout</a>
     </h2>
 </div>
 

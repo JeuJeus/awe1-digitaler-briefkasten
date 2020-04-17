@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO allow list ideas Request for unauthenticated
         http
                 .authorizeRequests()
                 .antMatchers("/registration", "/api/ideas").permitAll()

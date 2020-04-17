@@ -13,13 +13,15 @@
 <body>
 <div class="container">
     <!--        TODO DISPLAYING OF ERRORS IS NOT WORKING NEEDS TO BE FIXED-->
-    <form method="POST" action="/login" class="form-signin">
+    <form method="POST" action="#" th:action="@{/login}" class="form-signin">
         <h2 class="form-heading">Log in</h2>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" required="required">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                   required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                   required="required">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>

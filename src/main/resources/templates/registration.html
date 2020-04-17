@@ -14,33 +14,26 @@
 
 <div class="container">
     <!--        TODO FUNCTIONALITY IS NOT WORKING NEEDS TO BE FIXED-->
-    <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
-        <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
-                <form:errors path="password"></form:errors>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="passwordConfirmation">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="passwordConfirmation" class="form-control"
-                            placeholder="Confirm your password"></form:input>
-                <form:errors path="passwordConfirmation"></form:errors>
-            </div>
-        </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form:form>
+    <form class="form-signin" action="#" th:action="@{/registration}" th:object="${userForm}" method="POST"
+          enctype="utf8">
+        <div>
+            <label class="form-heading">username</label>
+            <input class="form-control" th:field="*{username}"/>
+            <!--            <p th:each="error: ${#fields.errors('username')}"-->
+            <!--               th:text="${error}">Validation error</p>-->
+        </div>
+        <div>
+            <label class="form-heading"></label>password</label>
+            <input class="form-control" type="password" th:field="*{password}"/>
+            <!--            <p th:each="error : ${#fields.errors('password')}"-->
+            <!--               th:text="${error}">Validation error</p>-->
+        </div>
+        <div>
+            <label class="form-heading">confirm</label>
+            <input class="form-control" type="password" th:field="*{passwordConfirmation}"/>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">submit</button>
+    </form>
 
 </div>
 

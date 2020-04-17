@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IDEA</title>
+</head>
+<body>
+<h3 class="table table-dark" th:utext="'Idea ' + ${idea.id}">Idea</h3>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">description</th>
+        <th scope="col">creator</th>
+        <th scope="col">creation date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:utext="${idea.id}"></td>
+        <td th:utext="${idea.description}"></td>
+        <td th:utext="${idea.creator}"></td>
+        <td th:utext="${idea.creationDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

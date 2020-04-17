@@ -2,10 +2,13 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.UserController;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +24,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,8 +79,14 @@ public class IdeaControllerTest {
     }
 
     @Before
-    public void setUp() {
-        //TODO implement Login/Access to API so Tests work again
+    @Test
+    public void whenLogin_thenFound() throws Exception {
+        mockMvc.perform(post("http://localhost:8080/login")
+                .param("username", "nutzer")
+                .param("password", "passwort12")
+                .with(csrf()))
+                .andExpect(status().isFound())
+                .andReturn();
     }
 
     @Test

@@ -11,14 +11,12 @@
 <body>
 <div class="container">
     <!--        TODO FUNCTIONALITY IS NOT WORKING NEEDS TO BE FIXED-->
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+        <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-        </h2>
-    </c:if>
+    <h2>Welcome th:field="*{username} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+    </h2>
 </div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

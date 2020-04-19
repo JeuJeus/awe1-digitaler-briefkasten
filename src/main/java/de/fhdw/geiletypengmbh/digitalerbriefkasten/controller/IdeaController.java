@@ -4,14 +4,19 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdM
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
+
+import static org.aspectj.bridge.Version.getTime;
 
 @RestController
 @RequestMapping("api/ideas")
@@ -65,6 +70,14 @@ public class IdeaController {
         ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
         return ideaRepository.save(idea);
+    }
+
+    @PostMapping("/addIdea")
+    public String addIdea(@ModelAttribute Idea idea) {
+        java.sql.Date sqlDate = new java.sql.Date(getTime());
+        idea.setCreationDate(sqlDate);
+        ideaRepository.save(idea);
+        return idea.getTitle() + " und ID ist " + idea.getId();
     }
 
 }

@@ -137,16 +137,14 @@ public class IdeaControllerTest {
     @Test
     public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
         mockMvc.perform(
-                get(API_ROOT + "/" + randomNumeric(4))
+                get(API_ROOT + "/" + randomNumeric(5))
                         .with(user("user")))
                 .andExpect(status().isNotFound());
     }
 
 
     @Test
-    @Ignore
     public void whenCreateNewIdea_thenCreated() throws Exception {
-        //TODO FIX ME -> POST NOT WORKING 403
         Idea idea = createRandomIdea();
         String ideaJson = parseIdeaToJson(idea);
 
@@ -154,15 +152,14 @@ public class IdeaControllerTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user")))
+                        .with(user("user"))
+                        .with(csrf()))
                 .andExpect(status().isCreated());
     }
 
 
     @Test
-    @Ignore
     public void whenInvalidIdea_thenError() throws Exception {
-        //TODO FIX ME -> POST NOT WORKING 403
         Idea idea = createRandomIdea();
         idea.setCreator(null);
         String ideaJson = parseIdeaToJson(idea);
@@ -171,14 +168,13 @@ public class IdeaControllerTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user")))
+                        .with(user("user"))
+                        .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    @Ignore
-    public void whenUpdateCreatedBook_thenUpdated() throws Exception {
-        //TODO FIX ME -> POST NOT WORKING 403
+    public void whenUpdateCreatedIdea_thenUpdated() throws Exception {
         UUID randomUuid = UUID.randomUUID();
         Idea idea = createRandomIdea();
         String location = createIdeaAsUri(idea);
@@ -190,12 +186,15 @@ public class IdeaControllerTest {
                 put(location)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user")))
-                .andExpect(status().isFound());
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isOk());
 
         MvcResult mvcResult = mockMvc.perform(
-                get(location))
-                .andExpect(status().isFound())
+                get(location)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isOk())
                 .andReturn();
 
         assertEquals(randomUuid.toString(), getJsonObjectFromReturn(mvcResult).get("creator"));

@@ -76,6 +76,7 @@ public class IdeaController {
     public String addIdea(@ModelAttribute Idea idea) {
         java.sql.Date sqlDate = new java.sql.Date(getTime());
         idea.setCreationDate(sqlDate);
+        //TODO fix datenbankfehler weil keine user-id
         ideaRepository.save(idea);
         return idea.getTitle() + " und ID ist " + idea.getId();
     }

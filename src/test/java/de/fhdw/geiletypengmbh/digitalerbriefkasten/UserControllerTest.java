@@ -37,8 +37,7 @@ public class UserControllerTest {
                 .param("username", "nutzer")
                 .param("password", "passwort12")
                 .with(csrf()))
-                .andExpect(authenticated())
-                .andReturn();
+                .andExpect(authenticated());
     }
 
     @Test
@@ -46,8 +45,7 @@ public class UserControllerTest {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", "nutzer")
                 .param("password", "passwort12"))
-                .andExpect(unauthenticated())
-                .andReturn();
+                .andExpect(unauthenticated());
     }
 
     @Test
@@ -55,8 +53,7 @@ public class UserControllerTest {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", "nutzer")
                 .with(csrf()))
-                .andExpect(unauthenticated())
-                .andReturn();
+                .andExpect(unauthenticated());
     }
 
     @Test
@@ -66,8 +63,7 @@ public class UserControllerTest {
                 .param("password", testPassword)
                 .param("passwordConfirmation", testPassword)
                 .with(csrf()))
-                .andExpect(authenticated())
-                .andReturn();
+                .andExpect(authenticated());
     }
 
     @Test
@@ -77,7 +73,19 @@ public class UserControllerTest {
                 .param("password", testPasswordTooShort)
                 .param("passwordConfirmation", testPasswordTooShort)
                 .with(csrf()))
-                .andExpect(unauthenticated())
-                .andReturn();
+                .andExpect(unauthenticated());
     }
+
+    @Test
+    void whenLogout_ThenLoggedOut() throws Exception {
+        mockMvc.perform(post(SITE_ROOT + "/login")
+                .param("username", "nutzer")
+                .param("password", "passwort12")
+                .with(csrf()))
+                .andExpect(authenticated());
+        mockMvc.perform(post(SITE_ROOT + "/logout")
+                .with(csrf()))
+                .andExpect(unauthenticated());
+    }
+
 }

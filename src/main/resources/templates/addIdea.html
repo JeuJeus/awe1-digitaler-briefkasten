@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Idee hinzufügen</title>
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
 
+<div class="container">
+    <!--        TODO DISPLAYING OF ERRORS IS NOT WORKING NEEDS TO BE FIXED-->
+    <form action="#" th:action="@{/api/ideas/addIdea}" th:object="${addIdea}" method="post">
+        <p>Id: <input type="text" th:field="*{title}"/></p>
+        <p>Message: <input type="text" th:field="*{description}"/></p>
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+
+</div>
 </body>
 </html>

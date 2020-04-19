@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.aspectj.bridge.Version.getTime;
 
@@ -74,9 +75,9 @@ public class IdeaController {
 
     @PostMapping("/addIdea")
     public String addIdea(@ModelAttribute Idea idea) {
-        java.sql.Date sqlDate = new java.sql.Date(getTime());
+        java.sql.Date sqlDate = new java.sql.Date(getTime());//TODO time fixen
         idea.setCreationDate(sqlDate);
-        //TODO fix datenbankfehler weil keine user-id
+        idea.setCreator(UUID.randomUUID()); //TODO user anlegen fixen
         ideaRepository.save(idea);
         return idea.getTitle() + " und ID ist " + idea.getId();
     }

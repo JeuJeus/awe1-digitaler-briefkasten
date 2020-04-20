@@ -2,25 +2,31 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.UnsupportedEncodingException;
-import java.util.UUID;
+import java.util.Set;
 import javax.servlet.Filter;
 
+import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +44,10 @@ public class IdeaControllerTest {
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";
 
+    private static final String TESTUSER = randomAlphabetic(10);
+
+    private static Boolean SETUPDONE = false;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -47,18 +57,17 @@ public class IdeaControllerTest {
     @Autowired
     private Filter springSecurityFilterChain;
 
-    //HELPER FUNCTIONS
+    @Autowired
+    UserService userService;
+
+//HELPER FUNCTIONS
 
     private Idea createRandomIdea() {
         Idea idea = new Idea();
 
-        long millis = System.currentTimeMillis();
-        java.sql.Date now = new java.sql.Date(millis);
-
         idea.setTitle(randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
-        idea.setCreator(UUID.randomUUID());
-        idea.setCreationDate(now);
+        idea.setCreator(userService.findByUsername(TESTUSER));
 
         return idea;
     }
@@ -68,6 +77,7 @@ public class IdeaControllerTest {
         try {
             return mapper.writeValueAsString(idea);
         } catch (JsonProcessingException e) {
+
             e.printStackTrace();
         }
         return null;
@@ -89,13 +99,24 @@ public class IdeaControllerTest {
         return new JSONObject(jsonReturn);
     }
 
-    @Before
-    public void setUpMockUser() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .defaultRequest(get("/").with(user("user").roles("ADMIN")))
-                .addFilters(springSecurityFilterChain)
-                .build();
+    @BeforeEach
+    public void prepareSetup() {
+        if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
+
+            mockMvc = MockMvcBuilders
+                    .webAppContextSetup(context)
+                    .defaultRequest(get("/").with(user("user").roles("ADMIN")))
+                    .addFilters(springSecurityFilterChain)
+                    .build();
+
+            //be aware of extremly rare condition where random seed of possibility 10^26 is equal in several cases. So username reocurres and breaks test. WTF jonathan
+            String tempPassword = randomAlphabetic(10);
+            Set<Role> emptyRoles = emptySet();
+            User testUser = new User(TESTUSER, tempPassword, tempPassword, emptyRoles);
+            userService.save(testUser);
+
+            SETUPDONE = true;
+        }
     }
 
     @Test
@@ -175,11 +196,10 @@ public class IdeaControllerTest {
 
     @Test
     public void whenUpdateCreatedIdea_thenUpdated() throws Exception {
-        UUID randomUuid = UUID.randomUUID();
         Idea idea = createRandomIdea();
         String location = createIdeaAsUri(idea);
         idea.setId(Long.parseLong(location.split("api/ideas/")[1]));
-        idea.setCreator(randomUuid);
+        idea.setCreator(userService.findByUsername(TESTUSER));
         String ideaJson = parseIdeaToJson(idea);
 
         mockMvc.perform(
@@ -197,7 +217,13 @@ public class IdeaControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals(randomUuid.toString(), getJsonObjectFromReturn(mvcResult).get("creator"));
+        assertEquals(userService.findByUsername(TESTUSER), getJsonObjectFromReturn(mvcResult).get("creator"));
+    }
+
+    @Test
+    public void whenIdeaCreated_thenTimestampShouldBeSetCorrect() {
+        //TODO check autogenerated Timestamp
+        //assert(timestampPersistet).isCloseTo(timeNow);
     }
 }
 

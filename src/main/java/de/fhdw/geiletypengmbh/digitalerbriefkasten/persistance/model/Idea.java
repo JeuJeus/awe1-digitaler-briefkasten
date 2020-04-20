@@ -1,5 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;
@@ -18,22 +20,28 @@ public class Idea {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private UUID creator;
+    @ManyToOne
+    private User creator;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private java.sql.Date creationDate;
+
+    @PrePersist
+    void createdAt() {
+        long millis = System.currentTimeMillis();
+        this.creationDate = new java.sql.Date(millis);
+    }
 
     public Idea() {
         super();
     }
 
-    public Idea(String title, String description, UUID creator, java.sql.Date creationDate) {
+    public Idea(String title, String description, User creator) {
         super();
         this.title = title;
         this.description = description;
         this.creator = creator;
-        this.creationDate = creationDate;
     }
 
     public long getId() {
@@ -48,7 +56,7 @@ public class Idea {
         return description;
     }
 
-    public UUID getCreator() {
+    public User getCreator() {
         return creator;
     }
 
@@ -68,12 +76,8 @@ public class Idea {
         this.description = description;
     }
 
-    public void setCreator(UUID creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public void setCreationDate(java.sql.Date creationDate) {
-        this.creationDate = creationDate;
     }
 
 }

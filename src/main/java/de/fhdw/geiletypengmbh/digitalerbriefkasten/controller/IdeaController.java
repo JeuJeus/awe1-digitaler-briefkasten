@@ -42,7 +42,7 @@ public class IdeaController {
                 .orElseThrow(IdeaNotFoundException::new);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
         //TODO when implementing security not anybody should be allowed to create
@@ -73,13 +73,12 @@ public class IdeaController {
         return ideaRepository.save(idea);
     }
 
-    @PostMapping("/addIdea")
-    public String addIdea(@ModelAttribute Idea idea) {
+    @PostMapping(consumes = "application/x-www-form-urlencoded")
+    public Idea addIdea(@ModelAttribute Idea idea) {
         java.sql.Date sqlDate = new java.sql.Date(getTime());//TODO time fixen
         idea.setCreationDate(sqlDate);
         idea.setCreator(UUID.randomUUID()); //TODO user anlegen fixen
-        ideaRepository.save(idea);
-        return idea.getTitle() + " und ID ist " + idea.getId();
-    }
 
+        return ideaRepository.save(idea);
+    }
 }

@@ -20,10 +20,10 @@ public class User {
     @Transient
     private String passwordConfirmation;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
     private Set<Idea> ideas;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     /*

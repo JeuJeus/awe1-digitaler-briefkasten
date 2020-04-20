@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -75,7 +75,7 @@ public class IdeaController {
 
     @PostMapping(consumes = "application/x-www-form-urlencoded")
     public Idea addIdea(@ModelAttribute Idea idea) {
-        java.sql.Date sqlDate = new java.sql.Date(getTime());//TODO time fixen
+        java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         idea.setCreationDate(sqlDate);
         idea.setCreator(UUID.randomUUID()); //TODO user anlegen fixen
 

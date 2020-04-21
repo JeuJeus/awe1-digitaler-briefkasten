@@ -33,6 +33,7 @@ public class Idea {
     @JoinColumn(name = "creator_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;
+    //TODO DEFIFUCKINGETLY "OVERTHINK" WHAT SHOULD BE SERIALISED MAYBE USER ID IS ENOUGH MHMMKEY?
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

@@ -1,5 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
@@ -64,9 +66,6 @@ public class IdeaControllerTest {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private IdeaRepository ideaRepository;
-
 //HELPER FUNCTIONS
 
     private Idea createRandomIdea() {
@@ -81,6 +80,7 @@ public class IdeaControllerTest {
 
     private static String parseIdeaToJson(Idea idea) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         try {
             return mapper.writeValueAsString(idea);
         } catch (JsonProcessingException e) {
@@ -223,7 +223,8 @@ public class IdeaControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals(userService.findByUsername(TESTUSER), getJsonObjectFromReturn(mvcResult).get("creator"));
+        JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
+        assertEquals(userService.findByUsername(TESTUSER).getUsername(), persistedCreator.get("username"));
     }
 
     @Test

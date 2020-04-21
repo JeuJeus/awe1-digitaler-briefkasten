@@ -1,6 +1,10 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -9,6 +13,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "idea")
+@JsonSerialize
 public class Idea {
 
     @Id
@@ -23,10 +28,10 @@ public class Idea {
     @Column(nullable = false)
     private String description;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonIgnore
     private User creator;
 
     @Column(nullable = false, updatable = false)

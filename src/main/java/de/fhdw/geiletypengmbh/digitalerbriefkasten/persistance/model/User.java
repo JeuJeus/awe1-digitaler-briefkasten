@@ -1,15 +1,16 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private long id;
 
     @Column(nullable = false, unique = true)

@@ -1,6 +1,5 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.config.H2TestConfig;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;

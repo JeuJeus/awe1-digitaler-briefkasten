@@ -24,7 +24,7 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@SpringBootTest(classes = {DigitalerBriefkastenApplication.class, H2TestConfig.class})
+@SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest {
 

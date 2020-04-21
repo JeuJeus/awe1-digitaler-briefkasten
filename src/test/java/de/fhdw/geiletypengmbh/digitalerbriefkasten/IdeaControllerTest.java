@@ -3,9 +3,12 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.UserController;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -58,7 +61,7 @@ public class IdeaControllerTest {
     private Filter springSecurityFilterChain;
 
     @Autowired
-    UserService userService;
+    private UserServiceImpl userService;
 
 //HELPER FUNCTIONS
 

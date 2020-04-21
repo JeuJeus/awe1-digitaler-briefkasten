@@ -45,7 +45,7 @@ public class IdeaController {
     public Idea create(@RequestBody Idea idea) {
         //TODO when implementing security not anybody should be allowed to create
         try {
-            return ideaRepository.save(idea);
+            return ideaRepository.saveAndFlush(idea);
         } catch (Exception e) {
             //TODO refactor thrown Exception not to be as generous
             throw new IdeaMalformedException(e);

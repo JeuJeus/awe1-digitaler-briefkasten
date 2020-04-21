@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     private final static String TEST_USERNAME = randomAlphabetic(20);
     private final static String TO_REGISTER_USERNAME = randomAlphabetic(20);

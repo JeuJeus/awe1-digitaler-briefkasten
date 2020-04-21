@@ -4,9 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.UUID;
 
-@Entity
+@Entity(name = "idea")
 public class Idea {
 
     @Id
@@ -20,7 +19,7 @@ public class Idea {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User creator;
 
     @Column(nullable = false, updatable = false)

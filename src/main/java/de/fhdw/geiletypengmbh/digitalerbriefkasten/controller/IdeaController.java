@@ -11,7 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PersistenceException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/ideas")
@@ -42,7 +46,7 @@ public class IdeaController {
         //TODO when implementing security not anybody should be allowed to create
         try {
             return ideaRepository.save(idea);
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             //TODO refactor thrown Exception not to be as generous
             throw new IdeaMalformedException(e);
         }

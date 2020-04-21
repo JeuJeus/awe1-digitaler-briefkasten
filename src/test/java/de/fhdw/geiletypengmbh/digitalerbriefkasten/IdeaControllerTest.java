@@ -8,6 +8,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.UserController;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +64,9 @@ public class IdeaControllerTest {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private IdeaRepository ideaRepository;
+
 //HELPER FUNCTIONS
 
     private Idea createRandomIdea() {
@@ -80,7 +84,6 @@ public class IdeaControllerTest {
         try {
             return mapper.writeValueAsString(idea);
         } catch (JsonProcessingException e) {
-
             e.printStackTrace();
         }
         return null;

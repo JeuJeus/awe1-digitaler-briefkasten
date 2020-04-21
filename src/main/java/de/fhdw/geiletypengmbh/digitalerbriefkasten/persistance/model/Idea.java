@@ -1,6 +1,9 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -10,6 +13,7 @@ public class Idea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true, nullable = false)
     private long id;
 
     //TODO not in inital project request -> ok?
@@ -19,7 +23,10 @@ public class Idea {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "creator_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @JsonIgnore
     private User creator;
 
     @Column(nullable = false, updatable = false)

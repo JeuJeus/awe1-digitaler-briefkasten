@@ -9,6 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private long id;
 
     @Column(nullable = false, unique = true)
@@ -19,9 +20,6 @@ public class User {
 
     @Transient
     private String passwordConfirmation;
-
-    @OneToMany(mappedBy = "creator")
-    private Set<Idea> ideas;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -81,14 +79,6 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public Set<Idea> getIdeas() {
-        return ideas;
-    }
-
-    public void setIdeas(Set<Idea> ideas) {
-        this.ideas = ideas;
     }
 
     public String getLastName() {

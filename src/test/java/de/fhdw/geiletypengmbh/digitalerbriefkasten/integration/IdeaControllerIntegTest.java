@@ -1,4 +1,4 @@
-package de.fhdw.geiletypengmbh.digitalerbriefkasten;
+package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IdeaControllerTest {
+public class IdeaControllerIntegTest {
 
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";

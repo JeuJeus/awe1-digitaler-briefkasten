@@ -1,4 +1,4 @@
-package de.fhdw.geiletypengmbh.digitalerbriefkasten;
+package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerIntegTest {
 
     private static final String SITE_ROOT
             = "http://localhost:8080/";

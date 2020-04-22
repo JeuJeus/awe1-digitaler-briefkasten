@@ -64,13 +64,9 @@ public class IdeaService {
     public Idea createByForm(Idea idea) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
-        /*if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }*/
         User creator = userService.findByUsername(username);
         idea.setCreator(creator);
+
         return ideaRepository.saveAndFlush(idea);
     }
 }

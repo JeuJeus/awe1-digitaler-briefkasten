@@ -4,18 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.UserController;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +17,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLData;
-import java.util.Set;
 import javax.servlet.Filter;
+import java.io.UnsupportedEncodingException;
+import java.util.Set;
 
 import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -227,7 +219,6 @@ public class IdeaControllerIntegTest {
                 .andReturn();
 
         JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
-        System.out.println("TEST" + persistedCreator);
         assertEquals(userService.findByUsername(TESTUSER).getUsername(), persistedCreator.get("username"));
     }
 
@@ -249,6 +240,44 @@ public class IdeaControllerIntegTest {
         java.sql.Date today = new java.sql.Date(millis);
 
         assert (jsonReturn.get("creationDate")).equals(today.toString());
+    }
+
+    @Test
+    public void whenDeleteCreatedIdea_thenDeleted() throws Exception {
+        Idea idea = createRandomIdea();
+        String location = createIdeaAsUri(idea);
+
+        mockMvc.perform(
+                delete(location)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(
+                get(location)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenCreated_thenDefaultStatusShouldBeSet() throws Exception {
+        Idea idea = createRandomIdea();
+        String ideaJson = parseIdeaToJson(idea);
+
+        MvcResult mvcResult = mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andReturn();
+
+        JSONObject jsonReturn = getJsonObjectFromReturn(mvcResult);
+
+        assert (jsonReturn.get("status")).equals("NOT_SUBMITTED");
+        //Status Justification should only be included if set
+        assert (!jsonReturn.has("statusJustification"));
     }
 }
 

@@ -1,9 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -40,16 +38,15 @@ public class Idea {
 
     //TODO ADD LOGIC FOR STORING IDEA / ACCEPTING / DECLINING
     @Column
-    private boolean isAcceptedStatus;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.NOT_SUBMITTED;
 
     @Column
-    private boolean inIdeaStorage;
-
-    @Column
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String statusJustification;
 
     @PrePersist
-    void createdAt() {
+    private void createdAt() {
         long millis = System.currentTimeMillis();
         this.creationDate = new java.sql.Date(millis);
     }
@@ -101,4 +98,19 @@ public class Idea {
         this.creator = creator;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getStatusJustification() {
+        return statusJustification;
+    }
+
+    public void setStatusJustification(String statusJustification) {
+        this.statusJustification = statusJustification;
+    }
 }

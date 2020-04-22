@@ -3,18 +3,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8"/>
 <head>
-    <title utext="'Idea' + ${idea.id}"></title>
+    <title th:text="${idea.getTitle()}"></title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
 
 </head>
 <body class="container">
-<h3 th:utext="'Idea ' + ${idea.id}"></h3>
+<h3 th:utext="${idea.getTitle()}"></h3>
 <table class="table table-dark">
     <thead>
     <tr>
         <th scope="col">id</th>
+        <th scope="col">title</th>
         <th scope="col">description</th>
         <th scope="col">creator</th>
         <th scope="col">creation date</th>
@@ -22,10 +23,11 @@
     </thead>
     <tbody>
     <tr>
-        <th scope="row" th:utext="${idea.id}"></th>
-        <td th:utext="${idea.description}"></td>
-        <td th:utext="${idea.creator}"></td>
-        <td th:utext="${idea.creationDate}"></td>
+        <th scope="row" th:utext="${idea.getId()}"></th>
+        <th th:utext="${idea.getTitle()}"></th>
+        <td th:utext="${idea.getDescription()}"></td>
+        <td th:utext="${idea.getCreator().getUsername()}"></td>
+        <td th:utext="${idea.getCreationDate()}"></td>
     </tr>
     </tbody>
 </table>

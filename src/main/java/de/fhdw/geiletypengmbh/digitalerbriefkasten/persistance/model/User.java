@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 @Entity
 public class User {
-
+    //TODO Force User on first Login / Registration to fill in Profile -> Set First-/Lastname
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)

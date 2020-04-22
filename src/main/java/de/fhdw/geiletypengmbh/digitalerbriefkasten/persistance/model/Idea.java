@@ -39,6 +39,16 @@ public class Idea {
     @CreationTimestamp
     private java.sql.Date creationDate;
 
+    //TODO ADD LOGIC FOR STORING IDEA / ACCEPTING / DECLINING
+    @Column
+    private boolean isAcceptedStatus;
+
+    @Column
+    private boolean inIdeaStorage;
+
+    @Column
+    private String statusJustification;
+
     @PrePersist
     void createdAt() {
         long millis = System.currentTimeMillis();

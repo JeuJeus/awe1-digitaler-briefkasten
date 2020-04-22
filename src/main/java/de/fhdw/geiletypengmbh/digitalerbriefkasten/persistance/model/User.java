@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,10 +17,12 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
     @Transient
+    @JsonIgnore
     private String passwordConfirmation;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -226,6 +226,7 @@ public class IdeaControllerIntegTest {
                 .andReturn();
 
         JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
+        System.out.println("TEST" + persistedCreator);
         assertEquals(userService.findByUsername(TESTUSER).getUsername(), persistedCreator.get("username"));
     }
 

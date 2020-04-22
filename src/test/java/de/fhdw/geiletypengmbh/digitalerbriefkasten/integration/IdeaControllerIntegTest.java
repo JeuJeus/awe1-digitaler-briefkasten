@@ -219,7 +219,6 @@ public class IdeaControllerIntegTest {
                 .andReturn();
 
         JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
-        System.out.println("TEST" + persistedCreator);
         assertEquals(userService.findByUsername(TESTUSER).getUsername(), persistedCreator.get("username"));
     }
 
@@ -259,6 +258,26 @@ public class IdeaControllerIntegTest {
                         .with(user("user"))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenCreated_thenDefaultStatusShouldBeSet() throws Exception {
+        Idea idea = createRandomIdea();
+        String ideaJson = parseIdeaToJson(idea);
+
+        MvcResult mvcResult = mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andReturn();
+
+        JSONObject jsonReturn = getJsonObjectFromReturn(mvcResult);
+
+        assert (jsonReturn.get("status")).equals("NOT_SUBMITTED");
+        //Status Justification should only be included if set
+        assert (!jsonReturn.has("statusJustification"));
     }
 }
 

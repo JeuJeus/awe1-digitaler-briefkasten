@@ -19,6 +19,7 @@
         <th scope="col">description</th>
         <th scope="col">creator</th>
         <th scope="col">creation date</th>
+        <th scope="col">status</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
         <td th:utext="${idea.getDescription()}"></td>
         <td th:utext="${idea.getCreator().getUsername()}"></td>
         <td th:utext="${idea.getCreationDate()}"></td>
+        <td th:utext="${idea.getStatus()}"></td>
     </tr>
     </tbody>
 </table>

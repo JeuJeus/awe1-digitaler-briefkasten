@@ -4,8 +4,11 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdM
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,9 @@ public class IdeaService {
 
     @Autowired
     private IdeaRepository ideaRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     public Iterable<Idea> findAll() {
@@ -52,6 +58,19 @@ public class IdeaService {
         }
         ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
-        return ideaRepository.save(idea);
+        return ideaRepository.saveAndFlush(idea);
+    }
+
+    public Idea createByForm(Idea idea) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        /*if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }*/
+        User creator = userService.findByUsername(username);
+        idea.setCreator(creator);
+        return ideaRepository.saveAndFlush(idea);
     }
 }

@@ -20,9 +20,6 @@ public class IdeaController {
     @Autowired
     private IdeaService ideaService;
 
-    @Autowired
-    private UserService userService;
-
     @GetMapping
     public Iterable<Idea> findAll() {
         return ideaService.findAll();
@@ -58,17 +55,8 @@ public class IdeaController {
     }
 
     @PostMapping(consumes = "application/x-www-form-urlencoded")
-    public String addIdea(@ModelAttribute Idea idea) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        User creator = userService.findByUsername(username);
-        idea.setCreator(creator);
-        ideaService.save(idea);
-        return "Idee erfolgreich angelegt. Titel: " + idea.getTitle() + ", Beschreibung: " + idea.getDescription();
+    public Idea createByForm(@ModelAttribute Idea idea) {
+        //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
+        return ideaService.createByForm(idea);
     }
 }

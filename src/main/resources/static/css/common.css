@@ -15,6 +15,11 @@ body {
     margin-bottom: 10px;
 }
 
+.form-heading {
+    text-align: center;
+    padding: 15px;
+}
+
 .form-signin .checkbox {
     font-weight: normal;
 }

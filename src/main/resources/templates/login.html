@@ -12,9 +12,19 @@
 
 <body>
 <div class="container">
-    <!--        TODO DISPLAYING OF ERRORS IS NOT WORKING NEEDS TO BE FIXED-->
     <form method="POST" action="#" th:action="@{/login}" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
+
+        <h2 class="form-heading">
+            <img th:class="img-responsive" th:src="@{/images/logo.png}"/>
+            Digitaler Briefkasten
+        </h2>
+
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                Invalid username or password.
+            </div>
+        </div>
+
         <div class="form-group">
             <input type="text" id="username" name="username" class="form-control" placeholder="Username"
                    required="required">
@@ -28,19 +38,6 @@
         </div>
         <h4 class="text-center"><a href="/registration">Create an account</a></h4>
 
-        <!--<div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <label>
-                <input name="username" type="text" class="form-control" placeholder="Username"
-                       autofocus="true"/>
-            </label>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="/registration">Create an account</a></h4>
-        </div>-->
     </form>
 </div>
 

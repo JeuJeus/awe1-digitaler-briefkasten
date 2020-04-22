@@ -1,27 +1,49 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 @Entity
 public class User {
-
+    //TODO Force User on first Login / Registration to fill in Profile -> Set First-/Lastname
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private long id;
 
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
     @Transient
+    @JsonIgnore
     private String passwordConfirmation;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    /*
+    TODO Add firstname, lastname logic
+     */
+    private String lastName;
+
+    private String firstName;
+
+    public User() {
+    }
+
+    public User(String username, String password, String passwordConfirmation, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.passwordConfirmation = passwordConfirmation;
+        this.roles = roles;
+    }
 
     public long getId() {
         return id;
@@ -61,5 +83,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }

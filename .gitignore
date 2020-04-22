@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 /db/NoPornISwear.trace.db
+/db/NoPornISwear.mv.db

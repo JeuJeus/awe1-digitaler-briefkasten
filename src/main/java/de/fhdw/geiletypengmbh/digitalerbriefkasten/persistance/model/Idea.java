@@ -1,14 +1,24 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.UUID;
 
-@Entity
+@Entity(name = "idea")
+@JsonSerialize
 public class Idea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true, nullable = false)
     private long id;
 
     //TODO not in inital project request -> ok?
@@ -18,22 +28,41 @@ public class Idea {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private UUID creator;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "creator_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User creator;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private java.sql.Date creationDate;
+
+    //TODO ADD LOGIC FOR STORING IDEA / ACCEPTING / DECLINING
+    @Column
+    private boolean isAcceptedStatus;
+
+    @Column
+    private boolean inIdeaStorage;
+
+    @Column
+    private String statusJustification;
+
+    @PrePersist
+    void createdAt() {
+        long millis = System.currentTimeMillis();
+        this.creationDate = new java.sql.Date(millis);
+    }
 
     public Idea() {
         super();
     }
 
-    public Idea(String title, String description, UUID creator, java.sql.Date creationDate) {
+    public Idea(String title, String description, User creator) {
         super();
         this.title = title;
         this.description = description;
         this.creator = creator;
-        this.creationDate = creationDate;
     }
 
     public long getId() {
@@ -48,7 +77,7 @@ public class Idea {
         return description;
     }
 
-    public UUID getCreator() {
+    public User getCreator() {
         return creator;
     }
 
@@ -68,12 +97,8 @@ public class Idea {
         this.description = description;
     }
 
-    public void setCreator(UUID creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public void setCreationDate(java.sql.Date creationDate) {
-        this.creationDate = creationDate;
     }
 
 }

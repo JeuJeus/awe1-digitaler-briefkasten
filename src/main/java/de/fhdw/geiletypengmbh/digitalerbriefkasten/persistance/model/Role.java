@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "role")
 public class Role {
 
     @Id
@@ -16,7 +16,7 @@ public class Role {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
     public long getId() {

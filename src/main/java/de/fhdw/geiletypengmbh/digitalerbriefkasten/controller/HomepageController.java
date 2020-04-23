@@ -43,4 +43,10 @@ public class HomepageController {
         mav.addObject("ideas", ideas);
         return mav;
     }
+
+    @GetMapping("/createIdea")
+    public String createIdea(Model model) {
+        model.addAttribute("createIdea", new Idea());
+        return "createIdea";
+    }
 }

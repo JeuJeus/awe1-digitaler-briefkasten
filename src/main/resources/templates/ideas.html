@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8"/>
+<head>
+    <title>All ideas</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <script src="https://kit.fontawesome.com/b56d194d75.js" crossorigin="anonymous"></script>
+    <style>
+        svg {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" th:src="@{/js/UIHelper.js}"></script>
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/createIdea">Create Idea</a></li>
+        <li class="active"><a href="/ideas/">List Ideas</a></li>
+    </ul>
+</nav>
+<main role="main">
+    <div class="mt-5">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">creator</th>
+                <th scope="col">creation date</th>
+                <th scope="col">status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="idea: ${ideas}">
+                <th th:utext="${idea.getTitle()}"></th>
+                <td th:utext="${idea.getDescription()}"></td>
+                <td><a href="#" th:utext="${idea.getCreator().getUsername()}"></a></td>
+                <td th:utext="${idea.getCreationDate()}"></td>
+                <td><span th:attr="data-status=${idea.getStatus()}" class="statusIcon mr-1"></span>
+                    <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</div>
+
+
+<script type="text/javascript">
+    function insertSVG(element, status) {
+        element.innerHTML = getStatusIcon(element.getAttribute('data-status'));
+    }
+
+    function setSVGColor(element, status) {
+        statusIcon.querySelector("svg").style.color = getStatusIconColor(element.getAttribute('data-status'));
+    }
+
+    window.onload = function () {
+        let statusIcons = document.querySelectorAll(".statusIcon");
+        for (let i = 0; i < statusIcons.length; i++) {
+            statusIcon = statusIcons[i];
+            dataStatus = statusIcon.getAttribute('data-status');
+            insertSVG(statusIcon, dataStatus);
+            setSVGColor(statusIcon, dataStatus);
+        }
+    };
+
+</script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

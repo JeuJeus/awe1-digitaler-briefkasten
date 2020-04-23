@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class HomepageController {
     @Value("${spring.application.name}")
@@ -24,6 +26,22 @@ public class HomepageController {
         //TODO to be removed -> set home somewhere
         model.addAttribute("appName", appName);
         return "home";
+    }
+
+    @GetMapping("/ideas/{id}")
+    public ModelAndView showOne(@PathVariable Long id) {
+        Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
+        ModelAndView mav = new ModelAndView("idea");
+        mav.addObject("idea", idea);
+        return mav;
+    }
+
+    @GetMapping("/ideas")
+    public ModelAndView showAll() {
+        List<Idea> ideas = ideaRepository.findAll();
+        ModelAndView mav = new ModelAndView("ideas");
+        mav.addObject("ideas", ideas);
+        return mav;
     }
 
     @GetMapping("/createIdea")

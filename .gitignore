@@ -29,5 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Database ###
 /db/NoPornISwear.trace.db
 /db/NoPornISwear.mv.db
+/db/PresentationBackup-NoPornISwear.mv.db

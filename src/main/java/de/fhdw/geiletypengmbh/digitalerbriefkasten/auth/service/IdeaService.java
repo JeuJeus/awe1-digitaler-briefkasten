@@ -4,11 +4,18 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdM
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class IdeaService {
@@ -16,8 +23,10 @@ public class IdeaService {
     @Autowired
     private IdeaRepository ideaRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
-    public Iterable<Idea> findAll() {
+    public List<Idea> findAll() {
         return ideaRepository.findAll();
     }
 
@@ -53,5 +62,20 @@ public class IdeaService {
         ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
         return ideaRepository.save(idea);
+    }
+
+    public List<Idea> GetAllOwnPendingIdeas() {
+        List<Idea> allIdeas = (List<Idea>) findAll();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String securityUsername = ((UserDetails) principal).getUsername();
+        ;
+        User user = userRepository.findByUsername(securityUsername);
+
+        Predicate<Idea> ideaBelongsToCurUser = idea -> idea.getCreator().getId() == user.getId();
+        Predicate<Idea> ideaIsPending = idea -> idea.getStatus().equals(Status.PENDING);
+
+        return allIdeas.stream().
+                filter(ideaBelongsToCurUser.and(ideaIsPending))
+                .collect(Collectors.toList());
     }
 }

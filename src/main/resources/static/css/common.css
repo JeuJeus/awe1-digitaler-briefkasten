@@ -75,3 +75,8 @@ nav ul li {
     display: inline-block;
     margin: 10px;
 }
+
+/* Login pic width fix */
+h2 img {
+    width: 100%;
+}

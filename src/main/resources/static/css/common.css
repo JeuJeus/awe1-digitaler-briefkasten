@@ -58,25 +58,12 @@ body {
     color: red
 }
 
-/* Nav Bar */
-
-nav {
-    float: left;
-    width: 100%;
-    margin-left: 340px;
-}
-
-nav ul {
-    text-align: center;
-    float: left;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 10px;
-}
-
 /* Login pic width fix */
 h2 img {
     width: 100%;
+}
+
+/*BOOTSTRAP CHANGE OMFG HOW DARE HE CHANGE THIS PERFECT TEMPLATE :OOOO */
+nav a img {
+    filter: grayscale() invert();
 }

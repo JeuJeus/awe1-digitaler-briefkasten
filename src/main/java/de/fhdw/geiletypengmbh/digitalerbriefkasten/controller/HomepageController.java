@@ -40,11 +40,11 @@ public class HomepageController {
     public ModelAndView showAllForLoggedInUser() {
 
         List<Idea> ideas = ideaService.findAll();
-        List<Idea> ownPendingIdeas = ideaService.GetAllOwnPendingIdeas();
+        List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
         ModelAndView mav = new ModelAndView("ideas");
         mav.addObject("ideas", ideas);
-        mav.addObject("ownPendingIdeas", ownPendingIdeas);
+        mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
 
         return mav;
     }

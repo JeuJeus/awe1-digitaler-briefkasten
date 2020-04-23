@@ -74,17 +74,17 @@ public class IdeaService {
         return ideaRepository.saveAndFlush(idea);
     }
 
-    public List<Idea> GetAllOwnPendingIdeas() {
-        List<Idea> allIdeas = (List<Idea>) findAll();
+    public List<Idea> GetOwnNotSubmittedIdeas() {
+        List<Idea> allIdeas = findAll();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String securityUsername = ((UserDetails) principal).getUsername();
         User user = userService.findByUsername(securityUsername);
 
         Predicate<Idea> ideaBelongsToCurUser = idea -> idea.getCreator().getId() == user.getId();
-        Predicate<Idea> ideaIsPending = idea -> idea.getStatus().equals(Status.PENDING);
+        Predicate<Idea> ideaIsNotSubmitted = idea -> idea.getStatus().equals(Status.NOT_SUBMITTED);
 
         return allIdeas.stream().
-                filter(ideaBelongsToCurUser.and(ideaIsPending))
+                filter(ideaBelongsToCurUser.and(ideaIsNotSubmitted))
                 .collect(Collectors.toList());
     }
 }

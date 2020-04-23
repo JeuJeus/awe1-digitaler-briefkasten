@@ -2,9 +2,14 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomepageController {
@@ -20,6 +27,9 @@ public class HomepageController {
 
     @Autowired
     private IdeaRepository ideaRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/home")
     public String homePage(Model model) {
@@ -39,8 +49,22 @@ public class HomepageController {
     @GetMapping("/ideas")
     public ModelAndView showAll() {
         List<Idea> ideas = ideaRepository.findAll();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String securityUsername;
+        if (principal instanceof UserDetails) {
+            securityUsername = ((UserDetails) principal).getUsername();
+        } else {
+            securityUsername = principal.toString();
+        }
+        User user = userRepository.findByUsername(securityUsername);
+        Predicate<Idea> ideaBelongsToCurUser = idea -> idea.getCreator().getId() == user.getId();
+        Predicate<Idea> ideaIsPending = idea -> idea.getStatus().equals(Status.PENDING);
+        List<Idea> ownPendingIdeas = ideas.stream().
+                filter(ideaBelongsToCurUser.and(ideaIsPending))
+                .collect(Collectors.toList());
         ModelAndView mav = new ModelAndView("ideas");
         mav.addObject("ideas", ideas);
+        mav.addObject("ownPendingIdeas", ownPendingIdeas);
         return mav;
     }
 }

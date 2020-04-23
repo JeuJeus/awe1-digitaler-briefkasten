@@ -71,7 +71,7 @@ public class IdeaService {
         User creator = userService.findByUsername(username);
         idea.setCreator(creator);
 
-        return ideaRepository.saveAndFlush(idea);
+        return save(idea);
     }
 
     public List<Idea> GetOwnNotSubmittedIdeas() {

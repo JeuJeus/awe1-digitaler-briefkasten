@@ -31,7 +31,9 @@
         </ul>
     </div>
 </nav>
+
 <div class="container">
+        <!-- TODO -> move logout to Navbar    -->
         <form id="logoutForm" method="POST" th:action="@{/logout}">
         </form>
     <h2 class="mt-3">Welcome <span th:text="${#authentication.getPrincipal().getUsername()}"></span> | <a

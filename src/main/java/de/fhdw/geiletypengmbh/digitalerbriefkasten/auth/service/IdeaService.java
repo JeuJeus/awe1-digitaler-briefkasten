@@ -74,6 +74,15 @@ public class IdeaService {
         return save(idea);
     }
 
+    public List<Idea> getSubmittedIdeas() {
+        List<Idea> allIdeas = findAll();
+        Predicate<Idea> ideaIsNotSubmitted = idea -> idea.getStatus().equals(Status.NOT_SUBMITTED);
+
+        return allIdeas.stream().
+                filter(Predicate.not(ideaIsNotSubmitted))
+                .collect(Collectors.toList());
+    }
+
     public List<Idea> GetOwnNotSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -39,11 +39,11 @@ public class HomepageController {
     @GetMapping("/ideas")
     public ModelAndView showAllForLoggedInUser() {
 
-        List<Idea> ideas = ideaService.findAll();
+        List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
         List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
         ModelAndView mav = new ModelAndView("ideas");
-        mav.addObject("ideas", ideas);
+        mav.addObject("ideas", submittedIdeas);
         mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
 
         return mav;

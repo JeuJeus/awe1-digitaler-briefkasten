@@ -1,8 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class HomepageController {
     String appName;
 
     @Autowired
-    private IdeaRepository ideaRepository;
+    private IdeaService ideaService;
 
     @GetMapping("/home")
     public String homePage(Model model) {
@@ -30,17 +29,23 @@ public class HomepageController {
 
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
-        Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
+        Idea idea = ideaService.findById(id);
+
         ModelAndView mav = new ModelAndView("idea");
         mav.addObject("idea", idea);
         return mav;
     }
 
     @GetMapping("/ideas")
-    public ModelAndView showAll() {
-        List<Idea> ideas = ideaRepository.findAll();
+    public ModelAndView showAllForLoggedInUser() {
+
+        List<Idea> ideas = ideaService.findAll();
+        List<Idea> ownPendingIdeas = ideaService.GetAllOwnPendingIdeas();
+
         ModelAndView mav = new ModelAndView("ideas");
         mav.addObject("ideas", ideas);
+        mav.addObject("ownPendingIdeas", ownPendingIdeas);
+
         return mav;
     }
 

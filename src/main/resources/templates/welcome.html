@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
+<nav>
+    <ul>
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="/createIdea">Create Idea</a></li>
+        <li><a href="/ideas/">List Ideas</a></li>
+    </ul>
+</nav>
 <div class="container">
         <form id="logoutForm" method="POST" th:action="@{/logout}">
         </form>

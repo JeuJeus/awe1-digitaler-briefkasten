@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class HomepageController {
     @Value("${spring.application.name}")
@@ -27,16 +29,18 @@ public class HomepageController {
     }
 
     @GetMapping("/ideas/{id}")
-    public ModelAndView findOne(@PathVariable Long id) {
+    public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
         ModelAndView mav = new ModelAndView("idea");
         mav.addObject("idea", idea);
         return mav;
     }
 
-    @GetMapping("/createIdea")
-    public String createIdea(Model model) {
-        model.addAttribute("createIdea", new Idea());
-        return "createIdea";
+    @GetMapping("/ideas")
+    public ModelAndView showAll() {
+        List<Idea> ideas = ideaRepository.findAll();
+        ModelAndView mav = new ModelAndView("ideas");
+        mav.addObject("ideas", ideas);
+        return mav;
     }
 }

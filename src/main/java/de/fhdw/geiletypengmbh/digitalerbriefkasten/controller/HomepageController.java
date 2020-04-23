@@ -26,14 +26,6 @@ public class HomepageController {
         return "home";
     }
 
-    @GetMapping("/ideas/{id}")
-    public ModelAndView findOne(@PathVariable Long id) {
-        Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
-        ModelAndView mav = new ModelAndView("idea");
-        mav.addObject("idea", idea);
-        return mav;
-    }
-
     @GetMapping("/createIdea")
     public String createIdea(Model model) {
         model.addAttribute("createIdea", new Idea());

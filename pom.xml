@@ -12,7 +12,7 @@
 
     <groupId>de.fhdw.geiletypengmbh</groupId>
     <artifactId>digitaler-briefkasten</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.1.0-PROTOTYPE</version>
     <name>digitaler-briefkasten</name>
     <description>digitaler Briefkasten WebApp der geile Typen GmbH</description>
 

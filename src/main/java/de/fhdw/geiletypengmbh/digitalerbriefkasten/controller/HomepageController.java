@@ -51,7 +51,7 @@ public class HomepageController {
 
     @GetMapping("/createIdea")
     public String createIdea(Model model) {
-        //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE THROWS SQL ERROR
+        //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
         model.addAttribute("createIdea", new Idea());
         return "createIdea";
     }

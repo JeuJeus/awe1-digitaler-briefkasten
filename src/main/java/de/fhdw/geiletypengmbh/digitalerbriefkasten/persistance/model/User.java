@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 public class User {
-    //TODO Force User on first Login / Registration to fill in Profile -> Set First-/Lastname
+    //TODO FORCE USER ON FIRST LOGIN / REGISTRATION TO FILL IN PROFILE -> SET FIRST-/LASTNAME
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
@@ -28,7 +28,7 @@ public class User {
     private Set<Role> roles;
 
     /*
-    TODO Add firstname, lastname logic
+    TODO ADD FIRSTNAME, LASTNAME LOGIC
      */
     private String lastName;
 

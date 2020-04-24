@@ -33,19 +33,19 @@ public class IdeaController {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
-        //TODO when implementing security not anybody should be allowed to create
+        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO CREATE
         return ideaService.save(idea);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        //TODO when implementing security not anybody should be allowed to delete
+        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO DELETE
         ideaService.delete(id);
     }
 
     @PutMapping("/{id}")
     public Idea updateIdea(@RequestBody Idea idea, @PathVariable Long id) {
-        //TODO not any value should be possible to be updated
+        //TODO NOT ANY VALUE SHOULD BE POSSIBLE TO BE UPDATED
         return ideaService.updateIdea(idea, id);
     }
 

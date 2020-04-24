@@ -48,7 +48,7 @@ public class IdeaService {
         try {
             return ideaRepository.saveAndFlush(idea);
         } catch (Exception e) {
-            //TODO refactor thrown Exception not to be as generous
+            //TODO REFACTOR THROWN EXCEPTION NOT TO BE AS GENEROUS
             throw new IdeaMalformedException(e);
         }
     }

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class DigitalerBriefkastenApplication {
 
     public static void main(String[] args) {
-        //TODO refactor whole project before "Abgabe" -> in Intellij rightclick project Root
+        //TODO REFACTOR WHOLE PROJECT BEFORE "ABGABE" -> IN INTELLIJ RIGHTCLICK PROJECT ROOT
         SpringApplication.run(DigitalerBriefkastenApplication.class, args);
     }
 

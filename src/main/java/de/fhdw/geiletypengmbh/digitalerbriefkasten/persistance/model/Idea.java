@@ -19,7 +19,6 @@ public class Idea {
     @Column(unique = true, nullable = false)
     private long id;
 
-    //TODO not in inital project request -> ok?
     @Column(nullable = false, unique = true)
     private String title;
 

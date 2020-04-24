@@ -26,7 +26,8 @@ public class Idea {
     private String description;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //TODO change to lazy, needs a better fix
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;

@@ -20,13 +20,6 @@ public class HomepageController {
     @Autowired
     private IdeaService ideaService;
 
-    @GetMapping("/home")
-    public String homePage(Model model) {
-        //TODO to be removed -> set home somewhere
-        model.addAttribute("appName", appName);
-        return "home";
-    }
-
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);

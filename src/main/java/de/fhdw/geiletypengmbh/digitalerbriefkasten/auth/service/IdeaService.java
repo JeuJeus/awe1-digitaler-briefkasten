@@ -25,9 +25,11 @@ public class IdeaService {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    SecurityServiceImpl securityService;
+
     public User getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) principal).getUsername();
+        String username = securityService.findLoggedInUsername();
         return userService.findByUsername(username);
     }
 
@@ -91,11 +93,8 @@ public class IdeaService {
 
     public List<Idea> GetOwnNotSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String securityUsername = ((UserDetails) principal).getUsername();
-        User user = userService.findByUsername(securityUsername);
 
-        Predicate<Idea> ideaBelongsToCurUser = idea -> idea.getCreator().getId() == user.getId();
+        Predicate<Idea> ideaBelongsToCurUser = idea -> idea.getCreator().getId() == getCurrentUser().getId();
         Predicate<Idea> ideaIsNotSubmitted = idea -> idea.getStatus().equals(Status.NOT_SUBMITTED);
 
         return allIdeas.stream().

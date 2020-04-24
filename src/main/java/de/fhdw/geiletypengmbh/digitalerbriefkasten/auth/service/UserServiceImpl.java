@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //CHANGE AUTOMATIC ASSIGNMENT OF ALL ROLES TO USER
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }

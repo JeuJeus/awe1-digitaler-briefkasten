@@ -25,11 +25,9 @@ public class IdeaService {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    SecurityServiceImpl securityService;
-
     public User getCurrentUser() {
-        String username = securityService.findLoggedInUsername();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
         return userService.findByUsername(username);
     }
 

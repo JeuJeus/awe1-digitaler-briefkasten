@@ -25,6 +25,11 @@ public class IdeaService {
     @Autowired
     private UserServiceImpl userService;
 
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        return userService.findByUsername(username);
+    }
 
     public List<Idea> findAll() {
         return ideaRepository.findAll();
@@ -49,9 +54,15 @@ public class IdeaService {
     }
 
     public void delete(Long id) {
-        //TODO when implementing security not anybody should be allowed to delete
+        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO DELETE
         ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
+        /*Idea toDelete = ideaRepository.findById(id)
+                .orElseThrow(IdeaNotFoundException::new);
+        User currentUser = getCurrentUser();
+        if(toDelete.getCreator().equals(currentUser) || currentUser.getRoles().equals(ADMINROLE/SPECIALISTROLE)){
+            THEN DELETE
+        }*/
         ideaRepository.deleteById(id);
     }
 
@@ -65,11 +76,7 @@ public class IdeaService {
     }
 
     public Idea createByForm(Idea idea) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) principal).getUsername();
-        User creator = userService.findByUsername(username);
-        idea.setCreator(creator);
-
+        idea.setCreator(getCurrentUser());
         return save(idea);
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,12 @@ public class IdeaController {
     @GetMapping("/{id}")
     public Idea findOne(@PathVariable Long id) {
         return ideaService.findById(id);
+    }
+
+    @GetMapping("/admin")
+    public boolean someControllerMethod(HttpServletRequest request) {
+        //TODO JUST EXEMPLARY AT THE MOMENT
+        return request.isUserInRole("ADMIN");
     }
 
     @PostMapping(consumes = "application/json")

@@ -1,6 +1,5 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
@@ -16,7 +15,6 @@ import java.util.Set;
 
 import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
@@ -29,18 +27,15 @@ public class UserControllerIntegTest {
 
     private static final String SITE_ROOT
             = "http://localhost:8080/";
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private UserServiceImpl userService;
-
     private final static String TEST_USERNAME = randomAlphabetic(20);
     private final static String TO_REGISTER_USERNAME = randomAlphabetic(20);
     private final static String TEST_PASSWORD = "testPassword";
     private final static String TEST_PASSWORD_TOO_SHORT = "test";
     private static Boolean SETUPDONE = false;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private UserServiceImpl userService;
 
     @BeforeEach
     public void prepareSetup() {

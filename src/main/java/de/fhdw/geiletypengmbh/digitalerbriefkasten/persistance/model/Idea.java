@@ -45,12 +45,6 @@ public class Idea {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String statusJustification;
 
-    @PrePersist
-    private void createdAt() {
-        long millis = System.currentTimeMillis();
-        this.creationDate = new java.sql.Date(millis);
-    }
-
     public Idea() {
         super();
     }
@@ -62,40 +56,46 @@ public class Idea {
         this.creator = creator;
     }
 
+    @PrePersist
+    private void createdAt() {
+        long millis = System.currentTimeMillis();
+        this.creationDate = new java.sql.Date(millis);
+    }
+
     public long getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public User getCreator() {
+        return creator;
+    }
+
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public Status getStatus() {

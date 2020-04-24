@@ -1,11 +1,10 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
+
 @Entity
 public class User {
     //TODO Force User on first Login / Registration to fill in Profile -> Set First-/Lastname

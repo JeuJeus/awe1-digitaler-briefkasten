@@ -63,16 +63,6 @@ public class IdeaControllerIntegTest {
 
 //HELPER FUNCTIONS
 
-    private Idea createRandomIdea() {
-        Idea idea = new Idea();
-
-        idea.setTitle(randomAlphabetic(10));
-        idea.setDescription(randomAlphabetic(15));
-        idea.setCreator(userService.findByUsername(TESTUSER));
-
-        return idea;
-    }
-
     private static String parseIdeaToJson(Idea idea) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -84,6 +74,21 @@ public class IdeaControllerIntegTest {
         return null;
     }
 
+    private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
+        String jsonReturn = mvcResult.getResponse().getContentAsString();
+        return new JSONObject(jsonReturn);
+    }
+
+    private Idea createRandomIdea() {
+        Idea idea = new Idea();
+
+        idea.setTitle(randomAlphabetic(10));
+        idea.setDescription(randomAlphabetic(15));
+        idea.setCreator(userService.findByUsername(TESTUSER));
+
+        return idea;
+    }
+
     private String createIdeaAsUri(Idea idea) throws Exception {
         String ideaJson = parseIdeaToJson(idea);
         MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
@@ -93,11 +98,6 @@ public class IdeaControllerIntegTest {
                 .andReturn();
 
         return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
-    }
-
-    private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
-        String jsonReturn = mvcResult.getResponse().getContentAsString();
-        return new JSONObject(jsonReturn);
     }
 
     @BeforeEach

@@ -7,7 +7,6 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

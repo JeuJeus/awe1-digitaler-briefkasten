@@ -1,9 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
-import org.springframework.security.core.Transient;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "role")

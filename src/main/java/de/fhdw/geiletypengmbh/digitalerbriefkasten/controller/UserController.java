@@ -4,7 +4,6 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-
 @Controller
 public class UserController {
 
     @Autowired
+    UserValidator userValidator;
+    @Autowired
     private UserService userService;
-
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    UserValidator userValidator;
-
 
     @GetMapping("/registration")
     public String registration(Model model) {

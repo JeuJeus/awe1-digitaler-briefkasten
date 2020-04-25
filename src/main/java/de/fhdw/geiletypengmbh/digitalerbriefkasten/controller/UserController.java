@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserController {
 
@@ -60,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
+    public String welcome(Model model, HttpServletRequest request) {
+        return (request.isUserInRole("ADMIN")) ? "admin" : "welcome";
     }
 }

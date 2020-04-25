@@ -1,7 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityService;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
@@ -23,9 +22,7 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
-    private SecurityService securityService;
-    @Autowired
-    private AdminController adminController;
+    private SecurityServiceImpl securityService;
 
     @GetMapping("/registration")
     public String registration(Model model) {

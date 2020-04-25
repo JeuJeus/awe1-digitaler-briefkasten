@@ -1,13 +1,10 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.RoleRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -24,8 +21,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        //TODO CHANGE AUTOMATIC ASSIGNMENT OF ALL ROLES TO USER
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        if (user.getRoles() == null) {
+            //this ensures by default user gets set the "USER" role
+            user.setRoles(roleService.secureSupplyOfUserRole());
+        }
         userRepository.save(user);
     }
 

@@ -2,6 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserController {
     @Autowired
     UserValidator userValidator;
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
     @Autowired
     private SecurityService securityService;
 

@@ -14,8 +14,6 @@ import java.util.List;
 
 @Controller
 public class HomepageController {
-    @Value("${spring.application.name}")
-    String appName;
 
     @Autowired
     private IdeaService ideaService;

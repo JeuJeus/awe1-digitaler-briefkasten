@@ -31,12 +31,6 @@ public class IdeaController {
         return ideaService.findById(id);
     }
 
-    @GetMapping("/admin")
-    public boolean someControllerMethod(HttpServletRequest request) {
-        //TODO JUST EXEMPLARY AT THE MOMENT
-        return request.isUserInRole("ADMIN");
-    }
-
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {

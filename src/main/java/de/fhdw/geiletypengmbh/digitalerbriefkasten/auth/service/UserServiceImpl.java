@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (user.getRoles() == null) {
             //this ensures by default user gets set the "USER" role
-            user.setRoles(roleService.secureSupplyOfUserRole());
+            user.setRoles(roleService.secureSupplyOfProvidedRole("USER"));
         }
         userRepository.save(user);
     }

@@ -15,15 +15,15 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Set<Role> secureSupplyOfUserRole() {
-        Role user = roleRepository.findByName("USER");
-        if (user == null) {
+    public Set<Role> secureSupplyOfProvidedRole(String roleName) {
+        Role toProvide = roleRepository.findByName(roleName);
+        if (toProvide == null) {
             Role userRole = new Role();
-            userRole.setName("USER");
+            userRole.setName(roleName);
 
             roleRepository.saveAndFlush(userRole);
 
             return singleton(userRole);
-        } else return singleton(user);
+        } else return singleton(toProvide);
     }
 }

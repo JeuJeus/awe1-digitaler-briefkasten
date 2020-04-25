@@ -39,9 +39,8 @@ public class IdeaController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO DELETE
-        ideaService.delete(id);
+    public void delete(@PathVariable Long id, HttpServletRequest request) {
+        ideaService.delete(id, request);
     }
 
     @PutMapping("/{id}")

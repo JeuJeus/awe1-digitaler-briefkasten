@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,7 +107,7 @@ public class IdeaControllerIntegTest {
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
-                    .defaultRequest(get("/").with(user("user").roles("ADMIN")))
+                    .defaultRequest(get("/").with(user("user")))
                     .addFilters(springSecurityFilterChain)
                     .build();
 
@@ -244,11 +245,12 @@ public class IdeaControllerIntegTest {
     @Test
     public void whenDeleteCreatedIdea_thenDeleted() throws Exception {
         Idea idea = createRandomIdea();
+        idea.setStatus(Status.NOT_SUBMITTED);
         String location = createIdeaAsUri(idea);
 
         mockMvc.perform(
                 delete(location)
-                        .with(user("user"))
+                        .with(user("user").roles("ADMIN"))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
@@ -257,6 +259,25 @@ public class IdeaControllerIntegTest {
                         .with(user("user"))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenDeleteWithoutAuthorization_thenError() throws Exception {
+        Idea idea = createRandomIdea();
+        idea.setStatus(Status.DECLINED);
+        String location = createIdeaAsUri(idea);
+
+        mockMvc.perform(
+                delete(location)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isBadRequest());
+
+        mockMvc.perform(
+                get(location)
+                        .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isOk());
     }
 
     @Test

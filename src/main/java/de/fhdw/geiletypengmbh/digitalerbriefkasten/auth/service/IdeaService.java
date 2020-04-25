@@ -3,6 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdMismatchException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedToDeleteException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -53,17 +55,23 @@ public class IdeaService {
         }
     }
 
-    public void delete(Long id) {
-        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO DELETE
-        ideaRepository.findById(id)
-                .orElseThrow(IdeaNotFoundException::new);
-        /*Idea toDelete = ideaRepository.findById(id)
+    public void delete(Long id, HttpServletRequest request) {
+        Idea toDelete = ideaRepository.findById(id)
                 .orElseThrow(IdeaNotFoundException::new);
         User currentUser = getCurrentUser();
-        if(toDelete.getCreator().equals(currentUser) || currentUser.getRoles().equals(ADMINROLE/SPECIALISTROLE)){
-            THEN DELETE
-        }*/
-        ideaRepository.deleteById(id);
+
+        /* There are 2 legitimate states to delete a Idea
+            -> either as an ADMIN "with Godpower"
+            -> or as THE CREATOR and if the idea was NOT_SUBMITTED (= still in draftmode)
+        */
+        if (request.isUserInRole("ADMIN")) {
+            ideaRepository.deleteById(id);
+        } else if (toDelete.getCreator().equals(currentUser)
+                && toDelete.getStatus().equals(Status.NOT_SUBMITTED)) {
+            ideaRepository.deleteById(id);
+        } else {
+            throw new NotAuthorizedToDeleteException();
+        }
     }
 
     public Idea updateIdea(Idea idea, Long id) {

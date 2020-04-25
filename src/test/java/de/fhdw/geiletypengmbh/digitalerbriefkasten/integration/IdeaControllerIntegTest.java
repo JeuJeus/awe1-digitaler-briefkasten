@@ -112,8 +112,7 @@ public class IdeaControllerIntegTest {
 
             //be aware of extremly rare condition where random seed of possibility 10^26 is equal in several cases. So username reocurres and breaks test. WTF jonathan
             String tempPassword = randomAlphabetic(10);
-            Set<Role> emptyRoles = emptySet();
-            User testUser = new User(TESTUSER, tempPassword, tempPassword, emptyRoles);
+            User testUser = new User(TESTUSER, tempPassword, tempPassword);
             userService.save(testUser);
 
             SETUPDONE = true;

@@ -32,8 +32,8 @@ public class HelperScriptsNoTests {
         roleRepository.saveAndFlush(adminRole);
         User admin = new User("admin",
                 "adminpw",
-                "adminpw",
-                Collections.singleton(adminRole));
+                "adminpw");
+        admin.setRoles(Collections.singleton(adminRole));
         userService.save(admin);
     }
 

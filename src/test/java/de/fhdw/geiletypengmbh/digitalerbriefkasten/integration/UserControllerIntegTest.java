@@ -41,15 +41,16 @@ public class UserControllerIntegTest {
     public void prepareSetup() {
         if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
             Set<Role> emptyRoles = emptySet();
-            User testUser = new User(TEST_USERNAME, TEST_PASSWORD, TEST_PASSWORD, emptyRoles);
+            User testUser = new User(TEST_USERNAME, TEST_PASSWORD, TEST_PASSWORD);
             userService.save(testUser);
+
             SETUPDONE = true;
         }
     }
 
 
     @Test
-    void whenLogin_thenAuthenticated() throws Exception {
+    public void whenLogin_thenAuthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", TEST_USERNAME)
                 .param("password", TEST_PASSWORD)
@@ -58,7 +59,7 @@ public class UserControllerIntegTest {
     }
 
     @Test
-    void whenLoginWithoutCSRF_thenUnauthenticated() throws Exception {
+    public void whenLoginWithoutCSRF_thenUnauthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", TEST_USERNAME)
                 .param("password", TEST_PASSWORD))
@@ -66,7 +67,7 @@ public class UserControllerIntegTest {
     }
 
     @Test
-    void whenLoginWithoutPassword_thenUnauthenticated() throws Exception {
+    public void whenLoginWithoutPassword_thenUnauthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", TEST_USERNAME)
                 .with(csrf()))
@@ -74,7 +75,7 @@ public class UserControllerIntegTest {
     }
 
     @Test
-    void whenRegister_thenRegistered() throws Exception {
+    public void whenRegister_thenRegistered() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/registration")
                 .param("username", TO_REGISTER_USERNAME)
                 .param("password", TEST_PASSWORD)
@@ -84,7 +85,7 @@ public class UserControllerIntegTest {
     }
 
     @Test
-    void whenRegisterWithShortPassword_thenError() throws Exception {
+    public void whenRegisterWithShortPassword_thenError() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/registration")
                 .param("username", TO_REGISTER_USERNAME)
                 .param("password", TEST_PASSWORD_TOO_SHORT)
@@ -94,7 +95,7 @@ public class UserControllerIntegTest {
     }
 
     @Test
-    void whenLogout_ThenLoggedOut() throws Exception {
+    public void whenLogout_ThenLoggedOut() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
                 .param("username", TEST_USERNAME)
                 .param("password", TEST_PASSWORD)
@@ -103,6 +104,15 @@ public class UserControllerIntegTest {
         mockMvc.perform(post(SITE_ROOT + "/logout")
                 .with(csrf()))
                 .andExpect(unauthenticated());
+    }
+
+    @Test
+    public void whenLoggedInAsUser_ThenRoleShouldBeUser() throws Exception {
+        mockMvc.perform(post(SITE_ROOT + "/login")
+                .param("username", TEST_USERNAME)
+                .param("password", TEST_PASSWORD)
+                .with(csrf()))
+                .andExpect(authenticated().withRoles("USER"));
     }
 
 }

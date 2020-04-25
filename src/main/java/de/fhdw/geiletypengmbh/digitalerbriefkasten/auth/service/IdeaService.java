@@ -23,7 +23,7 @@ public class IdeaService {
     private IdeaRepository ideaRepository;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

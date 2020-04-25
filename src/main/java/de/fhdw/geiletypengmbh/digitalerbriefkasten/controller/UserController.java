@@ -22,6 +22,8 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private AdminController adminController;
 
     @GetMapping("/registration")
     public String registration(Model model) {

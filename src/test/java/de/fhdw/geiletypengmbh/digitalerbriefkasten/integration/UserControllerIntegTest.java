@@ -1,8 +1,8 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

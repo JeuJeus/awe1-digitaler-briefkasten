@@ -1,8 +1,9 @@
-package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
+package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

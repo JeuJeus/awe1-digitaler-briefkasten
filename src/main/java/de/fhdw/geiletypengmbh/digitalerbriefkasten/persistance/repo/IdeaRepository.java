@@ -1,6 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

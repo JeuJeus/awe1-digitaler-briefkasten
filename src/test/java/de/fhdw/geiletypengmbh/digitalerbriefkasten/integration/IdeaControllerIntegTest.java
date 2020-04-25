@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class IdeaControllerIntegTest {
@@ -86,6 +87,16 @@ public class IdeaControllerIntegTest {
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
 
+        return idea;
+    }
+
+    private Idea createRandomInternalIdea() {
+        InternalIdea idea = new InternalIdea();
+
+        idea.setTitle("INTERNAL" + randomAlphabetic(10));
+        idea.setDescription(randomAlphabetic(15));
+        idea.setCreator(userService.findByUsername(TESTUSER));
+        idea.setField("INTERNAL FIELD");
         return idea;
     }
 
@@ -175,6 +186,20 @@ public class IdeaControllerIntegTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
                         .with(user("user"))
+                        .with(csrf()))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void whenCreateNewInternalIdea_thenCreated() throws Exception {
+        Idea idea = createRandomInternalIdea();
+        String ideaJson = parseIdeaToJson(idea);
+
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson)
+                        .with(user("test"))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }

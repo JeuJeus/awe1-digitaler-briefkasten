@@ -179,6 +179,19 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    public void whenCreateNewIdeaNotLoggedIn_thenNotAuthorized() throws Exception {
+        Idea idea = createRandomIdea();
+        String ideaJson = parseIdeaToJson(idea);
+
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson)
+                        .with(csrf()))
+                .andExpect(status().isUnauthorized());
+    }
+
 
     @Test
     public void whenInvalidIdea_thenError() throws Exception {

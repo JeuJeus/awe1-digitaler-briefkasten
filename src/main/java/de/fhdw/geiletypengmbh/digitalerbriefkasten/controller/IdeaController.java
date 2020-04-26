@@ -34,7 +34,6 @@ public class IdeaController {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
-        //TODO WHEN IMPLEMENTING SECURITY NOT ANYBODY SHOULD BE ALLOWED TO CREATE
         return ideaService.save(idea);
     }
 

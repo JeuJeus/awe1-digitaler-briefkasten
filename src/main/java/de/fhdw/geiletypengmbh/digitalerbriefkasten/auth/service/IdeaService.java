@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdMismatchException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedToDeleteException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
@@ -47,11 +47,16 @@ public class IdeaService {
     }
 
     public Idea save(Idea idea) {
-        try {
-            return ideaRepository.saveAndFlush(idea);
-        } catch (Exception e) {
-            //TODO REFACTOR THROWN EXCEPTION NOT TO BE AS GENEROUS
-            throw new IdeaMalformedException(e);
+        //Only logged in Users are able to create Ideas
+        User currentUser = getCurrentUser();
+        if (currentUser != null) {
+            try {
+                return ideaRepository.saveAndFlush(idea);
+            } catch (Exception e) {
+                throw new IdeaMalformedException(e);
+            }
+        } else {
+            throw new NotAuthorizedException();
         }
     }
 
@@ -70,7 +75,7 @@ public class IdeaService {
                 && toDelete.getStatus().equals(Status.NOT_SUBMITTED)) {
             ideaRepository.deleteById(id);
         } else {
-            throw new NotAuthorizedToDeleteException();
+            throw new NotAuthorizedException();
         }
     }
 

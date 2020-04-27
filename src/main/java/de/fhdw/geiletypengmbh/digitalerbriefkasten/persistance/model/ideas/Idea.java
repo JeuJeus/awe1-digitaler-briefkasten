@@ -42,6 +42,10 @@ public class Idea {
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;
 
+    //TODO MAKE ME AN OBJECT
+    @Column
+    private String productLine;
+
     @Column
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String statusJustification;
@@ -113,5 +117,17 @@ public class Idea {
 
     public void setStatusJustification(String statusJustification) {
         this.statusJustification = statusJustification;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getProductLine() {
+        return productLine;
+    }
+
+    public void setProductLine(String productLine) {
+        this.productLine = productLine;
     }
 }

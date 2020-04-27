@@ -4,6 +4,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdM
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
@@ -32,7 +33,9 @@ public class IdeaService {
     }
 
     public List<Idea> findAll() {
-        return ideaRepository.findAll();
+        List<Idea> allIdeas = ideaRepository.findAll();
+        allIdeas.stream().forEach(idea -> idea = idea.getProductLine().equals("INTERNAL") ? (InternalIdea) idea : idea);
+        return allIdeas;
     }
 
     public List<Idea> findByTitle(String ideaTitle) {

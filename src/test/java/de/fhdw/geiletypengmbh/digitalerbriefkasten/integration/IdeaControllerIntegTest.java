@@ -85,6 +85,7 @@ public class IdeaControllerIntegTest {
 
         idea.setTitle(randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
+        idea.setProductLine("PRODUCT");
         idea.setCreator(userService.findByUsername(TESTUSER));
 
         return idea;
@@ -96,6 +97,7 @@ public class IdeaControllerIntegTest {
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
+        idea.setProductLine("INTERNAL");
         idea.setField("INTERNAL FIELD");
         return idea;
     }

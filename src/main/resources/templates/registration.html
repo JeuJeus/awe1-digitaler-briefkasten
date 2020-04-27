@@ -20,11 +20,12 @@
         </h2>
 
 
+        <!--TODO SHOW ERROR FOR REGISTRATION OF OCCUPIED USERNAME
         <div th:if="${#fields.hasErrors('userForm.username')}">
             <div class="alert alert-danger">
                 Duplicate Username!<br>
             </div>
-        </div>
+        </div>-->
 
         <div th:if="${#fields.hasErrors('userForm.username')}">
             <div class="alert alert-danger">

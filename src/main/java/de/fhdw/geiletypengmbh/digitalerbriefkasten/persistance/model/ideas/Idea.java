@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.sql.Date;
 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
 @JsonSerialize
 public class Idea {

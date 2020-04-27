@@ -30,8 +30,10 @@ public class User {
     /*
     TODO ADD FIRSTNAME, LASTNAME LOGIC
      */
+    @Column
     private String lastName;
 
+    @Column
     private String firstName;
 
     public User() {

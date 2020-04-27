@@ -33,3 +33,21 @@ function getStatusIconColor(status) {
     colors['NOT_SUBMITTED'] = "blue";
     return colors[status];
 }
+
+function insertSVG(element, status) {
+    element.innerHTML = getStatusIcon(element.getAttribute('data-status'));
+}
+
+function setSVGColor(element, status) {
+    statusIcon.querySelector("svg").style.color = getStatusIconColor(element.getAttribute('data-status'));
+}
+
+window.onload = function () {
+    let statusIcons = document.querySelectorAll(".statusIcon");
+    for (let i = 0; i < statusIcons.length; i++) {
+        statusIcon = statusIcons[i];
+        dataStatus = statusIcon.getAttribute('data-status');
+        insertSVG(statusIcon, dataStatus);
+        setSVGColor(statusIcon, dataStatus);
+    }
+};

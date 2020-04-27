@@ -66,3 +66,26 @@ h2 img {
 nav a img {
     filter: grayscale() invert();
 }
+
+th {
+    white-space: nowrap;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.caption {
+    caption-side: top;
+    margin-left: 0.5rem;
+}
+
+.dblFontSize {
+    font-size: 2rem;
+}

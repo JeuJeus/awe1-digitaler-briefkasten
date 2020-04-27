@@ -105,7 +105,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="idea: ${ideas}">
+            <tr th:each="idea: ${productIdeas}">
                 <td th:utext="${idea.getTitle()}"></td>
                 <td th:utext="${idea.getDescription()}"></td>
                 <td><a href="#" th:utext="${idea.getCreator().getUsername()}"></a></td>
@@ -131,7 +131,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="idea: ${ideas}">
+            <tr th:each="idea: ${internalIdeas}">
                 <td th:utext="${idea.getTitle()}"></td>
                 <td th:utext="${idea.getDescription()}"></td>
                 <td><a href="#" th:utext="${idea.getCreator().getUsername()}"></a></td>

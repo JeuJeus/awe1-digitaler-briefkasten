@@ -1,18 +1,27 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+//TODO CHANGE TABLES/INITIALIZATION OF IDEA OBJECT
+@JsonSerialize
 @Entity
-@Table(name = "internalIdea")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class InternalIdea extends Idea {
-    private Long field;
 
-    public Long getField() {
+    //TODO REFACTOR ME TO BE OWN OBJECT
+    @Column
+    private String field;
+
+    public String getField() {
         return field;
     }
 
-    public void setField(Long field) {
+    public void setField(String field) {
         this.field = field;
     }
 }

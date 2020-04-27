@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface IdeaRepository extends JpaRepository<Idea, Long> {
+public interface IdeaRepository<T extends Idea> extends JpaRepository<Idea, Long> {
     List<Idea> findByTitle(String title);
 }

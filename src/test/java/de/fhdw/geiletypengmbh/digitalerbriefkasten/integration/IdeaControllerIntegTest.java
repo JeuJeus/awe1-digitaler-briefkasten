@@ -9,6 +9,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,18 +81,7 @@ public class IdeaControllerIntegTest {
         return new JSONObject(jsonReturn);
     }
 
-    private Idea createRandomIdea() {
-        Idea idea = new Idea();
-
-        idea.setTitle(randomAlphabetic(10));
-        idea.setDescription(randomAlphabetic(15));
-        idea.setProductLine("PRODUCT");
-        idea.setCreator(userService.findByUsername(TESTUSER));
-
-        return idea;
-    }
-
-    private Idea createRandomInternalIdea() {
+    private InternalIdea createRandomInternalIdea() {
         InternalIdea idea = new InternalIdea();
 
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
@@ -99,6 +89,16 @@ public class IdeaControllerIntegTest {
         idea.setCreator(userService.findByUsername(TESTUSER));
         idea.setProductLine("INTERNAL");
         idea.setField("INTERNAL FIELD");
+        return idea;
+    }
+
+    private ProductIdea createRandomProductIdea() {
+        ProductIdea idea = new ProductIdea();
+
+        idea.setTitle("PRODUCT" + randomAlphabetic(10));
+        idea.setDescription(randomAlphabetic(15));
+        idea.setCreator(userService.findByUsername(TESTUSER));
+        idea.setProductLine("PRODUCT");
         return idea;
     }
 
@@ -142,7 +142,7 @@ public class IdeaControllerIntegTest {
 
     @Test
     public void whenGetIdeasByTitle_thenOK() throws Exception {
-        Idea idea = createRandomIdea();
+        InternalIdea idea = createRandomInternalIdea();
         createIdeaAsUri(idea);
 
         MvcResult mvcResult = mockMvc.perform(
@@ -156,9 +156,9 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenGetCreatedIdeaById_thenOK() throws Exception {
-        Idea idea = createRandomIdea();
-        String location = createIdeaAsUri(idea);
+    public void whenGetCreatedInternalIdeaById_thenOK() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        String location = createIdeaAsUri(internalIdea);
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
@@ -166,7 +166,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals(idea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
+        assertEquals(internalIdea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
     }
 
     @Test
@@ -177,24 +177,22 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isNotFound());
     }
 
-
     @Test
-    public void whenCreateNewIdea_thenCreated() throws Exception {
-        Idea idea = createRandomIdea();
+    public void whenCreateNewInternalIdea_thenCreated() throws Exception {
+        Idea idea = createRandomInternalIdea();
         String ideaJson = parseIdeaToJson(idea);
-
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user("test"))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void whenCreateNewInternalIdea_thenCreated() throws Exception {
-        Idea idea = createRandomInternalIdea();
+    public void whenCreateNewProductIdea_thenCreated() throws Exception {
+        Idea idea = createRandomProductIdea();
         String ideaJson = parseIdeaToJson(idea);
 
         mockMvc.perform(
@@ -208,10 +206,10 @@ public class IdeaControllerIntegTest {
 
 
     @Test
-    public void whenInvalidIdea_thenError() throws Exception {
-        Idea idea = createRandomIdea();
-        idea.setCreator(null);
-        String ideaJson = parseIdeaToJson(idea);
+    public void whenInvalidInternalIdea_thenError() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        internalIdea.setCreator(null);
+        String ideaJson = parseIdeaToJson(internalIdea);
 
         mockMvc.perform(
                 post(API_ROOT)
@@ -223,12 +221,12 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenUpdateCreatedIdea_thenUpdated() throws Exception {
-        Idea idea = createRandomIdea();
-        String location = createIdeaAsUri(idea);
-        idea.setId(Long.parseLong(location.split("api/ideas/")[1]));
-        idea.setCreator(userService.findByUsername(TESTUSER));
-        String ideaJson = parseIdeaToJson(idea);
+    public void whenUpdateCreatedInternalIdea_thenUpdated() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        String location = createIdeaAsUri(internalIdea);
+        internalIdea.setId(Long.parseLong(location.split("api/ideas/")[1]));
+        internalIdea.setCreator(userService.findByUsername(TESTUSER));
+        String ideaJson = parseIdeaToJson(internalIdea);
 
         mockMvc.perform(
                 put(location)
@@ -250,9 +248,9 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenIdeaCreated_thenTimestampShouldBeSetCorrect() throws Exception {
-        Idea idea = createRandomIdea();
-        String ideaJson = parseIdeaToJson(idea);
+    public void whenInternalIdeaCreated_thenTimestampShouldBeSetCorrect() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        String ideaJson = parseIdeaToJson(internalIdea);
 
         MvcResult mvcResult = mockMvc.perform(
                 post(API_ROOT)
@@ -270,9 +268,9 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenDeleteCreatedIdea_thenDeleted() throws Exception {
-        Idea idea = createRandomIdea();
-        String location = createIdeaAsUri(idea);
+    public void whenDeleteCreatedInternalIdea_thenDeleted() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        String location = createIdeaAsUri(internalIdea);
 
         mockMvc.perform(
                 delete(location)
@@ -288,9 +286,9 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenCreated_thenDefaultStatusShouldBeSet() throws Exception {
-        Idea idea = createRandomIdea();
-        String ideaJson = parseIdeaToJson(idea);
+    public void whenInternalCreated_thenDefaultStatusShouldBeSet() throws Exception {
+        InternalIdea internalIdea = createRandomInternalIdea();
+        String ideaJson = parseIdeaToJson(internalIdea);
 
         MvcResult mvcResult = mockMvc.perform(
                 post(API_ROOT)

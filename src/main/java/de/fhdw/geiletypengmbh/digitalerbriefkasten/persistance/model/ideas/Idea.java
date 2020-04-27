@@ -2,6 +2,8 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +16,12 @@ import java.sql.Date;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
 @JsonSerialize
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = InternalIdea.class, name = "internalIdea"),
+        @JsonSubTypes.Type(value = ProductIdea.class, name = "productIdea")
+})
+// TODO make Idea eventually abstract?
 public class Idea {
 
     @Id

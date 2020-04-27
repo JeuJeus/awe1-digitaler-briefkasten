@@ -93,6 +93,7 @@ public class IdeaControllerIntegTest {
         MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(ideaJson)
+                .with(user(TESTUSER))
                 .with(csrf()))
                 .andReturn();
 

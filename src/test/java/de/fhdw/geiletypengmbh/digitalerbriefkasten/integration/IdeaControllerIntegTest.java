@@ -25,9 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
-import java.util.Set;
 
-import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -102,12 +100,12 @@ public class IdeaControllerIntegTest {
     }
 
     @BeforeEach
-    public void prepareSetup() {
+    public void prepareSetup() throws Exception {
         if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
-                    .defaultRequest(get("/").with(user("user")))
+                    .defaultRequest(get("/").with(user(TESTUSER)))
                     .addFilters(springSecurityFilterChain)
                     .build();
 
@@ -134,7 +132,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(API_ROOT + "/title/" + idea.getTitle())
-                        .with(user("user")))
+                        .with(user(TESTUSER)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -149,7 +147,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user("user")))
+                        .with(user(TESTUSER)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -160,7 +158,7 @@ public class IdeaControllerIntegTest {
     public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
         mockMvc.perform(
                 get(API_ROOT + "/" + randomNumeric(5))
-                        .with(user("user")))
+                        .with(user(TESTUSER)))
                 .andExpect(status().isNotFound());
     }
 
@@ -174,7 +172,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -187,9 +185,8 @@ public class IdeaControllerIntegTest {
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(ideaJson)
-                        .with(csrf()))
-                .andExpect(status().isUnauthorized());
+                        .content(ideaJson))
+                .andExpect(status().isForbidden());
     }
 
 
@@ -203,7 +200,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
@@ -212,21 +209,22 @@ public class IdeaControllerIntegTest {
     public void whenUpdateCreatedIdea_thenUpdated() throws Exception {
         Idea idea = createRandomIdea();
         String location = createIdeaAsUri(idea);
+
         idea.setId(Long.parseLong(location.split("api/ideas/")[1]));
-        idea.setCreator(userService.findByUsername(TESTUSER));
+        idea.setDescription("new description");
         String ideaJson = parseIdeaToJson(idea);
 
         mockMvc.perform(
                 put(location)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -244,7 +242,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andReturn();
 
@@ -263,13 +261,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user("user").roles("ADMIN"))
+                        .with(user(TESTUSER).roles("ADMIN"))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         mockMvc.perform(
                 get(location)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
     }
@@ -282,13 +280,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
 
         mockMvc.perform(
                 get(location)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isOk());
     }
@@ -302,7 +300,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("user"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andReturn();
 
@@ -313,4 +311,3 @@ public class IdeaControllerIntegTest {
         assert (!jsonReturn.has("statusJustification"));
     }
 }
-

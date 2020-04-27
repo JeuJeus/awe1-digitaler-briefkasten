@@ -61,6 +61,7 @@ public class UserController {
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model, HttpServletRequest request) {
-        return (request.isUserInRole("ADMIN")) ? "admin" : "welcome";
+        //returns landing page -> if admin=admin else if specialist=specialist else welcome (user landing page)
+        return (request.isUserInRole("ADMIN")) ? "admin" : (request.isUserInRole("SPECIALIST") ? "specialist" : "welcome");
     }
 }

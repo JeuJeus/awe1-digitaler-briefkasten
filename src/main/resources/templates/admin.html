@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 
-<body>
+<body th:onload="${userList == null}? 'ensureTableContent()'">
 <div th:replace="/pageParts/navbar :: navbar"></div>
 
 <section class="jumbotron text-center">
@@ -20,7 +20,6 @@
 </section>
 
 <main class="container" role="main">
-    <!--    TODO I AM NOT FILLED @LOGIN ONLY AFTER RELOAD FIX ME-->
     <p class="ml-0 mt-5 pt-1 border-top caption"><i class="mr-3 dblFontSize far fa-sticky-note"></i>All Users
     </p>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -47,6 +46,11 @@
     </div>
 </main>
 
+<script>
+    function ensureTableContent() {
+        window.location.replace("/admin");
+    }
+</script>
 <script th:src="@{/js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
 

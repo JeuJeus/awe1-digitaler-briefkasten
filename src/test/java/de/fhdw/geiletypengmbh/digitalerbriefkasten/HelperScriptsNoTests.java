@@ -1,8 +1,8 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.RoleRepository;
 import org.junit.Ignore;
 import org.junit.Test;

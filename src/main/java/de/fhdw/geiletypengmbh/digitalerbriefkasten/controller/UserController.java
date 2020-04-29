@@ -4,7 +4,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

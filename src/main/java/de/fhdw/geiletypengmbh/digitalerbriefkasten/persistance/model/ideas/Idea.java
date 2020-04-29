@@ -1,8 +1,11 @@
-package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
+package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,8 +13,15 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.sql.Date;
 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
 @JsonSerialize
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = InternalIdea.class, name = "internalIdea"),
+        @JsonSubTypes.Type(value = ProductIdea.class, name = "productIdea")
+})
+// TODO make Idea eventually abstract?
 public class Idea {
 
     @Id
@@ -41,6 +51,10 @@ public class Idea {
     @Column
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;
+
+    //TODO MAKE ME AN OBJECT
+    @Column
+    private String productLine;
 
     @Column
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -113,5 +127,17 @@ public class Idea {
 
     public void setStatusJustification(String statusJustification) {
         this.statusJustification = statusJustification;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getProductLine() {
+        return productLine;
+    }
+
+    public void setProductLine(String productLine) {
+        this.productLine = productLine;
     }
 }

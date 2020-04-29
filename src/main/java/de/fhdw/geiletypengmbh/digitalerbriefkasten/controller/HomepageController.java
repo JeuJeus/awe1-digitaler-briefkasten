@@ -1,7 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,10 +31,13 @@ public class HomepageController {
     public ModelAndView showAllForLoggedInUser() {
 
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
+        List<Idea> productIdeas = ideaService.filterProductIdeas(submittedIdeas);
+        List<Idea> internalIdeas = ideaService.filterInternalIdeas(submittedIdeas);
         List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
         ModelAndView mav = new ModelAndView("ideas");
-        mav.addObject("ideas", submittedIdeas);
+        mav.addObject("productIdeas", productIdeas);
+        mav.addObject("internalIdeas", internalIdeas);
         mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
 
         return mav;

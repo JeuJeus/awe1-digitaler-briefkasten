@@ -45,20 +45,16 @@ public class IdeaService {
     }
 
     public List<Idea> findAll() {
-        List<Idea> allInternalIdeas = internalIdeaIdeaRepository.findAll();
-        List<Idea> allProductIdeas = productIdeaRepository.findAll();
         List<Idea> allIdeas = new ArrayList<>();
-        allIdeas.addAll(allInternalIdeas);
-        allIdeas.addAll(allProductIdeas);
+        allIdeas.addAll(internalIdeaIdeaRepository.findAll());
+        allIdeas.addAll(productIdeaRepository.findAll());
         return allIdeas;
     }
 
     public List<Idea> findByTitle(String ideaTitle) {
-        List<Idea> internalIdeas = internalIdeaIdeaRepository.findByTitle(ideaTitle);
-        List<Idea> productIdeas = productIdeaRepository.findByTitle(ideaTitle);
         List<Idea> ideas = new ArrayList<>();
-        ideas.addAll(internalIdeas);
-        ideas.addAll(productIdeas);
+        ideas.addAll(internalIdeaIdeaRepository.findByTitle(ideaTitle));
+        ideas.addAll(productIdeaRepository.findByTitle(ideaTitle));
         return ideas;
     }
 

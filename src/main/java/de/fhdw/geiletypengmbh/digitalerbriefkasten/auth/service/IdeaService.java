@@ -79,9 +79,7 @@ public class IdeaService {
         if (currentUser != null) {
             try {
                 if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
-                else if (idea instanceof ProductIdea) {
-                    return productIdeaRepository.saveAndFlush(idea);
-                }
+                else if (idea instanceof ProductIdea) return productIdeaRepository.saveAndFlush(idea);
             } catch (Exception e) {
                 throw new IdeaMalformedException(e);
             }
@@ -92,12 +90,7 @@ public class IdeaService {
     }
 
     public void delete(Long id, HttpServletRequest request) {
-        Optional<Idea> idea = internalIdeaIdeaRepository.findById(id);
-        Idea toDelete;
-        if (idea.isEmpty()) {
-            idea = productIdeaRepository.findById(id);
-        }
-        toDelete = idea.orElseThrow(IdeaNotFoundException::new);
+        Idea toDelete = this.findById(id);
         User currentUser = getCurrentUser();
         boolean userRightful = toDelete.getCreator().equals(currentUser)
                 && toDelete.getStatus().equals(Status.NOT_SUBMITTED);

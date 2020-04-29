@@ -71,35 +71,33 @@ public class IdeaService {
 
     public Idea save(Idea idea) {
         //Only logged in Users are able to create Ideas
-        User currentUser = getCurrentUser();
-        if (currentUser != null) {
+        if (getCurrentUser() != null) {
             try {
                 if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
-                else if (idea instanceof ProductIdea) return productIdeaRepository.saveAndFlush(idea);
+                    //then -> idea instanceof ProductIdea
+                else return productIdeaRepository.saveAndFlush(idea);
             } catch (Exception e) {
                 throw new IdeaMalformedException(e);
             }
         } else {
             throw new NotAuthorizedException();
         }
-        return null; //TODO null okay hier?
     }
 
     public void delete(Long id, HttpServletRequest request) {
         Idea toDelete = this.findById(id);
         User currentUser = getCurrentUser();
-        boolean userRightful = toDelete.getCreator().equals(currentUser)
-                && toDelete.getStatus().equals(Status.NOT_SUBMITTED);
 
         /* There are 2 legitimate states to delete a Idea
             -> either as an ADMIN "with Godpower"
-            -> or as THE CREATOR and if the idea was NOT_SUBMITTED (= still in draftmode)
+            -> OR as THE CREATOR AND if the idea was NOT_SUBMITTED (= still in draftmode)
         */
-        if (request.isUserInRole("ADMIN") || userRightful) {
+        if (request.isUserInRole("ADMIN") ||
+                (toDelete.getCreator().equals(currentUser)
+                        && toDelete.getStatus().equals(Status.NOT_SUBMITTED))) {
             if (toDelete instanceof InternalIdea) internalIdeaIdeaRepository.delete(toDelete);
             else if (toDelete instanceof ProductIdea) productIdeaRepository.delete(toDelete);
-        }
-        else {
+        } else {
             throw new NotAuthorizedException();
         }
     }
@@ -108,10 +106,9 @@ public class IdeaService {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }
-        Idea checkIdea = this.findById(id);
-        if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(checkIdea);
-        else if (idea instanceof ProductIdea) return productIdeaRepository.saveAndFlush(idea);
-        return null; // TODO null okay hier?
+        if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
+            //then -> idea instanceof ProductIdea
+        else return productIdeaRepository.saveAndFlush(idea);
     }
 
     public Idea createByForm(Idea idea) {
@@ -121,6 +118,7 @@ public class IdeaService {
 
     public List<Idea> getSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
+
         Predicate<Idea> ideaIsNotSubmitted = idea -> idea.getStatus().equals(Status.NOT_SUBMITTED);
 
         return allIdeas.stream().
@@ -129,21 +127,23 @@ public class IdeaService {
     }
 
     public List<Idea> filterProductIdeas(List<Idea> ideas) {
-        List<Idea> productIdeas = new ArrayList<Idea>();
+        List<Idea> productIdeas;
+
         Predicate<Idea> ideaIsProductIdea = idea -> idea instanceof ProductIdea;
-        productIdeas = ideas.stream().
+
+        return ideas.stream().
                 filter(ideaIsProductIdea)
                 .collect(Collectors.toList());
-        return productIdeas;
     }
 
     public List<Idea> filterInternalIdeas(List<Idea> ideas) {
-        List<Idea> internalIdeas = new ArrayList<Idea>();
+        List<Idea> internalIdeas;
+
         Predicate<Idea> ideaIsInternalIdea = idea -> idea instanceof InternalIdea;
-        internalIdeas = ideas.stream().
+
+        return ideas.stream().
                 filter(ideaIsInternalIdea)
                 .collect(Collectors.toList());
-        return internalIdeas;
     }
 
     public List<Idea> GetOwnNotSubmittedIdeas() {

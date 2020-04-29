@@ -237,8 +237,9 @@ public class IdeaControllerIntegTest {
     public void whenUpdateCreatedInternalIdea_thenUpdated() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
         String location = createIdeaAsUri(internalIdea);
+        String newDescription = "new description";
         internalIdea.setId(Long.parseLong(location.split("api/ideas/")[1]));
-        internalIdea.setDescription("new description");
+        internalIdea.setDescription(newDescription);
         internalIdea.setCreator(userService.findByUsername(TESTUSER));
         String ideaJson = parseIdeaToJson(internalIdea);
 
@@ -259,6 +260,7 @@ public class IdeaControllerIntegTest {
 
         JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
         assertEquals(userService.findByUsername(TESTUSER).getUsername(), persistedCreator.get("username"));
+        assertEquals(newDescription, getJsonObjectFromReturn(mvcResult).get("description"));
     }
 
     @Test

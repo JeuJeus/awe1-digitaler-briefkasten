@@ -21,7 +21,7 @@ import java.sql.Date;
         @JsonSubTypes.Type(value = InternalIdea.class, name = "internalIdea"),
         @JsonSubTypes.Type(value = ProductIdea.class, name = "productIdea")
 })
-// TODO make Idea eventually abstract?
+// TODO MAKE IDEA EVENTUALLY ABSTRACT?
 public class Idea {
 
     @Id

@@ -106,7 +106,7 @@ public class IdeaService {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }
-        //todo check if idea has change in meantime
+        //TODO CHECK IF IDEA HAS CHANGE IN MEANTIME
         Idea checkExistantIdea = this.findById(id);
         if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
             //then -> idea instanceof ProductIdea

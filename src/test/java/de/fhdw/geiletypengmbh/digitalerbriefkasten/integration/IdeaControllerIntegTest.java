@@ -206,6 +206,17 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    public void whenCreateNewIdeaNotLoggedIn_thenNotAuthorized() throws Exception {
+        InternalIdea idea = createRandomInternalIdea();
+        String ideaJson = parseIdeaToJson(idea);
+
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson))
+                .andExpect(status().isForbidden());
+    }
 
     @Test
     public void whenInvalidInternalIdea_thenError() throws Exception {

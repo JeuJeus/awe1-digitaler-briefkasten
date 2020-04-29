@@ -4,9 +4,9 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdM
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
@@ -92,8 +92,12 @@ public class IdeaService {
     }
 
     public void delete(Long id, HttpServletRequest request) {
-        Idea toDelete = ideaRepository.findById(id)
-                .orElseThrow(IdeaNotFoundException::new);
+        Optional<Idea> idea = internalIdeaIdeaRepository.findById(id);
+        Idea toDelete;
+        if (idea.isEmpty()) {
+            idea = productIdeaRepository.findById(id);
+        }
+        toDelete = idea.orElseThrow(IdeaNotFoundException::new);
         User currentUser = getCurrentUser();
         boolean userRightful = toDelete.getCreator().equals(currentUser)
                 && toDelete.getStatus().equals(Status.NOT_SUBMITTED);

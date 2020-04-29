@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Role;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.Status;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -193,28 +193,15 @@ public class IdeaControllerIntegTest {
     }
 
     @Test
-    public void whenCreateNewIdeaNotLoggedIn_thenNotAuthorized() throws Exception {
-        Idea idea = createRandomIdea();
-        String ideaJson = parseIdeaToJson(idea);
-
-        mockMvc.perform(
-                post(API_ROOT)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(ideaJson))
-                .andExpect(status().isForbidden());
-    }
-
-
-    @Test
     public void whenCreateNewProductIdea_thenCreated() throws Exception {
-        Idea idea = createRandomProductIdea();
+        ProductIdea idea = createRandomProductIdea();
         String ideaJson = parseIdeaToJson(idea);
 
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user("test"))
+                        .with(user(TESTUSER))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -240,7 +227,7 @@ public class IdeaControllerIntegTest {
         InternalIdea internalIdea = createRandomInternalIdea();
         String location = createIdeaAsUri(internalIdea);
         internalIdea.setId(Long.parseLong(location.split("api/ideas/")[1]));
-        idea.setDescription("new description");
+        internalIdea.setDescription("new description");
         internalIdea.setCreator(userService.findByUsername(TESTUSER));
         String ideaJson = parseIdeaToJson(internalIdea);
 
@@ -304,7 +291,7 @@ public class IdeaControllerIntegTest {
 
     @Test
     public void whenDeleteWithoutAuthorization_thenError() throws Exception {
-        Idea idea = createRandomIdea();
+        Idea idea = createRandomInternalIdea();
         idea.setStatus(Status.DECLINED);
         String location = createIdeaAsUri(idea);
 

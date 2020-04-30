@@ -106,7 +106,7 @@ public class IdeaService {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }
-        //todo check if idea has change in meantime
+        //TODO CHECK IF IDEA HAS CHANGE IN MEANTIME
         Idea checkExistantIdea = this.findById(id);
         if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
             //then -> idea instanceof ProductIdea
@@ -129,8 +129,6 @@ public class IdeaService {
     }
 
     public List<Idea> filterProductIdeas(List<Idea> ideas) {
-        List<Idea> productIdeas;
-
         Predicate<Idea> ideaIsProductIdea = idea -> idea instanceof ProductIdea;
 
         return ideas.stream().
@@ -139,8 +137,6 @@ public class IdeaService {
     }
 
     public List<Idea> filterInternalIdeas(List<Idea> ideas) {
-        List<Idea> internalIdeas;
-
         Predicate<Idea> ideaIsInternalIdea = idea -> idea instanceof InternalIdea;
 
         return ideas.stream().

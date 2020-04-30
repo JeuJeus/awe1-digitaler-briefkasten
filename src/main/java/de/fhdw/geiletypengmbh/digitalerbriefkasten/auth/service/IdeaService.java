@@ -129,8 +129,6 @@ public class IdeaService {
     }
 
     public List<Idea> filterProductIdeas(List<Idea> ideas) {
-        List<Idea> productIdeas;
-
         Predicate<Idea> ideaIsProductIdea = idea -> idea instanceof ProductIdea;
 
         return ideas.stream().
@@ -139,8 +137,6 @@ public class IdeaService {
     }
 
     public List<Idea> filterInternalIdeas(List<Idea> ideas) {
-        List<Idea> internalIdeas;
-
         Predicate<Idea> ideaIsInternalIdea = idea -> idea instanceof InternalIdea;
 
         return ideas.stream().

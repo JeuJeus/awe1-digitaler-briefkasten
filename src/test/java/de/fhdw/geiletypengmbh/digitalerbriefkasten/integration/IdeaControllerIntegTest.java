@@ -79,6 +79,7 @@ public class IdeaControllerIntegTest {
         return new JSONObject(jsonReturn);
     }
 
+    //TODO FIX ME W/ PRODUCTLINES
     private InternalIdea createRandomInternalIdea() {
         InternalIdea idea = new InternalIdea();
 
@@ -90,6 +91,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
+    //TODO FIX ME W/ PRODUCTLINES
     private ProductIdea createRandomProductIdea() {
         ProductIdea idea = new ProductIdea();
 

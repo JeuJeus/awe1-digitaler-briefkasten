@@ -15,11 +15,11 @@ public class FieldService {
     @Autowired
     private FieldRepository fieldRepository;
 
-    Field findById(Long id) {
+    public Field findById(Long id) {
         return fieldRepository.findById(id).orElseThrow(FieldNotFoundException::new);
     }
 
-    Field findByTtitle(String title) {
+    public Field findByTtitle(String title) {
         return fieldRepository.findByTitle(title);
     }
 

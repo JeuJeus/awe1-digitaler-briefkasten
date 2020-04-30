@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.AdvantageService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.FieldService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
@@ -38,7 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class IdeaControllerIntegTest {
@@ -47,6 +49,8 @@ public class IdeaControllerIntegTest {
             = "http://localhost:8080/api/ideas";
 
     private static final String TESTUSER = randomAlphabetic(10);
+    private static Long TESTADVANATGE_ID;
+    private static Long TESTFIELD_ID;
 
     private static Boolean SETUPDONE = false;
 
@@ -61,6 +65,12 @@ public class IdeaControllerIntegTest {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private AdvantageService advantageService;
+
+    @Autowired
+    private FieldService fieldService;
 
 //HELPER FUNCTIONS
 
@@ -87,7 +97,7 @@ public class IdeaControllerIntegTest {
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
         idea.setProductLine("INTERNAL");
-        idea.setField(new Field());
+        idea.setField(fieldService.findById(TESTFIELD_ID));
         return idea;
     }
 
@@ -127,6 +137,10 @@ public class IdeaControllerIntegTest {
             String tempPassword = randomAlphabetic(10);
             User testUser = new User(TESTUSER, tempPassword, tempPassword);
             userService.save(testUser);
+
+            TESTFIELD_ID = fieldService.save(
+                    new Field(randomAlphabetic(10))
+            ).getId();
 
             SETUPDONE = true;
         }

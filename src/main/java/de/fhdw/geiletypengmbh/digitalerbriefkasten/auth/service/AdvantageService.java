@@ -23,11 +23,11 @@ public class AdvantageService {
     @Autowired
     private AdvantageRepository advantageRepository;
 
-    Advantage findById(Long id) {
+    public Advantage findById(Long id) {
         return advantageRepository.findById(id).orElseThrow(AdvantageNotFoundException::new);
     }
 
-    List<Advantage> findByDescription(String description) {
+    public List<Advantage> findByDescription(String description) {
         return advantageRepository.findByDescription(description);
     }
 

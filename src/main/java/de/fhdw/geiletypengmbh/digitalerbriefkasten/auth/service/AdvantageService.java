@@ -1,9 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaIdMismatchException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaMalformedException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.AdvantageRepository;
@@ -26,7 +23,11 @@ public class AdvantageService {
     @Autowired
     private AdvantageRepository advantageRepository;
 
-    Field findByDescription(String description) {
+    Advantage findById(Long id) {
+        return advantageRepository.findById(id).orElseThrow(AdvantageNotFoundException::new);
+    }
+
+    List<Advantage> findByDescription(String description) {
         return advantageRepository.findByDescription(description);
     }
 

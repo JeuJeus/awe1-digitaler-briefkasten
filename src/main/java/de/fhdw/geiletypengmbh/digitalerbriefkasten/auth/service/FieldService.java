@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.FieldNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
@@ -13,6 +14,10 @@ public class FieldService {
 
     @Autowired
     private FieldRepository fieldRepository;
+
+    Field findById(Long id) {
+        return fieldRepository.findById(id).orElseThrow(FieldNotFoundException::new);
+    }
 
     Field findByTtitle(String title) {
         return fieldRepository.findByTitle(title);

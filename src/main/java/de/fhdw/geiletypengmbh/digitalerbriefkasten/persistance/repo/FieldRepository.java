@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface FieldRepository extends JpaRepository<Field, Long> {
     Field findByTitle(String title);
-
-    List<Field> findAll();
 }

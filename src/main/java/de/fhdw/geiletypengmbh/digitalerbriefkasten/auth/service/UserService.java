@@ -4,7 +4,9 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 
 public interface UserService {
 
-    void save(User user);
+    User save(User user);
 
     User findByUsername(String username);
+
+    User findById(Long id);
 }

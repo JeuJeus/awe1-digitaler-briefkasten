@@ -1,18 +1,37 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "productIdea")
 public class ProductIdea extends Idea {
-    private Long targetGroup;
 
-    public Long getTargetGroup() {
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "targetGroup_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private TargetGroup targetGroup;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "distributionChannel_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private DistributionChannel distributionChannel;
+
+    public TargetGroup getTargetGroup() {
         return targetGroup;
     }
 
-    public void setTargetGroup(Long field) {
-        this.targetGroup = field;
+    public void setTargetGroup(TargetGroup targetGroup) {
+        this.targetGroup = targetGroup;
+    }
+
+    public DistributionChannel getDistributionChannel() {
+        return distributionChannel;
+    }
+
+    public void setDistributionChannel(DistributionChannel distributionChannel) {
+        this.distributionChannel = distributionChannel;
     }
 }

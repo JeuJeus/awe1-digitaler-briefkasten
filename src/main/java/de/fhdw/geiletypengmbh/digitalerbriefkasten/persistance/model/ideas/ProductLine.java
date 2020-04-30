@@ -41,6 +41,13 @@ public class ProductLine {
         this.title = title;
     }
 
+    public ProductLine(String title) {
+        this.title = title;
+    }
 
+    public ProductLine() {
+    }
+
+    ;
 }
 

@@ -29,9 +29,9 @@
             </li>
         </ul>
     </div>
-    <!-- TODO FIX BUTTON (NOT 100% SUCCESS RATE - WHY?)   -->
-    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><a
-            onclick="document.forms['logoutForm'].submit()">Logout</a></button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" onclick="document.forms['logoutForm'].submit()">
+        <a>Logout</a>
+    </button>
     <form id="logoutForm" method="POST" th:action="@{/logout}">
     </form>
 </nav>

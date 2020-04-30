@@ -10,4 +10,6 @@ public interface ProductLineRepository extends JpaRepository<ProductLine, Long> 
     List<ProductLine> findAll();
 
     ProductLine findByTitle(String title);
+
+    ProductLine findById(long id);
 }

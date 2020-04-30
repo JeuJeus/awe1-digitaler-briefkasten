@@ -5,11 +5,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,6 +43,8 @@ public class IdeaControllerIntegTest {
             = "http://localhost:8080/api/ideas";
 
     private static final String TESTUSER = randomAlphabetic(10);
+
+    private ProductLine testProductLine = new ProductLine("SALES WORLDWIDE");
 
     private static Boolean SETUPDONE = false;
 
@@ -86,7 +85,7 @@ public class IdeaControllerIntegTest {
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
-        idea.setProductLines("INTERNAL");
+        idea.setProductLine(testProductLine);
         idea.setField("INTERNAL FIELD");
         return idea;
     }
@@ -98,7 +97,7 @@ public class IdeaControllerIntegTest {
         idea.setTitle("PRODUCT" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
-        idea.setProductLines("PRODUCT");
+        idea.setProductLine(testProductLine);
         return idea;
     }
 

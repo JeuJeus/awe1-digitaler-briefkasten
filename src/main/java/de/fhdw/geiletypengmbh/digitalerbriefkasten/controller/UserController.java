@@ -69,7 +69,6 @@ public class UserController {
 
     @GetMapping("/logout")
     public String redirectLogout(HttpServletRequest request, HttpServletResponse response) {
-        //TODO AUTOMATIC LOGOUT
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         logger.info("[LOGOUT] USERNAME: " + auth.getName() + ", IP: " + LogHelper.getUserIpAddres());

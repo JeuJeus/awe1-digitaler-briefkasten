@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User findByUsername(String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             user = specialistRepository.findByUsername(username);
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Long id) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
             user = specialistRepository.findById(id);

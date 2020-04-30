@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching User Found")
-public class UserNotFoundException extends RuntimeException {
+public class UserNotFoundException extends Exception {
 
     public UserNotFoundException() {
         super();

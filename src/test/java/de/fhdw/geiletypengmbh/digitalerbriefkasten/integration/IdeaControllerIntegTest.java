@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
@@ -136,7 +137,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
-    private InternalIdea createRandomInternalIdea() {
+    private InternalIdea createRandomInternalIdea() throws UserNotFoundException {
         InternalIdea idea = new InternalIdea();
 
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
@@ -148,7 +149,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
-    private ProductIdea createRandomProductIdea() {
+    private ProductIdea createRandomProductIdea() throws UserNotFoundException {
         ProductIdea idea = new ProductIdea();
 
         idea.setTitle("PRODUCT" + randomAlphabetic(10));

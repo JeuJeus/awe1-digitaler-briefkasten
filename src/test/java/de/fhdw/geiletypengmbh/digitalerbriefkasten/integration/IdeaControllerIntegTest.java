@@ -24,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -36,9 +37,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
+//TODO BESPRECHEN, INWIEFERN WIR DIE NEUEN ENITITES TG,DC,FIELD,ADV TESTEN
 public class IdeaControllerIntegTest {
 
     private static final String API_ROOT
@@ -46,7 +48,7 @@ public class IdeaControllerIntegTest {
 
     private static final String TESTUSER = randomAlphabetic(10);
 
-    private static List<Advantage> advantages;
+    private static List<Advantage> advantages = new ArrayList<>();
     private static Long testFieldId;
     private static Long testDistributionChannelId;
     private static Long testTargetGroupId;
@@ -103,6 +105,7 @@ public class IdeaControllerIntegTest {
         idea.setCreator(userService.findByUsername(TESTUSER));
         idea.setProductLine("INTERNAL");
         idea.setField(fieldService.findById(testFieldId));
+        idea.setAdvantages(advantages);
         return idea;
     }
 
@@ -115,6 +118,7 @@ public class IdeaControllerIntegTest {
         idea.setProductLine("PRODUCT");
         idea.setTargetGroup(targetGroupService.findById(testTargetGroupId));
         idea.setDistributionChannel(distributionChannelService.findById(testDistributionChannelId));
+        idea.setAdvantages(advantages);
         return idea;
     }
 
@@ -154,6 +158,9 @@ public class IdeaControllerIntegTest {
             testDistributionChannelId = distributionChannelService.save(
                     new DistributionChannel(randomAlphabetic(10))
             ).getId();
+            advantages.add(new Advantage(randomAlphabetic(10)));
+            advantages.add(new Advantage(randomAlphabetic(10)));
+            advantages.add(new Advantage(randomAlphabetic(10)));
             setupDone = true;
         }
     }

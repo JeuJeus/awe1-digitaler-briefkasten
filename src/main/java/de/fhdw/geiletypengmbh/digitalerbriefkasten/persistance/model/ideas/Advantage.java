@@ -1,9 +1,5 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,18 +12,12 @@ public class Advantage {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "idea_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Idea idea;
-
     public Advantage() {
         super();
     }
 
-    public Advantage(String description, Idea idea) {
+    public Advantage(String description) {
         this.description = description;
-        this.idea = idea;
     }
 
     public long getId() {
@@ -46,11 +36,4 @@ public class Advantage {
         this.description = description;
     }
 
-    public Idea getIdea() {
-        return idea;
-    }
-
-    public void setIdea(Idea idea) {
-        this.idea = idea;
-    }
 }

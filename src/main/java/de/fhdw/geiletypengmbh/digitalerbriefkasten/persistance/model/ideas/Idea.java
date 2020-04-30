@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
@@ -59,6 +60,10 @@ public class Idea {
     @Column
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String statusJustification;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idea_id")
+    private List<Advantage> advantages;
 
     public Idea() {
         super();
@@ -139,5 +144,13 @@ public class Idea {
 
     public void setProductLine(String productLine) {
         this.productLine = productLine;
+    }
+
+    public List<Advantage> getAdvantages() {
+        return advantages;
+    }
+
+    public void setAdvantages(List<Advantage> advantages) {
+        this.advantages = advantages;
     }
 }

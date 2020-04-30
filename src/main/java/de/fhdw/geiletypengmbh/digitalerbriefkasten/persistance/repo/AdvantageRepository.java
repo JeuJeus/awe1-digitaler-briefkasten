@@ -9,7 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AdvantageRepository extends JpaRepository<Advantage, Long> {
-    List<Advantage> findByIdea(Idea idea);
-
     List<Advantage> findByDescription(String description);
 }

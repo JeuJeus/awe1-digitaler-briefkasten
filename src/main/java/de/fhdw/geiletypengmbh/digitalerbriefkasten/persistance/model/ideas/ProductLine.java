@@ -9,9 +9,8 @@ import java.util.Set;
 
 @Entity
 public class ProductLine {
-    @JsonIgnore
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
@@ -21,7 +20,7 @@ public class ProductLine {
     @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
     private Set<Idea> ideas;*/
 
-    @JsonIgnore
+    //    @JsonIgnore
     @ManyToMany(mappedBy = "productLines", fetch = FetchType.EAGER)
     private Set<Specialist> specialists;
 

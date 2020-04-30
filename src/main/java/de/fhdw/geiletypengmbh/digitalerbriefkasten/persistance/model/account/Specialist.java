@@ -10,11 +10,18 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Specialist extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    private long id;
-
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "specialist_productLines",
+            joinColumns = @JoinColumn(name = "specialist_id"),
+            inverseJoinColumns = @JoinColumn(name = "productLine_id"))
     private Set<ProductLine> productLines;
+
+    public Specialist() {
+        super();
+    }
+
+    public Specialist(String username, String password, String passwordConfirmation) {
+        super(username, password, passwordConfirmation);
+    }
 }

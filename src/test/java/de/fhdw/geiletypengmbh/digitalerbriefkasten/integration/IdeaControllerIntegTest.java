@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -39,7 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 //TODO BESPRECHEN, INWIEFERN WIR DIE NEUEN ENITITES TG,DC,FIELD,ADV TESTEN
@@ -49,14 +50,15 @@ public class IdeaControllerIntegTest {
             = "http://localhost:8080/api/ideas";
 
     private static final String TESTUSER = randomAlphabetic(10);
+    private static final String TEST_SPECIALIST = randomAlphabetic(10);
 
-    private ProductLine testProductLine = new ProductLine("SALES WORLDWIDE");
 
     private static Boolean SETUPDONE = false;
     private static List<Advantage> advantages = new ArrayList<>();
     private static Long testFieldId;
     private static Long testDistributionChannelId;
     private static Long testTargetGroupId;
+    private static Long testProductLineId;
 
     private static Boolean setupDone = false;
 
@@ -84,6 +86,10 @@ public class IdeaControllerIntegTest {
     @Autowired
     private FieldService fieldService;
 
+    @Autowired
+    private ProductLineService productLineService;
+
+
 //HELPER FUNCTIONS
 
     private static String parseIdeaToJson(Idea idea) {
@@ -109,7 +115,7 @@ public class IdeaControllerIntegTest {
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
-        idea.setProductLine(testProductLine);
+        idea.setProductLine(productLineService.findById(testProductLineId));
         idea.setField(fieldService.findById(testFieldId));
         idea.setAdvantages(advantages);
         return idea;
@@ -125,7 +131,7 @@ public class IdeaControllerIntegTest {
         idea.setTargetGroup(targetGroupService.findById(testTargetGroupId));
         idea.setDistributionChannel(distributionChannelService.findById(testDistributionChannelId));
         idea.setAdvantages(advantages);
-        idea.setProductLine(testProductLine);
+        idea.setProductLine(productLineService.findById(testProductLineId));
         return idea;
     }
 
@@ -137,7 +143,6 @@ public class IdeaControllerIntegTest {
                 .with(user(TESTUSER))
                 .with(csrf()))
                 .andReturn();
-
         return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
     }
 
@@ -156,6 +161,10 @@ public class IdeaControllerIntegTest {
             User testUser = new User(TESTUSER, tempPassword, tempPassword);
             userService.save(testUser);
 
+            tempPassword = randomAlphabetic(10);
+            Specialist testSpecialist = new Specialist(TEST_SPECIALIST, tempPassword, tempPassword);
+            userService.save(testSpecialist);
+
             testFieldId = fieldService.save(
                     new Field(randomAlphabetic(10))
             ).getId();
@@ -164,6 +173,9 @@ public class IdeaControllerIntegTest {
             ).getId();
             testDistributionChannelId = distributionChannelService.save(
                     new DistributionChannel(randomAlphabetic(10))
+            ).getId();
+            testProductLineId = productLineService.save(
+                    new ProductLine(randomAlphabetic(10))
             ).getId();
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
@@ -219,6 +231,20 @@ public class IdeaControllerIntegTest {
     @Test
     public void whenCreateNewInternalIdea_thenCreated() throws Exception {
         Idea idea = createRandomInternalIdea();
+        String ideaJson = parseIdeaToJson(idea);
+        mockMvc.perform(
+                post(API_ROOT)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(ideaJson)
+                        .with(user(TESTUSER))
+                        .with(csrf()))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void whenCreateNewInternalIdeaWithSpecialist_thenCreated() throws Exception {
+        Idea idea = createRandomInternalIdea();
+        idea.setCreator(userService.findByUsername(TEST_SPECIALIST));
         String ideaJson = parseIdeaToJson(idea);
         mockMvc.perform(
                 post(API_ROOT)

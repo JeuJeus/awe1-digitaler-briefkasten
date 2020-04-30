@@ -1,11 +1,23 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity(name = "user")
+@JsonSerialize
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = User.class, name = "user"),
+        @JsonSubTypes.Type(value = Specialist.class, name = "specialist")
+})
 public class User {
     //TODO FORCE USER ON FIRST LOGIN / REGISTRATION TO FILL IN PROFILE -> SET FIRST-/LASTNAME
     @Id

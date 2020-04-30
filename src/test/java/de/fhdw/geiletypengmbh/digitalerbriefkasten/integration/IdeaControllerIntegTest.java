@@ -6,7 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +26,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -34,9 +39,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
+//TODO BESPRECHEN, INWIEFERN WIR DIE NEUEN ENITITES TG,DC,FIELD,ADV TESTEN
 public class IdeaControllerIntegTest {
 
     private static final String API_ROOT
@@ -47,6 +53,12 @@ public class IdeaControllerIntegTest {
     private ProductLine testProductLine = new ProductLine("SALES WORLDWIDE");
 
     private static Boolean SETUPDONE = false;
+    private static List<Advantage> advantages = new ArrayList<>();
+    private static Long testFieldId;
+    private static Long testDistributionChannelId;
+    private static Long testTargetGroupId;
+
+    private static Boolean setupDone = false;
 
     @Autowired
     private MockMvc mockMvc;
@@ -59,6 +71,18 @@ public class IdeaControllerIntegTest {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private AdvantageService advantageService;
+
+    @Autowired
+    private TargetGroupService targetGroupService;
+
+    @Autowired
+    private DistributionChannelService distributionChannelService;
+
+    @Autowired
+    private FieldService fieldService;
 
 //HELPER FUNCTIONS
 
@@ -87,6 +111,8 @@ public class IdeaControllerIntegTest {
         idea.setCreator(userService.findByUsername(TESTUSER));
         idea.setProductLine(testProductLine);
         idea.setField("INTERNAL FIELD");
+        idea.setField(fieldService.findById(testFieldId));
+        idea.setAdvantages(advantages);
         return idea;
     }
 
@@ -97,6 +123,9 @@ public class IdeaControllerIntegTest {
         idea.setTitle("PRODUCT" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
+        idea.setTargetGroup(targetGroupService.findById(testTargetGroupId));
+        idea.setDistributionChannel(distributionChannelService.findById(testDistributionChannelId));
+        idea.setAdvantages(advantages);
         idea.setProductLine(testProductLine);
         return idea;
     }
@@ -115,7 +144,7 @@ public class IdeaControllerIntegTest {
 
     @BeforeEach
     public void prepareSetup() throws Exception {
-        if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
+        if (!setupDone) { //Workaround used here because @Before is depreceated and BeforeAll need static method
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
@@ -128,7 +157,19 @@ public class IdeaControllerIntegTest {
             User testUser = new User(TESTUSER, tempPassword, tempPassword);
             userService.save(testUser);
 
-            SETUPDONE = true;
+            testFieldId = fieldService.save(
+                    new Field(randomAlphabetic(10))
+            ).getId();
+            testTargetGroupId = targetGroupService.save(
+                    new TargetGroup(randomAlphabetic(10))
+            ).getId();
+            testDistributionChannelId = distributionChannelService.save(
+                    new DistributionChannel(randomAlphabetic(10))
+            ).getId();
+            advantages.add(new Advantage(randomAlphabetic(10)));
+            advantages.add(new Advantage(randomAlphabetic(10)));
+            advantages.add(new Advantage(randomAlphabetic(10)));
+            setupDone = true;
         }
     }
 
@@ -193,7 +234,7 @@ public class IdeaControllerIntegTest {
     public void whenCreateNewProductIdea_thenCreated() throws Exception {
         ProductIdea idea = createRandomProductIdea();
         String ideaJson = parseIdeaToJson(idea);
-
+        System.out.println(ideaJson);
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -337,4 +378,5 @@ public class IdeaControllerIntegTest {
         //Status Justification should only be included if set
         assert (!jsonReturn.has("statusJustification"));
     }
+
 }

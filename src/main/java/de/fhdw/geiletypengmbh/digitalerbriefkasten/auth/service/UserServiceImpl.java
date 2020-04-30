@@ -36,13 +36,12 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (user.getRoles() == null) {
-            //this ensures by default user gets set the "USER" role
-            if (user instanceof User) user.setRoles(roleService.secureSupplyOfProvidedRole("USER"));
-            else user.setRoles(roleService.secureSupplyOfProvidedRole("SPECIALIST"));
+            //this ensures by default specialist/user gets set the "SPECIALIST/"USER" role
+            if (user instanceof Specialist) user.setRoles(roleService.secureSupplyOfProvidedRole("SPECIALIST"));
+            else user.setRoles(roleService.secureSupplyOfProvidedRole("USER"));
         }
-        if (user instanceof User) return userRepository.saveAndFlush(user);
-            //then -> idea instanceof ProductIdea
-        else return specialistRepository.saveAndFlush(user);
+        if (user instanceof Specialist) return specialistRepository.saveAndFlush(user);
+        else return userRepository.saveAndFlush(user);
     }
 
     @Override

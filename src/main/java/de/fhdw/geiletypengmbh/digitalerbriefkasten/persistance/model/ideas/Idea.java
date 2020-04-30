@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
@@ -52,9 +53,8 @@ public class Idea {
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;
 
-    //TODO MAKE ME AN OBJECT
-    @Column
-    private String productLine;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<ProductLine> productLines;
 
     @Column
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -133,11 +133,11 @@ public class Idea {
         this.creationDate = creationDate;
     }
 
-    public String getProductLine() {
-        return productLine;
+    public Set<ProductLine> getProductLines() {
+        return productLines;
     }
 
-    public void setProductLine(String productLine) {
-        this.productLine = productLine;
+    public void setProductLines(Set<ProductLine> productLines) {
+        this.productLines = productLines;
     }
 }

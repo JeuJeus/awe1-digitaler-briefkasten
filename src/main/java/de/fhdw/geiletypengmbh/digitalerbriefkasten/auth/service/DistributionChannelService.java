@@ -1,8 +1,8 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.TargetGroupNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.TargetGroupRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.DistributionChannelNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.DistributionChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +12,21 @@ import java.util.List;
 public class DistributionChannelService {
 
     @Autowired
-    private TargetGroupRepository targetGroupRepository;
+    private DistributionChannelRepository distributionChannelRepository;
 
-    public TargetGroup findById(Long id) {
-        return targetGroupRepository.findById(id).orElseThrow(TargetGroupNotFoundException::new);
+    public DistributionChannel findById(Long id) {
+        return distributionChannelRepository.findById(id).orElseThrow(DistributionChannelNotFoundException::new);
     }
 
-    public TargetGroup findByTitle(String title) {
-        return targetGroupRepository.findByTitle(title);
+    public DistributionChannel findByTitle(String title) {
+        return distributionChannelRepository.findByTitle(title);
     }
 
-    public List<TargetGroup> findAll() {
-        return targetGroupRepository.findAll();
+    public List<DistributionChannel> findAll() {
+        return distributionChannelRepository.findAll();
     }
 
-    public TargetGroup save(TargetGroup targetGroup) {
-        return targetGroupRepository.save(targetGroup);
+    public DistributionChannel save(DistributionChannel distributionChannel) {
+        return distributionChannelRepository.save(distributionChannel);
     }
 }

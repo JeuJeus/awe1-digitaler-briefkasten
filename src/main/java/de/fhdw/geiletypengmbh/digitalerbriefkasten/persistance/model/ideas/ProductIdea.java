@@ -19,4 +19,19 @@ public class ProductIdea extends Idea {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DistributionChannel distributionChannel;
 
+    public TargetGroup getTargetGroup() {
+        return targetGroup;
+    }
+
+    public void setTargetGroup(TargetGroup targetGroup) {
+        this.targetGroup = targetGroup;
+    }
+
+    public DistributionChannel getDistributionChannel() {
+        return distributionChannel;
+    }
+
+    public void setDistributionChannel(DistributionChannel distributionChannel) {
+        this.distributionChannel = distributionChannel;
+    }
 }

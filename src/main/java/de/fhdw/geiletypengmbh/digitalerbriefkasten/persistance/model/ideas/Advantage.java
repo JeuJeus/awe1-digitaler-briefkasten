@@ -21,6 +21,15 @@ public class Advantage {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Idea idea;
 
+    public Advantage() {
+        super();
+    }
+
+    public Advantage(String description, Idea idea) {
+        this.description = description;
+        this.idea = idea;
+    }
+
     public long getId() {
         return id;
     }

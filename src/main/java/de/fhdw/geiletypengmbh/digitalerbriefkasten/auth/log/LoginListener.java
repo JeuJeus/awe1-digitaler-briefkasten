@@ -12,11 +12,10 @@ public class LoginListener implements ApplicationListener<InteractiveAuthenticat
 
     private static final Logger logger = LoggerFactory.getLogger(LoginListener.class);
 
-    //TODO ADD IN LOGIN FAILURE LISTENER
-
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
         UserDetails user = (UserDetails) event.getAuthentication().getPrincipal();
         logger.info("[LOGIN] USERNAME: " + user.getUsername() + ", IP: " + LogHelper.getUserIpAddres());
     }
+
 }

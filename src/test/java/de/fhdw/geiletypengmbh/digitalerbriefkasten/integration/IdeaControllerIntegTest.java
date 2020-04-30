@@ -110,7 +110,6 @@ public class IdeaControllerIntegTest {
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TESTUSER));
         idea.setProductLine(testProductLine);
-        idea.setField("INTERNAL FIELD");
         idea.setField(fieldService.findById(testFieldId));
         idea.setAdvantages(advantages);
         return idea;

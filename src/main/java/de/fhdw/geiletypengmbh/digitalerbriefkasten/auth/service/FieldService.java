@@ -19,7 +19,7 @@ public class FieldService {
         return fieldRepository.findById(id).orElseThrow(FieldNotFoundException::new);
     }
 
-    public Field findByTtitle(String title) {
+    public Field findByTitle(String title) {
         return fieldRepository.findByTitle(title);
     }
 

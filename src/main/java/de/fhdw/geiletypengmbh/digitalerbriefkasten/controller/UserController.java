@@ -9,6 +9,9 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -55,19 +59,24 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("userForm") User userForm, Model model, String error, String logout) {
+    public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) {
         //Note that login Post Controller is provided automatically by Spring Security
-        if (error != null) {
-            model.addAttribute("error", "Username and Password are invalid");
-            //TODO FIX ME -> FIND USERNAME
-            logger.info("[LOGIN FAILURE] USERNAME: " + userForm.getUsername() + ", IP: " + LogHelper.getUserIpAddres());
-        }
         if (logout != null) {
             model.addAttribute("message", "Logout was successfull");
-            //TODO FIX ME -> FIND USERNAME
-            logger.info("[LOGOUT] USERNAME: " + userForm.getUsername() + ", IP: " + LogHelper.getUserIpAddres());
         }
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String redirectLogout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("[LOGOUT] USERNAME: " + auth.getName() + ", IP: " + LogHelper.getUserIpAddres());
+
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return "redirect:/login?logout";
     }
 
     @GetMapping({"/", "/welcome"})

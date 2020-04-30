@@ -6,15 +6,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class LoginListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginListener.class);
+
+    //TODO ADD IN LOGIN FAILURE LISTENER
 
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {

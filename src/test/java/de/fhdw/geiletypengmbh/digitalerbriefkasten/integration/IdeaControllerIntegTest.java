@@ -24,11 +24,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.thymeleaf.spring5.expression.Mvc;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -52,7 +52,6 @@ public class IdeaControllerIntegTest {
     private static final String TESTUSER = randomAlphabetic(10);
     private static final String TEST_SPECIALIST = randomAlphabetic(10);
 
-
     private static Boolean SETUPDONE = false;
     private static List<Advantage> advantages = new ArrayList<>();
     private static Long testFieldId;
@@ -61,6 +60,13 @@ public class IdeaControllerIntegTest {
     private static Long testProductLineId;
 
     private static Boolean setupDone = false;
+
+    private static final Comparator<Advantage> compareById = new Comparator<Advantage>() {
+        @Override
+        public int compare(Advantage o1, Advantage o2) {
+            return (o1.getId() < o2.getId() ? -1 : (o1.getId() == o1.getId() ? 0 : 1));
+        }
+    };
 
     @Autowired
     private MockMvc mockMvc;
@@ -106,6 +112,28 @@ public class IdeaControllerIntegTest {
     private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
         String jsonReturn = mvcResult.getResponse().getContentAsString();
         return new JSONObject(jsonReturn);
+    }
+
+    private static InternalIdea getInternalIdeaFromReturn(MvcResult mvcResult) {
+        InternalIdea idea = new InternalIdea();
+        try {
+            JSONObject persistedIdea = getJsonObjectFromReturn(mvcResult);
+            idea = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), InternalIdea.class);
+        } catch (UnsupportedEncodingException | JSONException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return idea;
+    }
+
+    private static ProductIdea getProductIdeaFromReturn(MvcResult mvcResult) {
+        ProductIdea idea = new ProductIdea();
+        try {
+            JSONObject persistedIdea = getJsonObjectFromReturn(mvcResult);
+            idea = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), ProductIdea.class);
+        } catch (UnsupportedEncodingException | JSONException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return idea;
     }
 
     //TODO FIX ME W/ PRODUCTLINES
@@ -217,7 +245,38 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals(internalIdea.getTitle(), getJsonObjectFromReturn(mvcResult).get("title"));
+        InternalIdea persistedIdea = getInternalIdeaFromReturn(mvcResult);
+        int advSize = Math.max(internalIdea.getAdvantages().size(), persistedIdea.getAdvantages().size());
+        Collections.sort(internalIdea.getAdvantages(), compareById);
+        Collections.sort(persistedIdea.getAdvantages(), compareById);
+        for (int i = 0; i < advSize; i++) {
+            assertEquals(internalIdea.getAdvantages().get(i).getDescription(), persistedIdea.getAdvantages().get(i).getDescription());
+        }
+        assertEquals(internalIdea.getProductLine().getTitle(), persistedIdea.getProductLine().getTitle());
+        assertEquals(internalIdea.getField().getTitle(), persistedIdea.getField().getTitle());
+    }
+
+    @Test
+    public void whenGetCreatedProductIdeaById_thenOK() throws Exception {
+        ProductIdea productIdea = createRandomProductIdea();
+        String location = createIdeaAsUri(productIdea);
+
+        MvcResult mvcResult = mockMvc.perform(
+                get(location)
+                        .with(user(TESTUSER)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        ProductIdea persistedIdea = getProductIdeaFromReturn(mvcResult);
+        int advSize = Math.max(productIdea.getAdvantages().size(), persistedIdea.getAdvantages().size());
+        Collections.sort(productIdea.getAdvantages(), compareById);
+        Collections.sort(persistedIdea.getAdvantages(), compareById);
+        for (int i = 0; i < advSize; i++) {
+            assertEquals(productIdea.getAdvantages().get(i).getDescription(), persistedIdea.getAdvantages().get(i).getDescription());
+        }
+        assertEquals(productIdea.getProductLine().getTitle(), persistedIdea.getProductLine().getTitle());
+        assertEquals(productIdea.getTargetGroup().getTitle(), persistedIdea.getTargetGroup().getTitle());
+        assertEquals(productIdea.getDistributionChannel().getTitle(), productIdea.getDistributionChannel().getTitle());
     }
 
     @Test

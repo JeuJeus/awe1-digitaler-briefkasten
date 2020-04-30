@@ -5,11 +5,12 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ProductLineR
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-public interface ProductLineService {
+public class ProductLineService {
 
-    void save(ProductLine productLine);
+    @Autowired
+    private ProductLineRepository productLineRepository;
 
-    ProductLine findByTitle(String title);
-
-    ProductLine findById(long id);
+    void save(ProductLine productLine) {
+        productLineRepository.save(productLine);
+    }
 }

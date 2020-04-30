@@ -9,7 +9,7 @@ import java.util.Set;
 @JsonSerialize
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Specialist {
+public class Specialist extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)

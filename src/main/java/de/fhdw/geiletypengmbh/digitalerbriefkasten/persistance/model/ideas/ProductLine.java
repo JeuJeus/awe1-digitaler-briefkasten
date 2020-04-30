@@ -17,9 +17,9 @@ public class ProductLine {
     @Column(nullable = false)
     private String title;
 
-    @JsonIgnore
+    /*@JsonIgnore
     @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
-    private Set<Idea> ideas;
+    private Set<Idea> ideas;*/
 
     @JsonIgnore
     @ManyToMany(mappedBy = "productLines", fetch = FetchType.EAGER)

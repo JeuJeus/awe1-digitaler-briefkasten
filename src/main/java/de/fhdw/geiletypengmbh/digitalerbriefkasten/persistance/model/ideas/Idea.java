@@ -53,8 +53,8 @@ public class Idea {
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<ProductLine> productLines;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProductLine productLine;
 
     @Column
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -133,11 +133,11 @@ public class Idea {
         this.creationDate = creationDate;
     }
 
-    public Set<ProductLine> getProductLines() {
-        return productLines;
+    public ProductLine getProductLine() {
+        return productLine;
     }
 
-    public void setProductLines(Set<ProductLine> productLines) {
-        this.productLines = productLines;
+    public void setProductLine(ProductLine productLine) {
+        this.productLine = productLine;
     }
 }

@@ -31,8 +31,7 @@ public class IdeaService {
     @Autowired
     private UserService userService;
 
-    //TODO WIESO HAT DER IDEASERVICE EINE PUBLIC METHOD GETCURRENTUSER??
-    public User getCurrentUser() throws UserNotFoundException {
+    private User getCurrentUser() throws UserNotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         return userService.findByUsername(username);

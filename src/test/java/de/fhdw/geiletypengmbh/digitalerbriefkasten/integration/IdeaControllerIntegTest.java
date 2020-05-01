@@ -49,7 +49,7 @@ public class IdeaControllerIntegTest {
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";
 
-    private static final String testUser = randomAlphabetic(10);
+    private static final String TEST_USER = randomAlphabetic(10);
     private static final String TEST_SPECIALIST = randomAlphabetic(10);
     private static final Comparator<Advantage> compareById = new Comparator<Advantage>() {
         @Override
@@ -136,7 +136,7 @@ public class IdeaControllerIntegTest {
 
         idea.setTitle("INTERNAL" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
-        idea.setCreator(userService.findByUsername(testUser));
+        idea.setCreator(userService.findByUsername(TEST_USER));
         idea.setProductLine(productLineService.findById(testProductLineId));
         idea.setField(fieldService.findById(testFieldId));
         idea.setAdvantages(advantages);
@@ -148,7 +148,7 @@ public class IdeaControllerIntegTest {
 
         idea.setTitle("PRODUCT" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
-        idea.setCreator(userService.findByUsername(testUser));
+        idea.setCreator(userService.findByUsername(TEST_USER));
         idea.setTargetGroup(targetGroupService.findById(testTargetGroupId));
         idea.setDistributionChannel(distributionChannelService.findById(testDistributionChannelId));
         idea.setAdvantages(advantages);
@@ -161,7 +161,7 @@ public class IdeaControllerIntegTest {
         MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(ideaJson)
-                .with(user(testUser))
+                .with(user(TEST_USER))
                 .with(csrf()))
                 .andReturn();
         return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
@@ -173,13 +173,13 @@ public class IdeaControllerIntegTest {
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
-                    .defaultRequest(get("/").with(user(testUser)))
+                    .defaultRequest(get("/").with(user(TEST_USER)))
                     .addFilters(springSecurityFilterChain)
                     .build();
 
             //be aware of extremly rare condition where random seed of possibility 10^26 is equal in several cases. So username reocurres and breaks test. WTF jonathan
             String tempPassword = randomAlphabetic(10);
-            User testUser = new User(IdeaControllerIntegTest.testUser, tempPassword, tempPassword);
+            User testUser = new User(IdeaControllerIntegTest.TEST_USER, tempPassword, tempPassword);
             userService.save(testUser);
 
             tempPassword = randomAlphabetic(10);
@@ -219,7 +219,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(API_ROOT + "/title/" + idea.getTitle())
-                        .with(user(testUser)))
+                        .with(user(TEST_USER)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -234,7 +234,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(testUser)))
+                        .with(user(TEST_USER)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -256,7 +256,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(testUser)))
+                        .with(user(TEST_USER)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -276,7 +276,7 @@ public class IdeaControllerIntegTest {
     public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
         mockMvc.perform(
                 get(API_ROOT + "/" + randomNumeric(5))
-                        .with(user(testUser)))
+                        .with(user(TEST_USER)))
                 .andExpect(status().isNotFound());
     }
 
@@ -288,7 +288,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -302,7 +302,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -316,7 +316,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -343,7 +343,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
@@ -355,26 +355,26 @@ public class IdeaControllerIntegTest {
         String newDescription = "new description";
         internalIdea.setId(Long.parseLong(location.split("api/ideas/")[1]));
         internalIdea.setDescription(newDescription);
-        internalIdea.setCreator(userService.findByUsername(testUser));
+        internalIdea.setCreator(userService.findByUsername(TEST_USER));
         String ideaJson = parseIdeaToJson(internalIdea);
 
         mockMvc.perform(
                 put(location)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
 
         JSONObject persistedCreator = new JSONObject(getJsonObjectFromReturn(mvcResult).get("creator").toString());
-        assertEquals(userService.findByUsername(testUser).getUsername(), persistedCreator.get("username"));
+        assertEquals(userService.findByUsername(TEST_USER).getUsername(), persistedCreator.get("username"));
         assertEquals(newDescription, getJsonObjectFromReturn(mvcResult).get("description"));
     }
 
@@ -387,7 +387,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andReturn();
 
@@ -406,13 +406,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user(testUser).roles("ADMIN"))
+                        .with(user(TEST_USER).roles("ADMIN"))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         mockMvc.perform(
                 get(location)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
     }
@@ -425,13 +425,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
 
         mockMvc.perform(
                 get(location)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andExpect(status().isOk());
     }
@@ -445,7 +445,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(testUser))
+                        .with(user(TEST_USER))
                         .with(csrf()))
                 .andReturn();
 

@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><title>Error Occurred</title></head>
-<body>
-<h1>Error Occurred!</h1>
-<b>[<span th:text="${status}">status</span>]
-    <span th:text="${error}">error</span>
-</b>
-<!--        TODO ERROR MESSAGES SHOULD BE DISPLAYED MORE SOPHISTICATED THAN THAT-->
-<p th:text="${message}">message</p>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8"/>
+
+<head>
+    <title>Error Occurred</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+</head>
+
+<div th:replace="/pageParts/navbar :: navbar"></div>
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <p class="lead text-muted">
+            <!--TODO USER SHOULD BE PROVIDED HELP RETURNING TO WHERE HE CAME FROM-->
+            [<span th:text="${status}">status</span>]
+            <span th:text="${error}">error</span>
+        </p>
+    </div>
+</section>
+
+<div th:replace="/pageParts/footer :: footer"></div>
+
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
 </body>
 </html>

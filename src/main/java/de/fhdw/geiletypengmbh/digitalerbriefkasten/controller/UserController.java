@@ -51,7 +51,7 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirmation());
 
-        logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + ", IP: " + LogHelper.getUserIpAddres());
+        logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + "| IP: " + LogHelper.getUserIpAddres());
 
 
         return "redirect:/welcome";
@@ -70,7 +70,7 @@ public class UserController {
     public String redirectLogout(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("[LOGOUT] USERNAME: " + auth.getName() + ", IP: " + LogHelper.getUserIpAddres());
+        logger.info("[LOGOUT] USERNAME: " + auth.getName() + "| IP: " + LogHelper.getUserIpAddres());
 
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);

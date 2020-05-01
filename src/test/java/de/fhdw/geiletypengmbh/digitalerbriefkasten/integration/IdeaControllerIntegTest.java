@@ -12,6 +12,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import groovy.transform.builder.InitializerStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,8 +60,6 @@ public class IdeaControllerIntegTest {
     private static Long testDistributionChannelId;
     private static Long testTargetGroupId;
     private static Long testProductLineId;
-
-    private static Boolean setupDone = false;
 
     private static final Comparator<Advantage> compareById = new Comparator<Advantage>() {
         @Override
@@ -175,7 +174,7 @@ public class IdeaControllerIntegTest {
 
     @BeforeEach
     public void prepareSetup() throws Exception {
-        if (!setupDone) { //Workaround used here because @Before is depreceated and BeforeAll need static method
+        if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
@@ -207,7 +206,7 @@ public class IdeaControllerIntegTest {
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
-            setupDone = true;
+            SETUPDONE = true;
         }
     }
 

@@ -29,7 +29,7 @@
             </li>
         </ul>
     </div>
-    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" onclick="document.forms['logoutForm'].submit()">
+    <button class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()" type="submit">
         <a>Logout</a>
     </button>
     <form id="logoutForm" method="GET" th:action="@{/logout}">

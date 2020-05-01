@@ -1,8 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -24,6 +22,13 @@ public class ProductLine {
     @ManyToMany(mappedBy = "productLines", fetch = FetchType.EAGER)
     private Set<Specialist> specialists;
 
+    public ProductLine(String title) {
+        this.title = title;
+    }
+
+    public ProductLine() {
+    }
+
     public long getId() {
         return id;
     }
@@ -38,13 +43,6 @@ public class ProductLine {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public ProductLine(String title) {
-        this.title = title;
-    }
-
-    public ProductLine() {
     }
 
     ;

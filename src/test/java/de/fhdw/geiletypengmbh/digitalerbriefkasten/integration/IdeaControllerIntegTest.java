@@ -4,15 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import groovy.transform.builder.InitializerStrategy;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,11 +22,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.thymeleaf.spring5.expression.Mvc;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -53,21 +51,18 @@ public class IdeaControllerIntegTest {
 
     private static final String TESTUSER = randomAlphabetic(10);
     private static final String TEST_SPECIALIST = randomAlphabetic(10);
-
-    private static Boolean SETUPDONE = false;
-    private static List<Advantage> advantages = new ArrayList<>();
-    private static Long testFieldId;
-    private static Long testDistributionChannelId;
-    private static Long testTargetGroupId;
-    private static Long testProductLineId;
-
     private static final Comparator<Advantage> compareById = new Comparator<Advantage>() {
         @Override
         public int compare(Advantage o1, Advantage o2) {
             return (o1.getId() < o2.getId() ? -1 : (o1.getId() == o1.getId() ? 0 : 1));
         }
     };
-
+    private static Boolean SETUPDONE = false;
+    private static List<Advantage> advantages = new ArrayList<>();
+    private static Long testFieldId;
+    private static Long testDistributionChannelId;
+    private static Long testTargetGroupId;
+    private static Long testProductLineId;
     @Autowired
     private MockMvc mockMvc;
 

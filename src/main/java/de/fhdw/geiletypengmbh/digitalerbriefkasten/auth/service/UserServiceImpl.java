@@ -1,20 +1,13 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.IdeaNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.RoleRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

@@ -2,7 +2,6 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.FieldNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

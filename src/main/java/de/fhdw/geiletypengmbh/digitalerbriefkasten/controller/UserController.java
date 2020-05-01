@@ -1,7 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.log.LogHelper;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;

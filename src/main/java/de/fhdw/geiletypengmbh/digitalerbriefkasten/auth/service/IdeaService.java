@@ -1,14 +1,11 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

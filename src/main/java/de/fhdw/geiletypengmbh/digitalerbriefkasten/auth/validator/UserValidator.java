@@ -1,6 +1,5 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;

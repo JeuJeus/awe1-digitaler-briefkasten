@@ -1,8 +1,5 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Entity

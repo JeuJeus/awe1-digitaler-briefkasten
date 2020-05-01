@@ -117,6 +117,10 @@ public class Idea {
         return creationDate;
     }
 
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -131,10 +135,6 @@ public class Idea {
 
     public void setStatusJustification(String statusJustification) {
         this.statusJustification = statusJustification;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public ProductLine getProductLine() {

@@ -21,6 +21,7 @@
                                         (#httpServletRequest.getRequestURI()  == '/welcome' ? 'active': '')}">
                 <a class="nav-link" href="/">Home </a>
             </li>
+
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
                 <a class="nav-link" href="/createIdea">Create Idea</a>
             </li>

@@ -23,7 +23,6 @@ public class HelperScriptsNoTests {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Ignore
     @Test
     public void createAdminIfNotExists() {
         /* Used to create Admin if not already available in production DB*/
@@ -37,7 +36,6 @@ public class HelperScriptsNoTests {
         userService.save(admin);
     }
 
-    @Ignore
     @Test
     public void createSpecialistIfNotExists() {
         //TODO REMOVE ME

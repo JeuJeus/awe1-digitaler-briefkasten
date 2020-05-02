@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class LogHelper {
 
-    public static String getUserIpAddres() {
+    public static String getUserIpAddress() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
         return request.getRemoteAddr();

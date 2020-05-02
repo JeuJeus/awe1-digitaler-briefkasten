@@ -21,15 +21,22 @@
                                         (#httpServletRequest.getRequestURI()  == '/welcome' ? 'active': '')}">
                 <a class="nav-link" href="/">Home </a>
             </li>
-
-            <li th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
-                <a class="nav-link" href="/createIdea">Create Idea</a>
-            </li>
+            <li class="nav-item dropdown navbar-dark bg-dark"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Idee einreichen
+                </a>
+                <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                    <a class="nav-link navbar-dark bg-dark" href="/createIdea">Interne Idee</a>
+                    <a class="nav-link navbar-dark bg-dark" href="/createIdea">Produktidee</a>
+                </div>
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/ideas' ? 'active':''}">
                 <a class="nav-link" href="/ideas">List Ideas</a>
             </li>
         </ul>
     </div>
+    <!--TODO: FIX LOGOUT BUTTON ON SLIM SCREENS NOT DISPLAYED-->
     <button class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()" type="submit">
         <a>Logout</a>
     </button>

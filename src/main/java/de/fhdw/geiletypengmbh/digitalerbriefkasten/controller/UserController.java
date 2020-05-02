@@ -17,9 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @Controller
 public class UserController {
@@ -33,18 +35,23 @@ public class UserController {
     private SecurityServiceImpl securityService;
 
     @GetMapping("/registration")
-    public String registration(Model model) {
+    public String registration(Model model, @ModelAttribute("errors") ArrayList<String> errors) {
         model.addAttribute("userForm", new User());
+        model.addAttribute("errors", errors);
 
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            ArrayList<String> errors = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/registration";
         }
 
         userService.save(userForm);
@@ -52,7 +59,6 @@ public class UserController {
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirmation());
 
         logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + " | IP: " + LogHelper.getUserIpAddress());
-
 
         return "redirect:/welcome";
     }

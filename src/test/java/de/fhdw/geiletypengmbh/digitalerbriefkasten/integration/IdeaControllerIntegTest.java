@@ -57,7 +57,7 @@ public class IdeaControllerIntegTest {
             return (o1.getId() < o2.getId() ? -1 : (o1.getId() == o1.getId() ? 0 : 1));
         }
     };
-    private static Boolean SETUPDONE = false;
+    private static Boolean setupDone = false;
     private static List<Advantage> advantages = new ArrayList<>();
     private static Long testFieldId;
     private static Long testDistributionChannelId;
@@ -169,7 +169,7 @@ public class IdeaControllerIntegTest {
 
     @BeforeEach
     public void prepareSetup() throws Exception {
-        if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
+        if (!setupDone) { //Workaround used here because @Before is depreceated and BeforeAll need static method
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
@@ -201,7 +201,7 @@ public class IdeaControllerIntegTest {
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
-            SETUPDONE = true;
+            setupDone = true;
         }
     }
 

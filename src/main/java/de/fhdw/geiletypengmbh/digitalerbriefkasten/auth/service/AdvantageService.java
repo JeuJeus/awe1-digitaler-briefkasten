@@ -22,11 +22,6 @@ public class AdvantageService {
         return advantageRepository.findByDescription(description);
     }
 
-    public List<Advantage> findAll() {
-        //TODO CHECK WHY WE WOULD NEED THIS -> ALL ADVANTAGES BUT WITHOUT CONTEXT OF IDEA xd
-        return advantageRepository.findAll();
-    }
-
     public Advantage save(Advantage advantage) {
         return advantageRepository.save(advantage);
     }

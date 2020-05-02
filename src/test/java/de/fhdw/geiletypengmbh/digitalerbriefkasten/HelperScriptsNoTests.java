@@ -40,7 +40,7 @@ public class HelperScriptsNoTests {
     @Ignore
     @Test
     public void createSpecialistIfNotExists() {
-        //TDO REMOVE ME
+        //TODO REMOVE ME
         /* Used to test Specialist while not implemented to be created otherwise*/
         Role specialistRole = new Role();
         specialistRole.setName("SPECIALIST");

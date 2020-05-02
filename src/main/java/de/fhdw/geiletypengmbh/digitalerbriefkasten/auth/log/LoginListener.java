@@ -15,7 +15,7 @@ public class LoginListener implements ApplicationListener<InteractiveAuthenticat
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
         UserDetails user = (UserDetails) event.getAuthentication().getPrincipal();
-        logger.info("[LOGIN] USERNAME: " + user.getUsername() + " | IP: " + LogHelper.getUserIpAddres());
+        logger.info("[LOGIN] USERNAME: " + user.getUsername() + " | IP: " + LogHelper.getUserIpAddress());
     }
 
 }

@@ -2,6 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,8 @@ public class HomepageController {
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
-
-        ModelAndView mav = new ModelAndView("idea");
+        String view = idea instanceof InternalIdea ? "internalIdea" : "ProductIdea";
+        ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
         return mav;
     }

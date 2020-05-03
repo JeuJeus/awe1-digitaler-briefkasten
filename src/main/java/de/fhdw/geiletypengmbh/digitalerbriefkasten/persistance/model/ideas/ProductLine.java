@@ -1,9 +1,12 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class ProductLine {
@@ -18,15 +21,16 @@ public class ProductLine {
     @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
     private Set<Idea> ideas;*/
 
-    //    @JsonIgnore
+    @JsonIgnoreProperties("productLines")
     @ManyToMany(mappedBy = "productLines", fetch = FetchType.EAGER)
-    private Set<Specialist> specialists;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Specialist> specialists;
 
     public ProductLine(String title) {
         this.title = title;
     }
 
-    public ProductLine(String title, Set<Specialist> specialists) {
+    public ProductLine(String title, List<Specialist> specialists) {
         this.title = title;
         this.specialists = specialists;
     }
@@ -50,11 +54,11 @@ public class ProductLine {
         this.title = title;
     }
 
-    public Set<Specialist> getSpecialists() {
+    public List<Specialist> getSpecialists() {
         return specialists;
     }
 
-    public void setSpecialists(Set<Specialist> specialists) {
+    public void setSpecialists(List<Specialist> specialists) {
         this.specialists = specialists;
     }
 

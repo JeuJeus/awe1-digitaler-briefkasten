@@ -1,21 +1,27 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductLine;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @JsonSerialize
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Specialist extends User {
+    @JsonIgnoreProperties("specialists")
+    @Fetch(value = FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "specialist_productLines",
             joinColumns = @JoinColumn(name = "specialist_id"),
             inverseJoinColumns = @JoinColumn(name = "productLine_id"))
-    private Set<ProductLine> productLines;
+    private List<ProductLine> productLines;
 
     public Specialist() {
         super();
@@ -25,11 +31,11 @@ public class Specialist extends User {
         super(username, password, passwordConfirmation);
     }
 
-    public Set<ProductLine> getProductLines() {
+    public List<ProductLine> getProductLines() {
         return productLines;
     }
 
-    public void setProductLines(Set<ProductLine> productLines) {
+    public void setProductLines(List<ProductLine> productLines) {
         this.productLines = productLines;
     }
 }

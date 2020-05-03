@@ -25,10 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -182,10 +179,6 @@ public class IdeaControllerIntegTest {
             User testUser = new User(IdeaControllerIntegTest.TEST_USER, tempPassword, tempPassword);
             userService.save(testUser);
 
-            tempPassword = randomAlphabetic(10);
-            Specialist testSpecialist = new Specialist(TEST_SPECIALIST, tempPassword, tempPassword);
-            userService.save(testSpecialist);
-
             testFieldId = fieldService.save(
                     new Field(randomAlphabetic(10))
             ).getId();
@@ -201,6 +194,16 @@ public class IdeaControllerIntegTest {
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
+
+            tempPassword = randomAlphabetic(10);
+            Specialist testSpecialist = new Specialist(TEST_SPECIALIST, tempPassword, tempPassword);
+            testSpecialist.setProductLines(new ArrayList<ProductLine>() {
+                {
+                    add(productLineService.findById(testProductLineId));
+                }
+            });
+            userService.save(testSpecialist);
+
             setupDone = true;
         }
     }
@@ -297,6 +300,7 @@ public class IdeaControllerIntegTest {
     public void whenCreateNewInternalIdeaWithSpecialist_thenCreated() throws Exception {
         Idea idea = createRandomInternalIdea();
         idea.setCreator(userService.findByUsername(TEST_SPECIALIST));
+        idea.setSpecialist((Specialist) idea.getCreator());
         String ideaJson = parseIdeaToJson(idea);
         mockMvc.perform(
                 post(API_ROOT)
@@ -454,6 +458,15 @@ public class IdeaControllerIntegTest {
         assert (jsonReturn.get("status")).equals("NOT_SUBMITTED");
         //Status Justification should only be included if set
         assert (!jsonReturn.has("statusJustification"));
+    }
+
+    @Test
+    public void whenGetTestUserAndSpecialist_thenOkay() throws UserNotFoundException {
+        assertEquals(TEST_USER, userService.findByUsername(TEST_USER).getUsername());
+        assertEquals(TEST_SPECIALIST, userService.findByUsername(TEST_SPECIALIST).getUsername());
+        Long persistedTestProductLineId = ((Specialist) userService.findByUsername(TEST_SPECIALIST)).getProductLines().get(0).getId();
+        assertEquals(testProductLineId, persistedTestProductLineId);
+
     }
 
 }

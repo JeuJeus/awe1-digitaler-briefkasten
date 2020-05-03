@@ -8,12 +8,12 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
 </head>
 
-<body>
+<body th:onload="${fields == null}? 'ensureTableContent()'">
 <div th:replace="/pageParts/navbar :: navbar"></div>
 
 
 <div class="container">
-    <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/}" th:object="${createIdea}">
+    <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/internal}" th:object="${createIdea}">
         <h2 class="form-heading">Create new Idea</h2>
         <div class="form-group">
             <input class="form-control" id="title" name="title" placeholder="title" required="required"
@@ -24,9 +24,15 @@
             <textarea class="form-control" id="description" placeholder="description" rows="3"
                       th:field="*{description}"></textarea>
         </div>
+        <div class="form-group row">
+            <select class="form-control" id="fields" name="fields">
+                <option th:each="fields : ${fields}"
+                        th:value="${fields.id}"
+                        th:text="${fields.title}"></option>
+            </select>
+        </div>
         <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
     </form>
-
 </div>
 
 <div th:replace="/pageParts/footer :: footer"></div>

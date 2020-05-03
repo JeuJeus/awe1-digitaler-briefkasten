@@ -1,21 +1,30 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
 @Controller
 public class HomepageController {
 
     @Autowired
     private IdeaService ideaService;
+
+    @Autowired
+    private FieldRepository fieldRepository;
+
 
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
@@ -42,10 +51,21 @@ public class HomepageController {
         return mav;
     }
 
-    @GetMapping("/createIdea")
-    public String createIdea(Model model) {
+    @GetMapping("/createIdea/internal")
+    public ModelAndView createInternalIdea() {
+        List<Field> fields = fieldRepository.findAll();
+
+        ModelAndView mav = new ModelAndView("createIdea/internal");
+        mav.addObject("fields", fields);
+        mav.addObject("createIdea", new InternalIdea());
+
+        return mav;
+    }
+
+    @GetMapping("/createIdea/product")
+    public String createProductIdea(Model model) {
         //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
         model.addAttribute("createIdea", new Idea());
-        return "createIdea";
+        return "createIdea/product";
     }
 }

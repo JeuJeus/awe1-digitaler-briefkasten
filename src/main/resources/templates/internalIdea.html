@@ -37,7 +37,7 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="productLine" name="productLine"
-                       th:value="*{productLine.getTitle()}" type="text" readonly="true">
+                       th:value="*{productLine?.getTitle()}" type="text" readonly="true">
             </div>
         </div>
         <div class="form-group form-row">
@@ -67,7 +67,7 @@
             <label for="field" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Einsatzort</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="field" name="field"
-                       th:value="*{field.getTitle()}" type="text" readonly="true">
+                       th:value="*{field?.getTitle()}" type="text" readonly="true">
             </div>
         </div>
         <div class="form-group form-row">
@@ -75,7 +75,7 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="creator" name="creator"
-                       th:value="*{creator.getUsername()}" type="text" readonly="true">
+                       th:value="*{creator?.getUsername()}" type="text" readonly="true">
             </div>
         </div>
         <div class="form-group form-row">

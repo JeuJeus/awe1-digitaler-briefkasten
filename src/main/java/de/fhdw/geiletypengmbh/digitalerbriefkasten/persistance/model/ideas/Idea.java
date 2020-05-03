@@ -1,10 +1,8 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -63,6 +61,11 @@ public class Idea {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idea_id")
     private List<Advantage> advantages;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "specialist_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Specialist specialist;
 
     public Idea() {
         super();
@@ -151,5 +154,13 @@ public class Idea {
 
     public void setAdvantages(List<Advantage> advantages) {
         this.advantages = advantages;
+    }
+
+    public Specialist getSpecialist() {
+        return specialist;
+    }
+
+    public void setSpecialist(Specialist specialist) {
+        this.specialist = specialist;
     }
 }

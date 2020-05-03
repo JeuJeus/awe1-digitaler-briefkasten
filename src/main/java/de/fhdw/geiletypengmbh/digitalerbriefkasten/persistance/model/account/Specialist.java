@@ -24,4 +24,12 @@ public class Specialist extends User {
     public Specialist(String username, String password, String passwordConfirmation) {
         super(username, password, passwordConfirmation);
     }
+
+    public Set<ProductLine> getProductLines() {
+        return productLines;
+    }
+
+    public void setProductLines(Set<ProductLine> productLines) {
+        this.productLines = productLines;
+    }
 }

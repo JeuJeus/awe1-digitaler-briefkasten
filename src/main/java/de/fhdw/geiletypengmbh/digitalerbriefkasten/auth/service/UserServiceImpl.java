@@ -3,6 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.SpecialistRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository<User> userRepository;
 
     @Autowired
-    private UserRepository<Specialist> specialistRepository;
+    private SpecialistRepository specialistRepository;
 
     @Autowired
     private RoleService roleService;
@@ -33,31 +34,18 @@ public class UserServiceImpl implements UserService {
             if (user instanceof Specialist) user.setRoles(roleService.secureSupplyOfProvidedRole("SPECIALIST"));
             else user.setRoles(roleService.secureSupplyOfProvidedRole("USER"));
         }
-        if (user instanceof Specialist) return specialistRepository.saveAndFlush(user);
-        else return userRepository.saveAndFlush(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Override
     public User findByUsername(String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username);
-        if (user == null) {
-            user = specialistRepository.findByUsername(username);
-            if (user == null) {
-                throw new UserNotFoundException();
-            }
-        }
+        if (user == null) throw new UserNotFoundException();
         return user;
     }
 
     @Override
     public User findById(Long id) throws UserNotFoundException {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
-            user = specialistRepository.findById(id);
-            if (user.isEmpty()) {
-                throw new UserNotFoundException();
-            }
-        }
-        return user.orElseThrow(UserNotFoundException::new);
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 }

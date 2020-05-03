@@ -26,6 +26,11 @@ public class ProductLine {
         this.title = title;
     }
 
+    public ProductLine(String title, Set<Specialist> specialists) {
+        this.title = title;
+        this.specialists = specialists;
+    }
+
     public ProductLine() {
     }
 
@@ -43,6 +48,14 @@ public class ProductLine {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Set<Specialist> getSpecialists() {
+        return specialists;
+    }
+
+    public void setSpecialists(Set<Specialist> specialists) {
+        this.specialists = specialists;
     }
 
     ;

@@ -4,7 +4,7 @@
 Das Programm kann mit Hilfe des Maven Wrappers kompiliert werden:
 - unter Linux/ Mac OS Systemen mit:
     ```chmod +x mvnw & ./mvnw clean compile package```
-- unter Windos mit: 
+- unter Windows mit: 
     ```.\mvnw.cmd clean compile package  ```
 
 Danach kann die Zieldatei welche im Unterordner **target** liegt ausgeführt werden.

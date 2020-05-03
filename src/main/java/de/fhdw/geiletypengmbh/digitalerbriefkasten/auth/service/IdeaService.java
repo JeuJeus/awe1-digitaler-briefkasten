@@ -6,6 +6,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,9 @@ public class IdeaService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FieldRepository fieldRepository;
 
     private User getCurrentUser() throws UserNotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -119,9 +123,14 @@ public class IdeaService {
             throw new NotAuthorizedException();
         }
         try {
-            if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
-                //then -> idea instanceof ProductIdea
-            else return productIdeaRepository.saveAndFlush(idea);
+            if (idea instanceof InternalIdea) {
+                fieldRepository.save(((InternalIdea) idea).getField());
+                return internalIdeaIdeaRepository.saveAndFlush(idea);
+            }
+            //then -> idea instanceof ProductIdea
+            else {
+                return productIdeaRepository.saveAndFlush(idea);
+            }
         } catch (Exception e) {
             throw new IdeaMalformedException(e);
         }

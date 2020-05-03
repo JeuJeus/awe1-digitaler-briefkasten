@@ -7,6 +7,8 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Inter
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.IdeaRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.InternalIdeaRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ProductIdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -23,11 +24,13 @@ import java.util.stream.Collectors;
 public class IdeaService {
 
     @Autowired
-    private IdeaRepository<InternalIdea> internalIdeaIdeaRepository;
+    private InternalIdeaRepository internalIdeaIdeaRepository;
 
     @Autowired
-    private IdeaRepository<ProductIdea> productIdeaRepository;
+    private ProductIdeaRepository productIdeaRepository;
 
+    @Autowired
+    private IdeaRepository<Idea> ideaRepository;
     @Autowired
     private UserService userService;
 
@@ -52,23 +55,19 @@ public class IdeaService {
     }
 
     public Idea findById(Long id) {
-        Optional<Idea> idea = internalIdeaIdeaRepository.findById(id);
-        if (idea.isEmpty()) {
-            idea = productIdeaRepository.findById(id);
-            if (idea.isEmpty()) {
-                throw new IdeaNotFoundException();
-            }
+        Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
+        // Only subtypes of Idea should be found
+        if (!Idea.class.isAssignableFrom(idea.getClass())) {
+            throw new IdeaNotFoundException();
         }
-        return idea.orElseThrow(IdeaNotFoundException::new);
+        return idea;
     }
 
     public Idea save(Idea idea) {
         //Only logged in Users are able to create Ideas
         try {
             getCurrentUser();
-            if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
-                //then -> idea instanceof ProductIdea
-            else return productIdeaRepository.saveAndFlush(idea);
+            return ideaRepository.saveAndFlush(idea);
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
         } catch (Exception e) {
@@ -90,8 +89,7 @@ public class IdeaService {
             if (request.isUserInRole("ADMIN") ||
                     (toDelete.getCreator().equals(currentUser)
                             && toDelete.getStatus().equals(Status.NOT_SUBMITTED))) {
-                if (toDelete instanceof InternalIdea) internalIdeaIdeaRepository.delete(toDelete);
-                else if (toDelete instanceof ProductIdea) productIdeaRepository.delete(toDelete);
+                ideaRepository.delete(toDelete);
             } else {
                 throw new NotAuthorizedException();
             }
@@ -106,10 +104,9 @@ public class IdeaService {
             throw new IdeaIdMismatchException();
         }
         //TODO CHECK IF IDEA HAS CHANGE IN MEANTIME
+        //eventually throws IdeaNotFoundException, thats why its here :)
         Idea checkExistantIdea = this.findById(id);
-        if (idea instanceof InternalIdea) return internalIdeaIdeaRepository.saveAndFlush(idea);
-            //then -> idea instanceof ProductIdea
-        else return productIdeaRepository.saveAndFlush(idea);
+        return ideaRepository.saveAndFlush(idea);
     }
 
     public Idea createByForm(Idea idea) {

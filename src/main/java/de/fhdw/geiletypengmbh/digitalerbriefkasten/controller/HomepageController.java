@@ -15,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-
 @Controller
 public class HomepageController {
 

@@ -11,7 +11,7 @@
 
 <body th:onload="${userList == null}? 'ensureTableContent()'">
 
-<div th:replace="/pageParts/navbar :: navbar"></div>
+<div th:replace="pageParts/navbar :: navbar"></div>
 
 <section class="jumbotron text-center">
     <div class="container">
@@ -48,7 +48,7 @@
     </div>
 </main>
 
-<div th:replace="/pageParts/footer :: footer"></div>
+<div th:replace="pageParts/footer :: footer"></div>
 
 <script>
     function ensureTableContent() {

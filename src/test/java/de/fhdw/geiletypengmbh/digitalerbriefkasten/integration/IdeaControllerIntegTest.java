@@ -465,6 +465,8 @@ public class IdeaControllerIntegTest {
     public void whenGetTestUserAndSpecialist_thenOkay() throws UserNotFoundException {
         assertEquals(TEST_USER, userService.findByUsername(TEST_USER).getUsername());
         assertEquals(TEST_SPECIALIST, userService.findByUsername(TEST_SPECIALIST).getUsername());
+        assertEquals(User.class, userService.findByUsername(TEST_USER).getClass());
+        assertEquals(Specialist.class, userService.findByUsername(TEST_SPECIALIST).getClass());
         Long persistedTestProductLineId = ((Specialist) userService.findByUsername(TEST_SPECIALIST)).getProductLines().get(0).getId();
         assertEquals(testProductLineId, persistedTestProductLineId);
 

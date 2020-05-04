@@ -10,7 +10,9 @@
     <script th:src="@{/js/fontawesome.js}" type="text/javascript"></script>
 </head>
 <body>
-<div th:replace="/pageParts/navbar :: navbar"></div>
+
+<div th:replace="pageParts/navbar :: navbar"></div>
+
 <main class="container">
     <form action="#" th:object="${idea}">
         <h2 class="form-heading">
@@ -103,7 +105,7 @@
 
     </form>
 
-    <div th:replace="/pageParts/footer :: footer"></div>
+    <div th:replace="pageParts/footer :: footer"></div>
 
     <script th:src="@{/js/jquery.js}" type="text/javascript"></script>
     <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>

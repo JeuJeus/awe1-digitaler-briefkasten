@@ -51,9 +51,8 @@ public class IdeaController {
     }
 
     @PostMapping("/internal")
-    public Idea createInternalIdea(@ModelAttribute InternalIdea idea, @ModelAttribute Field field) {
+    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
-        idea.setField(field);
         return ideaService.createByForm(idea);
     }
 

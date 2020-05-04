@@ -127,7 +127,6 @@ public class IdeaService {
         }
         try {
             if (idea instanceof InternalIdea) {
-                ((InternalIdea) idea).setField(fieldService.findById((long) 70));
                 return internalIdeaIdeaRepository.saveAndFlush(idea);
             }
             //then -> idea instanceof ProductIdea

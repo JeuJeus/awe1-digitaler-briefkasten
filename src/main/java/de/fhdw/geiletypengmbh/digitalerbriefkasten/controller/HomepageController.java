@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+//import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
 @Controller
 public class HomepageController {
@@ -71,10 +71,6 @@ public class HomepageController {
     @GetMapping("/createIdea/product")
     public ModelAndView createProductIdea() {
         //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
-        DistributionChannel testDC = new DistributionChannel(randomAlphabetic(10));
-        distributionChannelRepository.saveAndFlush(testDC);
-        TargetGroup testTG = new TargetGroup(randomAlphabetic(10));
-        targetGroupRepository.saveAndFlush(testTG);
         List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
         List<TargetGroup> targetGroups = targetGroupRepository.findAll();
 

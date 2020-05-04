@@ -1,9 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;

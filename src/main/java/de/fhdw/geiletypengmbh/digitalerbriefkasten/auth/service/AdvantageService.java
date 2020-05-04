@@ -2,7 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.AdvantageNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Advantage;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.AdvantageRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.AdvantageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.TargetGroupNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.TargetGroupRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.TargetGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

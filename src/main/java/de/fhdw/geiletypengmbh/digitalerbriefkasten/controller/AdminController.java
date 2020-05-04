@@ -1,7 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

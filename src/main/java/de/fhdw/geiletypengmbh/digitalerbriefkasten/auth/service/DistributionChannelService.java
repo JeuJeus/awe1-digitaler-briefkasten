@@ -2,7 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.DistributionChannelNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.DistributionChannelRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.DistributionChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.UserRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

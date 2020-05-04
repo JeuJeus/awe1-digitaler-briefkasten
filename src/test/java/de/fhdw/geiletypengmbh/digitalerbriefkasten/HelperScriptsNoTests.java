@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.RoleRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.RoleRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

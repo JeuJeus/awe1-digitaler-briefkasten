@@ -40,7 +40,7 @@
                         th:text="${field.getTitle()}"></option>
             </select>
             <div class="form-group row">
-                <select class="form-control" id="productLine" name="field">
+                <select class="form-control" id="productLine" name="productLine">
                     <option th:each="productLine : ${productLines}"
                             th:value="${productLine.getId()}"
                             th:text="${productLine.getTitle()}"></option>

@@ -57,7 +57,7 @@ public class IdeaController {
     }
 
     @PostMapping("/product")
-    public Idea createProductIdea(@ModelAttribute ProductIdea idea, @ModelAttribute TargetGroup targetGroup, @ModelAttribute DistributionChannel distributionChannel) {
+    public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
         return ideaService.createByForm(idea);
     }

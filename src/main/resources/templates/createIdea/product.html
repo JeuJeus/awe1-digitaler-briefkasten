@@ -25,17 +25,17 @@
                       th:field="*{description}"></textarea>
         </div>
         <div class="form-group row">
-            <select class="form-control" id="targetGroups" name="targetGroups">
-                <option th:each="targetGroups : ${targetGroups}"
-                        th:value="${targetGroups.id}"
-                        th:text="${targetGroups.id}"></option>
+            <select class="form-control" id="targetGroups" name="targetGroup">
+                <option th:each="targetGroup : ${targetGroups}"
+                        th:value="${targetGroup.getId()}"
+                        th:text="${targetGroup.getTitle()}"></option>
             </select>
         </div>
         <div class="form-group row">
-            <select class="form-control" id="distributionChannels" name="distributionChannels">
-                <option th:each="distributionChannels : ${distributionChannels}"
-                        th:value="${distributionChannels.id}"
-                        th:text="${distributionChannels.id}"></option>
+            <select class="form-control" id="distributionChannels" name="distributionChannel">
+                <option th:each="distributionChannel : ${distributionChannels}"
+                        th:value="${distributionChannel.getId()}"
+                        th:text="${distributionChannel.getTitle()}"></option>
             </select>
         </div>
         <button class="btn btn-dark btn-block" type="submit">Create Draft</button>

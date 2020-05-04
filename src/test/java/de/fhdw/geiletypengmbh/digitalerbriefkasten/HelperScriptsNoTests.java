@@ -1,6 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.RoleRepository;
@@ -26,6 +26,7 @@ public class HelperScriptsNoTests {
     @Ignore
     @Test
     public void createAdminIfNotExists() {
+        //TODO MAKE ME AVAILABLE FOR DEPLOYMENT!!!
         /* Used to create Admin if not already available in production DB*/
         Role adminRole = new Role();
         adminRole.setName("ADMIN");

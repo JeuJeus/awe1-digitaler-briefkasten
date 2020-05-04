@@ -1,9 +1,9 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.log.LogHelper;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.SecurityServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.validator.UserValidator;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.log.LogHelper;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.SecurityServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.validator.UserValidator;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

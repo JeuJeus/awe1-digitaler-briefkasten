@@ -1,6 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.junit.jupiter.api.BeforeEach;

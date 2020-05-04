@@ -5,6 +5,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.DistributionChannelRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ProductLineRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.TargetGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class HomepageController {
 
     @Autowired
     private TargetGroupRepository targetGroupRepository;
+
+    @Autowired
+    private ProductLineRepository productLineRepository;
 
 
     @GetMapping("/ideas/{id}")
@@ -60,9 +64,11 @@ public class HomepageController {
     @GetMapping("/createIdea/internal")
     public ModelAndView createInternalIdea() {
         List<Field> fields = fieldRepository.findAll();
+        List<ProductLine> productLines = productLineRepository.findAll();
 
         ModelAndView mav = new ModelAndView("createIdea/internal");
         mav.addObject("fields", fields);
+        mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new InternalIdea());
         mav.addObject("advantage", new Advantage());
 

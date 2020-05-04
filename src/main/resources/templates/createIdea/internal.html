@@ -39,8 +39,14 @@
                         th:value="${field.getId()}"
                         th:text="${field.getTitle()}"></option>
             </select>
-        </div>
-        <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
+            <div class="form-group row">
+                <select class="form-control" id="productLine" name="field">
+                    <option th:each="productLine : ${productLines}"
+                            th:value="${productLine.getId()}"
+                            th:text="${productLine.getTitle()}"></option>
+                </select>
+            </div>
+            <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
     </form>
 </div>
 <div th:replace="/pageParts/footer :: footer"></div>

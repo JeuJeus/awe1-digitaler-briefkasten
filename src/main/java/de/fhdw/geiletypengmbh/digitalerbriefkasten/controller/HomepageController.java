@@ -79,10 +79,14 @@ public class HomepageController {
         List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
         List<TargetGroup> targetGroups = targetGroupRepository.findAll();
 
+        List<ProductLine> productLines = productLineRepository.findAll();
+
         ModelAndView mav = new ModelAndView("createIdea/product");
         mav.addObject("distributionChannels", distributionChannels);
         mav.addObject("targetGroups", targetGroups);
+        mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new ProductIdea());
+        mav.addObject("advantage", new Advantage());
 
         return mav;
     }

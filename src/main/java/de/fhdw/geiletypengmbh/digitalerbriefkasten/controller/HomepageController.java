@@ -2,10 +2,10 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.DistributionChannelRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.FieldRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.TargetGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
 @Controller
 public class HomepageController {
@@ -24,6 +24,12 @@ public class HomepageController {
 
     @Autowired
     private FieldRepository fieldRepository;
+
+    @Autowired
+    private DistributionChannelRepository distributionChannelRepository;
+
+    @Autowired
+    private TargetGroupRepository targetGroupRepository;
 
 
     @GetMapping("/ideas/{id}")
@@ -63,9 +69,20 @@ public class HomepageController {
     }
 
     @GetMapping("/createIdea/product")
-    public String createProductIdea(Model model) {
+    public ModelAndView createProductIdea() {
         //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
-        model.addAttribute("createIdea", new Idea());
-        return "createIdea/product";
+        DistributionChannel testDC = new DistributionChannel(randomAlphabetic(10));
+        distributionChannelRepository.saveAndFlush(testDC);
+        TargetGroup testTG = new TargetGroup(randomAlphabetic(10));
+        targetGroupRepository.saveAndFlush(testTG);
+        List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
+        List<TargetGroup> targetGroups = targetGroupRepository.findAll();
+
+        ModelAndView mav = new ModelAndView("createIdea/product");
+        mav.addObject("distributionChannels", distributionChannels);
+        mav.addObject("targetGroups", targetGroups);
+        mav.addObject("createIdea", new ProductIdea());
+
+        return mav;
     }
 }

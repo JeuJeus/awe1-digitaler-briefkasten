@@ -33,6 +33,9 @@ public class IdeaService {
     private UserService userService;
 
     @Autowired
+    private FieldService fieldService;
+
+    @Autowired
     private FieldRepository fieldRepository;
 
     private User getCurrentUser() throws UserNotFoundException {
@@ -124,7 +127,7 @@ public class IdeaService {
         }
         try {
             if (idea instanceof InternalIdea) {
-                fieldRepository.save(((InternalIdea) idea).getField());
+                ((InternalIdea) idea).setField(fieldService.findById((long) 70));
                 return internalIdeaIdeaRepository.saveAndFlush(idea);
             }
             //then -> idea instanceof ProductIdea

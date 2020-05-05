@@ -89,3 +89,13 @@ th {
 .dblFontSize {
     font-size: 2rem;
 }
+
+/*CSS FIXES FOR SELECT2 FIELDS*/
+
+.form-control .row {
+    margin: 0px;
+}
+
+.select2-container {
+    width: 100% !important;
+}

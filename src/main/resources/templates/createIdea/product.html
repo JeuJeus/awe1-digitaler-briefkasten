@@ -37,7 +37,7 @@
         </div>
         <p>Vertriebskanal auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-mul" name="distributionChannel" multiple="multiple">
+            <select class="form-control-mul" id="distributionChannel" name="distributionChannel" multiple="multiple">
                 <option th:each="distributionChannel : ${distributionChannels}"
                         th:value="${distributionChannel.getId()}"
                         th:text="${distributionChannel.getTitle()}"></option>
@@ -45,7 +45,7 @@
         </div>
         <p>Produktsparte auswählen:</p>
         <div class="form-group row">
-            <select class="form-control" id="productLine" name="Produktsparte" required="required">
+            <select class="form-control" id="productLine" name="productLine" required="required">
                 <option th:each="productLine : ${productLines}"
                         th:value="${productLine.getId()}"
                         th:text="${productLine.getTitle()}"></option>

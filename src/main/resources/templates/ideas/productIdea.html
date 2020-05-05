@@ -141,8 +141,6 @@
             selects.forEach((select) => {
                 let options = select.options;
                 for (option of options) {
-                    // let newOption = new Option(option.id,"test", true, true);
-                    // select.append(newOption);
                     option.selected = true;
                 }
                 select.dispatchEvent(new Event('change'));

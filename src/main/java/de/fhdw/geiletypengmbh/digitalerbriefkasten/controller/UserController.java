@@ -39,7 +39,7 @@ public class UserController {
         model.addAttribute("userForm", new User());
         model.addAttribute("errors", errors);
 
-        return "registration";
+        return "account/registration";
     }
 
     @PostMapping("/registration")
@@ -51,7 +51,7 @@ public class UserController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/registration";
+            return "redirect:/account/registration";
         }
 
         userService.save(userForm);
@@ -69,7 +69,7 @@ public class UserController {
         if (logout != null) {
             model.addAttribute("message", "Logout was successfull");
         }
-        return "login";
+        return "account/login";
     }
 
     @GetMapping("/logout")
@@ -88,6 +88,7 @@ public class UserController {
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model, HttpServletRequest request) {
         //returns landing page -> if admin=admin else if specialist=specialist else welcome (user landing page)
-        return (request.isUserInRole("ADMIN")) ? "admin" : (request.isUserInRole("SPECIALIST") ? "specialist" : "welcome");
+        return (request.isUserInRole("ADMIN")) ? "account/admin" :
+                (request.isUserInRole("SPECIALIST") ? "account/specialist" : "account/welcome");
     }
 }

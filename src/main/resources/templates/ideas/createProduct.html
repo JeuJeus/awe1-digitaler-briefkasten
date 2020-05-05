@@ -4,9 +4,9 @@
 
 <head>
     <title>Create Idea</title>
-    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{/css/select2.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
 </head>
 
 <body th:onload="${distributionChannels == null}? 'ensureTableContent()'; ${targetGroups == null}? 'ensureTableContent()'">
@@ -69,9 +69,9 @@
 
 </div>
 <div th:replace="/pageParts/footer :: footer"></div>
-<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
-<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
-<script th:src="@{/js/select2.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/select2.min.js}" type="text/javascript"></script>
 <script>
     var output
     $(document).ready(function () {

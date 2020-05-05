@@ -5,8 +5,8 @@
 <head>
     <title>Log in with your account</title>
 
-    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <form action="#" class="form-signin" method="POST" th:action="@{/login}">
 
         <h2 class="form-heading">
-            <img th:class="img-responsive" th:src="@{/images/logo.png}"/>
+            <img th:class="img-responsive" th:src="@{../images/logo.png}"/>
             Digitaler Briefkasten
         </h2>
 
@@ -46,8 +46,8 @@
 
 <div th:replace="pageParts/footer :: footer"></div>
 
-<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
-<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
 
 </body>
 </html>

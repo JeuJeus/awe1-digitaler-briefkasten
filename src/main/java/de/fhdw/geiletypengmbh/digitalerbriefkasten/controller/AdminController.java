@@ -23,7 +23,7 @@ public class AdminController {
 
         List<User> userList = userRepository.findAll();
 
-        ModelAndView mav = new ModelAndView("admin");
+        ModelAndView mav = new ModelAndView("account/admin");
         mav.addObject("userList", userList);
 
         return mav;
@@ -33,7 +33,7 @@ public class AdminController {
     public ModelAndView listUserDetails(@PathVariable String username) {
         User user = userRepository.findByUsername(username);
 
-        ModelAndView mav = new ModelAndView("userDetails");
+        ModelAndView mav = new ModelAndView("account/userDetails");
         mav.addObject("user", user);
 
         return mav;

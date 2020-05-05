@@ -36,7 +36,7 @@ public class HomepageController {
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
-        String view = idea instanceof InternalIdea ? "internalIdea" : "ProductIdea";
+        String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
         return mav;
@@ -50,7 +50,7 @@ public class HomepageController {
         List<Idea> internalIdeas = ideaService.filterInternalIdeas(submittedIdeas);
         List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
-        ModelAndView mav = new ModelAndView("ideas");
+        ModelAndView mav = new ModelAndView("ideas/ideas");
         mav.addObject("productIdeas", productIdeas);
         mav.addObject("internalIdeas", internalIdeas);
         mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
@@ -63,7 +63,7 @@ public class HomepageController {
         List<Field> fields = fieldRepository.findAll();
         List<ProductLine> productLines = productLineRepository.findAll();
 
-        ModelAndView mav = new ModelAndView("createIdea/internal");
+        ModelAndView mav = new ModelAndView("ideas/createInternal");
         mav.addObject("fields", fields);
         mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new InternalIdea());
@@ -80,7 +80,7 @@ public class HomepageController {
 
         List<ProductLine> productLines = productLineRepository.findAll();
 
-        ModelAndView mav = new ModelAndView("createIdea/product");
+        ModelAndView mav = new ModelAndView("ideas/createProduct");
         mav.addObject("distributionChannels", distributionChannels);
         mav.addObject("targetGroups", targetGroups);
         mav.addObject("productLines", productLines);

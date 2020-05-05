@@ -22,6 +22,16 @@
                       required="required"
                       th:field="*{description}"></textarea>
         </div>
+        <p>Handlungsfeld / Abteilung auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control-fields" id="fields" name="Handlungsfeld" required="required"
+                    multiple="multiple">
+                <option th:each="field : ${fields}"
+                        th:value="${field.getId()}"
+                        th:text="${field.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Bis zu 3 Vorteile eingeben, die Ihre Idee hat:</p>
         <div class="form-group">
             <textarea class="form-control" id="advantages1" placeholder="Vorteil" rows="2"
                       th:field="*{advantages[0].description}"></textarea>

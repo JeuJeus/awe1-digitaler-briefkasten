@@ -28,7 +28,7 @@
         </div>
         <p>Zielgruppe auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-mul" id="targetGroups" name="targetGroup" required="required"
+            <select class="form-control-mul" id="targetGroups" name="targetGroups" required="required"
                     multiple="multiple">
                 <option th:each="targetGroup : ${targetGroups}"
                         th:value="${targetGroup.getId()}"
@@ -37,7 +37,7 @@
         </div>
         <p>Vertriebskanal auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-mul" id="distributionChannel" name="distributionChannel" multiple="multiple">
+            <select class="form-control-mul" id="distributionChannel" name="distributionChannels" multiple="multiple">
                 <option th:each="distributionChannel : ${distributionChannels}"
                         th:value="${distributionChannel.getId()}"
                         th:text="${distributionChannel.getTitle()}"></option>

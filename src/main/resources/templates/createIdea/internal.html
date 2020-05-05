@@ -24,8 +24,7 @@
         </div>
         <p>Handlungsfeld / Abteilung auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-fields" id="fields" name="Handlungsfeld" required="required"
-                    multiple="multiple">
+            <select class="form-control" id="fields" name="field" required="required">
                 <option th:each="field : ${fields}"
                         th:value="${field.getId()}"
                         th:text="${field.getTitle()}"></option>

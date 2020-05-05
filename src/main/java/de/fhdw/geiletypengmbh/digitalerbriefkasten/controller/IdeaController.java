@@ -2,6 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,14 @@ public class IdeaController {
         return ideaService.updateIdea(idea, id);
     }
 
-    @PostMapping(consumes = "application/x-www-form-urlencoded")
-    public Idea createByForm(@ModelAttribute Idea idea) {
+    @PostMapping("/internal")
+    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) {
+        //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
+        return ideaService.createByForm(idea);
+    }
+
+    @PostMapping("/product")
+    public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
         return ideaService.createByForm(idea);
     }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<head>
+    <title>Create Idea</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/select2.min.css}" type="text/css"/>
+</head>
+
+<body th:onload="${distributionChannels == null}? 'ensureTableContent()'; ${targetGroups == null}? 'ensureTableContent()'">
+<div th:replace="/pageParts/navbar :: navbar"></div>
+
+
+<div class="container">
+    <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/product}" th:object="${createIdea}">
+        <h2 class="form-heading">Neue Produktidee erstellen</h2>
+        <div class="form-group">
+            <input class="form-control" id="title" name="Titel" placeholder="Titel" required="required"
+                   th:field="*{title}"
+                   type="text">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" rows="4"
+                      required="required"
+                      th:field="*{description}"></textarea>
+        </div>
+        <p>Zielgruppe auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control-mul" id="targetGroups" name="targetGroup" required="required"
+                    multiple="multiple">
+                <option th:each="targetGroup : ${targetGroups}"
+                        th:value="${targetGroup.getId()}"
+                        th:text="${targetGroup.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Vertriebskanal auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control-mul" id="distributionChannel" name="distributionChannel" multiple="multiple">
+                <option th:each="distributionChannel : ${distributionChannels}"
+                        th:value="${distributionChannel.getId()}"
+                        th:text="${distributionChannel.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Produktsparte auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control" id="productLine" name="productLine" required="required">
+                <option th:each="productLine : ${productLines}"
+                        th:value="${productLine.getId()}"
+                        th:text="${productLine.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Bis zu drei Vorteile eingeben:</p>
+        <div class="form-group">
+            <textarea class="form-control" id="advantages1" placeholder="Vorteil" rows="2"
+                      th:field="*{advantages[0].description}"></textarea>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="advantages2" placeholder="Vorteil" rows="2"
+                      th:field="*{advantages[1].description}"></textarea>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="advantages3" placeholder="Vorteil" rows="2"
+                      th:field="*{advantages[2].description}"></textarea>
+        </div>
+        <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
+    </form>
+
+</div>
+<div th:replace="/pageParts/footer :: footer"></div>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/select2.min.js}" type="text/javascript"></script>
+<script>
+    var output
+    $(document).ready(function () {
+        output = $('.form-control-mul').select2();
+    });
+    console.log(getSelection());
+</script>
+</body>
+
+</html>

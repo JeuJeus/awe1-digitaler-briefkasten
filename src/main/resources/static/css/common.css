@@ -98,3 +98,13 @@ th {
 .hover-icon:hover .only-show-on-table-cell-hover {
     opacity: 1;
 }
+
+/*CSS FIXES FOR SELECT2 FIELDS*/
+
+.form-group.row {
+    margin: 0px 0px 1rem;
+}
+
+.select2-container {
+    width: 100% !important;
+}

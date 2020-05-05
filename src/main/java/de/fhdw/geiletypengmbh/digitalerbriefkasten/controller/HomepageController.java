@@ -1,11 +1,13 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.DistributionChannelRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.TargetGroupRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,19 @@ public class HomepageController {
 
     @Autowired
     private IdeaService ideaService;
+
+    @Autowired
+    private FieldRepository fieldRepository;
+
+    @Autowired
+    private DistributionChannelRepository distributionChannelRepository;
+
+    @Autowired
+    private TargetGroupRepository targetGroupRepository;
+
+    @Autowired
+    private ProductLineRepository productLineRepository;
+
 
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
@@ -43,10 +58,35 @@ public class HomepageController {
         return mav;
     }
 
-    @GetMapping("/createIdea")
-    public String createIdea(Model model) {
+    @GetMapping("/createIdea/internal")
+    public ModelAndView createInternalIdea() {
+        List<Field> fields = fieldRepository.findAll();
+        List<ProductLine> productLines = productLineRepository.findAll();
+
+        ModelAndView mav = new ModelAndView("createIdea/internal");
+        mav.addObject("fields", fields);
+        mav.addObject("productLines", productLines);
+        mav.addObject("createIdea", new InternalIdea());
+        mav.addObject("advantage", new Advantage());
+
+        return mav;
+    }
+
+    @GetMapping("/createIdea/product")
+    public ModelAndView createProductIdea() {
         //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
-        model.addAttribute("createIdea", new Idea());
-        return "createIdea";
+        List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
+        List<TargetGroup> targetGroups = targetGroupRepository.findAll();
+
+        List<ProductLine> productLines = productLineRepository.findAll();
+
+        ModelAndView mav = new ModelAndView("createIdea/product");
+        mav.addObject("distributionChannels", distributionChannels);
+        mav.addObject("targetGroups", targetGroups);
+        mav.addObject("productLines", productLines);
+        mav.addObject("createIdea", new ProductIdea());
+        mav.addObject("advantage", new Advantage());
+
+        return mav;
     }
 }

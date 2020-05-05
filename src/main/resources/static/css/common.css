@@ -92,8 +92,8 @@ th {
 
 /*CSS FIXES FOR SELECT2 FIELDS*/
 
-.form-control .row {
-    margin: 0px;
+.form-group.row {
+    margin: 0px 0px 1rem;
 }
 
 .select2-container {

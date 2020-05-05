@@ -1,6 +1,11 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class TargetGroup {
@@ -11,6 +16,11 @@ public class TargetGroup {
 
     @Column(nullable = false)
     private String title;
+
+    @JsonIgnoreProperties("productIdeas")
+    @ManyToMany(mappedBy = "targetGroups", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<ProductIdea> productIdeas;
 
     public TargetGroup() {
         super();
@@ -37,4 +47,11 @@ public class TargetGroup {
         this.title = description;
     }
 
+    public Set<ProductIdea> getProductIdeas() {
+        return productIdeas;
+    }
+
+    public void setProductIdeas(Set<ProductIdea> productIdeas) {
+        this.productIdeas = productIdeas;
+    }
 }

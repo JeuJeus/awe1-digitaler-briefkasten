@@ -146,8 +146,16 @@ public class IdeaControllerIntegTest {
         idea.setTitle("PRODUCT" + randomAlphabetic(10));
         idea.setDescription(randomAlphabetic(15));
         idea.setCreator(userService.findByUsername(TEST_USER));
-        idea.setTargetGroup(targetGroupService.findById(testTargetGroupId));
-        idea.setDistributionChannel(distributionChannelService.findById(testDistributionChannelId));
+        idea.setTargetGroups(new HashSet<TargetGroup>() {
+            {
+                add(targetGroupService.findById(testTargetGroupId));
+            }
+        });
+        idea.setDistributionChannels(new HashSet<DistributionChannel>() {
+            {
+                add(distributionChannelService.findById(testDistributionChannelId));
+            }
+        });
         idea.setAdvantages(advantages);
         idea.setProductLine(productLineService.findById(testProductLineId));
         return idea;
@@ -155,6 +163,7 @@ public class IdeaControllerIntegTest {
 
     private String createIdeaAsUri(Idea idea) throws Exception {
         String ideaJson = parseIdeaToJson(idea);
+
         MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(ideaJson)
@@ -271,8 +280,10 @@ public class IdeaControllerIntegTest {
             assertEquals(productIdea.getAdvantages().get(i).getDescription(), persistedIdea.getAdvantages().get(i).getDescription());
         }
         assertEquals(productIdea.getProductLine().getTitle(), persistedIdea.getProductLine().getTitle());
-        assertEquals(productIdea.getTargetGroup().getTitle(), persistedIdea.getTargetGroup().getTitle());
-        assertEquals(productIdea.getDistributionChannel().getTitle(), productIdea.getDistributionChannel().getTitle());
+        assertEquals(productIdea.getTargetGroups().stream().findFirst().get().getTitle(),
+                persistedIdea.getTargetGroups().stream().findFirst().get().getTitle());
+        assertEquals(productIdea.getDistributionChannels().stream().findFirst().get().getTitle(),
+                productIdea.getDistributionChannels().stream().findFirst().get().getTitle());
     }
 
     @Test

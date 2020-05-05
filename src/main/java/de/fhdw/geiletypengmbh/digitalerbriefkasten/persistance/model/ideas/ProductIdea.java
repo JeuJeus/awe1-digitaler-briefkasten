@@ -1,37 +1,49 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "productIdea")
 public class ProductIdea extends Idea {
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "targetGroup_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private TargetGroup targetGroup;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("productIdeas")
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinTable(
+            name = "productIdea_targetGroup",
+            joinColumns = @JoinColumn(name = "productIdea_id"),
+            inverseJoinColumns = @JoinColumn(name = "targetGroup_id"))
+    private Set<TargetGroup> targetGroups;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "distributionChannel_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private DistributionChannel distributionChannel;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("productIdeas")
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinTable(
+            name = "productIdea_distributionChannel",
+            joinColumns = @JoinColumn(name = "productIdea_id"),
+            inverseJoinColumns = @JoinColumn(name = "distributionChannel_id"))
+    private Set<DistributionChannel> distributionChannels;
 
-    public TargetGroup getTargetGroup() {
-        return targetGroup;
+    public Set<TargetGroup> getTargetGroups() {
+        return targetGroups;
     }
 
-    public void setTargetGroup(TargetGroup targetGroup) {
-        this.targetGroup = targetGroup;
+    public void setTargetGroups(Set<TargetGroup> targetGroups) {
+        this.targetGroups = targetGroups;
     }
 
-    public DistributionChannel getDistributionChannel() {
-        return distributionChannel;
+    public Set<DistributionChannel> getDistributionChannels() {
+        return distributionChannels;
     }
 
-    public void setDistributionChannel(DistributionChannel distributionChannel) {
-        this.distributionChannel = distributionChannel;
+    public void setDistributionChannels(Set<DistributionChannel> distributionChannels) {
+        this.distributionChannels = distributionChannels;
     }
 }

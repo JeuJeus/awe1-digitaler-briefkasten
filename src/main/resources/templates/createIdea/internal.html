@@ -11,14 +11,15 @@
 <div th:replace="/pageParts/navbar :: navbar"></div>
 <div class="container">
     <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/internal}" th:object="${createIdea}">
-        <h2 class="form-heading">Create new Idea</h2>
+        <h2 class="form-heading">Neue interne Idee erstellen</h2>
         <div class="form-group">
-            <input class="form-control" id="title" name="title" placeholder="title" required="required"
+            <input class="form-control" id="title" name="Beschreibung" placeholder="Titel" required="required"
                    th:field="*{title}"
                    type="text">
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="description" placeholder="description" rows="3"
+            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" rows="4"
+                      required="required"
                       th:field="*{description}"></textarea>
         </div>
         <div class="form-group">
@@ -33,20 +34,7 @@
             <textarea class="form-control" id="advantages3" placeholder="Vorteil" rows="2"
                       th:field="*{advantages[2].description}"></textarea>
         </div>
-        <div class="form-group row">
-            <select class="form-control" id="fields" name="field">
-                <option th:each="field : ${fields}"
-                        th:value="${field.getId()}"
-                        th:text="${field.getTitle()}"></option>
-            </select>
-            <div class="form-group row">
-                <select class="form-control" id="productLine" name="productLine">
-                    <option th:each="productLine : ${productLines}"
-                            th:value="${productLine.getId()}"
-                            th:text="${productLine.getTitle()}"></option>
-                </select>
-            </div>
-            <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
+        <button class="btn btn-dark btn-block" type="submit">Idee erstellen</button>
     </form>
 </div>
 <div th:replace="/pageParts/footer :: footer"></div>

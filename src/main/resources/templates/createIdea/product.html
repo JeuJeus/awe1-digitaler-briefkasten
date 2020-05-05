@@ -14,16 +14,42 @@
 
 <div class="container">
     <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/product}" th:object="${createIdea}">
-        <h2 class="form-heading">Create new Idea</h2>
+        <h2 class="form-heading">Neue Produktidee erstellen</h2>
         <div class="form-group">
-            <input class="form-control" id="title" name="title" placeholder="title" required="required"
+            <input class="form-control" id="title" name="Titel" placeholder="Titel" required="required"
                    th:field="*{title}"
                    type="text">
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="description" placeholder="description" rows="3"
+            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" rows="4"
+                      required="required"
                       th:field="*{description}"></textarea>
         </div>
+        <p>Zielgruppe auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control" id="targetGroups" name="targetGroup" required="required">
+                <option th:each="targetGroup : ${targetGroups}"
+                        th:value="${targetGroup.getId()}"
+                        th:text="${targetGroup.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Vertriebskanal auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control" id="distributionChannels" name="distributionChannel" required="required">
+                <option th:each="distributionChannel : ${distributionChannels}"
+                        th:value="${distributionChannel.getId()}"
+                        th:text="${distributionChannel.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Produktsparte auswählen:</p>
+        <div class="form-group row">
+            <select class="form-control" id="productLine" name="Produktsparte" required="required">
+                <option th:each="productLine : ${productLines}"
+                        th:value="${productLine.getId()}"
+                        th:text="${productLine.getTitle()}"></option>
+            </select>
+        </div>
+        <p>Bis zu drei Vorteile eingeben:</p>
         <div class="form-group">
             <textarea class="form-control" id="advantages1" placeholder="Vorteil" rows="2"
                       th:field="*{advantages[0].description}"></textarea>
@@ -35,27 +61,6 @@
         <div class="form-group">
             <textarea class="form-control" id="advantages3" placeholder="Vorteil" rows="2"
                       th:field="*{advantages[2].description}"></textarea>
-        </div>
-        <div class="form-group row">
-            <select class="form-control" id="targetGroups" name="targetGroup">
-                <option th:each="targetGroup : ${targetGroups}"
-                        th:value="${targetGroup.getId()}"
-                        th:text="${targetGroup.getTitle()}"></option>
-            </select>
-        </div>
-        <div class="form-group row">
-            <select class="form-control" id="distributionChannels" name="distributionChannel">
-                <option th:each="distributionChannel : ${distributionChannels}"
-                        th:value="${distributionChannel.getId()}"
-                        th:text="${distributionChannel.getTitle()}"></option>
-            </select>
-        </div>
-        <div class="form-group row">
-            <select class="form-control" id="productLine" name="productLine">
-                <option th:each="productLine : ${productLines}"
-                        th:value="${productLine.getId()}"
-                        th:text="${productLine.getTitle()}"></option>
-            </select>
         </div>
         <button class="btn btn-dark btn-block" type="submit">Create Draft</button>
     </form>

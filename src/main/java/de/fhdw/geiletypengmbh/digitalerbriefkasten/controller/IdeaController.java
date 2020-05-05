@@ -2,6 +2,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.auth.service.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ProductLineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class IdeaController {
 
     @Autowired
     private IdeaService ideaService;
+
+    @Autowired
+    private ProductLineRepository productLineRepository;
 
     @GetMapping
     public Iterable<Idea> findAll() {
@@ -53,6 +57,8 @@ public class IdeaController {
     @PostMapping("/internal")
     public Idea createInternalIdea(@ModelAttribute InternalIdea idea) {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
+        List<ProductLine> INTERNAL = productLineRepository.findByTitle("INTERNAL");
+        idea.setProductLine(INTERNAL.get(0));
         return ideaService.createByForm(idea);
     }
 

@@ -3,7 +3,7 @@
 <meta charset="utf-8"/>
 
 <head>
-    <title>Create an account</title>
+    <title>Nutzerkonto erstellen</title>
 
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
@@ -13,12 +13,10 @@
 
 <div class="container">
     <form class="form-signin" enctype="utf8" method="POST" th:action="@{/registration}">
-
         <h2 class="form-heading">
             <img th:class="img-responsive" th:src="@{../images/logo.png}"/>
             Digitaler Briefkasten
         </h2>
-
         <div th:each="error: ${errors}">
             <div class="alert alert-danger" th:utext="${#strings.replace(error, '\n', '<br>')}">
             </div>
@@ -29,17 +27,23 @@
                    type="text">
         </div>
         <div class="form-group">
-            <input class="form-control" id="password" name="password" placeholder="Password" required="required"
+            <input class="form-control" id="firstName" name="firstName" placeholder="Vorname" required="required">
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="lastName" name="lastName" placeholder="Nachname" required="required">
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="password" name="password" placeholder="Passwort" required="required"
                    type="password">
         </div>
         <div class="form-group">
             <input class="form-control" id="passwordConfirmation" name="passwordConfirmation"
-                   placeholder="Password Confirmation"
+                   placeholder="Passwort bestätigen"
                    required="required"
                    type="password">
         </div>
         <div class="form-group">
-            <button class="btn btn-dark btn-block" type="submit">Register</button>
+            <button class="btn btn-dark btn-block" type="submit">Registrieren</button>
         </div>
     </form>
 

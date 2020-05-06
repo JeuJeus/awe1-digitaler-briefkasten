@@ -34,6 +34,10 @@
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/ideas' ? 'active':''}">
                 <a class="nav-link" href="/ideas">Ideen anschauen</a>
             </li>
+            <li th:if="${specialist == true}"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
+                <a class="nav-link" href="/specialist">Eingereichte Ideen bewerten</a>
+            </li>
         </ul>
     </div>
     <!--TODO: FIX LOGOUT BUTTON ON SLIM SCREENS NOT DISPLAYED-->

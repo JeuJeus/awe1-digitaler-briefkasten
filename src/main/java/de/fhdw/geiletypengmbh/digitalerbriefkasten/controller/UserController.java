@@ -1,8 +1,14 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.log.LogHelper;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.SecurityServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.validator.UserValidator;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.slf4j.Logger;
@@ -22,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -33,6 +40,8 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private SecurityServiceImpl securityService;
+    @Autowired
+    IdeaService ideaService;
 
     @GetMapping("/registration")
     public String registration(Model model, @ModelAttribute("errors") ArrayList<String> errors) {
@@ -59,12 +68,13 @@ public class UserController {
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirmation());
 
         logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + " | IP: " + LogHelper.getUserIpAddress());
-
+        // User cannot be specialist right after registration
+        redirectAttributes.addFlashAttribute("specialist", false);
         return "redirect:/welcome";
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) {
+    public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) throws UserNotFoundException {
         //Note that login Post Controller is provided automatically by Spring Security
         if (logout != null) {
             model.addAttribute("message", "Logout was successfull");
@@ -86,9 +96,31 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model, HttpServletRequest request) {
+    public String welcome(Model model, HttpServletRequest request) throws UserNotFoundException {
         //returns landing page -> if admin=admin else if specialist=specialist else welcome (user landing page)
-        return (request.isUserInRole("ADMIN")) ? "account/admin" :
-                (request.isUserInRole("SPECIALIST") ? "account/specialist" : "account/welcome");
+        if (request.isUserInRole("ADMIN")) {
+            return "account/admin";
+        } else {
+            model.addAttribute("specialist", userService.getCurrentUser() instanceof Specialist);
+            return (request.isUserInRole("SPECIALIST") ? "redirect:/specialist" : "account/welcome");
+        }
+    }
+
+    @GetMapping("/specialist")
+    public String specialist(Model model) throws UserNotFoundException {
+        User user = userService.getCurrentUser();
+        if (!(user instanceof Specialist)) {
+            throw new NotAuthorizedException();
+        }
+        List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
+        System.out.println(user.getId());
+        System.out.println(pendingIdeas.size());
+        ;
+
+        model.addAttribute("pendingIdeas", pendingIdeas);
+        model.addAttribute("specialist", true);
+        return "account/specialist";
     }
 }
+
+

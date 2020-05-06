@@ -209,6 +209,13 @@ public class IdeaService {
         return specialist;
     }
 
+    public List<Idea> findBySpecialistIdAndStatus(Long specialist_id, Status status) {
+        List<Idea> ideas = new ArrayList<>();
+        ideas = ideaRepository.findBySpecialistIdAndStatus(specialist_id, status);
+
+        return ideas;
+    }
+
     public String getDefaultInternalProductLineTitle() {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }

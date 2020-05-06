@@ -25,6 +25,7 @@ public class AdminController {
 
         ModelAndView mav = new ModelAndView("account/admin");
         mav.addObject("userList", userList);
+        mav.addObject("specialist", false);
 
         return mav;
     }
@@ -35,6 +36,7 @@ public class AdminController {
 
         ModelAndView mav = new ModelAndView("account/userDetails");
         mav.addObject("user", user);
+        mav.addObject("specialist", false);
 
         return mav;
     }

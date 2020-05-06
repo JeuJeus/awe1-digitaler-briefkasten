@@ -1,15 +1,13 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.IdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.InternalIdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductIdeaRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -32,8 +31,14 @@ public class IdeaService {
 
     @Autowired
     private IdeaRepository<Idea> ideaRepository;
+
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
+
+    @Autowired
+    private ProductLineService productLineService;
+
+    private final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
 
     private User getCurrentUser() throws UserNotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -110,9 +115,10 @@ public class IdeaService {
         return ideaRepository.saveAndFlush(idea);
     }
 
-    public Idea createByForm(Idea idea) {
+    public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
         try {
             idea.setCreator(getCurrentUser());
+            idea.setSpecialist(this.getSpecialistOfNewIdea(idea));
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
         }
@@ -160,5 +166,57 @@ public class IdeaService {
         return allIdeas.stream().
                 filter(ideaBelongsToCurUser.and(ideaIsNotSubmitted))
                 .collect(Collectors.toList());
+    }
+
+    public Specialist getSpecialistOfNewIdea(Idea idea) throws UserNotFoundException, InternalProductLineNotExistingException {
+        Optional<Specialist> specialist;
+        if (idea instanceof ProductIdea) {
+            specialist = getSpecialistOfNewProductlIdea((ProductIdea) idea);
+            if (specialist.isEmpty()) {
+                // if no matching specialist if found, return the first one you can find
+                specialist = userService.findAllSpecialists().stream().findFirst();
+            }
+        } else {
+            specialist = getSpecialistOfNewInternalIdea((InternalIdea) idea);
+            if (specialist.isEmpty()) {
+                throw new InternalProductLineNotExistingException();
+            }
+        }
+        if (specialist.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+        return specialist.get();
+    }
+
+    //TODO maybe change logic to: when multiple specialists found, pick random one?
+    private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
+        Optional<Specialist> specialist = Optional.empty();
+        List<ProductLine> internalProductLines =
+                productLineService.findByTitle(getDefaultInternalProductLineTitle());
+        if (!internalProductLines.isEmpty()) {
+            ProductLine internalProductLine = internalProductLines.get(0);
+            List<Specialist> internalSpecialists = userService.findSpecialistByProductLine_id(internalProductLine.getId());
+            if (!internalSpecialists.isEmpty()) {
+                specialist = Optional.ofNullable(internalSpecialists.get(0));
+            }
+        }
+        return specialist;
+    }
+    //TODO maybe change logic to: when multiple specialists found, pick random one?
+
+    private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
+        Optional<Specialist> specialist = Optional.empty();
+        ProductLine productLine = productLineService.findById(idea.getProductLine().getId());
+        if (productLine != null) {
+            List<Specialist> specialists = userService.findSpecialistByProductLine_id(productLine.getId());
+            if (!specialists.isEmpty()) {
+                specialist = Optional.ofNullable(specialists.get(0));
+            }
+        }
+        return specialist;
+    }
+
+    public String getDefaultInternalProductLineTitle() {
+        return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }
 }

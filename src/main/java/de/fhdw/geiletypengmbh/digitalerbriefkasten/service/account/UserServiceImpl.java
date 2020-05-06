@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -46,4 +48,14 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) throws UserNotFoundException {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
+
+
+    public List<Specialist> findAllSpecialists() {
+        return specialistRepository.findAll();
+    }
+
+    public List<Specialist> findSpecialistByProductLine_id(Long productLine_id) {
+        return specialistRepository.findByProductLinesId(productLine_id);
+    }
+
 }

@@ -1,8 +1,11 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.integration;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductLine;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.ProductLineService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
@@ -32,10 +37,15 @@ public class UserControllerIntegTest {
     private final static String TEST_PASSWORD = "testPassword";
     private final static String TEST_PASSWORD_TOO_SHORT = "test";
     private static Boolean SETUPDONE = false;
+
     @Autowired
     private MockMvc mockMvc;
+
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private ProductLineService productLineService;
 
     @BeforeEach
     public void prepareSetup() {
@@ -115,4 +125,22 @@ public class UserControllerIntegTest {
                 .andExpect(authenticated().withRoles("USER"));
     }
 
+    //Test Crud Method find specialist via n:m mapping
+    @Test
+    public void whenCreatedSpecialistFoundByProductLine_thenOkay() {
+        Set<Role> emptyRoles = emptySet();
+        Specialist specialist = new Specialist("testSpecialist_" + randomAlphabetic(5), TEST_PASSWORD, TEST_PASSWORD);
+        Long testProductLineId = productLineService.save(
+                new ProductLine(randomAlphabetic(10))
+        ).getId();
+        specialist.setProductLines(new ArrayList<ProductLine>() {
+            {
+                add(productLineService.findById(testProductLineId));
+            }
+        });
+        userService.save(specialist);
+        List<Specialist> matchingSpecialists = userService.findSpecialistByProductLine_id(testProductLineId);
+        assert (specialist.getId() != 0); // means that specialist has been persisted
+        assert (matchingSpecialists.get(0).getId() == specialist.getId());
+    }
 }

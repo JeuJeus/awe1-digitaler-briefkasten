@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -28,6 +29,7 @@ import javax.servlet.Filter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -86,6 +88,9 @@ public class IdeaControllerIntegTest {
 
     @Autowired
     private ProductLineService productLineService;
+
+    @Autowired
+    private IdeaService ideaService;
 
 
 //HELPER FUNCTIONS
@@ -473,13 +478,55 @@ public class IdeaControllerIntegTest {
 
     @Test
     public void whenGetTestUserAndSpecialist_thenOkay() throws UserNotFoundException {
+        //Created in setup method before
         assertEquals(TEST_USER, userService.findByUsername(TEST_USER).getUsername());
         assertEquals(TEST_SPECIALIST, userService.findByUsername(TEST_SPECIALIST).getUsername());
         assertEquals(User.class, userService.findByUsername(TEST_USER).getClass());
         assertEquals(Specialist.class, userService.findByUsername(TEST_SPECIALIST).getClass());
         Long persistedTestProductLineId = ((Specialist) userService.findByUsername(TEST_SPECIALIST)).getProductLines().get(0).getId();
         assertEquals(testProductLineId, persistedTestProductLineId);
+    }
 
+    @Test
+    public void whenGetSpecialistOfNewInternalIdea_ThenOkay() throws Exception {
+        Set<Role> emptyRoles = emptySet();
+        final String TEST_PASSWORD = randomAlphabetic(10);
+        Specialist specialist = new Specialist("testSpecialist_" + randomAlphabetic(5), TEST_PASSWORD, TEST_PASSWORD);
+        Long internalProductLineId = productLineService.save(
+                new ProductLine(ideaService.getDefaultInternalProductLineTitle())
+        ).getId();
+        specialist.setProductLines(new ArrayList<ProductLine>() {
+            {
+                add(productLineService.findById(internalProductLineId));
+            }
+        });
+        userService.save(specialist);
+        InternalIdea idea = createRandomInternalIdea();
+        idea.setProductLine(productLineService.findById(internalProductLineId));
+        createIdeaAsUri(idea);
+        Specialist internalSpecialist = ideaService.getSpecialistOfNewIdea(idea);
+        assertEquals(internalSpecialist.getId(), specialist.getId());
+    }
+
+    @Test
+    public void whenGetSpecialistOfNewProductIdea_ThenOkay() throws Exception {
+        Set<Role> emptyRoles = emptySet();
+        final String TEST_PASSWORD = randomAlphabetic(10);
+        Specialist specialist = new Specialist("testSpecialist_" + randomAlphabetic(5), TEST_PASSWORD, TEST_PASSWORD);
+        Long productLineId = productLineService.save(
+                new ProductLine(randomAlphabetic(10))
+        ).getId();
+        specialist.setProductLines(new ArrayList<ProductLine>() {
+            {
+                add(productLineService.findById(productLineId));
+            }
+        });
+        userService.save(specialist);
+        ProductIdea idea = createRandomProductIdea();
+        idea.setProductLine(productLineService.findById(productLineId));
+        createIdeaAsUri(idea);
+        Specialist productSpecialist = ideaService.getSpecialistOfNewIdea(idea);
+        assertEquals(productSpecialist.getId(), specialist.getId());
     }
 
 }

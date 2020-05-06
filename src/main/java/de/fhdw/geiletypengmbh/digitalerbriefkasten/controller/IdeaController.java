@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.InternalProductLineNotExistingException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -50,7 +51,7 @@ public class IdeaController {
     }
 
     @PostMapping("/internal")
-    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) {
+    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) throws InternalProductLineNotExistingException {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
         return ideaService.createByForm(idea);
     }
@@ -58,6 +59,12 @@ public class IdeaController {
     @PostMapping("/product")
     public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
         //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
-        return ideaService.createByForm(idea);
+        try {
+            return ideaService.createByForm(idea);
+        } catch (InternalProductLineNotExistingException ignored) {
+        }
+        return new Idea();
     }
 }
+
+

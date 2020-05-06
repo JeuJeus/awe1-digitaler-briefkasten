@@ -1,7 +1,10 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
+
+import java.util.List;
 
 public interface SpecialistRepository extends UserRepository<Specialist> {
+
+    public List<Specialist> findByProductLinesId(Long productLine_id);
 }

@@ -6,6 +6,8 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.SpecialistRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,12 @@ public class UserServiceImpl implements UserService {
 
     public List<Specialist> findSpecialistByProductLine_id(Long productLine_id) {
         return specialistRepository.findByProductLinesId(productLine_id);
+    }
+
+    public User getCurrentUser() throws UserNotFoundException {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        return this.findByUsername(username);
     }
 
 }

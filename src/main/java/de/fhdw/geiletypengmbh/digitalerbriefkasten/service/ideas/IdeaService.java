@@ -9,8 +9,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.Intern
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductIdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,12 +39,6 @@ public class IdeaService {
 
     private final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
 
-    private User getCurrentUser() throws UserNotFoundException {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) principal).getUsername();
-        return userService.findByUsername(username);
-    }
-
     public List<Idea> findAll() {
         List<Idea> allIdeas = new ArrayList<>();
         allIdeas.addAll(internalIdeaIdeaRepository.findAll());
@@ -72,7 +65,7 @@ public class IdeaService {
     public Idea save(Idea idea) {
         //Only logged in Users are able to create Ideas
         try {
-            getCurrentUser();
+            userService.getCurrentUser();
             return ideaRepository.saveAndFlush(idea);
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
@@ -91,7 +84,7 @@ public class IdeaService {
             -> OR as THE CREATOR AND if the idea was NOT_SUBMITTED (= still in draftmode)
         */
         try {
-            User currentUser = getCurrentUser();
+            User currentUser = userService.getCurrentUser();
             if (request.isUserInRole("ADMIN") ||
                     (toDelete.getCreator().equals(currentUser)
                             && toDelete.getStatus().equals(Status.NOT_SUBMITTED))) {
@@ -117,7 +110,7 @@ public class IdeaService {
 
     public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
         try {
-            idea.setCreator(getCurrentUser());
+            idea.setCreator(userService.getCurrentUser());
             idea.setSpecialist(this.getSpecialistOfNewIdea(idea));
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
@@ -156,7 +149,7 @@ public class IdeaService {
 
         Predicate<Idea> ideaBelongsToCurUser = idea -> {
             try {
-                return idea.getCreator().getId() == getCurrentUser().getId();
+                return idea.getCreator().getId() == userService.getCurrentUser().getId();
             } catch (UserNotFoundException e) {
                 throw new NotAuthorizedException();
             }

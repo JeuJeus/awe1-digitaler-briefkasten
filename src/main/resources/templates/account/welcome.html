@@ -3,7 +3,7 @@
 <meta charset="utf-8"/>
 
 <head>
-    <title>Welcome!</title>
+    <title>Willkommen!</title>
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
 </head>
@@ -13,8 +13,8 @@
 
 <section class="jumbotron text-center">
     <div class="container">
-        <h1>Welcome <span th:text="${#authentication.getPrincipal().getUsername()}"></span>!</h1>
-        <p class="lead text-muted">This is just a Prototype - so please be aware of that.</p>
+        <h1>Willkommen <span th:text="${#authentication.getPrincipal().getUsername()}"></span>!</h1>
+        <p class="lead text-muted">Es handelt sich um einen Prototypen</p>
     </div>
 </section>
 

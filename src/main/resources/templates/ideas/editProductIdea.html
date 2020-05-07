@@ -5,10 +5,10 @@
 <head>
     <title th:text="${idea.getTitle()}"></title>
 
-    <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
-    <script th:src="@{../js/fontawesome.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/select2.min.css}" type="text/css"/>
+    <script th:src="@{/js/fontawesome.js}" type="text/javascript"></script>
     <script th:src="@{/js/prefillSelect2.js}" type="text/javascript"></script>
 </head>
 <body>
@@ -24,7 +24,7 @@
             <label for="title" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="title" name="title"
-                       th:field="*{title}" type="text" readonly="true">
+                       th:field="*{title}" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group form-row">
@@ -32,7 +32,7 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Beschreibung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <textarea class="form-control" id="description" form-rows="3"
-                          th:field="*{description}" readonly="true"></textarea>
+                          th:field="*{description}"></textarea>
             </div>
 
         </div>
@@ -41,7 +41,7 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="productLine" name="productLine"
-                       th:value="*{productLine?.getTitle()}" type="text" readonly="true">
+                       th:value="*{productLine?.getTitle()}" type="text">
             </div>
         </div>
         <div class="form-group form-row">
@@ -49,21 +49,21 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Vorteile</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="advantage_1" name="advantage_1"
-                       type="text" readonly="true"
+                       type="text"
                        th:value="*{advantages.size() >= 1} ? *{advantages.get(0).getDescription()} : ''">
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10 offset-md-3 offset-lg-2 offset-xl-2">
                 <input class="form-control" id="advantage_2" name="advantage_2"
-                       type="text" readonly="true"
+                       type="text"
                        th:value="*{advantages.size() >= 2} ? *{advantages.get(1).getDescription()} : ''">
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10 offset-md-3 offset-lg-2 offset-xl-2">
                 <input class="form-control" id="advantage_3" name="advantage_3"
-                       type="text" readonly="true"
+                       type="text"
                        th:value="*{advantages.size() >= 3} ? *{advantages.get(2).getDescription()} : ''">
             </div>
         </div>
@@ -72,7 +72,7 @@
                 Zielgruppen</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <select class="form-control-mul" id="targetGroups" name="targetGroups"
-                        multiple="multiple" disabled="disabled">
+                        multiple="multiple">
                     <option th:each="targetGroup : *{targetGroups}"
                             th:value="${targetGroup.getId()}"
                             th:text="${targetGroup.getTitle()}"></option>
@@ -84,7 +84,7 @@
                 Vertriebskanäle</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <select class="form-control-mul" id="distributionChannels" name="distributionChannels"
-                        multiple="multiple" disabled="disabled">
+                        multiple="multiple">
                     <option th:each="distributionChannel : *{distributionChannels}"
                             th:value="${distributionChannel.getId()}"
                             th:text="${distributionChannel.getTitle()}"></option>
@@ -96,39 +96,40 @@
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="creator" name="creator"
-                       th:value="*{creator?.getUsername()}" type="text" readonly="true">
+                       th:value="*{creator?.getUsername()}" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group form-row">
             <label for="creationDate" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Erstellungsdatum</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="creationDate" name="creationDate"
-                       th:value="*{creationDate}" type="text" readonly="true">
+                       th:value="*{creationDate}" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group form-row">
             <label for="status" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Status</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="status" name="status"
-                       th:value="*{status}" type="text" readonly="true">
+                       th:value="*{status}" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group form-row">
             <label for="statusJustification" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Status-Begründung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="statusJustification" name="statusJustification"
-                       th:value="*{statusJustification}" type="text" readonly="true">
+                       th:value="*{statusJustification}" type="text" readonly="readonly">
             </div>
         </div>
+        <button class="btn btn-dark btn-block" type="submit">Idee aktualisieren</button>
 
 
     </form>
 
     <div th:replace="pageParts/footer :: footer"></div>
 
-    <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
-    <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
-    <script th:src="@{../js/select2.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/select2.min.js}" type="text/javascript"></script>
     <script type="text/javascript">
         var output
         $(document).ready(function () {

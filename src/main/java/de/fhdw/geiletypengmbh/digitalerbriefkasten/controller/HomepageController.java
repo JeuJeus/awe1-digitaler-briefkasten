@@ -3,6 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.DistributionChannelRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldRepository;
@@ -43,7 +44,7 @@ public class HomepageController {
 
 
     @GetMapping("/ideas/{id}")
-    public ModelAndView showOne(@PathVariable Long id) throws UserNotFoundException {
+    public ModelAndView showOne(@PathVariable Long id) {
         //TODO FIX ME I AM IN BREACH OF SECURITY RULES
         Idea idea = ideaService.findById(id);
         String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
@@ -66,7 +67,7 @@ public class HomepageController {
     }
 
     @GetMapping("/ideas")
-    public ModelAndView showAllForLoggedInUser() throws UserNotFoundException {
+    public ModelAndView showAllForLoggedInUser() {
         //TODO FIX ME FOR UNAUTHENTICATED USER
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
         List<Idea> productIdeas = ideaService.filterProductIdeas(submittedIdeas);
@@ -82,7 +83,7 @@ public class HomepageController {
     }
 
     @GetMapping("/createIdea/internal")
-    public ModelAndView createInternalIdea() throws UserNotFoundException {
+    public ModelAndView createInternalIdea() {
         List<Field> fields = fieldRepository.findAll();
         List<ProductLine> productLines = productLineRepository.findAll();
 
@@ -110,6 +111,17 @@ public class HomepageController {
         mav.addObject("createIdea", new ProductIdea());
         mav.addObject("advantage", new Advantage());
 
+        return mav;
+    }
+
+    @GetMapping("/ideas/edit/{id}")
+    public ModelAndView editOne(@PathVariable Long id) throws UserNotFoundException {
+        Idea idea = ideaService.findById(id);
+        User currentUser = userService.getCurrentUser();
+        if (currentUser.getId() != idea.getCreator().getId()) throw new NotAuthorizedException();
+        String view = idea instanceof InternalIdea ? "ideas/editInternalIdea" : "ideas/editProductIdea";
+        ModelAndView mav = new ModelAndView(view);
+        mav.addObject("idea", idea);
         return mav;
     }
 }

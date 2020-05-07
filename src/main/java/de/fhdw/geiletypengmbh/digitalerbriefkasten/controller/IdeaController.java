@@ -69,8 +69,18 @@ public class IdeaController {
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
-    public Idea decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id){
+    public Idea decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
         return ideaService.saveDecision(id, emptyIdeaWithDecision);
+    }
+
+    @PostMapping("/update/internal/{id}")
+    public Idea updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
+        return ideaService.saveUpdateIdea(id, idea);
+    }
+
+    @PostMapping("/update/product/{id}")
+    public Idea updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
+        return ideaService.saveUpdateIdea(id, idea);
     }
 
 }

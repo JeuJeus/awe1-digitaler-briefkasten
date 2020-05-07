@@ -230,11 +230,30 @@ public class IdeaService {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }
 
-
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
-        Idea updateDecision = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
+        Idea updateDecision = findById(id);
         updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
         updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
-        return ideaRepository.saveAndFlush(updateDecision);
+        return save(updateDecision);
+    }
+
+    public Idea saveUpdateIdea(Long id, Idea idea) {
+        Idea oldIdea = findById(id);
+        oldIdea.setDescription(idea.getDescription());
+        oldIdea.setProductLine(idea.getProductLine());
+        oldIdea.setAdvantages(idea.getAdvantages());
+        if (oldIdea instanceof InternalIdea) {
+            InternalIdea oldInternalIdea = (InternalIdea) oldIdea;
+            InternalIdea internalIdea = (InternalIdea) idea;
+            oldInternalIdea.setField(internalIdea.getField());
+            return save(oldInternalIdea);
+        } else {
+            ProductIdea oldProductIdea = (ProductIdea) oldIdea;
+            ProductIdea productIdea = (ProductIdea) idea;
+            oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
+            oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
+            System.out.println(productIdea.toString());
+            return save(oldProductIdea);
+        }
     }
 }

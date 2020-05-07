@@ -14,7 +14,7 @@
 <div th:replace="pageParts/navbar :: navbar"></div>
 
 <main class="container">
-    <form action="#" th:action="@{/api/ideas/update/internal}" method="post" th:object="${idea}">
+    <form action="#" th:action="@{/api/ideas/update/internal/} + ${idea.getId()}" method="post" th:object="${idea}">
         <h2 class="form-heading">
             <i class="mr-3 dblFontSize fas fa-sitemap"></i>
             <span th:utext="*{title}"></span></h2>

@@ -72,7 +72,7 @@ public class IdeaController {
     @PostMapping("/decideIdea")
     public void decideIdea(@ModelAttribute InternalIdea idea){
         //TODO DEPECREATED -> MAKE DECIDEIDEA USE JSON
-        ideaService.saveDecision(idea);
+        ideaService.save(idea);
     }
 
 }

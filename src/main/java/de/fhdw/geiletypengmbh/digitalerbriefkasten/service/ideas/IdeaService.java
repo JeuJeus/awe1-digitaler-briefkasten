@@ -223,7 +223,5 @@ public class IdeaService {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }
 
-    public void saveDecision(InternalIdea idea) {
 
-    }
 }

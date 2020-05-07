@@ -27,6 +27,7 @@
                 <option th:each="status : ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).values()}"
                         th:text="${status.getDisplayValue()}"
                         th:value="${status}"></option>
+                        <!--TODO FILTER POSSIBLE VALUES                -->
             </select>
         </div>
 

@@ -34,20 +34,19 @@
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/ideas' ? 'active':''}">
                 <a class="nav-link" href="/ideas">Ideen anschauen</a>
             </li>
-            <li th:if="${specialist == true}"
             <!--            TODO add nice looking counter for pendingIdeas here-->
-            <!--            TODO implement the same for admin->
+            <!--            TODO implement the same for admin-->
+            <li th:if="${specialist == true}"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
                 <a class="nav-link" href="/specialist">Eingereichte Ideen bewerten</a>
             </li>
         </ul>
     </div>
     <!--TODO: FIX LOGOUT BUTTON ON SLIM SCREENS NOT DISPLAYED-->
-            <button class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()"
-                    type="submit">
-                <a>Logout</a>
-            </button>
-            <form id="logoutForm" method="GET" th:action="@{/logout}">
+    <button class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()" type="submit">
+        <a>Logout</a>
+    </button>
+    <form id="logoutForm" method="GET" th:action="@{/logout}">
     </form>
 </nav>
 

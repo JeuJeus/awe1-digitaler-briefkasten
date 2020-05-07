@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/ideas").permitAll()//-> ANYONE EVEN WHEN NOT LOGGED IN SHOULD BE ALLOWED TO VIEW IDEAS
                 .antMatchers("/admin/**", "/specialist/**").hasRole("ADMIN")
-                .antMatchers("/specialist/**").hasRole("SPECIALIST")
+                .antMatchers("/specialist/**","/decideIdea/**").hasRole("SPECIALIST")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -9,6 +9,8 @@
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
 </head>
 
+<div th:replace="pageParts/navbar :: navbar"></div>
+
 <body>
 <div class="container">
     <form action="#" class="form-signin" method="POST" th:action="@{/login}">

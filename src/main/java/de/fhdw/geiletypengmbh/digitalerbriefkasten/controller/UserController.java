@@ -68,8 +68,7 @@ public class UserController {
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirmation());
 
         logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + " | IP: " + LogHelper.getUserIpAddress());
-        // User cannot be specialist right after registration
-        redirectAttributes.addFlashAttribute("specialist", false);
+
         return "redirect:/welcome";
     }
 
@@ -101,7 +100,6 @@ public class UserController {
         if (request.isUserInRole("ADMIN")) {
             return "account/admin";
         } else {
-            model.addAttribute("specialist", userService.getCurrentUser() instanceof Specialist);
             return (request.isUserInRole("SPECIALIST") ? "redirect:/specialist" : "account/welcome");
         }
     }
@@ -118,7 +116,6 @@ public class UserController {
         ;
 
         model.addAttribute("pendingIdeas", pendingIdeas);
-        model.addAttribute("specialist", true);
         return "account/specialist";
     }
 }

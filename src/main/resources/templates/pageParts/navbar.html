@@ -17,11 +17,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li th:classappend="${#httpServletRequest.getRequestURI()  == '/' ? 'active':
+
+
+            <!--            TODO implement the same for admin-->
+            <li sec:authorize="hasRole('ROLE_SPECIALIST')"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
+                <!--            TODO add nice looking counter for pendingIdeas here-->
+                <a class="nav-link" href="/specialist">Ideen bewerten</a>
+            </li>
+            <li sec:authorize="hasRole('ROLE_USER')"
+                th:classappend="${#httpServletRequest.getRequestURI()  == '/' ? 'active':
                                         (#httpServletRequest.getRequestURI()  == '/welcome' ? 'active': '')}">
                 <a class="nav-link" href="/">Home </a>
             </li>
-            <li class="nav-item dropdown navbar-dark bg-dark"
+
+            <li sec:authorize="isAuthenticated()"
+                    class="nav-item dropdown navbar-dark bg-dark"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -31,19 +42,16 @@
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/internal">Interne Idee</a>
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/product">Produktidee</a>
                 </div>
+
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/ideas' ? 'active':''}">
                 <a class="nav-link" href="/ideas">Ideen anschauen</a>
             </li>
-            <!--            TODO add nice looking counter for pendingIdeas here-->
-            <!--            TODO implement the same for admin-->
-            <li th:if="${specialist == true}"
-                th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
-                <a class="nav-link" href="/specialist">Eingereichte Ideen bewerten</a>
-            </li>
+
         </ul>
     </div>
     <!--TODO: FIX LOGOUT BUTTON ON SLIM SCREENS NOT DISPLAYED-->
-    <button class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()" type="submit">
+    <button sec:authorize="isAuthenticated()"
+            class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()" type="submit">
         <a>Logout</a>
     </button>
     <form id="logoutForm" method="GET" th:action="@{/logout}">

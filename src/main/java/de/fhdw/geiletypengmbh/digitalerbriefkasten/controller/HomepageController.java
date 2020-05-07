@@ -45,13 +45,12 @@ public class HomepageController {
         String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
-        mav.addObject("specialist", userService.getCurrentUser() instanceof Specialist);
         return mav;
     }
 
     @GetMapping("/ideas")
     public ModelAndView showAllForLoggedInUser() throws UserNotFoundException {
-
+        //TODO FIX ME FOR UNAUTHENTICATED USER
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
         List<Idea> productIdeas = ideaService.filterProductIdeas(submittedIdeas);
         List<Idea> internalIdeas = ideaService.filterInternalIdeas(submittedIdeas);
@@ -61,7 +60,6 @@ public class HomepageController {
         mav.addObject("productIdeas", productIdeas);
         mav.addObject("internalIdeas", internalIdeas);
         mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
-        mav.addObject("specialist", userService.getCurrentUser() instanceof Specialist);
 
         return mav;
     }
@@ -76,7 +74,6 @@ public class HomepageController {
         mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new InternalIdea());
         mav.addObject("advantage", new Advantage());
-        mav.addObject("specialist", userService.getCurrentUser() instanceof Specialist);
 
         return mav;
     }
@@ -95,7 +92,6 @@ public class HomepageController {
         mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new ProductIdea());
         mav.addObject("advantage", new Advantage());
-        mav.addObject("specialist", userService.getCurrentUser() instanceof Specialist);
 
         return mav;
     }

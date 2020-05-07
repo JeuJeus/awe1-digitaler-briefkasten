@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -23,7 +24,6 @@ public class HelperScriptsNoTests {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Ignore
     @Test
     public void createAdminIfNotExists() {
         //TODO MAKE ME AVAILABLE FOR DEPLOYMENT!!!
@@ -38,7 +38,6 @@ public class HelperScriptsNoTests {
         userService.save(admin);
     }
 
-    @Ignore
     @Test
     public void createSpecialistIfNotExists() {
         //TODO REMOVE ME
@@ -46,7 +45,7 @@ public class HelperScriptsNoTests {
         Role specialistRole = new Role();
         specialistRole.setName("SPECIALIST");
         roleRepository.saveAndFlush(specialistRole);
-        User specialist = new User("specialist",
+        Specialist specialist = new Specialist("specialist",
                 "specialistpw",
                 "specialistpw");
         specialist.setRoles(Collections.singleton(specialistRole));

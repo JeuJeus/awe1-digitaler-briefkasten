@@ -38,6 +38,7 @@ public class HomepageController {
 
     @Autowired
     private UserServiceImpl userService;
+    private Object Status;
 
 
     @GetMapping("/ideas/{id}")
@@ -54,9 +55,10 @@ public class HomepageController {
     @GetMapping("/decideIdea/{id}")
     public ModelAndView getOneToDecide(@PathVariable Long id) throws UserNotFoundException {
         Idea idea = ideaService.findById(id);
-        String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
+        String view = "ideas/decideIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
+        mav.addObject("status", Status);
         return mav;
     }
 

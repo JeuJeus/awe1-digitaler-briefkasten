@@ -183,7 +183,7 @@ public class IdeaService {
         return specialist.get();
     }
 
-    //TODO maybe change logic to: when multiple specialists found, pick random one?
+    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE?
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
         List<ProductLine> internalProductLines =
@@ -197,8 +197,8 @@ public class IdeaService {
         }
         return specialist;
     }
-    //TODO maybe change logic to: when multiple specialists found, pick random one?
 
+    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE?
     private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
         ProductLine productLine = productLineService.findById(idea.getProductLine().getId());

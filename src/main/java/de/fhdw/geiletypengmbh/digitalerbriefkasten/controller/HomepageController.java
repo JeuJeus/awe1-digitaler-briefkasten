@@ -10,6 +10,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.Target
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,17 @@ public class HomepageController {
 
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) throws UserNotFoundException {
+        //TODO FIX ME I AM IN BREACH OF SECURITY RULES
+        Idea idea = ideaService.findById(id);
+        String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
+        ModelAndView mav = new ModelAndView(view);
+        mav.addObject("idea", idea);
+        return mav;
+    }
+
+    @PreAuthorize("hasRole('ROLE_SPECIALIST')")
+    @GetMapping("/decideIdea/{id}")
+    public ModelAndView getOneToDecide(@PathVariable Long id) throws UserNotFoundException {
         Idea idea = ideaService.findById(id);
         String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
         ModelAndView mav = new ModelAndView(view);

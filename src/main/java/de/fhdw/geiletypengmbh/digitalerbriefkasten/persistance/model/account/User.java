@@ -111,6 +111,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getFullName() {
         return firstName + " " + lastName;
     }

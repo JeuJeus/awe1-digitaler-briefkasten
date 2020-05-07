@@ -224,4 +224,10 @@ public class IdeaService {
     }
 
 
+    public void saveDecision(Long id, Idea emptyIdeaWithDecision) {
+        Idea updateDecision = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
+        updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
+        updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
+        ideaRepository.saveAndFlush(updateDecision);
+    }
 }

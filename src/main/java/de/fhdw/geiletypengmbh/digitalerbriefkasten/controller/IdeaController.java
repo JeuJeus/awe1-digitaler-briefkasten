@@ -54,13 +54,11 @@ public class IdeaController {
 
     @PostMapping("/internal")
     public Idea createInternalIdea(@ModelAttribute InternalIdea idea) throws InternalProductLineNotExistingException {
-        //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
         return ideaService.createByForm(idea);
     }
 
     @PostMapping("/product")
     public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
-        //TODO DEPECREATED -> MAKE ADDIDEA USE JSON
         try {
             return ideaService.createByForm(idea);
         } catch (InternalProductLineNotExistingException ignored) {
@@ -69,10 +67,9 @@ public class IdeaController {
     }
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
-    @PostMapping("/decideIdea")
-    public void decideIdea(@ModelAttribute InternalIdea idea){
-        //TODO DEPECREATED -> MAKE DECIDEIDEA USE JSON
-        ideaService.save(idea);
+    @PostMapping("/decideIdea/{id}")
+    public void decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id){
+        ideaService.saveDecision(id, emptyIdeaWithDecision);
     }
 
 }

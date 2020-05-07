@@ -14,6 +14,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -22,7 +23,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,6 +107,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @GetMapping("/specialist")
     public String specialist(Model model) throws UserNotFoundException {
         User user = userService.getCurrentUser();
@@ -111,9 +115,6 @@ public class UserController {
             throw new NotAuthorizedException();
         }
         List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
-        System.out.println(user.getId());
-        System.out.println(pendingIdeas.size());
-        ;
 
         model.addAttribute("pendingIdeas", pendingIdeas);
         return "account/specialist";

@@ -52,17 +52,16 @@ public class HomepageController {
         return mav;
     }
 
-
+    @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @GetMapping("/decideIdea/{id}")
     public ModelAndView getOneToDecide(@PathVariable Long id) throws UserNotFoundException {
         Idea idea = ideaService.findById(id);
-        if(!idea.getSpecialist().getUsername()
+        if (!idea.getSpecialist().getUsername()
                 .equals(userService.getCurrentUser().getUsername())) throw new NotAuthorizedException();
 
         String view = "ideas/decideIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("ideaToDecide", idea);
-        mav.addObject("status", Status);
         return mav;
     }
 

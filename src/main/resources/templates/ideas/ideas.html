@@ -42,6 +42,7 @@
                     <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                 </td>
                 <td th:utext="${idea.getCreationDate()}"></td>
+                <!--TODO UPDATE ME TO USE ENUM INTERNAL FUNCTION -->
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                 </td>
@@ -77,6 +78,7 @@
                     <a href="#" th:utext="${idea.getCreator()?.getFullName()}"></a>
                     <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                 </td>
+                <!--TODO UPDATE ME TO USE ENUM INTERNAL FUNCTION -->
                 <td th:utext="${idea.getCreationDate()}"></td>
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
@@ -115,6 +117,7 @@
                     <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                 </td>
                 <td th:utext="${idea.getCreationDate()}"></td>
+                <!--TODO UPDATE ME TO USE ENUM INTERNAL FUNCTION -->
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                 </td>

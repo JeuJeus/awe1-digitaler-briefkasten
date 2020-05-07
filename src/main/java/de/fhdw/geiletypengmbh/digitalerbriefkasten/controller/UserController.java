@@ -114,9 +114,13 @@ public class UserController {
         if (!(user instanceof Specialist)) {
             throw new NotAuthorizedException();
         }
-        List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
 
+        List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
+        //TODO MAYBE SEPERATE BETWEEN IDEA TYPES?
+        List<Idea> ideaStorageIdeas = ideaService.findByStatus(Status.IDEA_STORAGE);
         model.addAttribute("pendingIdeas", pendingIdeas);
+        model.addAttribute("ideaStorageIdeas",ideaStorageIdeas);
+
         return "account/specialist";
     }
 }

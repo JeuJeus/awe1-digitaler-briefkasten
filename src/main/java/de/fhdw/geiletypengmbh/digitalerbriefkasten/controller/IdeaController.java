@@ -62,14 +62,15 @@ public class IdeaController {
         try {
             return ideaService.createByForm(idea);
         } catch (InternalProductLineNotExistingException ignored) {
+            //TODO YO WHATS THAT BWOI?
         }
         return new Idea();
     }
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
-    public void decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id){
-        ideaService.saveDecision(id, emptyIdeaWithDecision);
+    public Idea decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id){
+        return ideaService.saveDecision(id, emptyIdeaWithDecision);
     }
 
 }

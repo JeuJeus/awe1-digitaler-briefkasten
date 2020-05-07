@@ -10,4 +10,6 @@ public interface IdeaRepository<T extends Idea> extends JpaRepository<T, Long> {
     List<T> findByTitle(String title);
 
     List<T> findBySpecialistIdAndStatus(Long specialist_id, Status status);
+
+    List<T> findByStatus(Status status);
 }

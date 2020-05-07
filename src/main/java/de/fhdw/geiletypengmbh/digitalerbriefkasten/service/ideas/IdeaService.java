@@ -219,15 +219,22 @@ public class IdeaService {
         return ideas;
     }
 
+    public List<Idea> findByStatus(Status status){
+        List<Idea> ideas = new ArrayList<>();
+        ideas = ideaRepository.findByStatus(status);
+
+        return ideas;
+    }
+
     public String getDefaultInternalProductLineTitle() {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }
 
 
-    public void saveDecision(Long id, Idea emptyIdeaWithDecision) {
+    public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
         Idea updateDecision = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
         updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
         updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
-        ideaRepository.saveAndFlush(updateDecision);
+        return ideaRepository.saveAndFlush(updateDecision);
     }
 }

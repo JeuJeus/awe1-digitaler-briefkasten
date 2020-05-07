@@ -62,6 +62,7 @@
                 <th scope="col">Ersteller</th>
                 <th scope="col">Erstellungsdatum</th>
                 <th scope="col">Status</th>
+                <th scope="col">Status Begründung</th>
             </tr>
             </thead>
             <tbody>
@@ -79,6 +80,7 @@
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                 </td>
+                <td th:utext="${idea.getStatusJustification()}"></td>
             </tr>
             </tbody>
         </table>
@@ -97,6 +99,7 @@
                 <th scope="col">Ersteller</th>
                 <th scope="col">Erstellungsdatum</th>
                 <th scope="col">Status</th>
+                <th scope="col">Status Begründung</th>
             </tr>
             </thead>
             <tbody>
@@ -114,6 +117,7 @@
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                 </td>
+                <td th:utext="${idea.getStatusJustification()}"></td>
             </tr>
             </tbody>
         </table>

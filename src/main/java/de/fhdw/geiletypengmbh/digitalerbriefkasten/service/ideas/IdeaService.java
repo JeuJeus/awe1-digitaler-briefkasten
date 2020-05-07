@@ -10,6 +10,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.Produc
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -220,5 +221,9 @@ public class IdeaService {
 
     public String getDefaultInternalProductLineTitle() {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
+    }
+
+    public void saveDecision(InternalIdea idea) {
+
     }
 }

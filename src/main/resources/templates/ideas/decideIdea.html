@@ -3,7 +3,7 @@
 <meta charset="utf-8"/>
 
 <head>
-    <title th:text="${idea.getTitle()}"></title>
+    <title th:text="${ideaToDecide.getTitle()}"></title>
 
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
@@ -13,20 +13,20 @@
 
 <div th:replace="pageParts/navbar :: navbar"></div>
 <div class="container">
-    <form action="#" class="form-createIdea" method="PUT" th:action="@{/api/ideas/${idea.getId()}}" th:object="${idea}">
+    <form action="#" class="form-createIdea" method="Post" th:action="@{/api/ideas/decideIdea}" th:object="${ideaToDecide}">
         <h2 class="form-heading">Bitte entscheiden sie über die Idee und senden sie ihre Begründung ein.</h2>
         <!--TODO ADD OVERVIEW OF IDEA HERE-->
         <div class="form-group">
-            <textarea class="form-control" id="statusJustification" name="Status Begründung" placeholder="Beschreibung" required="required"
+            <textarea class="form-control" id="statusJustification" name="statusJustification" placeholder="Beschreibung" required="required"
                       rows="4"
                       th:field="*{statusJustification}"></textarea>
         </div>
         <p>Neuen Status für Idee auswählen:</p>
         <div class="form-group row">
-            <select class="form-control" id="fields" name="field" required="required">
+            <select class="form-control" id="status" name="status" required="required">
                 <option th:each="status : ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).values()}"
                         th:text="${status.getDisplayValue()}"
-                        th:value="${status}"></option>
+                        th:value="*{status}"></option>
             </select>
         </div>
 

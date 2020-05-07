@@ -1,11 +1,13 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.InternalProductLineNotExistingException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,14 @@ public class IdeaController {
         }
         return new Idea();
     }
+
+    @PreAuthorize("hasRole('ROLE_SPECIALIST')")
+    @PostMapping("/decideIdea")
+    public void decideIdea(@ModelAttribute InternalIdea idea){
+        //TODO DEPECREATED -> MAKE DECIDEIDEA USE JSON
+        ideaService.saveDecision(idea);
+    }
+
 }
 
 

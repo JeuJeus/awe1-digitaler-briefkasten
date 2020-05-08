@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -67,17 +69,19 @@ public class HomepageController {
     }
 
     @GetMapping("/ideas")
-    public ModelAndView showAllForLoggedInUser() {
-        //TODO FIX ME FOR UNAUTHENTICATED USER
+    public ModelAndView showAllForLoggedInUser(Principal user) {
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
         List<Idea> productIdeas = ideaService.filterProductIdeas(submittedIdeas);
         List<Idea> internalIdeas = ideaService.filterInternalIdeas(submittedIdeas);
-        //List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
         ModelAndView mav = new ModelAndView("ideas/ideas");
         mav.addObject("productIdeas", productIdeas);
         mav.addObject("internalIdeas", internalIdeas);
-        //mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
+
+        if(user != null){
+            List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
+            mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
+        }
 
         return mav;
     }

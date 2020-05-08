@@ -46,4 +46,12 @@ public class ProductIdea extends Idea {
     public void setDistributionChannels(Set<DistributionChannel> distributionChannels) {
         this.distributionChannels = distributionChannels;
     }
+
+    public boolean containsTargetGroup(TargetGroup targetGroupToFind) {
+        return targetGroups.stream().anyMatch(targetGroup -> targetGroup.getId() == targetGroupToFind.getId());
+    }
+
+    public boolean containsDistributionChannel(DistributionChannel distributionChannelToFind) {
+        return distributionChannels.stream().anyMatch(distributionChannel -> distributionChannel.getId() == distributionChannelToFind.getId());
+    }
 }

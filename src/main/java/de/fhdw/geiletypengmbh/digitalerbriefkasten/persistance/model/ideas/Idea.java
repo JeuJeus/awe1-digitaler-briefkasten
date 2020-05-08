@@ -153,7 +153,11 @@ public class Idea {
     }
 
     public void setAdvantages(List<Advantage> advantages) {
-        this.advantages = advantages;
+
+        this.advantages.clear();
+        if (advantages != null) {
+            this.advantages.addAll(advantages);
+        }
     }
 
     public Specialist getSpecialist() {

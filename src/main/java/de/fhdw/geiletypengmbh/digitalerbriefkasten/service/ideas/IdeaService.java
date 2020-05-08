@@ -75,7 +75,6 @@ public class IdeaService {
         }
     }
 
-
     public void delete(Long id, HttpServletRequest request) {
         Idea toDelete = this.findById(id);
 
@@ -106,7 +105,8 @@ public class IdeaService {
         //TODO CHECK IF IDEA HAS CHANGE IN MEANTIME
         //eventually throws IdeaNotFoundException, thats why its here :)
         Idea checkExistantIdea = this.findById(id);
-        return ideaRepository.saveAndFlush(idea);
+
+        return save(idea);
     }
 
     public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
@@ -252,7 +252,6 @@ public class IdeaService {
             ProductIdea productIdea = (ProductIdea) idea;
             oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
             oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
-            System.out.println(productIdea.toString());
             return save(oldProductIdea);
         }
     }

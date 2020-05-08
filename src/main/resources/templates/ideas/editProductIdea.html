@@ -16,7 +16,7 @@
 <div th:replace="pageParts/navbar :: navbar"></div>
 
 <main class="container">
-    <form action="#" th:object="${idea}">
+    <form action="#" th:action="@{/api/ideas/update/product/} + ${idea.getId()}" method="post" th:object="${idea}">
         <h2 class="form-heading">
             <i class="mr-3 dblFontSize far fa-lightbulb"></i>
             <span th:utext="*{title}"></span></h2>
@@ -24,15 +24,14 @@
             <label for="title" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="title" name="title"
-                       th:field="*{title}" type="text" readonly="readonly">
+                       th:value="*{title}" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group form-row">
             <label for="description"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Beschreibung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <textarea class="form-control" id="description" form-rows="3"
-                          th:field="*{description}"></textarea>
+                <textarea class="form-control" form-rows="3" th:field="*{description}"></textarea>
             </div>
 
         </div>
@@ -40,8 +39,13 @@
             <label for="productLine"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" id="productLine" name="productLine"
-                       th:value="*{productLine?.getTitle()}" type="text">
+                <select class="form-control" id="productLine" name="productLine">
+                    <option th:each="productLine: ${productLines}"
+                            th:value="${productLine.getId()}"
+                            th:text="${productLine.getTitle()}"
+                            th:selected="${productLine.getId()} == *{productLine.getId()}">
+                    </option>
+                </select>
             </div>
         </div>
         <div class="form-group form-row">
@@ -73,9 +77,11 @@
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <select class="form-control-mul" id="targetGroups" name="targetGroups"
                         multiple="multiple">
-                    <option th:each="targetGroup : *{targetGroups}"
+                    <option th:each="targetGroup : ${targetGroups}"
                             th:value="${targetGroup.getId()}"
-                            th:text="${targetGroup.getTitle()}"></option>
+                            th:text="${targetGroup.getTitle()}"
+                            th:selected="${idea.containsTargetGroup(targetGroup)}">
+                    </option>
                 </select>
             </div>
         </div>
@@ -85,9 +91,11 @@
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <select class="form-control-mul" id="distributionChannels" name="distributionChannels"
                         multiple="multiple">
-                    <option th:each="distributionChannel : *{distributionChannels}"
+                    <option th:each="distributionChannel : ${distributionChannels}"
                             th:value="${distributionChannel.getId()}"
-                            th:text="${distributionChannel.getTitle()}"></option>
+                            th:text="${distributionChannel.getTitle()}"
+                            th:selected="${idea.containsDistributionChannel(distributionChannel)}">
+                    </option>
                 </select>
             </div>
         </div>
@@ -95,8 +103,10 @@
             <label for="creator"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" id="creator" name="creator"
-                       th:value="*{creator?.getUsername()}" type="text" readonly="readonly">
+                <select class="form-control" id="creator" name="creator" disabled="disabled">
+                    <option th:value="*{creator?.getId()}"
+                            th:text="*{creator?.getUsername()}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group form-row">
@@ -136,11 +146,6 @@
             output = $('.form-control-mul').select2();
         });
         console.log(getSelection());
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            prefillSelect2('select.form-control-mul');
-        });
     </script>
 </main>
 </body>

@@ -27,4 +27,8 @@ public class ProductLineService {
         return productLineRepository.findByTitle(title);
     }
 
+    public List<ProductLine> findAll() {
+        return productLineRepository.findAll();
+    }
+
 }

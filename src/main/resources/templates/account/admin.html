@@ -68,6 +68,50 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
+                    <div th:each="error: ${errors}">
+                        <div class="alert alert-danger" th:utext="${#strings.replace(error, '\n', '<br>')}">
+                        </div>
+                    </div>
+                    <form class="form-createSpecialist" enctype="utf8" method="POST"
+                          th:action="@{/admin/createSpecialist}">
+                        <div class="form-group">
+                            <input class="form-control" id="username" name="username" placeholder="Username"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="firstName" name="firstName" placeholder="Vorname"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="lastName" name="lastName" placeholder="Nachname"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="password" name="password" placeholder="Passwort"
+                                   required="required"
+                                   type="password">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="passwordConfirmation" name="passwordConfirmation"
+                                   placeholder="Passwort bestätigen"
+                                   required="required"
+                                   type="password">
+                        </div>
+                        <p>Fachgebiet auswählen:</p>
+                        <div class="form-group row">
+                            <select class="form-control" id="productLine" name="productLine" required="required">
+                                <option th:each="productLine : ${productLines}"
+                                        th:value="${productLine.getId()}"
+                                        th:text="${productLine.getTitle()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block" type="submit">Spezialist anlegen</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

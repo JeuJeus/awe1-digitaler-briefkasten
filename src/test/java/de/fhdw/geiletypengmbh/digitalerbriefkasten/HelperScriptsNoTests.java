@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
@@ -24,6 +25,7 @@ public class HelperScriptsNoTests {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Ignore
     @Test
     public void createAdminIfNotExists() {
         //TODO MAKE ME AVAILABLE FOR DEPLOYMENT!!!
@@ -38,6 +40,7 @@ public class HelperScriptsNoTests {
         userService.save(admin);
     }
 
+    @Ignore
     @Test
     public void createSpecialistIfNotExists() {
         //TODO REMOVE ME

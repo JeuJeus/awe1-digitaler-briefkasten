@@ -72,12 +72,12 @@ public class HomepageController {
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
         List<Idea> productIdeas = ideaService.filterProductIdeas(submittedIdeas);
         List<Idea> internalIdeas = ideaService.filterInternalIdeas(submittedIdeas);
-        List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
+        //List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
 
         ModelAndView mav = new ModelAndView("ideas/ideas");
         mav.addObject("productIdeas", productIdeas);
         mav.addObject("internalIdeas", internalIdeas);
-        mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
+        //mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
 
         return mav;
     }

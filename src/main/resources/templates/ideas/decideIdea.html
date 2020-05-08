@@ -12,12 +12,42 @@
 <body>
 
 <div th:replace="pageParts/navbar :: navbar"></div>
+
 <div class="container">
-    <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/decideIdea/{id}(id=${ideaToDecide.id})}" th:object="${ideaToDecide}">
-        <h2 class="form-heading">Bitte entscheiden sie über die Idee und senden sie ihre Begründung ein.</h2>
-        <!--TODO ADD OVERVIEW OF IDEA HERE-->
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" style="margin-top: 20px;">
+            <thead>
+            <tr>
+                <th scope="col">Titel</th>
+                <th scope="col">Beschreibung</th>
+                <th scope="col">Ersteller</th>
+                <th scope="col">Erstellungsdatum</th>
+                <th scope="col">Status</th>
+                <th scope="col">Status Begründung</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:utext="${ideaToDecide.getTitle()}"></td>
+                <td th:utext="${ideaToDecide.getDescription()}"></td>
+                <td th:utext="${ideaToDecide.getCreator().getFullName()}"></td>
+                <td th:utext="${ideaToDecide.getCreationDate()}"></td>
+                <td th:utext="${ideaToDecide.getStatus().getDisplayValue()}"></td>
+                <td th:utext="${ideaToDecide.getStatusJustification()}"></td>
+            </tr>
+            <tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form action="#" class="form-createIdea" method="post"
+          th:action="@{/api/ideas/decideIdea/{id}(id=${ideaToDecide.id})}" th:object="${ideaToDecide}">
+        <h2 class="form-heading">Setzen und begründen Sie den neuen Status der Idee.</h2>
+
         <div class="form-group">
-            <textarea class="form-control" id="statusJustification" name="statusJustification" placeholder="Beschreibung" required="required"
+            <textarea class="form-control" id="statusJustification" name="statusJustification"
+                      placeholder="Beschreibung" required="required"
                       rows="4"
                       th:field="${ideaToDecide.statusJustification}"></textarea>
         </div>
@@ -25,13 +55,16 @@
         <div class="form-group row">
             <select class="form-control" id="status" name="status" required="required">
                 <option th:each="status : ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).values()}"
+                        th:if="${status} !=
+                            ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).PENDING}
+                            and ${status} !=
+                             ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).NOT_SUBMITTED}"
                         th:text="${status.getDisplayValue()}"
                         th:value="${status}"></option>
-                        <!--TODO FILTER POSSIBLE VALUES                -->
             </select>
         </div>
 
-        <button class="btn btn-dark btn-block" type="submit">Entscheidung über Idee einsenden</button>
+        <button class="btn btn-dark btn-block" type="submit">Entscheidung einreichen</button>
     </form>
 </div>
 <div th:replace="pageParts/footer :: footer"></div>

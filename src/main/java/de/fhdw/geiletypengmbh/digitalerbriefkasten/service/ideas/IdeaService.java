@@ -231,10 +231,12 @@ public class IdeaService {
     }
 
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
-        Idea updateDecision = findById(id);
-        updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
-        updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
-        return save(updateDecision);
+        if(emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED){
+            Idea updateDecision = findById(id);
+            updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
+            updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
+            return save(updateDecision);
+        }else throw new NotAuthorizedException();
     }
 
     public Idea saveUpdateIdea(Long id, Idea idea) {

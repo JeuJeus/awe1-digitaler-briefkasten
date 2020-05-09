@@ -18,8 +18,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
 
-
-            <!--            TODO IMPLEMENT THE SAME FOR ADMIN-->
+            <li sec:authorize="hasRole('ROLE_ADMIN')"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/admin' ? 'active':''}">
+                <a class="nav-link" href="/specialist">Adminpanel</a>
+            </li>
             <li sec:authorize="hasRole('ROLE_SPECIALIST')"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
                 <!--            TODO ADD NICE LOOKING COUNTER FOR PENDINGIDEAS HERE-->

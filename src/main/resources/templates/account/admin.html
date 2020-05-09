@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
 </head>
 
 <body th:onload="${userList == null}? 'ensureTableContent()'">
@@ -21,6 +22,14 @@
 </section>
 
 <main class="container" role="main">
+    <div th:each="error: ${errors}">
+        <div class="alert alert-danger" th:utext="${#strings.replace(error, '\n', '<br>')}">
+        </div>
+    </div>
+    <div th:each="success: ${success}">
+        <div class="alert alert-success">Spezialist erfolgreich angelegt.
+        </div>
+    </div>
     <div id="accordion">
         <div class="card">
             <div class="card-header" id="headingOne">
@@ -68,10 +77,6 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
-                    <div th:each="error: ${errors}">
-                        <div class="alert alert-danger" th:utext="${#strings.replace(error, '\n', '<br>')}">
-                        </div>
-                    </div>
                     <form class="form-createSpecialist" enctype="utf8" method="POST"
                           th:action="@{/admin/createSpecialist}">
                         <div class="form-group">
@@ -102,7 +107,8 @@
                         </div>
                         <p>Fachgebiet auswählen:</p>
                         <div class="form-group row">
-                            <select class="form-control" id="productLine" name="productLine" required="required">
+                            <select class="form-control-mul" id="productLines" name="productLines" required="required"
+                                    multiple="multiple">
                                 <option th:each="productLine : ${productLines}"
                                         th:value="${productLine.getId()}"
                                         th:text="${productLine.getTitle()}"></option>
@@ -127,6 +133,14 @@
 </script>
 <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/select2.min.js}" type="text/javascript"></script>
+<script>
+    var output
+    $(document).ready(function () {
+        output = $('.form-control-mul').select2();
+    });
+    console.log(getSelection());
+</script>
 
 </body>
 

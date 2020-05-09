@@ -67,17 +67,18 @@ public class AdminController {
     @PostMapping("/admin/createSpecialist")
     public String registration(@ModelAttribute("userForm") Specialist userForm, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
+
         userValidator.validateSpecialist(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin?failure";
+            return "redirect:/admin";
         }
 
         userService.save(userForm);
-
-        return "redirect:/admin?success";
+        redirectAttributes.addFlashAttribute("success", "Spezialist erfolgreich angelegt.");
+        return "redirect:/admin";
     }
 }

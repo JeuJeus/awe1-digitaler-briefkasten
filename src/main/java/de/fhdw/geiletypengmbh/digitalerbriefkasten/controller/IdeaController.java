@@ -1,7 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.InternalProductLineNotExistingException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalProductLineNotExistingException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;

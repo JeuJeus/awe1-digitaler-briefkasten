@@ -1,9 +1,9 @@
-package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions;
+package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Not authorized to delete!")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Not authorized!")
 public class NotAuthorizedException extends RuntimeException {
 
     public NotAuthorizedException() {

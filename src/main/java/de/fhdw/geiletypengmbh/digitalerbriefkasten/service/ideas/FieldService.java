@@ -1,6 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.FieldNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.FieldNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;

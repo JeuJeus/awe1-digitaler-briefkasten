@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -10,7 +11,6 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.Produc
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +64,7 @@ public class IdeaService {
         return idea;
     }
 
-    private void assureIdeaAccessRights(Idea idea) {
+        private void assureIdeaAccessRights(Idea idea) {
         User currentUser = null;
         try {
             currentUser = userService.getCurrentUser();
@@ -74,18 +74,17 @@ public class IdeaService {
         //TODO Maybe refator me
         if(idea.getStatus().equals(Status.NOT_SUBMITTED) && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
             //not submitted ideas should only available for their creator
-            System.out.println("CASE1");
-            throw new NotAuthorizedException();
-                    }
-        else if(!currentUser.getRoles().equals("ADMIN") && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
-            //admin has "godpower" and can view every idea
-            System.out.println("CASE2");
             throw new NotAuthorizedException();
         }
         else if(idea.getStatus().equals(Status.IDEA_STORAGE) && !currentUser.getRoles().equals("SPECIALIST")){
             //ideas in idea Storage should only be accessible to specialists
-            System.out.println("CASE3");
             throw new NotAuthorizedException();
+        }
+        else if(!idea.getCreator().getUsername().equals(currentUser.getUsername()) && !idea.getSpecialist().equals(currentUser.getUsername())){
+            //admin has "godpower" and can view every idea
+            if(!currentUser.getRoles().equals("ADMIN")){
+                throw new NotAuthorizedException();
+            }
         }
     }
 

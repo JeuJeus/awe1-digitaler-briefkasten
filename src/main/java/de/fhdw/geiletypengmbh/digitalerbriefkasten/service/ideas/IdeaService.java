@@ -60,7 +60,33 @@ public class IdeaService {
         if (!Idea.class.isAssignableFrom(idea.getClass())) {
             throw new IdeaNotFoundException();
         }
+        assureIdeaAccessRights(idea);
         return idea;
+    }
+
+    private void assureIdeaAccessRights(Idea idea) {
+        User currentUser = null;
+        try {
+            currentUser = userService.getCurrentUser();
+        } catch (UserNotFoundException e) {
+            currentUser = null;
+        }
+        //TODO Maybe refator me
+        if(idea.getStatus().equals(Status.NOT_SUBMITTED) && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
+            //not submitted ideas should only available for their creator
+            System.out.println("CASE1");
+            throw new NotAuthorizedException();
+                    }
+        else if(!currentUser.getRoles().equals("ADMIN") && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
+            //admin has "godpower" and can view every idea
+            System.out.println("CASE2");
+            throw new NotAuthorizedException();
+        }
+        else if(idea.getStatus().equals(Status.IDEA_STORAGE) && !currentUser.getRoles().equals("SPECIALIST")){
+            //ideas in idea Storage should only be accessible to specialists
+            System.out.println("CASE3");
+            throw new NotAuthorizedException();
+        }
     }
 
     public Idea save(Idea idea) {

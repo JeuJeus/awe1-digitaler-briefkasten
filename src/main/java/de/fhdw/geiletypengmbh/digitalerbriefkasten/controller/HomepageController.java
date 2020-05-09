@@ -47,7 +47,6 @@ public class HomepageController {
 
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
-        //TODO FIX ME I AM IN BREACH OF SECURITY RULES
         Idea idea = ideaService.findById(id);
         String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
         ModelAndView mav = new ModelAndView(view);

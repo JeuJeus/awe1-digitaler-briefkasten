@@ -28,7 +28,6 @@ public class HelperScriptsNoTests {
     @Ignore
     @Test
     public void createAdminIfNotExists() {
-        //TODO MAKE ME AVAILABLE FOR DEPLOYMENT!!!
         /* Used to create Admin if not already available in production DB*/
         Role adminRole = new Role();
         adminRole.setName("ADMIN");

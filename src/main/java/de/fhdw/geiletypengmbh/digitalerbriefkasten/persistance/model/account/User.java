@@ -17,7 +17,6 @@ import java.util.Set;
         @JsonSubTypes.Type(value = Specialist.class, name = "specialist")
 })
 public class User {
-    //TODO FORCE USER ON FIRST LOGIN / REGISTRATION TO FILL IN PROFILE -> SET FIRST-/LASTNAME
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true)
@@ -37,9 +36,6 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    /*
-    TODO ADD FIRSTNAME, LASTNAME LOGIC
-     */
     @Column
     private String lastName;
 

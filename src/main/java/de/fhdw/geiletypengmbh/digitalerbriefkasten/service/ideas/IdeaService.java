@@ -72,7 +72,7 @@ public class IdeaService {
         } catch (UserNotFoundException e) {
             currentUser = null;
         }
-        //TODO Maybe refator me
+        //TODO MAYBE REFATOR ME
         if(idea.getStatus().equals(Status.NOT_SUBMITTED) && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
             //not submitted ideas should only available for their creator
             throw new NotAuthorizedException();

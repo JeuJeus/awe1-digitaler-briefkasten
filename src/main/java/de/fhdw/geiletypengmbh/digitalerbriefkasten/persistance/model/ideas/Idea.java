@@ -45,8 +45,7 @@ public class Idea {
     @CreationTimestamp
     private java.sql.Date creationDate;
 
-    //TODO ADD LOGIC FOR STORING IDEA / ACCEPTING / DECLINING
-    //USERS SHALL NOT BE ALLOWED TO CHANGE THESE!
+    //TODO USERS SHALL NOT BE ABLE TO CHANGE THESE!
     @Column
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;

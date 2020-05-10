@@ -11,6 +11,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.Produc
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,6 +96,8 @@ public class IdeaService {
             return ideaRepository.saveAndFlush(idea);
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
+        } catch (DataIntegrityViolationException e){
+          throw new DuplicateIdeaNameException();
         } catch (Exception e) {
             throw new IdeaMalformedException(e);
         }

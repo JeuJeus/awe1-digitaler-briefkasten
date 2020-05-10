@@ -99,7 +99,6 @@ public class HomepageController {
 
     @GetMapping("/createIdea/product")
     public ModelAndView createProductIdea() throws UserNotFoundException {
-        //TODO ADD ERROR HANDLING -> DUPLICATE IDEA TITLE SHOULD BE SPECIFIC ERROR
         List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
         List<TargetGroup> targetGroups = targetGroupRepository.findAll();
 

@@ -14,12 +14,15 @@
 <section class="jumbotron text-center">
     <div class="container">
         <p class="lead text-muted">
-            <!--TODO USER SHOULD BE PROVIDED HELP RETURNING TO WHERE HE CAME FROM-->
             OOPS!<br>
             <span th:text="${message}">status</span>
         </p>
     </div>
 </section>
+
+<div class="container">
+<button class="btn btn-dark btn-block"  onclick="history.back()">Zurück gehen</button>
+</div>
 
 <div th:replace="pageParts/footer :: footer"></div>
 

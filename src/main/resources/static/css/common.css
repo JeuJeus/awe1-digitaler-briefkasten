@@ -133,3 +133,16 @@ th {
     border-left: .3em solid transparent;
     transform: rotate(-90deg);
 }
+
+/*Footer padding*/
+.float-left {
+    float: left !important;
+    padding-bottom: 8px;
+    padding-left: 15px;
+}
+
+.float-right {
+    float: right !important;
+    padding-bottom: 8px;
+    padding-right: 15px;
+}

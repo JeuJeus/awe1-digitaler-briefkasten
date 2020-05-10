@@ -9,12 +9,18 @@
 <body>
 
 <footer class="page-footer bg-dark fixed-bottom" th:fragment="footer">
-    <div class="footer-copyright text-center text-secondary py-2">
-        Ⓐ 2020 Copyright: Geile Typen GmbH
+    <div class="footer-copyright text-secondary py-2">
+        <div class="float-right">
+            Ⓐ 2020 Copyright: Geile Typen GmbH
+        </div>
+        <div class="float-left" sec:authorize="isAuthenticated()">
+            [ Nutzer: <span sec:authentication="name"></span> , Rolle:
+            <span sec:authorize="hasRole('ROLE_ADMIN')"> Administrator </span>
+            <span sec:authorize="hasRole('ROLE_SPECIALIST')"> Spezialist </span>
+            <span sec:authorize="hasRole('ROLE_USER')"> Nutzer </span>
+            ]
 
-        <!-- TODO REMOVE ME HERE FOR DEBUGGING PURPOSE
-        | Logged user: <span sec:authentication="name"></span> |
-              Roles: <span sec:authentication="principal.authorities"></span> |-->
+        </div>
     </div>
 </footer>
 

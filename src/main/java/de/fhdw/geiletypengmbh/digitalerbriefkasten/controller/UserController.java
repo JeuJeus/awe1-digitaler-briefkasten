@@ -55,6 +55,8 @@ public class UserController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
+        //The Construction of this Controller as well as the whole password logic
+        // was made with the assumption in mind of encripting password transmission trough https / SSL
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -75,6 +77,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) throws UserNotFoundException {
+        //in regards to transmission of password in clear see registration()
         //Note that login Post Controller is provided automatically by Spring Security
         if (logout != null) {
             model.addAttribute("message", "Logout was successfull");

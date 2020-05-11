@@ -61,7 +61,8 @@ public class IdeaController {
         try {
             return ideaService.createByForm(idea);
         } catch (InternalProductLineNotExistingException ignored) {
-            //TODO YO WHATS THAT BWOI?
+            //ignore InternalProductLineNotExistingException because backend method throws it
+            // (wont throw in this case anyways)
         }
         return new Idea();
     }

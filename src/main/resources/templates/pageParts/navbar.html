@@ -24,7 +24,6 @@
             </li>
             <li sec:authorize="hasRole('ROLE_SPECIALIST')"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/specialist' ? 'active':''}">
-                <!--            TODO ADD NICE LOOKING COUNTER FOR PENDINGIDEAS HERE-->
                 <a class="nav-link" href="/specialist">Ideen bewerten</a>
             </li>
             <li sec:authorize="hasRole('ROLE_USER')"
@@ -32,7 +31,6 @@
                                         (#httpServletRequest.getRequestURI()  == '/welcome' ? 'active': '')}">
                 <a class="nav-link" href="/">Home </a>
             </li>
-
             <li sec:authorize="isAuthenticated()"
                     class="nav-item dropdown navbar-dark bg-dark"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
@@ -44,11 +42,9 @@
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/internal">Interne Idee</a>
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/product">Produktidee</a>
                 </div>
-
             <li th:classappend="${#httpServletRequest.getRequestURI() == '/ideas' ? 'active':''}">
                 <a class="nav-link" href="/ideas">Ideen anschauen</a>
             </li>
-
         </ul>
     </div>
     <!--TODO: FIX LOGOUT BUTTON ON SLIM SCREENS NOT DISPLAYED-->

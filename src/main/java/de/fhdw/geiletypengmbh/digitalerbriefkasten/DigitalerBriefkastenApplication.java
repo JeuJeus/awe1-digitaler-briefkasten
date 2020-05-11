@@ -13,7 +13,6 @@ public class DigitalerBriefkastenApplication {
     public static void main(String[] args) {
         //TODO REFACTOR WHOLE PROJECT BEFORE "ABGABE" -> IN INTELLIJ RIGHTCLICK PROJECT ROOT
         //TODO POSSIBLY JS OBFUSCATION WOULD HELP US -> SECURITY REGARDS
-        //TODO TRANSLATE FRONTEND TO GERMAN
         SpringApplication.run(DigitalerBriefkastenApplication.class, args);
     }
 

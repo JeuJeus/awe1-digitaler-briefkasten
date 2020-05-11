@@ -72,7 +72,7 @@ public class IdeaService {
         } catch (UserNotFoundException e) {
             currentUser = null;
         }
-        //TODO MAYBE REFATOR ME
+        //TODO MAYBE REFACTOR ME -> Jonathan
         if(idea.getStatus().equals(Status.NOT_SUBMITTED) && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
             //not submitted ideas should only available for their creator
             throw new NotAuthorizedException();
@@ -131,7 +131,7 @@ public class IdeaService {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }
-        //TODO CHECK IF IDEA HAS CHANGE IN MEANTIME
+        //TODO CHECK IF IDEA HAS CHANGED IN MEANTIME -> PHILIPP
         //eventually throws IdeaNotFoundException, thats why its here :)
         Idea checkExistantIdea = this.findById(id);
         return ideaRepository.saveAndFlush(idea);
@@ -212,7 +212,7 @@ public class IdeaService {
         return specialist.get();
     }
 
-    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE?
+    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK THE ONE WITH LEAST PENDING IDEAS -> PHULLIPEH
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
         List<ProductLine> internalProductLines =
@@ -227,7 +227,7 @@ public class IdeaService {
         return specialist;
     }
 
-    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE?
+    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE? -> PHULLIPEH
     private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
         ProductLine productLine = productLineService.findById(idea.getProductLine().getId());

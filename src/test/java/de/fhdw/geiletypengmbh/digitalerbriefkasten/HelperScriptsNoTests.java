@@ -43,7 +43,7 @@ public class HelperScriptsNoTests {
     @Test
     public void createSpecialistIfNotExists() {
         //TODO REMOVE ME
-        /* Used to test Specialist while not implemented to be created otherwise*/
+        /* Used to test Specialist while not implemented to be created otherwise -> Jonathan*/
         Role specialistRole = new Role();
         specialistRole.setName("SPECIALIST");
         roleRepository.saveAndFlush(specialistRole);

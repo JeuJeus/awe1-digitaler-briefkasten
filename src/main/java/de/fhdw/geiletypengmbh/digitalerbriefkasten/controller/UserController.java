@@ -114,7 +114,6 @@ public class UserController {
         }
 
         List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
-        //TODO SEPERATE BETWEEN IDEA TYPES
         List<Idea> ideaStorageIdeas = ideaService.findByStatus(Status.IDEA_STORAGE);
         model.addAttribute("pendingIdeas", pendingIdeas);
         model.addAttribute("ideaStorageIdeas",ideaStorageIdeas);

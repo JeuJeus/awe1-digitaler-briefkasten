@@ -47,7 +47,7 @@ public class IdeaController {
 
     @PutMapping("/{id}")
     public Idea updateIdea(@RequestBody Idea idea, @PathVariable Long id) {
-        //TODO NOT ANY VALUE SHOULD BE POSSIBLE TO BE UPDATED
+        //TODO NOT ANY VALUE SHOULD BE POSSIBLE TO BE UPDATED -> PPILIP
         return ideaService.updateIdea(idea, id);
     }
 

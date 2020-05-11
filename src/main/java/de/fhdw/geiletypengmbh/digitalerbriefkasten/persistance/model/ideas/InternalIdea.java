@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-//TODO CHANGE TABLES/INITIALIZATION OF IDEA OBJECT
 @JsonSerialize
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

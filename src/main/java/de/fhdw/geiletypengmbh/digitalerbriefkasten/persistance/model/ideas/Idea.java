@@ -45,7 +45,6 @@ public class Idea {
     @CreationTimestamp
     private java.sql.Date creationDate;
 
-    //TODO USERS SHALL NOT BE ABLE TO CHANGE THESE!
     @Column
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_SUBMITTED;

@@ -66,27 +66,31 @@ public class IdeaService {
     }
 
         private void assureIdeaAccessRights(Idea idea) {
-        User currentUser = null;
-        try {
-            currentUser = userService.getCurrentUser();
-        } catch (UserNotFoundException e) {
-            currentUser = null;
-        }
-        //TODO MAYBE REFACTOR ME -> Jonathan
-        if(idea.getStatus().equals(Status.NOT_SUBMITTED) && !idea.getCreator().getUsername().equals(currentUser.getUsername())){
-            //not submitted ideas should only available for their creator
-            throw new NotAuthorizedException();
-        }
-        else if(idea.getStatus().equals(Status.IDEA_STORAGE) && !currentUser.getRoles().equals("SPECIALIST")){
-            //ideas in idea Storage should only be accessible to specialists
-            throw new NotAuthorizedException();
-        }
-        else if(!idea.getCreator().getUsername().equals(currentUser.getUsername()) && !idea.getSpecialist().equals(currentUser.getUsername())){
-            //admin has "godpower" and can view every idea
-            if(!currentUser.getRoles().equals("ADMIN")){
-                throw new NotAuthorizedException();
+            User currentUser = null;
+            try {
+                currentUser = userService.getCurrentUser();
+            } catch (UserNotFoundException e) {
+                currentUser = null;
             }
-        }
+            boolean ideaSubmitted, currentUserIsCreator, currentUserIsSpecialist, currentUserIsAdmin, ideaInStorage;
+            ideaSubmitted = !idea.getStatus().equals(Status.NOT_SUBMITTED);
+            ideaInStorage = idea.getStatus().equals(Status.IDEA_STORAGE);
+            currentUserIsCreator = idea.getCreator().getUsername().equals(currentUser.getUsername());
+            currentUserIsSpecialist = currentUser.getRoles().equals("SPECIALIST");
+            currentUserIsAdmin = currentUser.getRoles().equals("ADMIN");
+
+            if (!ideaSubmitted && !currentUserIsCreator) {
+                //not submitted ideas should only available for their creator
+                throw new NotAuthorizedException();
+            } else if (ideaInStorage && !currentUserIsSpecialist) {
+                //ideas in idea Storage should only be accessible to specialists
+                throw new NotAuthorizedException();
+            } else if (!currentUserIsCreator && !currentUserIsSpecialist) {
+                //admin has "godpower" and can view every idea
+                if (!currentUserIsAdmin) {
+                    throw new NotAuthorizedException();
+                }
+            }
     }
 
     public Idea save(Idea idea) {

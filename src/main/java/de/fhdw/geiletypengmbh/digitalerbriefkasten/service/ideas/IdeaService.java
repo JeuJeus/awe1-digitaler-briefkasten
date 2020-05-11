@@ -66,13 +66,13 @@ public class IdeaService {
     }
 
         private void assureIdeaAccessRights(Idea idea) {
+            boolean ideaSubmitted, currentUserIsCreator, currentUserIsSpecialist, currentUserIsAdmin, ideaInStorage;
             User currentUser = null;
             try {
                 currentUser = userService.getCurrentUser();
             } catch (UserNotFoundException e) {
                 currentUser = null;
             }
-            boolean ideaSubmitted, currentUserIsCreator, currentUserIsSpecialist, currentUserIsAdmin, ideaInStorage;
             ideaSubmitted = !idea.getStatus().equals(Status.NOT_SUBMITTED);
             ideaInStorage = idea.getStatus().equals(Status.IDEA_STORAGE);
             currentUserIsCreator = idea.getCreator().getUsername().equals(currentUser.getUsername());

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -42,6 +44,10 @@ public class User {
     @Column
     private String firstName;
 
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private java.sql.Date creationDate;
+
     public User() {
     }
 
@@ -49,6 +55,12 @@ public class User {
         this.username = username;
         this.password = password;
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    @PrePersist
+    private void createdAt() {
+        long millis = System.currentTimeMillis();
+        this.creationDate = new java.sql.Date(millis);
     }
 
     public long getId() {
@@ -105,6 +117,14 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @JsonIgnore

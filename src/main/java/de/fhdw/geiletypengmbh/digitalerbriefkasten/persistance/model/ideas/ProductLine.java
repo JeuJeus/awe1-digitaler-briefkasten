@@ -57,7 +57,5 @@ public class ProductLine {
     public void setSpecialists(List<Specialist> specialists) {
         this.specialists = specialists;
     }
-
-    ;
 }
 

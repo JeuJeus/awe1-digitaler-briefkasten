@@ -17,10 +17,6 @@ public class ProductLine {
     @Column(nullable = false)
     private String title;
 
-    /*@JsonIgnore
-    @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
-    private Set<Idea> ideas;*/
-
     @JsonIgnoreProperties("productLines")
     @ManyToMany(mappedBy = "productLines", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)

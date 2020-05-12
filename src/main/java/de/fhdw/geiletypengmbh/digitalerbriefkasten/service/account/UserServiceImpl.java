@@ -39,6 +39,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.saveAndFlush(user);
     }
 
+    public Specialist save(Specialist specialist) {
+        specialist.setPassword(bCryptPasswordEncoder.encode(specialist.getPassword()));
+        if (specialist.getRoles() == null) {
+            //this ensures by default specialist/user gets set the "SPECIALIST/"USER" role
+            specialist.setRoles(roleService.secureSupplyOfProvidedRole("SPECIALIST"));
+        }
+        return userRepository.saveAndFlush(specialist);
+    }
+
     @Override
     public User findByUsername(String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username);

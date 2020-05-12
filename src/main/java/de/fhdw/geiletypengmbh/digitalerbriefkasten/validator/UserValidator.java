@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.validator;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -44,6 +45,29 @@ public class UserValidator implements Validator {
         }
         if (!user.getPasswordConfirmation().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirmation", "Diff.userForm.passwordConfirmation", "Passwords do not match.");
+        }
+    }
+
+    public void validateSpecialist(Object o, Errors errors) {
+        Specialist specialist = (Specialist) o;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty", "Username is empty");
+        if (specialist.getUsername().length() < 3 || specialist.getUsername().length() > 32) {
+            //Implemented here for practical value -> "max"=ok | "Äteritsiputeritsipuolilautatsijänkä"!=ok (place in finland)
+            errors.rejectValue("username", "Size.userForm.username", "Username is too short." +
+                    "\n (Should be at least 4 characters long.)");
+        }
+        try {
+            if (userService.findByUsername(specialist.getUsername()) != null) {
+                errors.rejectValue("username", "Duplicate.userForm.username", "Username already exists");
+            }
+        } catch (UserNotFoundException e) {
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty", "Password is empty");
+        if (specialist.getPassword().length() < 8 || specialist.getPassword().length() > 32) {
+            errors.rejectValue("password", "Size.userForm.password", "Password is too short." +
+                    "\n (Should be at least 3 characters.)");
         }
     }
 }

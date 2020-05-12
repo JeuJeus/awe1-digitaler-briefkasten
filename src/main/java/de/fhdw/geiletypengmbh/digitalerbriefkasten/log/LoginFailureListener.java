@@ -13,6 +13,6 @@ public class LoginFailureListener implements ApplicationListener<AuthenticationF
 
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
-        logger.warn("[LOGIN FAILURE] USERNAME: " + event.getAuthentication().getName() + " | IP: " + LogHelper.getUserIpAddress());
+        logger.warn(String.format("[LOGIN FAILURE] USERNAME: %s | IP: %s", event.getAuthentication().getName(), LogHelper.getUserIpAddress()));
     }
 }

@@ -1,7 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -39,7 +38,7 @@ public class IdeaService {
     @Autowired
     private ProductLineService productLineService;
 
-    private final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
+    private static final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
 
     public List<Idea> findAll() {
         List<Idea> allIdeas = new ArrayList<>();
@@ -137,7 +136,7 @@ public class IdeaService {
         }
         //TODO CHECK IF IDEA HAS CHANGED IN MEANTIME -> PHILIPP
         //eventually throws IdeaNotFoundException, thats why its here :)
-        Idea checkExistantIdea = this.findById(id);
+        this.findById(id);
         return ideaRepository.saveAndFlush(idea);
     }
 
@@ -245,14 +244,14 @@ public class IdeaService {
     }
 
     public List<Idea> findBySpecialistIdAndStatus(Long specialist_id, Status status) {
-        List<Idea> ideas = new ArrayList<>();
+        List<Idea> ideas;
         ideas = ideaRepository.findBySpecialistIdAndStatus(specialist_id, status);
 
         return ideas;
     }
 
     public List<Idea> findByStatus(Status status){
-        List<Idea> ideas = new ArrayList<>();
+        List<Idea> ideas;
         ideas = ideaRepository.findByStatus(status);
 
         return ideas;
@@ -286,7 +285,6 @@ public class IdeaService {
             ProductIdea productIdea = (ProductIdea) idea;
             oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
             oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
-            System.out.println(productIdea.toString());
             return save(oldProductIdea);
         }
     }

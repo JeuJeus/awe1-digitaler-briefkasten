@@ -27,7 +27,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository<User> userRepository;
 
     @Autowired
     private ProductLineRepository productLineRepository;

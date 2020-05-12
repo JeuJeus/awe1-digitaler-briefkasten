@@ -20,6 +20,7 @@ import java.util.Set;
 
 import static java.util.Collections.emptySet;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
@@ -140,7 +141,7 @@ public class UserControllerIntegTest {
         });
         userService.save(specialist);
         List<Specialist> matchingSpecialists = userService.findSpecialistByProductLine_id(testProductLineId);
-        assert (specialist.getId() != 0); // means that specialist has been persisted
-        assert (matchingSpecialists.get(0).getId() == specialist.getId());
+        assertThat(specialist.getId() != 0); // means that specialist has been persisted
+        assertThat(matchingSpecialists.get(0).getId() == specialist.getId());
     }
 }

@@ -49,6 +49,7 @@ public class UserValidator implements Validator {
     }
 
     public void validateSpecialist(Object o, Errors errors) {
+        //TOD DUPLICATE BLOCK OF CODE ->  REFACTOR? -> JONATHAN
         Specialist specialist = (Specialist) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty", "Username is empty");

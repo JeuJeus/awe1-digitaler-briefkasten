@@ -40,7 +40,6 @@ public class HomepageController {
 
     @Autowired
     private UserServiceImpl userService;
-    private Object Status;
 
 
     @GetMapping("/ideas/{id}")
@@ -98,7 +97,7 @@ public class HomepageController {
     }
 
     @GetMapping("/createIdea/product")
-    public ModelAndView createProductIdea() throws UserNotFoundException {
+    public ModelAndView createProductIdea() {
         List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
         List<TargetGroup> targetGroups = targetGroupRepository.findAll();
 

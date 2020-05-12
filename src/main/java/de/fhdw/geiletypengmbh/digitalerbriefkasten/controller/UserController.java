@@ -70,13 +70,13 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirmation());
 
-        logger.info("[REGISTRATION] USERNAME: " + userForm.getUsername() + " | IP: " + LogHelper.getUserIpAddress());
+        logger.info(String.format("[REGISTRATION] USERNAME: %s | IP: %s", userForm.getUsername(), LogHelper.getUserIpAddress()));
 
         return "redirect:/welcome";
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) throws UserNotFoundException {
+    public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) {
         //in regards to transmission of password in clear see registration()
         //Note that login Post Controller is provided automatically by Spring Security
         if (logout != null) {
@@ -89,7 +89,7 @@ public class UserController {
     public String redirectLogout(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("[LOGOUT] USERNAME: " + auth.getName() + " | IP: " + LogHelper.getUserIpAddress());
+        logger.info(String.format("[LOGOUT] USERNAME: %s | IP: %s", auth.getName(), LogHelper.getUserIpAddress()));
 
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -99,7 +99,7 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model, HttpServletRequest request) throws UserNotFoundException {
+    public String welcome(Model model, HttpServletRequest request) {
         //returns landing page -> if admin=admin else if specialist=specialist else welcome (user landing page)
         if (request.isUserInRole("ADMIN")) {
             return "account/admin";

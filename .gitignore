@@ -53,3 +53,7 @@ build/
 /documentation-latex/Thesis.run.xml
 /documentation-latex/Thesis.synctex.gz
 /documentation-latex/Thesis.toc
+/documentation-latex/Thesis.fk
+/documentation-latex/Thesis.ist
+/documentation-latex/Thesis.mtc
+

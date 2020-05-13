@@ -4,21 +4,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Title already exists")
-public class TitleAlreadyExistsException extends RuntimeException {
+public class AlreadyExistsException extends RuntimeException {
 
-    public TitleAlreadyExistsException() {
+    public AlreadyExistsException() {
         super();
     }
 
-    public TitleAlreadyExistsException(final String message, final Throwable cause) {
+    public AlreadyExistsException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public TitleAlreadyExistsException(final String message) {
+    public AlreadyExistsException(final String message) {
         super(message);
     }
 
-    public TitleAlreadyExistsException(final Throwable cause) {
+    public AlreadyExistsException(final Throwable cause) {
         super(cause);
     }
 }

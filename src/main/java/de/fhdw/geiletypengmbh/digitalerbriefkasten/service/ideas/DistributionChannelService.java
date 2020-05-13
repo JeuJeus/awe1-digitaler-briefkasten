@@ -1,7 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.DistributionChannelNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.TitleAlreadyExistsException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.AlreadyExistsException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.DistributionChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class DistributionChannelService {
         return distributionChannelRepository.findAll();
     }
 
-    public DistributionChannel save(DistributionChannel distributionChannel) throws TitleAlreadyExistsException {
+    public DistributionChannel save(DistributionChannel distributionChannel) {
         if (findByTitle(distributionChannel.getTitle()) == null) {
             return distributionChannelRepository.save(distributionChannel);
         } else {
-            throw new TitleAlreadyExistsException("Vertriebskanal existiert bereits");
+            throw new AlreadyExistsException("Vertriebskanal existiert bereits");
         }
     }
 }

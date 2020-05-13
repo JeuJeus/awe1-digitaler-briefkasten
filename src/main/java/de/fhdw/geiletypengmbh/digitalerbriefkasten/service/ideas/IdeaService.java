@@ -50,8 +50,11 @@ public class IdeaService {
         List<Idea> ideas = new ArrayList<>();
         ideas.addAll(internalIdeaIdeaRepository.findByTitle(ideaTitle));
         ideas.addAll(productIdeaRepository.findByTitle(ideaTitle));
+        assureIdeaAccessRightsForList(ideas);
         return ideas;
     }
+
+
 
     public Idea findById(Long id) {
         Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
@@ -61,6 +64,16 @@ public class IdeaService {
         }
         assureIdeaAccessRights(idea);
         return idea;
+    }
+
+    private void assureIdeaAccessRightsForList(List<Idea> ideas) {
+        for (Idea idea : ideas ){
+            try {
+                assureIdeaAccessRights(idea);
+            } catch (NotAuthorizedException e){
+                ideas.remove(idea);
+            }
+        }
     }
 
     private void assureIdeaAccessRights(Idea idea) {
@@ -111,8 +124,6 @@ public class IdeaService {
 
     public void delete(Long id, HttpServletRequest request) {
         Idea toDelete = this.findById(id);
-
-
         /* There are 2 legitimate states to delete a Idea
             -> either as an ADMIN "with Godpower"
             -> OR as THE CREATOR AND if the idea was NOT_SUBMITTED (= still in draftmode)

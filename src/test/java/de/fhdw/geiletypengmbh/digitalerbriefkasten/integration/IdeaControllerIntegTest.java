@@ -224,7 +224,8 @@ public class IdeaControllerIntegTest {
 
     @Test
     public void whenGetAllIdeas_thenOK() throws Exception {
-        mockMvc.perform(get(API_ROOT))
+        mockMvc.perform(get(API_ROOT)
+                .with(user(TEST_USER)))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

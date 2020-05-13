@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
 
     public User getCurrentUser() throws UserNotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal == "anonymousUser") return null;
         String username = ((UserDetails) principal).getUsername();
         return this.findByUsername(username);
     }

@@ -47,7 +47,7 @@
         <div class="form-group row">
             <select class="form-control" id="productLine" name="productLine" required="required">
                 <option th:each="productLine : ${productLines}"
-                        th:if="${productLine.getTitle()} != INTERNAL"
+                        th:if="${productLine.getTitle()} != ${internalProductLine}"
                         th:value="${productLine.getId()}"
                         th:text="${productLine.getTitle()}"></option>
             </select>

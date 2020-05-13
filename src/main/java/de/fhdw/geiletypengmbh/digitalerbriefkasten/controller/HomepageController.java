@@ -109,6 +109,7 @@ public class HomepageController {
         mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new ProductIdea());
         mav.addObject("advantage", new Advantage());
+        mav.addObject("internalProductLine", ideaService.getDefaultInternalProductLineTitle());
 
         return mav;
     }

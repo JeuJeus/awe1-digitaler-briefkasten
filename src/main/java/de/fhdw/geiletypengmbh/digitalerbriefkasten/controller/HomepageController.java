@@ -119,8 +119,7 @@ public class HomepageController {
 
         //TODO PHILIPP IS THERE A MORE CLEVER WAY OF DOING THIS? -> REFACTOR INTO METHOD IN IDEASERVICE
         if (currentUser.getId() != idea.getCreator().getId()) throw new NotAuthorizedException();
-        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException();
-
+        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException(); // TODO RLY?
         ModelAndView mav = new ModelAndView();
         String view;
         if (idea instanceof InternalIdea) {

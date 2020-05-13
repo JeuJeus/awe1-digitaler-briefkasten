@@ -12,4 +12,6 @@ public interface IdeaRepository<T extends Idea> extends JpaRepository<T, Long> {
     List<T> findBySpecialistIdAndStatus(Long specialist_id, Status status);
 
     List<T> findByStatus(Status status);
+
+    Long countBySpecialist_idAndStatus(Long specialist_id, Status status);
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -249,30 +250,35 @@ public class IdeaService {
 
 
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
-        //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK THE ONE WITH LEAST PENDING IDEAS -> PHULLIPEH
         Optional<Specialist> specialist = Optional.empty();
         List<ProductLine> internalProductLines =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
         if (!internalProductLines.isEmpty()) {
-            ProductLine internalProductLine = internalProductLines.get(0);
-            List<Specialist> internalSpecialists = userService.findSpecialistByProductLine_id(internalProductLine.getId());
-            if (!internalSpecialists.isEmpty()) {
-                specialist = Optional.ofNullable(internalSpecialists.get(0));
-            }
+            specialist = getSpecialistsByProductLine(internalProductLines.get(0));
         }
         return specialist;
     }
 
 
     private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
-        //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE? -> PHULLIPEH
         Optional<Specialist> specialist = Optional.empty();
         ProductLine productLine = productLineService.findById(idea.getProductLine().getId());
         if (productLine != null) {
-            List<Specialist> specialists = userService.findSpecialistByProductLine_id(productLine.getId());
-            if (!specialists.isEmpty()) {
-                specialist = Optional.ofNullable(specialists.get(0));
-            }
+            specialist = getSpecialistsByProductLine(productLine);
+        }
+        return specialist;
+    }
+
+    private Optional<Specialist> getSpecialistsByProductLine(ProductLine productLine) {
+        Optional<Specialist> specialist = Optional.empty();
+        List<Specialist> specialists = userService.findSpecialistByProductLine_id(productLine.getId());
+        if (!specialists.isEmpty()) {
+            // when multiple specialists found, then return the one with least not submitted ideas (least work to do)
+            specialists = specialists.stream().sorted(
+                    Comparator.comparing(
+                            s -> ideaRepository.countBySpecialist_idAndStatus(s.getId(), Status.NOT_SUBMITTED))).
+                    collect(Collectors.toCollection(ArrayList::new));
+            specialist = Optional.ofNullable(specialists.get(0));
         }
         return specialist;
     }

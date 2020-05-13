@@ -39,7 +39,8 @@
             <label for="productLine"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control" id="productLine" name="productLine">
+                <select class="form-control" id="productLine" name="productLine"
+                        th:disabled="${idea.getStatus()} != ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).NOT_SUBMITTED}">
                     <option th:each="productLine: ${productLines}"
                             th:value="${productLine.getId()}"
                             th:text="${productLine.getTitle()}"

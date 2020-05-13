@@ -24,15 +24,14 @@
             <label for="title" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="title" name="title"
-                       th:field="*{title}" type="text" readonly="true">
+                       th:value="*{title}" type="text" readonly="true">
             </div>
         </div>
         <div class="form-group form-row">
             <label for="description"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Beschreibung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <textarea class="form-control" id="description" form-rows="3"
-                          th:field="*{description}" readonly="true"></textarea>
+                <textarea class="form-control" form-rows="3" th:field="*{description}" readonly="readonly"></textarea>
             </div>
 
         </div>
@@ -40,8 +39,11 @@
             <label for="productLine"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" id="productLine" name="productLine"
-                       th:value="*{productLine?.getTitle()}" type="text" readonly="true">
+                <select class="form-control pre-select-all-options" id="productLine" name="productLine"
+                        disabled="disabled">
+                    <option th:value="*{productLine?.getId()}"
+                            th:text="*{productLine?.getTitle()}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group form-row">
@@ -71,7 +73,7 @@
             <label for="targetGroups" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">
                 Zielgruppen</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control-mul" id="targetGroups" name="targetGroups"
+                <select class="form-control-mul pre-select-all-options" id="targetGroups" name="targetGroups"
                         multiple="multiple" disabled="disabled">
                     <option th:each="targetGroup : *{targetGroups}"
                             th:value="${targetGroup.getId()}"
@@ -83,7 +85,8 @@
             <label for="distributionChannels" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">
                 Vertriebskanäle</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control-mul" id="distributionChannels" name="distributionChannels"
+                <select class="form-control-mul pre-select-all-options" id="distributionChannels"
+                        name="distributionChannels"
                         multiple="multiple" disabled="disabled">
                     <option th:each="distributionChannel : *{distributionChannels}"
                             th:value="${distributionChannel.getId()}"
@@ -95,8 +98,10 @@
             <label for="creator"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" id="creator" name="creator"
-                       th:value="*{creator?.getUsername()}" type="text" readonly="true">
+                <select class="form-control pre-select-all-options" id="creator" name="creator" disabled="disabled">
+                    <option th:value="*{creator?.getId()}"
+                            th:text="*{creator?.getUsername()}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group form-row">
@@ -138,7 +143,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            prefillSelect2('select.form-control-mul');
+            prefillSelect2('select.pre-select-all-options');
         });
     </script>
 </main>

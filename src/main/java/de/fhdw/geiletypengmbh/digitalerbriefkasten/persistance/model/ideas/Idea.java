@@ -10,7 +10,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "idea")
@@ -151,7 +153,14 @@ public class Idea {
     }
 
     public void setAdvantages(List<Advantage> advantages) {
-        this.advantages = advantages;
+        if (this.advantages != null) this.advantages.clear();
+        if (advantages != null) {
+            if (this.advantages == null) this.advantages = new ArrayList<Advantage>();
+            this.advantages.addAll(advantages.stream().
+                    filter(advantage -> !advantage.getDescription().isEmpty()).
+                    collect(Collectors.toCollection(ArrayList::new))
+            );
+        }
     }
 
     public Specialist getSpecialist() {

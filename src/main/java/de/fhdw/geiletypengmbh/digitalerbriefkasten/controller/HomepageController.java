@@ -2,14 +2,12 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.DistributionChannelRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.TargetGroupRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,16 +26,16 @@ public class HomepageController {
     private IdeaService ideaService;
 
     @Autowired
-    private FieldRepository fieldRepository;
+    private FieldService fieldService;
 
     @Autowired
-    private DistributionChannelRepository distributionChannelRepository;
+    private DistributionChannelService distributionChannelService;
 
     @Autowired
-    private TargetGroupRepository targetGroupRepository;
+    private TargetGroupService targetGroupService;
 
     @Autowired
-    private ProductLineRepository productLineRepository;
+    private ProductLineService productLineService;
 
     @Autowired
     private UserServiceImpl userService;
@@ -84,8 +83,8 @@ public class HomepageController {
 
     @GetMapping("/createIdea/internal")
     public ModelAndView createInternalIdea() {
-        List<Field> fields = fieldRepository.findAll();
-        List<ProductLine> productLines = productLineRepository.findAll();
+        List<Field> fields = fieldService.findAll();
+        List<ProductLine> productLines = productLineService.findAll();
 
         ModelAndView mav = new ModelAndView("ideas/createInternal");
         mav.addObject("fields", fields);
@@ -98,10 +97,10 @@ public class HomepageController {
 
     @GetMapping("/createIdea/product")
     public ModelAndView createProductIdea() {
-        List<DistributionChannel> distributionChannels = distributionChannelRepository.findAll();
-        List<TargetGroup> targetGroups = targetGroupRepository.findAll();
+        List<DistributionChannel> distributionChannels = distributionChannelService.findAll();
+        List<TargetGroup> targetGroups = targetGroupService.findAll();
 
-        List<ProductLine> productLines = productLineRepository.findAll();
+        List<ProductLine> productLines = productLineService.findAll();
 
         ModelAndView mav = new ModelAndView("ideas/createProduct");
         mav.addObject("distributionChannels", distributionChannels);
@@ -125,6 +124,18 @@ public class HomepageController {
 
         String view = idea instanceof InternalIdea ? "ideas/editInternalIdea" : "ideas/editProductIdea";
         ModelAndView mav = new ModelAndView(view);
+        String view;
+        ModelAndView mav = new ModelAndView();
+        if (idea instanceof InternalIdea) {
+            view = "ideas/editInternalIdea";
+            mav.addObject("fields", fieldService.findAll());
+        } else {
+            view = "ideas/editProductIdea";
+            mav.addObject("targetGroups", targetGroupService.findAll());
+            mav.addObject("distributionChannels", distributionChannelService.findAll());
+        }
+        mav.setViewName(view);
+        mav.addObject("productLines", productLineService.findAll());
         mav.addObject("idea", idea);
         return mav;
     }

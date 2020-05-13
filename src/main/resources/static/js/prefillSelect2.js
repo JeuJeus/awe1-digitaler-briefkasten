@@ -8,3 +8,10 @@ function prefillSelect2(cssSelector) {
         select.dispatchEvent(new Event('change'));
     })
 }
+
+function triggerSelect2(cssSelector) {
+    let selects = document.querySelectorAll(cssSelector);
+    selects.forEach((select) => {
+        select.dispatchEvent(new Event('change'));
+    })
+}

@@ -41,7 +41,7 @@
                     <option th:each="productLine: ${productLines}"
                             th:value="${productLine.getId()}"
                             th:text="${productLine.getTitle()}"
-                            th:selected="${productLine.getId()} == *{productLine.getId()}">
+                            th:selected="${productLine.getId()} == *{productLine?.getId()}">
                     </option>
                 </select>
             </div>
@@ -73,7 +73,7 @@
                     <option th:each="field: ${fields}"
                             th:value="${field.getId()}"
                             th:text="${field.getTitle()}"
-                            th:selected="${field.getId()} == *{field.getId()}">
+                            th:selected="${field.getId()} == *{field?.getId()}">
                     </option>
                 </select>
             </div>

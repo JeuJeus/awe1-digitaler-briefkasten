@@ -121,6 +121,120 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                            aria-expanded="false" aria-controls="collapseThree">
+                        Produktsparte anlegen
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <form class="form-createProductLine" enctype="utf8" method="POST"
+                          th:action="@{/admin/createProductLine}">
+                        <div class="form-group">
+                            <input class="form-control" id="title" name="title" placeholder="Bezeichnung"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block" type="submit">Produktsparte anlegen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                            aria-expanded="false" aria-controls="collapseFour">
+                        Handlungsfeld anlegen
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                    <form class="form-createField" enctype="utf8" method="POST"
+                          th:action="@{/admin/createField}">
+                        <div class="form-group">
+                            <input class="form-control" id="title" name="title" placeholder="Bezeichnung"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block" type="submit">Handlungsfeld anlegen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
+                            aria-expanded="false" aria-controls="collapseFive">
+                        Zielgruppe anlegen
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                <div class="card-body">
+                    <form class="form-createTargetGroup" enctype="utf8" method="POST"
+                          th:action="@{/admin/createTargetGroup}">
+                        <div class="form-group">
+                            <input class="form-control" id="title" name="title" placeholder="Bezeichnung"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block" type="submit">Zielgruppe anlegen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingSix">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
+                            aria-expanded="false" aria-controls="collapseSix">
+                        Vertriebskanal anlegen
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                <div class="card-body">
+                    <form class="form-createDistributionChannel" enctype="utf8" method="POST"
+                          th:action="@{/admin/createDistributionChannel}">
+                        <div class="form-group">
+                            <input class="form-control" id="title" name="title" placeholder="Bezeichnung"
+                                   required="required"
+                                   type="text">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-block" type="submit">Vertriebskanal anlegen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--<div class="card">
+            <div class="card-header" id="headingSeven">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                        Zielgruppe anlegen
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                </div>
+            </div>
+        </div>-->
     </div>
 </main>
 

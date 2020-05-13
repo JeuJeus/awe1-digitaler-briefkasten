@@ -67,15 +67,14 @@ public class IdeaService {
 
         boolean ideaIsSubmitted = !idea.getStatus().equals(Status.NOT_SUBMITTED);
         boolean ideaIsInStorage = idea.getStatus().equals(Status.IDEA_STORAGE);
-        boolean ideaIsPublic = (idea.getStatus().equals(Status.PENDING) || idea.getStatus().equals(Status.ACCEPTED) || idea.getStatus().equals(Status.DECLINED)) ? true : false;
+        boolean ideaIsPublic = (idea.getStatus().equals(Status.PENDING) || idea.getStatus().equals(Status.ACCEPTED) || idea.getStatus().equals(Status.DECLINED));
 
         User currentUser = getUser();
         //TODO REFACTOR NULL AWAY
         if(currentUser!=null) {
-            boolean currentUserIsCreator = idea.getCreator().equals(currentUser);
+            boolean currentUserIsCreator = idea.getCreator().getId() == currentUser.getId();
             boolean currentUserIsAdmin = currentUser.isRole("ADMIN");
             boolean currentUserIsSpecialist = currentUser.isRole("SPECIALIST");
-
             if (!ideaIsPublic && !currentUserIsAdmin) {
                 if (!ideaIsSubmitted && !currentUserIsCreator) throw new NotAuthorizedException();
                 if (ideaIsInStorage && !currentUserIsSpecialist) throw new NotAuthorizedException();

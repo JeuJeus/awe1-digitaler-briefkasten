@@ -2,8 +2,8 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.NotAuthorizedException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.controller.exceptions.UserNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
@@ -122,10 +122,8 @@ public class HomepageController {
         if (currentUser.getId() != idea.getCreator().getId()) throw new NotAuthorizedException();
         if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException();
 
-        String view = idea instanceof InternalIdea ? "ideas/editInternalIdea" : "ideas/editProductIdea";
-        ModelAndView mav = new ModelAndView(view);
-        String view;
         ModelAndView mav = new ModelAndView();
+        String view;
         if (idea instanceof InternalIdea) {
             view = "ideas/editInternalIdea";
             mav.addObject("fields", fieldService.findAll());

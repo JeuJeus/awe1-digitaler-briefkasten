@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.FieldNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.TitleAlreadyExistsException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class FieldService {
     }
 
     public Field save(Field field) {
-        return fieldRepository.save(field);
+        if (findByTitle(field.getTitle()) == null) {
+            return fieldRepository.save(field);
+        } else {
+            throw new TitleAlreadyExistsException("Handlungsfeld existiert bereits");
+        }
     }
 }

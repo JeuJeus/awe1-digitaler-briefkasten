@@ -216,12 +216,13 @@ public class IdeaService {
     }
 
     //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK THE ONE WITH LEAST PENDING IDEAS -> PHULLIPEH
+    //TODO REFACTOR TO ACCOUNT FOR CHANGE IN PRODUCTLINE LOGIC
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
-        List<ProductLine> internalProductLines =
+        ProductLine internalProductLines =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
-        if (!internalProductLines.isEmpty()) {
-            ProductLine internalProductLine = internalProductLines.get(0);
+        if (!(internalProductLines == null)) {
+            ProductLine internalProductLine = internalProductLines;
             List<Specialist> internalSpecialists = userService.findSpecialistByProductLine_id(internalProductLine.getId());
             if (!internalSpecialists.isEmpty()) {
                 specialist = Optional.ofNullable(internalSpecialists.get(0));

@@ -9,7 +9,7 @@ public class Field {
     @Column(unique = true, nullable = false)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     public Field() {

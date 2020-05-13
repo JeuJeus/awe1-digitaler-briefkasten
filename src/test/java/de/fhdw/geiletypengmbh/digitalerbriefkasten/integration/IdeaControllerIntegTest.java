@@ -331,7 +331,6 @@ public class IdeaControllerIntegTest {
     public void whenCreateNewProductIdea_thenCreated() throws Exception {
         ProductIdea idea = createRandomProductIdea();
         String ideaJson = parseIdeaToJson(idea);
-        System.out.println(ideaJson);
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

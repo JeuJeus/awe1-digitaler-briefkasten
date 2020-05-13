@@ -26,4 +26,5 @@ public class RoleService {
             return singleton(userRole);
         } else return singleton(toProvide);
     }
+
 }

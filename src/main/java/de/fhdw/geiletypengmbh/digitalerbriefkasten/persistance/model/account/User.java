@@ -131,4 +131,12 @@ public class User {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    @JsonIgnore
+    public boolean isRole(String roleName){
+        for(Role r:roles){
+            if(r.getName().equals(roleName)) return true;
+        }
+        return false;
+    }
 }

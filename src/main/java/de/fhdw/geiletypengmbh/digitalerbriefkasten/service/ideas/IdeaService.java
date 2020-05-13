@@ -1,12 +1,15 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.RoleRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.IdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.InternalIdeaRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductIdeaRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.RoleService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,6 +41,9 @@ public class IdeaService {
     @Autowired
     private ProductLineService productLineService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     private static final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
 
     public List<Idea> findAll() {
@@ -65,18 +71,16 @@ public class IdeaService {
     }
 
         private void assureIdeaAccessRights(Idea idea) {
+            User currentUser = getUser();
+            
             boolean ideaSubmitted, currentUserIsCreator, currentUserIsSpecialist, currentUserIsAdmin, ideaInStorage;
-            User currentUser = null;
-            try {
-                currentUser = userService.getCurrentUser();
-            } catch (UserNotFoundException e) {
-                currentUser = null;
-            }
+            
             ideaSubmitted = !idea.getStatus().equals(Status.NOT_SUBMITTED);
             ideaInStorage = idea.getStatus().equals(Status.IDEA_STORAGE);
             currentUserIsCreator = idea.getCreator().getUsername().equals(currentUser.getUsername());
-            currentUserIsSpecialist = currentUser.getRoles().equals("SPECIALIST");
-            currentUserIsAdmin = currentUser.getRoles().equals("ADMIN");
+
+            currentUserIsAdmin = currentUser.isRole("ADMIN");
+            currentUserIsSpecialist = currentUser.isRole("SPECIALIST");
 
             if (!ideaSubmitted && !currentUserIsCreator) {
                 //not submitted ideas should only available for their creator
@@ -90,6 +94,16 @@ public class IdeaService {
                     throw new NotAuthorizedException();
                 }
             }
+    }
+
+    private User getUser() {
+        User currentUser = null;
+        try {
+            currentUser = userService.getCurrentUser();
+        } catch (UserNotFoundException e) {
+            currentUser = null;
+        }
+        return currentUser;
     }
 
     public Idea save(Idea idea) {

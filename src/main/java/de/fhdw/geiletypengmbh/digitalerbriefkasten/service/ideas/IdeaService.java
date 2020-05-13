@@ -147,10 +147,26 @@ public class IdeaService {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
         }
-        //TODO CHECK IF IDEA HAS CHANGED IN MEANTIME -> PHILIPP
-        //eventually throws IdeaNotFoundException, thats why its here :)
-        this.findById(id);
-        return save(idea);
+        Idea oldIdea = findById(id);
+        oldIdea.setDescription(idea.getDescription());
+        oldIdea.setAdvantages(idea.getAdvantages());
+        if (oldIdea instanceof InternalIdea) {
+            InternalIdea oldInternalIdea = (InternalIdea) oldIdea;
+            InternalIdea internalIdea = (InternalIdea) idea;
+            oldInternalIdea.setField(internalIdea.getField());
+            return save(oldInternalIdea);
+        } else {
+            ProductIdea oldProductIdea = (ProductIdea) oldIdea;
+            ProductIdea productIdea = (ProductIdea) idea;
+            oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
+            oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
+            // Productline can only be updated if idea not submitted because when submitting a specialist is
+            // assigned by productline. Also the internal productline can not be used for product ideas
+            if (oldIdea.getStatus() == Status.NOT_SUBMITTED && !idea.getProductLine().getTitle().equals(getDefaultInternalProductLineTitle())) {
+                oldIdea.setProductLine(idea.getProductLine());
+            }
+            return save(oldProductIdea);
+        }
     }
 
     public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
@@ -286,28 +302,5 @@ public class IdeaService {
             updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
             return save(updateDecision);
         } else throw new NotAuthorizedException();
-    }
-
-    public Idea saveUpdateIdea(Long id, Idea idea) {
-        Idea oldIdea = findById(id);
-        oldIdea.setDescription(idea.getDescription());
-        oldIdea.setAdvantages(idea.getAdvantages());
-        if (oldIdea instanceof InternalIdea) {
-            InternalIdea oldInternalIdea = (InternalIdea) oldIdea;
-            InternalIdea internalIdea = (InternalIdea) idea;
-            oldInternalIdea.setField(internalIdea.getField());
-            return save(oldInternalIdea);
-        } else {
-            ProductIdea oldProductIdea = (ProductIdea) oldIdea;
-            ProductIdea productIdea = (ProductIdea) idea;
-            oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
-            oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
-            // Productline can only be updated if idea not submitted because when submitting a specialist is
-            // assigned by productline. Also the internal productline can not be used for product ideas
-            if (oldIdea.getStatus() == Status.NOT_SUBMITTED && !idea.getProductLine().getTitle().equals(getDefaultInternalProductLineTitle())) {
-                oldIdea.setProductLine(idea.getProductLine());
-            }
-            return save(oldProductIdea);
-        }
     }
 }

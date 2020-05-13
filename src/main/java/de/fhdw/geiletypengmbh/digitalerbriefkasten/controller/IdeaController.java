@@ -76,12 +76,12 @@ public class IdeaController {
 
     @PostMapping("/update/internal/{id}")
     public Idea updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
-        return ideaService.saveUpdateIdea(id, idea);
+        return ideaService.updateIdea(idea, id);
     }
 
     @PostMapping("/update/product/{id}")
     public Idea updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
-        return ideaService.saveUpdateIdea(id, idea);
+        return ideaService.updateIdea(idea, id);
     }
 
 }

@@ -240,7 +240,6 @@ public class IdeaService {
     public Idea saveUpdateIdea(Long id, Idea idea) {
         Idea oldIdea = findById(id);
         oldIdea.setDescription(idea.getDescription());
-        oldIdea.setProductLine(idea.getProductLine());
         oldIdea.setAdvantages(idea.getAdvantages());
         if (oldIdea instanceof InternalIdea) {
             InternalIdea oldInternalIdea = (InternalIdea) oldIdea;
@@ -252,6 +251,11 @@ public class IdeaService {
             ProductIdea productIdea = (ProductIdea) idea;
             oldProductIdea.setTargetGroups(productIdea.getTargetGroups());
             oldProductIdea.setDistributionChannels(productIdea.getDistributionChannels());
+            // Productline can only be updated if idea not submitted because when submitting a specialist is
+            // assigned by productline. Also the internal productline can not be used for product ideas
+            if (oldIdea.getStatus() == Status.NOT_SUBMITTED && !idea.getProductLine().getTitle().equals(getDefaultInternalProductLineTitle())) {
+                oldIdea.setProductLine(idea.getProductLine());
+            }
             return save(oldProductIdea);
         }
     }

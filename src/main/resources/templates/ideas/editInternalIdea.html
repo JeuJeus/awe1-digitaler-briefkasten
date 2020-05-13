@@ -37,11 +37,11 @@
             <label for="productLine"
                    class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control" id="productLine" name="productLine">
+                <select class="form-control" id="productLine" name="productLine" disabled="disabled">
                     <option th:each="productLine: ${productLines}"
                             th:value="${productLine.getId()}"
                             th:text="${productLine.getTitle()}"
-                            th:selected="${productLine.getId()} == *{productLine?.getId()}">
+                            th:selected="${productLine.getId()} == *{productLine.getId()}">
                     </option>
                 </select>
             </div>
@@ -73,7 +73,7 @@
                     <option th:each="field: ${fields}"
                             th:value="${field.getId()}"
                             th:text="${field.getTitle()}"
-                            th:selected="${field.getId()} == *{field?.getId()}">
+                            th:selected="${field.getId()} == *{field.getId()}">
                     </option>
                 </select>
             </div>

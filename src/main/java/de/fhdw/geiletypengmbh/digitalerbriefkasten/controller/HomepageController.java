@@ -88,7 +88,6 @@ public class HomepageController {
 
         ModelAndView mav = new ModelAndView("ideas/createInternal");
         mav.addObject("fields", fields);
-        mav.addObject("productLines", productLines);
         mav.addObject("createIdea", new InternalIdea());
         mav.addObject("advantage", new Advantage());
 

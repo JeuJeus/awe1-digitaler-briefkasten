@@ -155,6 +155,9 @@ public class IdeaService {
 
     public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
         try {
+            if (idea instanceof InternalIdea) {
+                idea.setProductLine(productLineService.findByTitle(getDefaultInternalProductLineTitle()).get(0));
+            }
             idea.setCreator(userService.getCurrentUser());
             idea.setSpecialist(this.getSpecialistOfNewIdea(idea));
         } catch (UserNotFoundException e) {

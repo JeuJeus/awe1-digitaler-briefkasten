@@ -38,19 +38,4 @@ public class HelperScriptsNoTests {
         admin.setRoles(Collections.singleton(adminRole));
         userService.save(admin);
     }
-
-    @Ignore
-    @Test
-    public void createSpecialistIfNotExists() {
-        //TODO REMOVE ME
-        /* Used to test Specialist while not implemented to be created otherwise -> Jonathan*/
-        Role specialistRole = new Role();
-        specialistRole.setName("SPECIALIST");
-        roleRepository.saveAndFlush(specialistRole);
-        Specialist specialist = new Specialist("specialist",
-                "specialistpw",
-                "specialistpw");
-        specialist.setRoles(Collections.singleton(specialistRole));
-        userService.save(specialist);
-    }
 }

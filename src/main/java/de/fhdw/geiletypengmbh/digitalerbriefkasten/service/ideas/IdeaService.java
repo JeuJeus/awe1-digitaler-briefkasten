@@ -217,8 +217,9 @@ public class IdeaService {
         return specialist.get();
     }
 
-    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK THE ONE WITH LEAST PENDING IDEAS -> PHULLIPEH
+
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
+        //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK THE ONE WITH LEAST PENDING IDEAS -> PHULLIPEH
         Optional<Specialist> specialist = Optional.empty();
         List<ProductLine> internalProductLines =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
@@ -232,8 +233,9 @@ public class IdeaService {
         return specialist;
     }
 
-    //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE? -> PHULLIPEH
+
     private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
+        //TODO MAYBE CHANGE LOGIC TO: WHEN MULTIPLE SPECIALISTS FOUND, PICK RANDOM ONE? -> PHULLIPEH
         Optional<Specialist> specialist = Optional.empty();
         ProductLine productLine = productLineService.findById(idea.getProductLine().getId());
         if (productLine != null) {

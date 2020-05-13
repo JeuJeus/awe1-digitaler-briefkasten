@@ -13,8 +13,13 @@
 <div th:replace="pageParts/navbar :: navbar"></div>
 
 <main>
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Willkommen <span th:text="${#authentication.getPrincipal().getUsername()}"></span>!</h1>
+            <p class="lead text-muted">Es handelt sich um einen Prototypen</p>
+        </div>
+    </section>
     <div class="container">
-        <h1>Willkommen <span th:text="${#authentication.getPrincipal().getUsername()}"></span>!</h1>
         <p class="ml-0 mt-5 pt-1 border-top caption">
             <i class="mr-3 dblFontSize fas fa-gavel"></i>
             Anstehende Entscheidungen

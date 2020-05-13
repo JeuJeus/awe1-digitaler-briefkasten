@@ -21,6 +21,7 @@ public class IdeaController {
 
     @GetMapping
     public Iterable<Idea> findAll() {
+        //TODO I AM A SECURITY FLAW -> EVERY IDEA IS TO MUCH & A LEAK
         return ideaService.findAll();
     }
 

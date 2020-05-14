@@ -53,19 +53,13 @@ public class IdeaController {
     }
 
     @PostMapping("/internal")
-    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) throws InternalProductLineNotExistingException {
+    public Idea createInternalIdea(@ModelAttribute InternalIdea idea) {
         return ideaService.createByForm(idea);
     }
 
     @PostMapping("/product")
     public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
-        try {
             return ideaService.createByForm(idea);
-        } catch (InternalProductLineNotExistingException ignored) {
-            //ignore InternalProductLineNotExistingException because backend method throws it
-            // (wont throw in this case anyways)
-        }
-        return new Idea();
     }
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
@@ -75,8 +69,8 @@ public class IdeaController {
     }
 
     @PostMapping("/submitIdea")
-    public Idea submitIdea(@ModelAttribute Idea idea) {
-        return ideaService.submitIdea(idea);
+    public Idea submitIdea(@ModelAttribute Idea ideaId) throws InternalProductLineNotExistingException {
+        return ideaService.submitIdea(ideaId.getId());
     }
 
     @PostMapping("/update/internal/{id}")

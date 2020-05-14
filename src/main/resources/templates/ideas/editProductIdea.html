@@ -128,9 +128,15 @@
                        th:value="*{statusJustification}" type="text" readonly="readonly">
             </div>
         </div>
-        <button class="btn btn-dark btn-block" type="submit">Idee aktualisieren</button>
+            <button class="btn btn-dark btn-block" type="submit">Idee aktualisieren</button>
+    </form>
 
-
+    <form action="#" class="form-submitIdea" method="POST" th:action="@{/api/ideas/submitIdea}" th:object="${idea}">
+        <input type="hidden" class="form-control" id="id" name="id"
+               th:value="*{id}" readonly="readonly">
+        <div class="form-group">
+            <button class="btn btn-dark btn-block" type="submit">Idee einreichen</button>
+        </div>
     </form>
 
     <div th:replace="pageParts/footer :: footer"></div>

@@ -169,13 +169,12 @@ public class IdeaService {
         }
     }
 
-    public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
+    public Idea createByForm(Idea idea) {
         try {
             if (idea instanceof InternalIdea) {
                 idea.setProductLine(productLineService.findByTitle(getDefaultInternalProductLineTitle()));
             }
             idea.setCreator(userService.getCurrentUser());
-            idea.setSpecialist(this.getSpecialistOfNewIdea(idea));
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();
         }
@@ -313,17 +312,23 @@ public class IdeaService {
         } else throw new NotAuthorizedException();
     }
 
-    public Idea submitIdea(Idea idea) {
-        Idea oldIdea = findById(idea.getId());
+    public Idea submitIdea(long ideaId) throws InternalProductLineNotExistingException {
         try {
-            if (oldIdea.getStatus().equals(Status.NOT_SUBMITTED) && userService.getCurrentUser().getId() == oldIdea.getCreator().getId()) {
-                oldIdea.setStatus(Status.PENDING);
-            } else {
-                throw new NotAuthorizedException();
-            }
+            Idea toSubmit = findById(ideaId);
+                User current = userService.getCurrentUser();
+                if (toSubmit.getStatus().equals(Status.NOT_SUBMITTED) && toSubmit.getCreator().getId() == current.getId()){
+                    toSubmit.setStatus(Status.PENDING);
+                    toSubmit.setSpecialist(this.getSpecialistOfNewIdea(toSubmit));
+                    return save(toSubmit);
+                } else {
+                    throw new NotAuthorizedException();
+                }
+        } catch (IdeaNotFoundException e){
+            throw new IdeaNotFoundException();
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            throw new NotAuthorizedException();
+        } catch (InternalProductLineNotExistingException e) {
+            throw new InternalProductLineNotExistingException();
         }
-        return updateIdea(oldIdea, oldIdea.getId());
     }
 }

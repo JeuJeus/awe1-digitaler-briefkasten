@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="utf-8"/>
-
 <head>
-    <title th:text="${idea.getTitle()}"></title>
+    <meta charset="UTF-8">
 
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
-    <script th:src="@{../js/fontawesome.js}" type="text/javascript"></script>
-    <script th:src="@{/js/prefillSelect2.js}" type="text/javascript"></script>
 </head>
 <body>
 
-<div th:replace="pageParts/navbar :: navbar"></div>
-
-<main class="container">
+<main class="container" th:fragment="product">
     <form action="#" th:object="${idea}">
         <h2 class="form-heading">
             <i class="mr-3 dblFontSize far fa-lightbulb"></i>
@@ -126,12 +119,6 @@
             </div>
         </div>
     </form>
-
-    <div class="container">
-        <button class="btn btn-dark btn-block"  onclick="history.back()">Zurück gehen</button>
-    </div>
-
-    <div th:replace="pageParts/footer :: footer"></div>
 
     <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
     <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>

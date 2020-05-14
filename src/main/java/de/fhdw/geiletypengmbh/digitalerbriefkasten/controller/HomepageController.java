@@ -44,7 +44,7 @@ public class HomepageController {
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
-        String view = idea instanceof InternalIdea ? "ideas/internalIdea" : "ideas/ProductIdea";
+        String view = "ideas/idea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
         return mav;

@@ -25,8 +25,12 @@
                                         (#httpServletRequest.getRequestURI()  == '/welcome' ? 'active': '')}">
                 <a class="nav-link" href="/">Home </a>
             </li>
+            <li sec:authorize="isAnonymous()"
+                th:classappend="${#httpServletRequest.getRequestURI()  == '/login' ? 'active':''}">
+                <a class="nav-link" href="/">Login </a>
+            </li>
             <li sec:authorize="isAuthenticated()"
-                    class="nav-item dropdown navbar-dark bg-dark"
+                class="nav-item dropdown navbar-dark bg-dark"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">

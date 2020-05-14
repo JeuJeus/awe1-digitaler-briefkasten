@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.TargetGroupNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.AlreadyExistsException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.TargetGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class TargetGroupService {
     }
 
     public TargetGroup save(TargetGroup targetGroup) {
-        return targetGroupRepository.save(targetGroup);
+        if (findByTitle(targetGroup.getTitle()) == null) {
+            return targetGroupRepository.save(targetGroup);
+        } else {
+            throw new AlreadyExistsException("Zielgruppe existiert bereits");
+        }
     }
 }

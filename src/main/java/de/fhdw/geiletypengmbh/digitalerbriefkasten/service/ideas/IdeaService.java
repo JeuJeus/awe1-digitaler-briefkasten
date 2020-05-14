@@ -250,10 +250,10 @@ public class IdeaService {
 
     private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
-        List<ProductLine> internalProductLines =
+        ProductLine internalProductLine =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
         if (!internalProductLines.isEmpty()) {
-            specialist = getSpecialistsByProductLine(internalProductLines.get(0));
+            specialist = getSpecialistsByProductLine(internalProductLine);
         }
         return specialist;
     }

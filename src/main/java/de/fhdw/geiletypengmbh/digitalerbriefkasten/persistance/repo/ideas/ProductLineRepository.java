@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProductLineRepository extends JpaRepository<ProductLine, Long> {
     List<ProductLine> findAll();
 
-    List<ProductLine> findByTitle(String title);
+    ProductLine findByTitle(String title);
 }

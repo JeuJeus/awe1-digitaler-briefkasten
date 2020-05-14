@@ -2,11 +2,14 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductLine;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +43,18 @@ public class AdminController {
 
     @Autowired
     IdeaService ideaService;
+
+    @Autowired
+    FieldService fieldService;
+
+    @Autowired
+    TargetGroupService targetGroupService;
+
+    @Autowired
+    DistributionChannelService distributionChannelService;
+
+    @Autowired
+    ProductLineService productLineService;
 
     @GetMapping("/admin")
     public ModelAndView adminPanel() {
@@ -79,6 +94,67 @@ public class AdminController {
 
         userService.save(userForm);
         redirectAttributes.addFlashAttribute("success", "Spezialist erfolgreich angelegt.");
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/createProductLine")
+    public String createProductLine(@ModelAttribute ProductLine productLine, RedirectAttributes redirectAttributes) {
+
+        try {
+            productLineService.save(productLine);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errors", e.getMessage());
+            return "redirect:/admin";
+        }
+        redirectAttributes.addFlashAttribute("success", "Produktlinie erfolgreich angelegt.");
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/createField")
+    public String createField(@ModelAttribute Field field, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            ArrayList<String> errors = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/admin";
+        }
+
+        fieldService.save(field);
+        redirectAttributes.addFlashAttribute("success", "Handlungsfeld erfolgreich angelegt.");
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/createTargetGroup")
+    public String createTargetGroup(@ModelAttribute TargetGroup targetGroup, BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            ArrayList<String> errors = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/admin";
+        }
+
+        targetGroupService.save(targetGroup);
+        redirectAttributes.addFlashAttribute("success", "Zielgruppe erfolgreich angelegt.");
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/createDistributionChannel")
+    public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel, BindingResult bindingResult,
+                                            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            ArrayList<String> errors = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/admin";
+        }
+
+        distributionChannelService.save(distributionChannel);
+        redirectAttributes.addFlashAttribute("success", "Vertriebskanal erfolgreich angelegt.");
         return "redirect:/admin";
     }
 }

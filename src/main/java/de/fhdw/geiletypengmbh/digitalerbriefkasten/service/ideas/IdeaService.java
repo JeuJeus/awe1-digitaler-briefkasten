@@ -302,11 +302,16 @@ public class IdeaService {
     }
 
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
-        if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
-            Idea updateDecision = findById(id);
-            updateDecision.setStatus(emptyIdeaWithDecision.getStatus());
-            updateDecision.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
-            return save(updateDecision);
+        Idea persistedVersion = findById(id);
+        //Idea needs to be pending and creator should be current editor
+        if(persistedVersion.getCreator().equals(getUser()) && persistedVersion.getStatus().equals(Status.PENDING)){
+            //status should only be set to : Accepted, Declined, Idea_Storage
+            if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
+
+                persistedVersion.setStatus(emptyIdeaWithDecision.getStatus());
+                persistedVersion.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
+                return save(persistedVersion);
+            } else throw new NotAuthorizedException();
         } else throw new NotAuthorizedException();
     }
 }

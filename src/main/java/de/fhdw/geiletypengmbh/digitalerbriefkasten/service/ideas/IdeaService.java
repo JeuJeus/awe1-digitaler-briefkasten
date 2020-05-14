@@ -102,7 +102,6 @@ public class IdeaService {
         try {
             currentUser = userService.getCurrentUser();
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
         }
         return currentUser;
     }
@@ -301,9 +300,10 @@ public class IdeaService {
     }
 
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
+        //TODO FIX ME - THROWING ERROR ON SAVING DECISION
         Idea persistedVersion = findById(id);
         //Idea needs to be pending and creator should be current editor
-        if (persistedVersion.getCreator().equals(getUser()) && persistedVersion.getStatus().equals(Status.PENDING)) {
+        if (persistedVersion.getCreator().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING) {
             //status should only be set to : Accepted, Declined, Idea_Storage
             if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
                 persistedVersion.setStatus(emptyIdeaWithDecision.getStatus());

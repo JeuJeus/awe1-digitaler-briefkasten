@@ -59,7 +59,7 @@ public class HomepageController {
 
         String view = "ideas/decideIdea";
         ModelAndView mav = new ModelAndView(view);
-        mav.addObject("ideaToDecide", idea);
+        mav.addObject("idea", idea);
         return mav;
     }
 

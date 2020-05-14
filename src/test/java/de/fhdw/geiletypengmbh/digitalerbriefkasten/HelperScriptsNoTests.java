@@ -38,4 +38,10 @@ public class HelperScriptsNoTests {
         admin.setRoles(Collections.singleton(adminRole));
         userService.save(admin);
     }
+
+    @Ignore
+    @Test
+    public void createDefaultDatabaseEntrys() {
+        //TODO @Phillip
+    }
 }

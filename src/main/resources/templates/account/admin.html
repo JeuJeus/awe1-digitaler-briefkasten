@@ -134,10 +134,13 @@
 <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
 <script th:src="@{../js/select2.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/i18n/de.js}" type="text/javascript"></script>
 <script>
     var output
     $(document).ready(function () {
-        output = $('.form-control-mul').select2();
+        output = $('.form-control-mul').select2({
+            language: "de"
+        });
     });
 </script>
 

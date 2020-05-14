@@ -172,7 +172,7 @@ public class IdeaService {
     public Idea createByForm(Idea idea) throws InternalProductLineNotExistingException {
         try {
             if (idea instanceof InternalIdea) {
-                idea.setProductLine(productLineService.findByTitle(getDefaultInternalProductLineTitle()).get(0));
+                idea.setProductLine(productLineService.findByTitle(getDefaultInternalProductLineTitle()));
             }
             idea.setCreator(userService.getCurrentUser());
             idea.setSpecialist(this.getSpecialistOfNewIdea(idea));
@@ -252,7 +252,7 @@ public class IdeaService {
         Optional<Specialist> specialist = Optional.empty();
         ProductLine internalProductLine =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
-        if (!internalProductLines.isEmpty()) {
+        if (internalProductLine != null) {
             specialist = getSpecialistsByProductLine(internalProductLine);
         }
         return specialist;

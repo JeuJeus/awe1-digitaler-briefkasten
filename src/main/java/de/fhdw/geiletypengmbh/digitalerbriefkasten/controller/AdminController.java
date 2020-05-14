@@ -141,7 +141,6 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("success", "Zielgruppe erfolgreich angelegt.");
         return "redirect:/admin";
     }
-
     @PostMapping("/admin/createDistributionChannel")
     public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel, BindingResult bindingResult,
                                             RedirectAttributes redirectAttributes) {

@@ -238,6 +238,7 @@ public class IdeaService {
             specialist = getSpecialistOfNewInternalIdea((InternalIdea) idea);
             if (specialist.isEmpty()) {
                 throw new InternalProductLineNotExistingException();
+                //  TODO @Philipp FIX ME THIS IS WRONG BECAUSE -> PRODUCTLINE & !SPECIALIST -> PRODUCTLINE MISSING
             }
         }
         if (specialist.isEmpty()) {

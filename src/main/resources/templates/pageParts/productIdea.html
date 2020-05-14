@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
 </head>
+<th:block th:fragment="productIdea-styles">
+    <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
+</th:block>
 <body>
-
 <main class="container" th:fragment="product">
     <form action="#" th:object="${idea}">
         <h2 class="form-heading">

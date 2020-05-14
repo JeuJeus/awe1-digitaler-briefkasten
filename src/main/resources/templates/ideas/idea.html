@@ -21,7 +21,11 @@
 <div th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea'">
     <div th:replace="pageParts/productIdea :: product"></div>
 </div>
-
+<form action="#" class="form-submitIdea" method="POST" th:action="@{/api/ideas/submitIdea}" th:object="${idea}">
+    <div class="form-group">
+        <button class="btn btn-dark btn-block" type="submit">Idee einreichen</button>
+    </div>
+</form>
 <div class="container">
     <button class="btn btn-dark btn-block" onclick="history.back()">Zurück gehen</button>
 </div>

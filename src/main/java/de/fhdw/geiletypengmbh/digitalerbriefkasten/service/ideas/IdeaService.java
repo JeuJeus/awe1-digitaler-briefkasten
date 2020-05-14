@@ -312,4 +312,18 @@ public class IdeaService {
             } else throw new NotAuthorizedException();
         } else throw new NotAuthorizedException();
     }
+
+    public Idea submitIdea(Idea idea) {
+        Idea oldIdea = findById(idea.getId());
+        try {
+            if (oldIdea.getStatus().equals(Status.NOT_SUBMITTED) && userService.getCurrentUser().getId() == oldIdea.getCreator().getId()) {
+                oldIdea.setStatus(Status.PENDING);
+            } else {
+                throw new NotAuthorizedException();
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        return updateIdea(oldIdea, oldIdea.getId());
+    }
 }

@@ -56,7 +56,6 @@ public class IdeaService {
     }
 
 
-
     public Idea findById(Long id) {
         Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
         // Only subtypes of Idea should be found
@@ -68,10 +67,10 @@ public class IdeaService {
     }
 
     private void assureIdeaAccessRightsForList(List<Idea> ideas) {
-        for (Idea idea : ideas ){
+        for (Idea idea : ideas) {
             try {
                 assureIdeaAccessRights(idea);
-            } catch (NotAuthorizedException e){
+            } catch (NotAuthorizedException e) {
                 ideas.remove(idea);
             }
         }
@@ -85,7 +84,7 @@ public class IdeaService {
 
         User currentUser = getUser();
         //TODO REFACTOR NULL AWAY
-        if(currentUser!=null) {
+        if (currentUser != null) {
             boolean currentUserIsCreator = idea.getCreator().getId() == currentUser.getId();
             boolean currentUserIsAdmin = currentUser.isRole("ADMIN");
             boolean currentUserIsSpecialist = currentUser.isRole("SPECIALIST");
@@ -93,8 +92,8 @@ public class IdeaService {
                 if (!ideaIsSubmitted && !currentUserIsCreator) throw new NotAuthorizedException();
                 if (ideaIsInStorage && !currentUserIsSpecialist) throw new NotAuthorizedException();
             }
-        } else{
-            if(!ideaIsPublic) throw new NotAuthorizedException();
+        } else {
+            if (!ideaIsPublic) throw new NotAuthorizedException();
         }
     }
 
@@ -304,10 +303,9 @@ public class IdeaService {
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
         Idea persistedVersion = findById(id);
         //Idea needs to be pending and creator should be current editor
-        if(persistedVersion.getCreator().equals(getUser()) && persistedVersion.getStatus().equals(Status.PENDING)){
+        if (persistedVersion.getCreator().equals(getUser()) && persistedVersion.getStatus().equals(Status.PENDING)) {
             //status should only be set to : Accepted, Declined, Idea_Storage
             if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
-
                 persistedVersion.setStatus(emptyIdeaWithDecision.getStatus());
                 persistedVersion.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
                 return save(persistedVersion);

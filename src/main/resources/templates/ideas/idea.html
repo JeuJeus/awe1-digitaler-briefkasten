@@ -26,6 +26,8 @@
 
 <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
-</main>
+<div th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea'">
+    <div th:replace="pageParts/productIdea :: productIdea-script"></div>
+</div>
 </body>
 </html>

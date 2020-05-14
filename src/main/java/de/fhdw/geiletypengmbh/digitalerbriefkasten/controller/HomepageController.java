@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomepageController {
@@ -122,16 +123,19 @@ public class HomepageController {
         if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException(); // TODO RLY?
         ModelAndView mav = new ModelAndView();
         String view;
+        ArrayList<ProductLine> productLines;
         if (idea instanceof InternalIdea) {
             view = "ideas/editInternalIdea";
             mav.addObject("fields", fieldService.findAll());
+            productLines = (ArrayList<ProductLine>) productLineService.findAll();
         } else {
             view = "ideas/editProductIdea";
             mav.addObject("targetGroups", targetGroupService.findAll());
             mav.addObject("distributionChannels", distributionChannelService.findAll());
+            productLines = (ArrayList<ProductLine>) productLineService.findAllExceptInternal();
         }
         mav.setViewName(view);
-        mav.addObject("productLines", productLineService.findAll());
+        mav.addObject("productLines", productLines);
         mav.addObject("idea", idea);
         return mav;
     }

@@ -15,6 +15,9 @@ public class ProductLineService {
     @Autowired
     private ProductLineRepository productLineRepository;
 
+    @Autowired
+    private IdeaService ideaService;
+
 
     public ProductLine findById(Long id) {
         return productLineRepository.findById(id).orElseThrow(ProductLineNotFoundException::new);
@@ -34,6 +37,14 @@ public class ProductLineService {
 
     public List<ProductLine> findAll() {
         return productLineRepository.findAll();
+    }
+
+    public List<ProductLine> findAllByTitleNot(String title) {
+        return productLineRepository.findAllByTitleNot(title);
+    }
+
+    public List<ProductLine> findAllExceptInternal() {
+        return productLineRepository.findAllByTitleNot(ideaService.getDefaultInternalProductLineTitle());
     }
 
 }

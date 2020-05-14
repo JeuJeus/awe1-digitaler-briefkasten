@@ -57,6 +57,14 @@ public class User {
         this.passwordConfirmation = passwordConfirmation;
     }
 
+    public User(String username, String password, String passwordConfirmation, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.passwordConfirmation = passwordConfirmation;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @PrePersist
     private void createdAt() {
         long millis = System.currentTimeMillis();

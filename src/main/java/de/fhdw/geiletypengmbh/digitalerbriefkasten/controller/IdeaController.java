@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalProductLineNotExistingException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
@@ -71,6 +72,11 @@ public class IdeaController {
     @PostMapping("/decideIdea/{id}")
     public Idea decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
         return ideaService.saveDecision(id, emptyIdeaWithDecision);
+    }
+
+    @PostMapping("/submitIdea")
+    public Idea submitIdea(@ModelAttribute Idea idea) {
+        return ideaService.submitIdea(idea);
     }
 
     @PostMapping("/update/internal/{id}")

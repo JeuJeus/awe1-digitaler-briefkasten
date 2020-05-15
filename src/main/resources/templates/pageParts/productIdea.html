@@ -91,7 +91,7 @@
                    for="creator">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <select class="form-control pre-select-all-options" disabled="disabled" id="creator" name="creator">
-                    <option th:text="*{creator?.getUsername()}"
+                    <option th:text="*{creator?.getFirstName() + ' ' + creator?.getLastName()}"
                             th:value="*{creator?.getId()}"></option>
                 </select>
             </div>
@@ -115,7 +115,7 @@
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="status">Status</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="status" name="status"
-                       readonly="true" th:value="*{status}" type="text">
+                       readonly="true" th:value="*{status.getDisplayValue()}" type="text">
             </div>
         </div>
         <div class="form-group form-row">

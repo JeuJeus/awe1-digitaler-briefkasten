@@ -7,5 +7,6 @@ Im Zuge der Modernisierung des innerbetrieblichen Vorschlagssystems sollte die M
 Dieses Repo ist unser Ergebnis.
 
 Build Status:
+
 ![Git CI - mvnw](https://github.com/JeuJeus/awe1-digitaler-briefkasten/workflows/Git%20CI%20-%20mvnw/badge.svg)
  

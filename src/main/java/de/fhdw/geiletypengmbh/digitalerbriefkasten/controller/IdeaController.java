@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("api/ideas")
 public class IdeaController {
 
+    //TODO EVERY ACTION : CREATE / EDIT / SUBMIT / DECIDE SHALL RETURN IDEA VIEW NOT IDEA JSON
+
     @Autowired
     private IdeaService ideaService;
 

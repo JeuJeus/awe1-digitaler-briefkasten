@@ -34,8 +34,6 @@ build/
 /db/NoPornISwear.trace.db
 /db/NoPornISwear.mv.db
 /db/PresentationBackup-NoPornISwear.mv.db
-/logfile
-/logfile
 /documentation-latex/chapter/Installation.aux
 /documentation-latex/chapter/Quellenverzeichnis.aux
 /documentation-latex/Thesis.acn
@@ -57,4 +55,5 @@ build/
 /documentation-latex/Thesis.ist
 /documentation-latex/Thesis.mtc
 
-/logfile.**.gz
+/log/logfile.**.gz
+/log/logfile

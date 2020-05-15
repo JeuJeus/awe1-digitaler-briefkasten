@@ -22,25 +22,25 @@
                    type="text">
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" rows="4"
-                      required="required"
+            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" required="required"
+                      rows="4"
                       th:field="*{description}"></textarea>
         </div>
         <p>Zielgruppe auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-mul" id="targetGroups" name="targetGroups" required="required"
-                    multiple="multiple">
+            <select class="form-control-mul" id="targetGroups" multiple="multiple" name="targetGroups"
+                    required="required">
                 <option th:each="targetGroup : ${targetGroups}"
-                        th:value="${targetGroup.getId()}"
-                        th:text="${targetGroup.getTitle()}"></option>
+                        th:text="${targetGroup.getTitle()}"
+                        th:value="${targetGroup.getId()}"></option>
             </select>
         </div>
         <p>Vertriebskanal auswählen:</p>
         <div class="form-group row">
-            <select class="form-control-mul" id="distributionChannel" name="distributionChannels" multiple="multiple">
+            <select class="form-control-mul" id="distributionChannel" multiple="multiple" name="distributionChannels">
                 <option th:each="distributionChannel : ${distributionChannels}"
-                        th:value="${distributionChannel.getId()}"
-                        th:text="${distributionChannel.getTitle()}"></option>
+                        th:text="${distributionChannel.getTitle()}"
+                        th:value="${distributionChannel.getId()}"></option>
             </select>
         </div>
         <p>Produktsparte auswählen:</p>
@@ -48,8 +48,8 @@
             <select class="form-control" id="productLine" name="productLine" required="required">
                 <option th:each="productLine : ${productLines}"
                         th:if="${productLine.getTitle()} != ${internalProductLine}"
-                        th:value="${productLine.getId()}"
-                        th:text="${productLine.getTitle()}"></option>
+                        th:text="${productLine.getTitle()}"
+                        th:value="${productLine.getId()}"></option>
             </select>
         </div>
         <p>Bis zu drei Vorteile eingeben:</p>

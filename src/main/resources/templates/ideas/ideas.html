@@ -32,7 +32,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="idea: ${notSubmittedIdeas}" th:data="${idea.getId()}">
+                <tr th:data="${idea.getId()}" th:each="idea: ${notSubmittedIdeas}">
                     <td class="hover-icon">
                         <span th:utext="${idea.getTitle()}"></span>
                     </td>
@@ -70,7 +70,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="idea: ${productIdeas}" th:data="${idea.getId()}">>
+            <tr th:data="${idea.getId()}" th:each="idea: ${productIdeas}">>
                 <td class="hover-icon">
                     <span th:utext="${idea.getTitle()}"></span>
                 </td>
@@ -108,7 +108,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="idea: ${internalIdeas}" th:data="${idea.getId()}">
+            <tr th:data="${idea.getId()}" th:each="idea: ${internalIdeas}">
                 <td class="hover-icon">
                     <span th:utext="${idea.getTitle()}"></span>
                 </td>

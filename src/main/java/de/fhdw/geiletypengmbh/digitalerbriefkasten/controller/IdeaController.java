@@ -1,10 +1,10 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalProductLineNotExistingException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,7 +59,7 @@ public class IdeaController {
 
     @PostMapping("/product")
     public Idea createProductIdea(@ModelAttribute ProductIdea idea) {
-            return ideaService.createByForm(idea);
+        return ideaService.createByForm(idea);
     }
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")

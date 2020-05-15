@@ -11,91 +11,91 @@
             <i class="mr-3 dblFontSize fas fa-sitemap"></i>
             <span th:utext="*{title}"></span></h2>
         <div class="form-group form-row">
-            <label for="title" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Titel</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="title">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="title" name="title"
-                       th:value="*{title}" type="text" readonly="true">
+                       readonly="true" th:value="*{title}" type="text">
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="description"
-                   class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Beschreibung</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="description">Beschreibung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <textarea class="form-control" form-rows="3" th:field="*{description}" readonly="readonly"></textarea>
+                <textarea class="form-control" form-rows="3" readonly="readonly" th:field="*{description}"></textarea>
             </div>
 
         </div>
         <div class="form-group form-row">
-            <label for="productLine"
-                   class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Produktlinie</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="productLine">Produktlinie</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control" id="productLine" name="productLine" disabled="disabled">
-                    <option th:value="*{productLine?.getId()}"
-                            th:text="*{productLine?.getTitle()}"></option>
+                <select class="form-control" disabled="disabled" id="productLine" name="productLine">
+                    <option th:text="*{productLine?.getTitle()}"
+                            th:value="*{productLine?.getId()}"></option>
                 </select>
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="advantage_1"
-                   class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Vorteile</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="advantage_1">Vorteile</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="advantage_1" name="advantage_1"
-                       type="text" readonly="true"
-                       th:value="*{advantages.size() >= 1} ? *{advantages.get(0).getDescription()} : ''">
+                       readonly="true" th:value="*{advantages.size() >= 1} ? *{advantages.get(0).getDescription()} : ''"
+                       type="text">
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10 offset-md-3 offset-lg-2 offset-xl-2">
                 <input class="form-control" id="advantage_2" name="advantage_2"
-                       type="text" readonly="true"
-                       th:value="*{advantages.size() >= 2} ? *{advantages.get(1).getDescription()} : ''">
+                       readonly="true" th:value="*{advantages.size() >= 2} ? *{advantages.get(1).getDescription()} : ''"
+                       type="text">
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10 offset-md-3 offset-lg-2 offset-xl-2">
                 <input class="form-control" id="advantage_3" name="advantage_3"
-                       type="text" readonly="true"
-                       th:value="*{advantages.size() >= 3} ? *{advantages.get(2).getDescription()} : ''">
+                       readonly="true" th:value="*{advantages.size() >= 3} ? *{advantages.get(2).getDescription()} : ''"
+                       type="text">
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="field" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Einsatzort</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="field">Einsatzort</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control" id="field" name="field" disabled="disabled">
-                    <option th:value="*{field?.getId()}"
-                            th:text="*{field?.getTitle()}"></option>
+                <select class="form-control" disabled="disabled" id="field" name="field">
+                    <option th:text="*{field?.getTitle()}"
+                            th:value="*{field?.getId()}"></option>
                 </select>
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="creator"
-                   class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Ersteller</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="creator">Ersteller</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <select class="form-control" id="creator" name="creator" disabled="disabled">
-                    <option th:value="*{creator?.getId()}"
-                            th:text="*{creator?.getUsername()}"></option>
+                <select class="form-control" disabled="disabled" id="creator" name="creator">
+                    <option th:text="*{creator?.getUsername()}"
+                            th:value="*{creator?.getId()}"></option>
                 </select>
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="creationDate" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Erstellungsdatum</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="creationDate">Erstellungsdatum</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="creationDate" name="creationDate"
-                       th:value="*{creationDate}" type="text" readonly="true">
+                       readonly="true" th:value="*{creationDate}" type="text">
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="status" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Status</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="status">Status</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="status" name="status"
-                       th:value="*{status}" type="text" readonly="true">
+                       readonly="true" th:value="*{status}" type="text">
             </div>
         </div>
         <div class="form-group form-row">
-            <label for="statusJustification" class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2">Status-Begründung</label>
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="statusJustification">Status-Begründung</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                 <input class="form-control" id="statusJustification" name="statusJustification"
-                       th:value="*{statusJustification}" type="text" readonly="true">
+                       readonly="true" th:value="*{statusJustification}" type="text">
             </div>
         </div>
     </form>

@@ -15,17 +15,17 @@
     <div class="container">
         <p class="lead text-muted">Nutzerinfos</p>
         <p>
-          Nutzername: <span th:utext="${user.getUsername()}"></span><br>
-          Voller Name: <span th:utext="${user.getFullName()}"></span><br>
-          Rolle: <span th:utext="${user.getRoles()[0].getName().toLowerCase()}"></span><br>
-          Erstelldatum: <span th:utext="${#dates.format(user.getCreationDate(), 'dd.MM.yyyy')}"></span><br>
+            Nutzername: <span th:utext="${user.getUsername()}"></span><br>
+            Voller Name: <span th:utext="${user.getFullName()}"></span><br>
+            Rolle: <span th:utext="${user.getRoles()[0].getName().toLowerCase()}"></span><br>
+            Erstelldatum: <span th:utext="${#dates.format(user.getCreationDate(), 'dd.MM.yyyy')}"></span><br>
 
         </p>
     </div>
 </section>
 
 <div class="container">
-    <button class="btn btn-dark btn-block"  onclick="history.back()">Zurück gehen</button>
+    <button class="btn btn-dark btn-block" onclick="history.back()">Zurück gehen</button>
 </div>
 
 <div th:replace="pageParts/footer :: footer"></div>

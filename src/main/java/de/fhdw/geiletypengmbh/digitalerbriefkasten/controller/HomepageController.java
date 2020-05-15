@@ -2,8 +2,6 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomepageController {
@@ -72,7 +69,7 @@ public class HomepageController {
         mav.addObject("productIdeas", productIdeas);
         mav.addObject("internalIdeas", internalIdeas);
 
-        if(user != null){
+        if (user != null) {
             List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
             mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
         }

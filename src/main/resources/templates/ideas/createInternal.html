@@ -18,16 +18,16 @@
                    type="text">
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" rows="4"
-                      required="required"
+            <textarea class="form-control" id="description" name="Beschreibung" placeholder="Beschreibung" required="required"
+                      rows="4"
                       th:field="*{description}"></textarea>
         </div>
         <p>Handlungsfeld / Abteilung auswählen:</p>
         <div class="form-group row">
             <select class="form-control" id="fields" name="field" required="required">
                 <option th:each="field : ${fields}"
-                        th:value="${field.getId()}"
-                        th:text="${field.getTitle()}"></option>
+                        th:text="${field.getTitle()}"
+                        th:value="${field.getId()}"></option>
             </select>
         </div>
         <p>Bis zu 3 Vorteile eingeben, die Ihre Idee hat:</p>

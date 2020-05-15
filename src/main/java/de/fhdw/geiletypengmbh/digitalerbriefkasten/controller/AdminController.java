@@ -30,31 +30,23 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private UserRepository<User> userRepository;
-
-    @Autowired
-    private ProductLineRepository productLineRepository;
-
-    @Autowired
     UserValidator userValidator;
-
-    @Autowired
-    private UserServiceImpl userService;
-
     @Autowired
     IdeaService ideaService;
-
     @Autowired
     FieldService fieldService;
-
     @Autowired
     TargetGroupService targetGroupService;
-
     @Autowired
     DistributionChannelService distributionChannelService;
-
     @Autowired
     ProductLineService productLineService;
+    @Autowired
+    private UserRepository<User> userRepository;
+    @Autowired
+    private ProductLineRepository productLineRepository;
+    @Autowired
+    private UserServiceImpl userService;
 
     @GetMapping("/admin")
     public ModelAndView adminPanel() {
@@ -141,6 +133,7 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("success", "Zielgruppe erfolgreich angelegt.");
         return "redirect:/admin";
     }
+
     @PostMapping("/admin/createDistributionChannel")
     public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel, BindingResult bindingResult,
                                             RedirectAttributes redirectAttributes) {

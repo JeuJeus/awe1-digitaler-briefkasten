@@ -33,13 +33,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                            aria-controls="collapseOne">
+                    <button aria-controls="collapseOne" class="btn btn-link" data-target="#collapseOne"
+                            data-toggle="collapse">
                         Alle registrierten User ansehen
                     </button>
                 </h5>
             </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseOne">
                 <div class="card-body">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-striped table-bordered table-hover">
@@ -68,13 +68,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                            aria-expanded="false" aria-controls="collapseTwo">
+                    <button aria-controls="collapseTwo" aria-expanded="false" class="btn btn-link collapsed"
+                            data-target="#collapseTwo" data-toggle="collapse">
                         Fachspezialisten anlegen
                     </button>
                 </h5>
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordion" id="collapseTwo">
                 <div class="card-body">
                     <form class="form-createSpecialist" enctype="utf8" method="POST"
                           th:action="@{/admin/createSpecialist}">
@@ -106,11 +106,11 @@
                         </div>
                         <p>Fachgebiet auswählen:</p>
                         <div class="form-group row">
-                            <select class="form-control-mul" id="productLines" name="productLines" required="required"
-                                    multiple="multiple">
+                            <select class="form-control-mul" id="productLines" multiple="multiple" name="productLines"
+                                    required="required">
                                 <option th:each="productLine : ${productLines}"
-                                        th:value="${productLine.getId()}"
-                                        th:text="${productLine.getTitle()}"></option>
+                                        th:text="${productLine.getTitle()}"
+                                        th:value="${productLine.getId()}"></option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -123,13 +123,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                            aria-expanded="false" aria-controls="collapseThree">
+                    <button aria-controls="collapseThree" aria-expanded="false" class="btn btn-link collapsed"
+                            data-target="#collapseThree" data-toggle="collapse">
                         Produktsparte anlegen
                     </button>
                 </h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div aria-labelledby="headingThree" class="collapse" data-parent="#accordion" id="collapseThree">
                 <div class="card-body">
                     <form class="form-createProductLine" enctype="utf8" method="POST"
                           th:action="@{/admin/createProductLine}">
@@ -148,13 +148,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingFour">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
-                            aria-expanded="false" aria-controls="collapseFour">
+                    <button aria-controls="collapseFour" aria-expanded="false" class="btn btn-link collapsed"
+                            data-target="#collapseFour" data-toggle="collapse">
                         Handlungsfeld anlegen
                     </button>
                 </h5>
             </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div aria-labelledby="headingFour" class="collapse" data-parent="#accordion" id="collapseFour">
                 <div class="card-body">
                     <form class="form-createField" enctype="utf8" method="POST"
                           th:action="@{/admin/createField}">
@@ -173,13 +173,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingFive">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
-                            aria-expanded="false" aria-controls="collapseFive">
+                    <button aria-controls="collapseFive" aria-expanded="false" class="btn btn-link collapsed"
+                            data-target="#collapseFive" data-toggle="collapse">
                         Zielgruppe anlegen
                     </button>
                 </h5>
             </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+            <div aria-labelledby="headingFive" class="collapse" data-parent="#accordion" id="collapseFive">
                 <div class="card-body">
                     <form class="form-createTargetGroup" enctype="utf8" method="POST"
                           th:action="@{/admin/createTargetGroup}">
@@ -198,13 +198,13 @@
         <div class="card mb-2">
             <div class="card-header" id="headingSix">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
-                            aria-expanded="false" aria-controls="collapseSix">
+                    <button aria-controls="collapseSix" aria-expanded="false" class="btn btn-link collapsed"
+                            data-target="#collapseSix" data-toggle="collapse">
                         Vertriebskanal anlegen
                     </button>
                 </h5>
             </div>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+            <div aria-labelledby="headingSix" class="collapse" data-parent="#accordion" id="collapseSix">
                 <div class="card-body">
                     <form class="form-createDistributionChannel" enctype="utf8" method="POST"
                           th:action="@{/admin/createDistributionChannel}">

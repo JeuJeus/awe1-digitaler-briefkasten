@@ -1,9 +1,9 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.validator;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

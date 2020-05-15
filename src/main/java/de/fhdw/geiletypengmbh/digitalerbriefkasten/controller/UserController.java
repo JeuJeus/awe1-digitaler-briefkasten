@@ -4,13 +4,13 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedExcep
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.log.LogHelper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.SecurityServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.validator.UserValidator;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +38,11 @@ public class UserController {
     @Autowired
     UserValidator userValidator;
     @Autowired
+    IdeaService ideaService;
+    @Autowired
     private UserServiceImpl userService;
     @Autowired
     private SecurityServiceImpl securityService;
-    @Autowired
-    IdeaService ideaService;
 
     @GetMapping("/registration")
     public String registration(Model model, @ModelAttribute("errors") ArrayList<String> errors) {
@@ -119,7 +119,7 @@ public class UserController {
         List<Idea> pendingIdeas = ideaService.findBySpecialistIdAndStatus(user.getId(), Status.PENDING);
         List<Idea> ideaStorageIdeas = ideaService.findByStatus(Status.IDEA_STORAGE);
         model.addAttribute("pendingIdeas", pendingIdeas);
-        model.addAttribute("ideaStorageIdeas",ideaStorageIdeas);
+        model.addAttribute("ideaStorageIdeas", ideaStorageIdeas);
 
         return "account/specialist";
     }

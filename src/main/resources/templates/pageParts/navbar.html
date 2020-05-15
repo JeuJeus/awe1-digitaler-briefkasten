@@ -29,14 +29,14 @@
                 th:classappend="${#httpServletRequest.getRequestURI()  == '/login' ? 'active':''}">
                 <a class="nav-link" href="/">Login </a>
             </li>
-            <li sec:authorize="isAuthenticated()"
-                class="nav-item dropdown navbar-dark bg-dark"
+            <li class="nav-item dropdown navbar-dark bg-dark"
+                sec:authorize="isAuthenticated()"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                   id="navbarDropdown1" role="button">
                     Idee erstellen
                 </a>
-                <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                <div aria-labelledby="navbarDropdown" class="dropdown-menu navbar-dark bg-dark">
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/internal">Interne Idee</a>
                     <a class="nav-link navbar-dark bg-dark" href="/createIdea/product">Produktidee</a>
                 </div>
@@ -48,8 +48,8 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <button sec:authorize="isAuthenticated()"
-                        class="btn btn-outline-danger my-2 my-sm-0" onclick="document.forms['logoutForm'].submit()"
+                <button class="btn btn-outline-danger my-2 my-sm-0"
+                        onclick="document.forms['logoutForm'].submit()" sec:authorize="isAuthenticated()"
                         type="submit">
                     <a>Logout</a>
                 </button>
@@ -60,7 +60,7 @@
     </div>
     <div class="ml-auto order-0">
         <a class="navbar-brand mr-0" href="#"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <button class="navbar-toggler" data-target=".dual-collapse2" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>

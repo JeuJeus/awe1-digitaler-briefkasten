@@ -141,9 +141,9 @@ public class User {
     }
 
     @JsonIgnore
-    public boolean isRole(String roleName){
-        for(Role r:roles){
-            if(r.getName().equals(roleName)) return true;
+    public boolean isRole(String roleName) {
+        for (Role r : roles) {
+            if (r.getName().equals(roleName)) return true;
         }
         return false;
     }

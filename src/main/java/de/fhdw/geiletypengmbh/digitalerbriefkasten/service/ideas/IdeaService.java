@@ -23,22 +23,17 @@ import java.util.stream.Collectors;
 @Service
 public class IdeaService {
 
+    private static final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
     @Autowired
     private InternalIdeaRepository internalIdeaIdeaRepository;
-
     @Autowired
     private ProductIdeaRepository productIdeaRepository;
-
     @Autowired
     private IdeaRepository<Idea> ideaRepository;
-
     @Autowired
     private UserServiceImpl userService;
-
     @Autowired
     private ProductLineService productLineService;
-
-    private static final String DEFAULT_INTERNAL_PRODUCTLINE_TITLE = "INTERNAL";
 
     public List<Idea> findAll() {
         List<Idea> allIdeas = new ArrayList<>();
@@ -318,16 +313,16 @@ public class IdeaService {
     public Idea submitIdea(long ideaId) throws InternalProductLineNotExistingException {
         try {
             Idea toSubmit = findById(ideaId);
-                User current = userService.getCurrentUser();
-                if (toSubmit.getStatus().equals(Status.NOT_SUBMITTED) && toSubmit.getCreator().getId() == current.getId()){
-                    toSubmit.setStatus(Status.PENDING);
-                    //TODO / CHECK -> CAN A SPECIALIST CREATE AN IDEA WHICH IS ASSIGNED TO HIMSELF
-                    toSubmit.setSpecialist(this.getSpecialistOfNewIdea(toSubmit));
-                    return save(toSubmit);
-                } else {
-                    throw new NotAuthorizedException();
-                }
-        } catch (IdeaNotFoundException e){
+            User current = userService.getCurrentUser();
+            if (toSubmit.getStatus().equals(Status.NOT_SUBMITTED) && toSubmit.getCreator().getId() == current.getId()) {
+                toSubmit.setStatus(Status.PENDING);
+                //TODO / CHECK -> CAN A SPECIALIST CREATE AN IDEA WHICH IS ASSIGNED TO HIMSELF
+                toSubmit.setSpecialist(this.getSpecialistOfNewIdea(toSubmit));
+                return save(toSubmit);
+            } else {
+                throw new NotAuthorizedException();
+            }
+        } catch (IdeaNotFoundException e) {
             throw new IdeaNotFoundException();
         } catch (UserNotFoundException e) {
             throw new NotAuthorizedException();

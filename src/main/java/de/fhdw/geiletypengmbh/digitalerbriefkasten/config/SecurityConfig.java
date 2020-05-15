@@ -37,9 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/ideas","/ideas/{id}").permitAll()//-> ANYONE EVEN WHEN NOT LOGGED IN SHOULD BE ALLOWED TO VIEW IDEAS
+                .antMatchers("/ideas", "/ideas/{id}").permitAll()//-> ANYONE EVEN WHEN NOT LOGGED IN SHOULD BE ALLOWED TO VIEW IDEAS
                 .antMatchers("/admin/**").hasRole("ADMIN")//-> ADMIN HAS NO ACCESS TO SPECIALIST BECAUSE HIS POWER SHALL BE DIVINE
-                .antMatchers("/specialist/**","/decideIdea/**").hasRole("SPECIALIST")
+                .antMatchers("/specialist/**", "/decideIdea/**").hasRole("SPECIALIST")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

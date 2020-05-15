@@ -5,8 +5,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\dokumententyp}{schriftliche Ausarbeitung}
-\newcommand{\abgabedatum}{\today} 
-\newcommand{\ort}{Paderborn} 
+\newcommand{\abgabedatum}{\today}
+\newcommand{\ort}{Paderborn}
 \newcommand{\koorperationsunternehmen}{\enquote{Geile Typen GmbH}}
 \newcommand{\dokumententitel}{Dokumentation Anwendung \enquote{Digitaler Briefkasten}\\ im Rahmen des Modul \enquote{AWE1}}
 \newcommand{\dokumentenautor}{Jonathan Brockhausen, Phillip Röring, Julius Figge}
@@ -17,29 +17,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hypersetup{
-  colorlinks=false,
-  pdfborder={0 0 0},
-  pdftitle=\dokumententitel,
-  pdfauthor=\dokumentenautor
-} 
+    colorlinks=false,
+    pdfborder={0 0 0},
+    pdftitle=\dokumententitel,
+    pdfauthor=\dokumentenautor
+}
 
 \begin{document}
 
 % Römische Seitennummerierung
-\pagenumbering{Roman}
- 
+    \pagenumbering{Roman}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Titelseite
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{chapter/Titelseite}
+    \input{chapter/Titelseite}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Draft-Einstellungen
 %%
 %% Für die finale Version auskommentieren!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\fancyhead[L]{\color{red} Stand: \today~-~\currenttime}
+    \fancyhead[L]{\color{red} Stand: \today~-~\currenttime}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Verzeichnisse
@@ -50,45 +50,45 @@
 %\include{chapter/Sperrvermerk}
 
 % Inhaltsverzeichnis
-\tableofcontents\newpage
+    \tableofcontents\newpage
 
 % Abkürzungsverzeichnis
-\printglossary[type=\acronymtype, style=mylist, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]\newpage
-\setcounter{table}{0} % printglossary erzeugt eine Tabelle, die die Nummerierung der "echten" Tabellen durcheinander bringt. 
+    \printglossary[type=\acronymtype, style=mylist, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]\newpage
+    \setcounter{table}{0} % printglossary erzeugt eine Tabelle, die die Nummerierung der "echten" Tabellen durcheinander bringt.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Verzeichnisse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Abbildungsverzeichnis
-\fancyhead[R]{\listfigurename}
-\listoffigures\newpage
+    \fancyhead[R]{\listfigurename}
+    \listoffigures\newpage
 
 % Tabellenverzeichnis
-\fancyhead[R]{\listtablename}
-\listoftables\newpage
+    \fancyhead[R]{\listtablename}
+    \listoftables\newpage
 
 % Quelltextverzeichnis
-\fancyhead[R]{\lstlistlistingname}
-\lstlistoflistings\newpage
+    \fancyhead[R]{\lstlistlistingname}
+    \lstlistoflistings\newpage
 
 % Kapitelüberschriften für den Arbeitstext
-\fancyhead[R]{\leftmark}
+    \fancyhead[R]{\leftmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Inhalt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Arabische Seitennummerierung
-\pagenumbering{arabic} 
+    \pagenumbering{arabic}
 
 
-\include{chapter/Installation}
+    \include{chapter/Installation}
 
-	
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\include{chapter/Quellenverzeichnis}
+    \include{chapter/Quellenverzeichnis}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

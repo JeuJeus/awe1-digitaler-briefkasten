@@ -2,7 +2,7 @@
 ## Anwendungsentwicklung 1 - FHDW Paderborn 
 
 Ziel dieses Moduls war es eine "digitale Briefkasten"-Webanwendung für einen fiktiven Versicherungskunden zu entwickeln.
-Im Zuge der Modernisierung des innerbetrieblichen Vorschlagssystems sollte die Möglichkeit geschaffen werden, "Ideen" (Produktideen sowie internen ideen) über das Internet bei der Verwaltung einzureichen. Diese sollen automatisch entsprechenden Experten zugeordnet werden, welche diese Bewerten und entweder Annehmmen, Ablehnen oder für später Speichern können. Der gesamte Prozess soll transparent erfolgen, sodass eingeloggte wie nicht eingeloggte Nutzer alle zur Bewertung freigegebenen sowie beewrteten Ideen ansehen und filtern können.
+Im Zuge der Modernisierung des innerbetrieblichen Vorschlagssystems sollte die Möglichkeit geschaffen werden, "Ideen" (Produktideen sowie internen ideen) über das Internet bei der Verwaltung einzureichen. Diese sollen automatisch entsprechenden Experten zugeordnet werden, welche diese Bewerten und entweder Annehmmen, Ablehnen oder für später Speichern können. Der gesamte Prozess soll transparent erfolgen, sodass eingeloggte wie nicht eingeloggte Nutzer alle zur Bewertung freigegebenen sowie bewerteten Ideen ansehen und filtern können.
 
 Dieses Repo ist unser Ergebnis.
 

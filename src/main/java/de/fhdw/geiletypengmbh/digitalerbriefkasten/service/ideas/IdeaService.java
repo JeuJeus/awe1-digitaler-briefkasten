@@ -318,6 +318,7 @@ public class IdeaService {
                 User current = userService.getCurrentUser();
                 if (toSubmit.getStatus().equals(Status.NOT_SUBMITTED) && toSubmit.getCreator().getId() == current.getId()){
                     toSubmit.setStatus(Status.PENDING);
+                    //TODO / CHECK -> CAN A SPECIALIST CREATE AN IDEA WHICH IS ASSIGNED TO HIMSELF
                     toSubmit.setSpecialist(this.getSpecialistOfNewIdea(toSubmit));
                     return save(toSubmit);
                 } else {

@@ -44,10 +44,7 @@ public class HomepageController {
         Idea idea = ideaService.findById(id);
         String view = "ideas/idea";
         ModelAndView mav = new ModelAndView(view);
-        boolean showSpecialist = false;
-        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) {
-            showSpecialist = true;
-        }
+        boolean showSpecialist = !idea.getStatus().equals(Status.NOT_SUBMITTED);
         mav.addObject("showSpecialist", showSpecialist);
         mav.addObject("idea", idea);
         return mav;

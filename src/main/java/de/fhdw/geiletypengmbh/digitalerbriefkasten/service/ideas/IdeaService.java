@@ -301,8 +301,11 @@ public class IdeaService {
 
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
         Idea persistedVersion = findById(id);
-        //Idea needs to be pending and creator should be current editor
-        if (persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING) {
+        //Idea needs to be :
+        // 1. pending and creator should be current editor
+        // or 2. in idea-storage and editor shall be specialist
+        if ((persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING)
+                || (getUser().isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
             //status should only be set to : Accepted, Declined, Idea_Storage
             if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
                 persistedVersion.setStatus(emptyIdeaWithDecision.getStatus());

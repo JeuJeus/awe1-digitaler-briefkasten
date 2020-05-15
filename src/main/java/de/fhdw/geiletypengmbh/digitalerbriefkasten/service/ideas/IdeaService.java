@@ -230,10 +230,6 @@ public class IdeaService {
             }
         } else {
             specialist = getSpecialistOfNewInternalIdea((InternalIdea) idea);
-            if (specialist.isEmpty()) {
-                throw new InternalProductLineNotExistingException();
-                //  TODO @Philipp FIX ME THIS IS WRONG BECAUSE -> PRODUCTLINE & !SPECIALIST -> PRODUCTLINE MISSING
-            }
         }
         if (specialist.isEmpty()) {
             throw new UserNotFoundException();
@@ -242,12 +238,14 @@ public class IdeaService {
     }
 
 
-    private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) {
+    private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) throws InternalProductLineNotExistingException {
         Optional<Specialist> specialist = Optional.empty();
         ProductLine internalProductLine =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
         if (internalProductLine != null) {
             specialist = getSpecialistsByProductLine(internalProductLine);
+        } else {
+            throw new InternalProductLineNotExistingException();
         }
         return specialist;
     }

@@ -103,6 +103,14 @@
                        readonly="true" th:value="*{creationDate}" type="text">
             </div>
         </div>
+        <div class="form-group form-row" th:if="${#bools.isTrue(showSpecialist)}">
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="status">Zugewiesener
+                Fachspezialist</label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
+                <input class="form-control" id="specialist" name="Zugewiesener Fachspezialist"
+                       readonly="true" th:value="*{specialist?.getUsername()}" type="text">
+            </div>
+        </div>
         <div class="form-group form-row">
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="status">Status</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">

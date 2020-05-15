@@ -44,6 +44,11 @@ public class HomepageController {
         Idea idea = ideaService.findById(id);
         String view = "ideas/idea";
         ModelAndView mav = new ModelAndView(view);
+        boolean showSpecialist = false;
+        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) {
+            showSpecialist = true;
+        }
+        mav.addObject("showSpecialist", showSpecialist);
         mav.addObject("idea", idea);
         return mav;
     }
@@ -119,6 +124,7 @@ public class HomepageController {
         ModelAndView mav = new ModelAndView();
         String view;
         ArrayList<ProductLine> productLines;
+
         if (idea instanceof InternalIdea) {
             view = "ideas/editInternalIdea";
             mav.addObject("fields", fieldService.findAll());

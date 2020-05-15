@@ -20,9 +20,10 @@ public class IdeaController {
     @Autowired
     private IdeaService ideaService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public Iterable<Idea> findAll() {
-        //TODO I AM A SECURITY FLAW -> EVERY IDEA IS TO MUCH & A LEAK
+        //TODO I AM A SECURITY FLAW -> EVERY IDEA IS TO MUCH & A LEAK -> ONLY ADMIN IS A LAZY FIX
         return ideaService.findAll();
     }
 

@@ -1,6 +1,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
@@ -20,8 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,6 +52,16 @@ public class HelperScriptsNoTests {
     @Autowired
     FieldRepository fieldRepository;
 
+    private final static String[] productLines = {"KFZ", "Unfall", "Krankenversicherung", "Rechtsschutz", "Lebensversicherung",
+            "Rentenversicherung", "Haftpflicht", "Hausrat", "Wohngebäudeversicherung"};
+
+    private final static String[] distributionChannels = {"Stationärer Vertrieb", "Versicherungsmakler",
+            "Kooperation mit Kreditinstituten", "Direktversicherung"};
+
+    private final static String[] targetGroups = {"Kinder / Jugendliche", "Singles", "Paare", "Personen 50+", "Gewerbetreibende"};
+
+    private final static String[] fields = {"Kostensenkung", "Ertragssteigerung", "Zukunftsfähigkeit"};
+
     @Ignore
     @Test
     public void createAdminIfNotExists() {
@@ -67,20 +81,10 @@ public class HelperScriptsNoTests {
     @Ignore
     @Test
     public void createDefaultDatabaseEntrys() {
-        String[] productLines = {"KFZ", "Unfall", "Krankenversicherung", "Rechtsschutz", "Lebensversicherung",
-                "Rentenversicherung", "Haftpflicht", "Hausrat", "Wohngebäudeversicherung"};
-
-        String[] distributionChannels = {"Stationärer Vertrieb", "Versicherungsmakler",
-                "Kooperation mit Kreditinstituten", "Direktversicherung"};
-
-        String[] targetGroups = {"Kinder / Jugendliche", "Singles", "Paare", "Personen 50+", "Gewerbetreibende"};
-
-        String[] fields = {"Kostensenkung", "Ertragssteigerung", "Zukunftsfähigkeit"};
-
         if (productLineRepository.findByTitle(ideaService.getDefaultInternalProductLineTitle()) == null) {
             productLineRepository.save(new ProductLine(ideaService.getDefaultInternalProductLineTitle()));
         }
-        Arrays.stream(productLines).forEach(productLine -> {
+        Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             if (productLineRepository.findByTitle(productLine) == null) {
                 productLineRepository.save(new ProductLine(productLine));
             }
@@ -101,6 +105,27 @@ public class HelperScriptsNoTests {
         Arrays.stream(fields).forEach(field -> {
             if (fieldRepository.findByTitle(field) == null) {
                 fieldRepository.save(new Field(field));
+            }
+        });
+    }
+
+    //    @Ignore
+    @Test
+    public void createTestSpecialists() {
+        createDefaultDatabaseEntrys();
+        AtomicInteger i = new AtomicInteger(2000);
+        Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
+            ProductLine pLine = productLineRepository.findByTitle(productLine);
+            if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
+                Specialist specialist = new Specialist("SpeziusMaximus_" + i, "testsss",
+                        "testssss", "Spezius", "Maximus");
+                specialist.setProductLines(new ArrayList<>() {
+                    {
+                        add(pLine);
+                    }
+                });
+                userService.save(specialist);
+                i.getAndIncrement();
             }
         });
     }

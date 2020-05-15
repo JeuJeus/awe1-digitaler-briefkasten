@@ -30,6 +30,10 @@ public class Specialist extends User {
         super(username, password, passwordConfirmation);
     }
 
+    public Specialist(String username, String password, String passwordConfirmation, String firstName, String lastName) {
+        super(username, password, passwordConfirmation, firstName, lastName);
+    }
+
     public List<ProductLine> getProductLines() {
         return productLines;
     }

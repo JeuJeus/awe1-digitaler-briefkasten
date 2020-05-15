@@ -111,13 +111,12 @@ public class HomepageController {
     }
 
     @GetMapping("/ideas/edit/{id}")
-    public ModelAndView editOne(@PathVariable Long id) throws UserNotFoundException {
+    public ModelAndView editOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
-        User currentUser = userService.getCurrentUser();
 
-        //TODO PHILIPP IS THERE A MORE CLEVER WAY OF DOING THIS? -> REFACTOR INTO METHOD IN IDEASERVICE
-        if (currentUser.getId() != idea.getCreator().getId()) throw new NotAuthorizedException();
-        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException(); // TODO RLY?
+        if (!ideaService.getIfIdeaCanBeEdited(idea)) {
+            throw new NotAuthorizedException();
+        }
         ModelAndView mav = new ModelAndView();
         String view;
         ArrayList<ProductLine> productLines;

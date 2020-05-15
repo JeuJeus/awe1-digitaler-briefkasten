@@ -328,4 +328,17 @@ public class IdeaService {
             throw new InternalProductLineNotExistingException();
         }
     }
+
+    public boolean getIfIdeaCanBeEdited(Idea idea) {
+        User currentUser = null;
+        boolean ideaCanBeEdited = false;
+        try {
+            currentUser = userService.getCurrentUser();
+            if (currentUser.getId() == idea.getCreator().getId() && (idea.getStatus().equals(Status.NOT_SUBMITTED))) {
+                ideaCanBeEdited = true;
+            }
+        } catch (UserNotFoundException ignored) {
+        }
+        return ideaCanBeEdited;
+    }
 }

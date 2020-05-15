@@ -29,6 +29,9 @@ public class ProductIdea extends Idea {
             inverseJoinColumns = @JoinColumn(name = "distributionChannel_id"))
     private Set<DistributionChannel> distributionChannels;
 
+    @Column(nullable = false)
+    private boolean existsComparable;
+
     public Set<TargetGroup> getTargetGroups() {
         return targetGroups;
     }
@@ -51,5 +54,13 @@ public class ProductIdea extends Idea {
 
     public boolean containsDistributionChannel(DistributionChannel distributionChannelToFind) {
         return distributionChannels.stream().anyMatch(distributionChannel -> distributionChannel.getId() == distributionChannelToFind.getId());
+    }
+
+    public boolean isExistsComparable() {
+        return existsComparable;
+    }
+
+    public void setExistsComparable(boolean existsComparable) {
+        this.existsComparable = existsComparable;
     }
 }

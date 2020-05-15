@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <meta charset="UTF-8">
 
 <head>
@@ -52,6 +52,12 @@
                         th:value="${productLine.getId()}"></option>
             </select>
         </div>
+
+        <div class="form-check">
+            <input type="checkbox" name="existsComparable" th:checked="${existsComparable}">
+            <label class="form-check-label" for="existsComparable">Existiert bereits Vergleichbares (bei der Konkurrenz)?</label>
+        </div>
+
         <p>Bis zu drei Vorteile eingeben:</p>
         <div class="form-group">
             <textarea class="form-control" id="advantages1" placeholder="Vorteil" rows="2"

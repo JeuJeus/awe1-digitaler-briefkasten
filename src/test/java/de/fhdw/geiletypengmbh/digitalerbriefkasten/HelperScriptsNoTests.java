@@ -109,7 +109,7 @@ public class HelperScriptsNoTests {
         });
     }
 
-    //    @Ignore
+    @Ignore
     @Test
     public void createTestSpecialists() {
         createDefaultDatabaseEntrys();

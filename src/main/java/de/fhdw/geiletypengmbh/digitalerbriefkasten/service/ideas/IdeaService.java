@@ -159,6 +159,7 @@ public class IdeaService {
             if (oldIdea.getStatus() == Status.NOT_SUBMITTED && !idea.getProductLine().getTitle().equals(getDefaultInternalProductLineTitle())) {
                 oldIdea.setProductLine(idea.getProductLine());
             }
+            oldProductIdea.setExistsComparable(productIdea.isExistsComparable());
             return save(oldProductIdea);
         }
     }

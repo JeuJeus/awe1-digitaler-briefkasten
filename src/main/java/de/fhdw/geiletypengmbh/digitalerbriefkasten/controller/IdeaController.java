@@ -83,6 +83,12 @@ public class IdeaController {
         return ideaService.updateIdea(idea, id);
     }
 
+    //Workaround because otherwise UI would have to use AJAX, which is vulnerable to XSS and would need be to configured
+    @PostMapping("/delete/{id}")
+    public void deleteByUI(@PathVariable Long id, HttpServletRequest request) {
+        ideaService.delete(id, request);
+    }
+
 }
 
 

@@ -133,10 +133,18 @@
 </main>
 <div id="menu">
     <a href="#" onclick="this.setAttribute('href', 'ideas/' + this.parentNode.getAttribute('data'))">
-        <i class="fas fa-search-plus"></i> Anzeigen <span>Ctrl + ?!</span>
+        <i class="fas fa-search-plus"></i> Anzeigen
     </a>
     <a href="#" onclick="this.setAttribute('href', 'ideas/edit/' + this.parentNode.getAttribute('data'))">
-        <i class="far fa-edit"></i> Bearbeiten <span>Ctrl + ?!</span>
+        <i class="far fa-edit"></i> Bearbeiten
+    </a>
+    <a href="#" onclick="document.querySelector('#hidden-delete-menu-form').setAttribute('action', 'api/ideas/verifyShit/' + this.parentNode.getAttribute('data'));
+                         document.querySelector('#hidden-delete-menu-form').submit()">
+        <i class="fas fa-trash-alt"></i> Löschen
+        <!--TODO SWAP ME WITH BUTTON IN EDIT IDEA OR DELETE ME        -->
+        <form action="#" id="hidden-delete-menu-form" th:method="post">
+
+        </form>
     </a>
 </div>
 <div th:replace="pageParts/footer :: footer"></div>

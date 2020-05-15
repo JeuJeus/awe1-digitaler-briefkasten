@@ -120,6 +120,13 @@
         </div>
     </form>
 
+    <form action="#" class="form-deletIdea" method="POST" th:action="@{/api/ideas/delete/} + ${idea.getId()}">
+        <div class="form-group">
+            <button class="btn btn-dark btn-block mt-2" type="submit">Idee löschen</button>
+        </div>
+    </form>
+
+
     <!--TODO I NEED A BACK BUTTON   -->
 
     <div th:replace="pageParts/footer :: footer"></div>

@@ -84,6 +84,11 @@ public class IdeaController {
     public Idea updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
         return ideaService.updateIdea(idea, id);
     }
+
+    @PostMapping("/delete/{id}")
+    public void deleteByUI(@PathVariable Long id, HttpServletRequest request) {
+        ideaService.delete(id, request);
+    }
 }
 
 

@@ -8,6 +8,10 @@
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
     <script th:src="@{../js/fontawesome.js}" type="text/javascript"></script>
+    <th:block
+            th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea'">
+        <th:block th:replace="pageParts/productIdea :: productIdea-styles"></th:block>
+    </th:block>
 </head>
 <body>
 
@@ -46,11 +50,15 @@
 
     <button class="btn btn-dark btn-block" type="submit">Entscheidung einreichen</button>
 </form>
+
 </div>
 <div th:replace="pageParts/footer :: footer"></div>
 
 <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
+<div th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea'">
+    <div th:replace="pageParts/productIdea :: productIdea-script"></div>
+</div>
 </main>
 </body>
 </html>

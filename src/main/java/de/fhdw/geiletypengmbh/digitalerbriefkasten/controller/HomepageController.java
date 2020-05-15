@@ -115,9 +115,8 @@ public class HomepageController {
         Idea idea = ideaService.findById(id);
         User currentUser = userService.getCurrentUser();
 
-        //TODO PHILIPP IS THERE A MORE CLEVER WAY OF DOING THIS? -> REFACTOR INTO METHOD IN IDEASERVICE
         if (currentUser.getId() != idea.getCreator().getId()) throw new NotAuthorizedException();
-        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException(); // TODO RLY?
+        if (!idea.getStatus().equals(Status.NOT_SUBMITTED)) throw new NotAuthorizedException();
         ModelAndView mav = new ModelAndView();
         String view;
         ArrayList<ProductLine> productLines;

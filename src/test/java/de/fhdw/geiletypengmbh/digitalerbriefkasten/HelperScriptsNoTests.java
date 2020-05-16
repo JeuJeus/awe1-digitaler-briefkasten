@@ -117,8 +117,8 @@ public class HelperScriptsNoTests {
         Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             ProductLine pLine = productLineRepository.findByTitle(productLine);
             if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
-                Specialist specialist = new Specialist("SpeziusMaximus_" + i, "testsss",
-                        "testssss", "Spezius", "Maximus");
+                Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "testsss",
+                        "testsss", "Spezius", "Maximus");
                 specialist.setProductLines(new ArrayList<>() {
                     {
                         add(pLine);

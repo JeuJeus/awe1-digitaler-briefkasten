@@ -10,7 +10,7 @@
 </head>
 
 <body th:onload="${distributionChannels == null}? 'ensureTableContent()'; ${targetGroups == null}? 'ensureTableContent()'">
-<div th:replace="/pageParts/navbar :: navbar"></div>
+<div th:replace="pageParts/navbar :: navbar"></div>
 
 
 <div class="container">
@@ -75,7 +75,7 @@
     </form>
 
 </div>
-<div th:replace="/pageParts/footer :: footer"></div>
+<div th:replace="pageParts/footer :: footer"></div>
 <script th:src="@{../js/jquery.js}" type="text/javascript"></script>
 <script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
 <script th:src="@{../js/select2.min.js}" type="text/javascript"></script>

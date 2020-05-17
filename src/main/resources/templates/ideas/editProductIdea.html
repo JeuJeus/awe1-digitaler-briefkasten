@@ -117,8 +117,10 @@
         <div class="form-group form-row">
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2" for="creationDate">Erstellungsdatum</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" id="creationDate" name="creationDate"
-                       readonly="readonly" th:value="*{#dates.format(creationDate, 'dd.MM.yyyy')}" type="text">
+                <select class="form-control" disabled="disabled" id="creationDate" name="creationDate">
+                    <option th:text="*{#dates.format(creationDate, 'dd.MM.yyyy')}"
+                            th:value="*{creationDate}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group form-row">

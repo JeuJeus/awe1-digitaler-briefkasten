@@ -142,13 +142,12 @@
        data-visibility='["notSubmittedIdeasTable"]' class="right-click-menu-item">
         <i class="far fa-edit"></i> Bearbeiten
     </a>
-    <a href="#" onclick="document.querySelector('#hidden-delete-menu-form').setAttribute('action', 'api/ideas/verifyShit/' + this.parentNode.getAttribute('data'));
+    <a href="#" onclick="document.querySelector('#hidden-delete-menu-form').setAttribute('action', 'deleteIdea/' + this.parentNode.getAttribute('data'));
                          document.querySelector('#hidden-delete-menu-form').submit()"
        data-visibility='["notSubmittedIdeasTable"]' class="right-click-menu-item">
         <i class="fas fa-trash-alt"></i> Löschen
-        <!--TODO SWAP ME WITH BUTTON IN EDIT IDEA OR DELETE ME        -->
         <form action="#" id="hidden-delete-menu-form" th:method="post">
-
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         </form>
     </a>
 </div>
@@ -160,7 +159,7 @@
 <script th:src="@{../js/filterTable.js}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        addRightClickMenu("#menu", "tbody tr"); <!--TODO NICEUP A DI RIGHTLICK BOMBACLAAT   -->
+        addRightClickMenu("#menu", "tbody tr");
         enableFilter("#filternotSubmittedIdeasTable", "#notSubmittedIdeasTable tbody tr");
         enableFilter("#filterProductIdeasTable", "#productIdeasTable tbody tr");
         enableFilter("#filterInternalIdeasTable", "#internalIdeasTable tbody tr");

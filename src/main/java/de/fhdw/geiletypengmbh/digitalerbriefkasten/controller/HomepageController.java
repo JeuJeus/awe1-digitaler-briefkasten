@@ -68,7 +68,7 @@ public class HomepageController {
         mav.addObject("internalIdeas", internalIdeas);
 
         if (user != null) {
-            List<Idea> notSubmittedIdeas = ideaService.GetOwnNotSubmittedIdeas();
+            List<Idea> notSubmittedIdeas = ideaService.getOwnNotSubmittedIdeas();
             mav.addObject("notSubmittedIdeas", notSubmittedIdeas);
         }
 
@@ -78,7 +78,6 @@ public class HomepageController {
     @GetMapping("/createIdea/internal")
     public ModelAndView createInternalIdea() {
         List<Field> fields = fieldService.findAll();
-        List<ProductLine> productLines = productLineService.findAll();
 
         ModelAndView mav = new ModelAndView("ideas/createInternal");
         mav.addObject("fields", fields);

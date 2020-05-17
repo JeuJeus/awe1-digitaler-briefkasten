@@ -29,6 +29,7 @@ import java.util.List;
 @Controller
 public class AdminController {
 
+    public static final String REDIRECT_ADMIN = "redirect:/admin";
     @Autowired
     UserValidator userValidator;
     @Autowired
@@ -81,12 +82,12 @@ public class AdminController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
 
         userService.save(userForm);
         redirectAttributes.addFlashAttribute("success", "Spezialist erfolgreich angelegt.");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 
     @PostMapping("/admin/createProductLine")
@@ -96,10 +97,10 @@ public class AdminController {
             productLineService.save(productLine);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errors", e.getMessage());
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
         redirectAttributes.addFlashAttribute("success", "Produktlinie erfolgreich angelegt.");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 
     @PostMapping("/admin/createField")
@@ -110,12 +111,12 @@ public class AdminController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
 
         fieldService.save(field);
         redirectAttributes.addFlashAttribute("success", "Handlungsfeld erfolgreich angelegt.");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 
     @PostMapping("/admin/createTargetGroup")
@@ -126,12 +127,12 @@ public class AdminController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
 
         targetGroupService.save(targetGroup);
         redirectAttributes.addFlashAttribute("success", "Zielgruppe erfolgreich angelegt.");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 
     @PostMapping("/admin/createDistributionChannel")
@@ -142,11 +143,11 @@ public class AdminController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
 
         distributionChannelService.save(distributionChannel);
         redirectAttributes.addFlashAttribute("success", "Vertriebskanal erfolgreich angelegt.");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 }

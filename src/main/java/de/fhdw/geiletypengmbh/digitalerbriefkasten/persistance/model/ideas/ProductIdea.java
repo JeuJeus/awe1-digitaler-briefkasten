@@ -63,8 +63,4 @@ public class ProductIdea extends Idea {
     public void setExistsComparable(boolean existsComparable) {
         this.existsComparable = existsComparable;
     }
-
-    public String getType(){
-        return this.getClass().getSimpleName();
-    }
 }

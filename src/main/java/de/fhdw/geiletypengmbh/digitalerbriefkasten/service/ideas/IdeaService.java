@@ -204,7 +204,7 @@ public class IdeaService {
                 .collect(Collectors.toList());
     }
 
-    public List<Idea> GetOwnNotSubmittedIdeas() {
+    public List<Idea> getOwnNotSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
 
         Predicate<Idea> ideaBelongsToCurUser = idea -> {
@@ -230,7 +230,7 @@ public class IdeaService {
                 specialist = userService.findAllSpecialists().stream().findFirst();
             }
         } else {
-            specialist = getSpecialistOfNewInternalIdea((InternalIdea) idea);
+            specialist = getSpecialistOfNewInternalIdea();
         }
         if (specialist.isEmpty()) {
             throw new UserNotFoundException();
@@ -239,8 +239,8 @@ public class IdeaService {
     }
 
 
-    private Optional<Specialist> getSpecialistOfNewInternalIdea(InternalIdea idea) throws InternalProductLineNotExistingException {
-        Optional<Specialist> specialist = Optional.empty();
+    private Optional<Specialist> getSpecialistOfNewInternalIdea() throws InternalProductLineNotExistingException {
+        Optional<Specialist> specialist;
         ProductLine internalProductLine =
                 productLineService.findByTitle(getDefaultInternalProductLineTitle());
         if (internalProductLine != null) {

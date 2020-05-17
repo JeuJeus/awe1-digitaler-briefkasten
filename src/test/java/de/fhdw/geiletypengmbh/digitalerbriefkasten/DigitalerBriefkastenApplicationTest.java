@@ -10,7 +10,6 @@ class DigitalerBriefkastenApplicationTest {
 
     @Test
     void contextLoads() {
-
     }
 
 }

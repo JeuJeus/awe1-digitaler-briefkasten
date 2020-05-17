@@ -1,9 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -158,7 +155,7 @@ public class Idea {
     public void setAdvantages(List<Advantage> advantages) {
         if (this.advantages != null) this.advantages.clear();
         if (advantages != null) {
-            if (this.advantages == null) this.advantages = new ArrayList<Advantage>();
+            if (this.advantages == null) this.advantages = new ArrayList<>();
             this.advantages.addAll(advantages.stream().
                     filter(advantage -> !advantage.getDescription().isEmpty()).
                     collect(Collectors.toCollection(ArrayList::new))
@@ -172,5 +169,10 @@ public class Idea {
 
     public void setSpecialist(Specialist specialist) {
         this.specialist = specialist;
+    }
+
+    @JsonIgnore
+    public String getType(){
+        return  this.getClass().getSimpleName();
     }
 }

@@ -32,6 +32,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -413,7 +414,7 @@ public class IdeaControllerIntegTest {
         long millis = System.currentTimeMillis();
         java.sql.Date today = new java.sql.Date(millis);
 
-        assert (jsonReturn.get("creationDate")).equals(today.toString());
+        assertEquals (jsonReturn.get("creationDate"),today.toString());
     }
 
     @Test
@@ -469,9 +470,9 @@ public class IdeaControllerIntegTest {
 
         JSONObject jsonReturn = getJsonObjectFromReturn(mvcResult);
 
-        assert (jsonReturn.get("status")).equals("NOT_SUBMITTED");
+        assertEquals(jsonReturn.get("status"),"NOT_SUBMITTED");
         //Status Justification should only be included if set
-        assert (!jsonReturn.has("statusJustification"));
+        assertFalse(jsonReturn.has("statusJustification"));
     }
 
     @Test

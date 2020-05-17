@@ -26,7 +26,7 @@
 </div>
 
 <form action="#" class="form-createIdea" method="post"
-      th:action="@{/api/ideas/decideIdea/{id}(id=${idea.id})}" th:object="${idea}">
+      th:action="@{/decideIdea/{id}(id=${idea.id})}" th:object="${idea}">
     <h2 class="form-heading">Setzen und begründen Sie den neuen Status der Idee.</h2>
 
     <div class="form-group">

@@ -16,7 +16,7 @@
 <div th:replace="pageParts/navbar :: navbar"></div>
 
 <main class="container">
-    <form action="#" method="post" th:action="@{/api/ideas/update/product/} + ${idea.getId()}" th:object="${idea}">
+    <form action="#" method="post" th:action="@{/updateIdea/product/} + ${idea.getId()}" th:object="${idea}">
         <h2 class="form-heading">
             <i class="mr-3 dblFontSize far fa-lightbulb"></i>
             <span th:utext="*{title}"></span></h2>
@@ -140,7 +140,7 @@
         <button class="btn btn-dark btn-block" type="submit">Idee aktualisieren</button>
     </form>
 
-    <form action="#" class="form-submitIdea" method="POST" th:action="@{/api/ideas/submitIdea}" th:object="${idea}">
+    <form action="#" class="form-submitIdea" method="POST" th:action="@{/submitIdea}" th:object="${idea}">
         <input class="form-control" id="id" name="id" readonly="readonly"
                th:value="*{id}" type="hidden">
         <div class="form-group">
@@ -148,7 +148,7 @@
         </div>
     </form>
 
-    <form action="#" class="form-deletIdea" method="POST" th:action="@{/api/ideas/delete/} + ${idea.getId()}">
+    <form action="#" class="form-deletIdea" method="POST" th:action="@{/deleteIdea/} + ${idea.getId()}">
         <div class="form-group">
             <button class="btn btn-dark btn-block mt-3" type="submit">Idee löschen</button>
         </div>

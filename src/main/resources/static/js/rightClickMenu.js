@@ -1,35 +1,44 @@
-function addRightClickMenu(cssSelectorMenu, cssSelectorOnclick) {
+function addRightClickMenu(cssSelectorMenu, cssSelectorOnclick, trigger) {
     let menu = document.querySelector(cssSelectorMenu);
     let elements = document.querySelectorAll(cssSelectorOnclick);
     for (let elem of elements) {
         if (elem.addEventListener) {
-            elem.addEventListener('contextmenu', function (e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
-                showMenu(posX, posY, menu, elem.getAttribute("data"), elem);
-                e.preventDefault();
-            }, false);
-            document.addEventListener('click', function (e) {
-                menu.style.opacity = "0";
-                setTimeout(function () {
-                    menu.style.visibility = "hidden";
-                }, 501);
+            elem.addEventListener(trigger, function (e) {
+                menuEvent(e, menu, elem);
             }, false);
         } else {
-            elem.attachEvent('oncontextmenu', function (e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
-                showMenu(posX, posY, menu, elem.getAttribute("data"), elem);
-                e.preventDefault();
-            });
-            document.attachEvent('onclick', function (e) {
-                menu.style.opacity = "0";
-                setTimeout(function () {
-                    menu.style.visibility = "hidden";
-                }, 501);
+            elem.attachEvent(trigger, function (e) {
+                menuEvent(e, menu, elem);
             });
         }
     }
+}
+
+function addMenuClosingEvent(triggerElement, triggerEvent) {
+    if (triggerElement.addEventListener) {
+        triggerElement.addEventListener(triggerEvent, function (e) {
+            addBodyOnclick(e, menu);
+        });
+    } else {
+        triggerElement.attachEvent(triggerEvent, function (e) {
+            addBodyOnclick(e, menu);
+        });
+    }
+}
+
+function menuEvent(e, menu, elem) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+    showMenu(posX, posY, menu, elem.getAttribute("data"), elem);
+    e.preventDefault();
+}
+
+function addBodyOnclick(e, menu) {
+    if (e.target.classList.contains('no-body-onclick')) return;
+    menu.style.opacity = "0";
+    setTimeout(function () {
+        menu.style.visibility = "hidden";
+    }, 251);
 }
 
 function showMenu(x, y, menu, data, caller) {

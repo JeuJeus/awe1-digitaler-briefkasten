@@ -12,9 +12,9 @@
     color: #555;
     border: 1px solid #C6C6C6;
 
-    -webkit-transition: opacity .5s ease-in-out;
-    -moz-transition: opacity .5s ease-in-out;
-    transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    transition: opacity .25s ease-in-out;
 
     -webkit-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
     -moz-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);

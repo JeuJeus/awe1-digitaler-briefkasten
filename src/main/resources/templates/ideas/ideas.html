@@ -41,7 +41,7 @@
                     <td class="hover-icon">
                         <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                     </td>
-                    <td th:utext="${idea.getCreationDate()}"></td>
+                    <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
                     <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                         <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                     </td>
@@ -79,7 +79,7 @@
                 <td class="hover-icon">
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
-                <td th:utext="${idea.getCreationDate()}"></td>
+                <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                 </td>
@@ -117,7 +117,7 @@
                 <td class="hover-icon">
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
-                <td th:utext="${idea.getCreationDate()}"></td>
+                <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
                 <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                 </td>

@@ -45,6 +45,7 @@ body {
     position: absolute;
     left: 5px;
     top: 2px;
+    padding: 2px;
 }
 
 #menu a span {

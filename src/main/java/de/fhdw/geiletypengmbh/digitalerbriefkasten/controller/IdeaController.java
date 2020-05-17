@@ -18,29 +18,41 @@ public class IdeaController {
     @Autowired
     private IdeaService ideaService;
 
+    @PostMapping("/createInternal")
+    public String createInternalIdea(@ModelAttribute InternalIdea idea) {
+        ideaService.createByForm(idea);
+        return "redirect:/ideas";
+    }
+
+    @PostMapping("/createProduct")
+    public String createProductIdea(@ModelAttribute ProductIdea idea) {
+        ideaService.createByForm(idea);
+        return "redirect:/ideas";
+    }
+
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
     public String decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
         ideaService.saveDecision(id, emptyIdeaWithDecision);
-        return "redirect:/specialist/";
+        return "redirect:/specialist";
     }
 
     @PostMapping("/submitIdea")
     public String submitIdea(@ModelAttribute Idea ideaId) throws InternalProductLineNotExistingException {
         ideaService.submitIdea(ideaId.getId());
-        return "redirect:/ideas/";
+        return "redirect:/ideas";
     }
 
     @PostMapping("/updateIdea/internal/{id}")
     public String updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
         ideaService.updateIdea(idea, id);
-        return "redirect:/ideas/";
+        return "redirect:/ideas";
     }
 
     @PostMapping("/updateIdea/product/{id}")
     public String updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
         ideaService.updateIdea(idea, id);
-        return "redirect:/ideas/";
+        return "redirect:/ideas";
     }
 
     @PostMapping("/deleteIdea/{id}")

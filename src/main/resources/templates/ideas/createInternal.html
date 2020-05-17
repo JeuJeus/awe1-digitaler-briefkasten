@@ -10,7 +10,7 @@
 <body>
 <div th:replace="pageParts/navbar :: navbar"></div>
 <div class="container">
-    <form action="#" class="form-createIdea" method="post" th:action="@{/api/ideas/internal}" th:object="${createIdea}">
+    <form action="#" class="form-createIdea" method="post" th:action="@{/createInternal}" th:object="${createIdea}">
         <h2 class="form-heading">Neue interne Idee erstellen</h2>
         <div class="form-group">
             <input class="form-control" id="title" name="Beschreibung" placeholder="Titel" required="required"

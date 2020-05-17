@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Title already exists")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Titel existiert bereits")
 public class AlreadyExistsException extends RuntimeException {
 
     public AlreadyExistsException() {

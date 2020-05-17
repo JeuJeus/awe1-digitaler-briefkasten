@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching Field Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechendes Handlungsfeld gefunden")
 public class FieldNotFoundException extends RuntimeException {
 
     public FieldNotFoundException() {

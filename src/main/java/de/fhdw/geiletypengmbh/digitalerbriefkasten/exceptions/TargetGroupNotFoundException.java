@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching Target-Group Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Zielgruppe gefunden")
 public class TargetGroupNotFoundException extends RuntimeException {
 
     public TargetGroupNotFoundException() {

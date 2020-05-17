@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching Advantage Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechender Vorteil gefunden")
 public class AdvantageNotFoundException extends RuntimeException {
 
     public AdvantageNotFoundException() {

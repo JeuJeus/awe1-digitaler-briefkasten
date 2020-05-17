@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching Distribution-Channel Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechender Vertriebskanal gefunden")
 public class DistributionChannelNotFoundException extends RuntimeException {
 
     public DistributionChannelNotFoundException() {

@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Provided Input did not match!")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "ID der eingegebenen Idee ist nicht korrekt")
 public class IdeaIdMismatchException extends RuntimeException {
 
     public IdeaIdMismatchException() {

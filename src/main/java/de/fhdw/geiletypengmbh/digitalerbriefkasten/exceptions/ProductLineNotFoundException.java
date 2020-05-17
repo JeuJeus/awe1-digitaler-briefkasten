@@ -3,7 +3,7 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "No Matching Product Line Found")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Produktsparte gefunden")
 public class ProductLineNotFoundException extends RuntimeException {
 
     public ProductLineNotFoundException() {

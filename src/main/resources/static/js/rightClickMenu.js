@@ -52,7 +52,7 @@ function showMenu(x, y, menu, data, caller) {
 }
 
 function closest(el, selectorClass) {
-    var retval = null;
+    let retval = null;
     while (el) {
         if (el.className.indexOf(selectorClass) > -1) {
             retval = el;

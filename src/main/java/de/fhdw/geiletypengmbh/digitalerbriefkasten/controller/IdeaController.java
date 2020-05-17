@@ -20,8 +20,9 @@ public class IdeaController {
 
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
-    public Idea decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
-        return ideaService.saveDecision(id, emptyIdeaWithDecision);
+    public String decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
+        ideaService.saveDecision(id, emptyIdeaWithDecision);
+        return "redirect:/specialist/";
     }
 
     @PostMapping("/submitIdea")
@@ -31,13 +32,15 @@ public class IdeaController {
     }
 
     @PostMapping("/updateIdea/internal/{id}")
-    public Idea updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
-        return ideaService.updateIdea(idea, id);
+    public String updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
+        ideaService.updateIdea(idea, id);
+        return "redirect:/ideas/";
     }
 
     @PostMapping("/updateIdea/product/{id}")
-    public Idea updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
-        return ideaService.updateIdea(idea, id);
+    public String updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
+        ideaService.updateIdea(idea, id);
+        return "redirect:/ideas/";
     }
 
     @PostMapping("/deleteIdea/{id}")

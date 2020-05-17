@@ -48,7 +48,7 @@
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>
                     <td th:utext="${idea.getCreationDate()}"></td>
-                    <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+                    <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                         <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                     </td>
                 </tr>
@@ -86,7 +86,7 @@
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>
                     <td th:utext="${idea.getCreationDate()}"></td>
-                    <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+                    <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                         <span th:utext="${#strings.replace(#strings.toLowerCase(idea.getStatus()), '_', ' ')}"></span>
                     </td>
                 </tr>

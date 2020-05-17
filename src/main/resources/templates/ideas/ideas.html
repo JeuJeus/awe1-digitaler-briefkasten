@@ -40,8 +40,8 @@
                         </button>
                     </td>
                     <td>
-                        <span th:if="${idea.getType()}=='ProductIdea'">Produkt-Idee</span>
-                        <span th:if="${idea.getType()}=='InternalIdea'">Interne-Idee</span>
+                        <span th:if="${idea.getType()}=='ProductIdea'"><i class="far fa-lightbulb"></i></span>
+                        <span th:if="${idea.getType()}=='InternalIdea'"><i class="fas fa-sitemap"></i></span>
                     </td>
                     <td class="hover-icon">
                         <span th:utext="${idea.getTitle()}"></span>
@@ -53,7 +53,7 @@
                         <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                     </td>
                     <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                    <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+                    <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                         <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                     </td>
                 </tr>
@@ -97,7 +97,7 @@
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
                 <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+                <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                 </td>
                 <td th:utext="${idea.getStatusJustification()}"></td>
@@ -141,7 +141,7 @@
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
                 <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                <td><span class="statusIcon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+                <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
                     <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
                 </td>
                 <td th:utext="${idea.getStatusJustification()}"></td>

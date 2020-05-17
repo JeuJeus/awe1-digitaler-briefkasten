@@ -43,7 +43,7 @@ function setSVGColor(element, status) {
 }
 
 window.onload = function () {
-    let statusIcons = document.querySelectorAll(".statusIcon");
+    let statusIcons = document.querySelectorAll(".status-icon");
     for (let i = 0; i < statusIcons.length; i++) {
         statusIcon = statusIcons[i];
         dataStatus = statusIcon.getAttribute('data-status');

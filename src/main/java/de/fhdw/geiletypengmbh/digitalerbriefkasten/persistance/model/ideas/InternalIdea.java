@@ -23,4 +23,8 @@ public class InternalIdea extends Idea {
     public void setField(Field field) {
         this.field = field;
     }
+
+    public String getType(){
+        return  this.getClass().getSimpleName();
+    }
 }

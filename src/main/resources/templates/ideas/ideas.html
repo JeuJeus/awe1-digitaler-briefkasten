@@ -160,6 +160,15 @@
        data-visibility='["notSubmittedIdeasTable"]' class="right-click-menu-item">
         <i class="far fa-edit"></i> Bearbeiten
     </a>
+    <a href="#" onclick="document.querySelector('#hidden-submit-menu-form').setAttribute('action', 'submitIdea/' + this.parentNode.getAttribute('data'));
+                         document.querySelector('#hidden-submit-menu-form').submit()"
+       data-visibility='["notSubmittedIdeasTable"]' class="right-click-menu-item">
+        <i class="far fa-share-square"></i> Einreichen
+        <form action="#" id="hidden-submit-menu-form" th:method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
+    </a>
+
     <a href="#" onclick="document.querySelector('#hidden-delete-menu-form').setAttribute('action', 'deleteIdea/' + this.parentNode.getAttribute('data'));
                          document.querySelector('#hidden-delete-menu-form').submit()"
        data-visibility='["notSubmittedIdeasTable"]' class="right-click-menu-item">

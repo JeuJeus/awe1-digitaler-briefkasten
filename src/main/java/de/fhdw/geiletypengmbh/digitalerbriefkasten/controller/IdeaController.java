@@ -37,9 +37,9 @@ public class IdeaController {
         return "redirect:/specialist";
     }
 
-    @PostMapping("/submitIdea")
-    public String submitIdea(@ModelAttribute Idea ideaId) throws InternalProductLineNotExistingException {
-        ideaService.submitIdea(ideaId.getId());
+    @PostMapping("/submitIdea/{id}")
+    public String submitIdea(@PathVariable Long id) throws InternalProductLineNotExistingException {
+        ideaService.submitIdea(id);
         return "redirect:/ideas";
     }
 

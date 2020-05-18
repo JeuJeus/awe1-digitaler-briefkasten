@@ -114,14 +114,6 @@
         <button class="btn btn-dark btn-block" type="submit">Idee aktualisieren</button>
     </form>
 
-    <form action="#" class="form-submitIdea" method="POST" th:action="@{/submitIdea}" th:object="${idea}">
-        <input class="form-control" id="id" name="id" readonly="readonly"
-               th:value="*{id}" type="hidden">
-        <div class="form-group">
-            <button class="btn btn-dark btn-block mt-2" type="submit">Idee einreichen</button>
-        </div>
-    </form>
-
     <!--TODO I NEED A BACK BUTTON   -->
 
     <div th:replace="pageParts/footer :: footer"></div>

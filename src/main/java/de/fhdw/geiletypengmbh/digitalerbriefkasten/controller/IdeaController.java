@@ -5,6 +5,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Idea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.StatusDecision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -35,8 +36,8 @@ public class IdeaController {
     //Autor: JF
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
-    public String decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
-        ideaService.saveDecision(id, emptyIdeaWithDecision);
+    public String decideIdea(@ModelAttribute StatusDecision statusDecision, @PathVariable Long id) {
+        ideaService.saveDecision(id, statusDecision);
         return "redirect:/specialist";
     }
 

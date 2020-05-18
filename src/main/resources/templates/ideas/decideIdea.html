@@ -27,14 +27,14 @@
 </div>
 
 <form action="#" class="form-createIdea" method="post"
-      th:action="@{/decideIdea/{id}(id=${idea.id})}" th:object="${idea}">
+      th:action="@{/decideIdea/{id}(id=${idea.id})}" th:object="${statusDecision}">
     <h2 class="form-heading">Setzen und begründen Sie den neuen Status der Idee.</h2>
 
     <div class="form-group">
             <textarea class="form-control" id="statusJustification" name="statusJustification"
                       placeholder="Begründung" required="required"
                       rows="4"
-                      th:field="${idea.statusJustification}"></textarea>
+                      th:field="*{statusJustification}"></textarea>
     </div>
     <p>Neuen Status für Idee auswählen:</p>
     <div class="form-group row">

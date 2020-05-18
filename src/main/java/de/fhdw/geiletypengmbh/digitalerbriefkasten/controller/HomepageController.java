@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -52,11 +53,13 @@ public class HomepageController {
     @GetMapping("/decideIdea/{id}")
     public ModelAndView getOneToDecide(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
+        StatusDecision statusDecision = new StatusDecision();
 
         String view = "ideas/decideIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
         mav.addObject("statuses", ideaService.getViableStatusesForDecision(idea.getStatus()));
+        mav.addObject("statusDecision", statusDecision);
         return mav;
     }
 

@@ -308,7 +308,7 @@ public class IdeaService {
     }
 
     //Autor: JF
-    public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
+    public Idea saveDecision(Long id, StatusDecision statusDecision) {
         Idea persistedVersion = findById(id);
         //Idea needs to be :
         // 1. pending and creator should be current editor
@@ -316,9 +316,9 @@ public class IdeaService {
         if ((persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING)
                 || (getUser().isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
             //status should only be set to : Accepted, Declined, Idea_Storage
-            if (emptyIdeaWithDecision.getStatus() != Status.PENDING && emptyIdeaWithDecision.getStatus() != Status.NOT_SUBMITTED) {
-                persistedVersion.setStatus(emptyIdeaWithDecision.getStatus());
-                persistedVersion.setStatusJustification(emptyIdeaWithDecision.getStatusJustification());
+            if (statusDecision.getStatus() != Status.PENDING && statusDecision.getStatus() != Status.NOT_SUBMITTED) {
+                persistedVersion.setStatus(statusDecision.getStatus());
+                persistedVersion.setStatusJustification(statusDecision.getStatusJustification());
                 return save(persistedVersion);
             } else throw new NotAuthorizedException();
         } else throw new NotAuthorizedException();

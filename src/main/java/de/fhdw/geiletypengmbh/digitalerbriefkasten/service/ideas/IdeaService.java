@@ -315,8 +315,6 @@ public class IdeaService {
             User current = userService.getCurrentUser();
             if (toSubmit.getStatus().equals(Status.NOT_SUBMITTED) && toSubmit.getCreator().getId() == current.getId()) {
                 toSubmit.setStatus(Status.PENDING);
-                //TODO / CHECK -> CAN A SPECIALIST CREATE AN IDEA WHICH IS ASSIGNED TO HIMSELF -> WOULD LEAD TO NO SEPERATION OF POWER
-                // GROUP ANSWER WAS: Go on a demo, hippie. - There you have separation of powers - some throwing stones, others water
                 toSubmit.setSpecialist(this.getSpecialistOfNewIdea(toSubmit));
                 return save(toSubmit);
             } else {

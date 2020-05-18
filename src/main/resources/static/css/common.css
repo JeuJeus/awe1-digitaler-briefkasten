@@ -157,3 +157,11 @@ th {
 #back-button {
     position: fixed;
 }
+
+body main.container {
+    padding-bottom: 3vh;
+}
+
+.footer-margin {
+    height: 1vh;
+}

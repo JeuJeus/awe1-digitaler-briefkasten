@@ -49,6 +49,7 @@ public class AdminController {
     @Autowired
     private UserServiceImpl userService;
 
+    //Autor: JF
     @GetMapping("/admin")
     public ModelAndView adminPanel() {
 
@@ -62,6 +63,7 @@ public class AdminController {
         return mav;
     }
 
+    //Autor: JF
     @GetMapping("/admin/userDetails/{username}")
     public ModelAndView listUserDetails(@PathVariable String username) {
         User user = userRepository.findByUsername(username);
@@ -72,6 +74,7 @@ public class AdminController {
         return mav;
     }
 
+    //Autor: JB
     @PostMapping("/admin/createSpecialist")
     public String registration(@ModelAttribute("userForm") Specialist userForm, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
@@ -90,6 +93,7 @@ public class AdminController {
         return REDIRECT_ADMIN;
     }
 
+    //Autor: JB
     @PostMapping("/admin/createProductLine")
     public String createProductLine(@ModelAttribute ProductLine productLine, RedirectAttributes redirectAttributes) {
 
@@ -103,6 +107,7 @@ public class AdminController {
         return REDIRECT_ADMIN;
     }
 
+    //Autor: JB
     @PostMapping("/admin/createField")
     public String createField(@ModelAttribute Field field, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
@@ -119,6 +124,7 @@ public class AdminController {
         return REDIRECT_ADMIN;
     }
 
+    //Autor: JB
     @PostMapping("/admin/createTargetGroup")
     public String createTargetGroup(@ModelAttribute TargetGroup targetGroup, BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) {
@@ -135,6 +141,7 @@ public class AdminController {
         return REDIRECT_ADMIN;
     }
 
+    //Autor: JB
     @PostMapping("/admin/createDistributionChannel")
     public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel, BindingResult bindingResult,
                                             RedirectAttributes redirectAttributes) {

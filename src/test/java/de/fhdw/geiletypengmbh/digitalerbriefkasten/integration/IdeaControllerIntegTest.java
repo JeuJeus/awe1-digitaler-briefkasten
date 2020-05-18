@@ -94,6 +94,7 @@ public class IdeaControllerIntegTest {
 
 //HELPER FUNCTIONS
 
+    //Autor: JF
     private static String parseIdeaToJson(Idea idea) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -105,11 +106,13 @@ public class IdeaControllerIntegTest {
         return null;
     }
 
+    //Autor: JF
     private static JSONObject getJsonObjectFromReturn(MvcResult mvcResult) throws UnsupportedEncodingException, JSONException {
         String jsonReturn = mvcResult.getResponse().getContentAsString();
         return new JSONObject(jsonReturn);
     }
 
+    //Autor: PR
     private static InternalIdea getInternalIdeaFromReturn(MvcResult mvcResult) {
         InternalIdea idea = new InternalIdea();
         try {
@@ -121,6 +124,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
+    //Autor: PR
     private static ProductIdea getProductIdeaFromReturn(MvcResult mvcResult) {
         ProductIdea idea = new ProductIdea();
         try {
@@ -132,6 +136,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
+    //Autor: JF
     private InternalIdea createRandomInternalIdea() throws UserNotFoundException {
         InternalIdea idea = new InternalIdea();
 
@@ -144,6 +149,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
+    //Autor: PR
     private ProductIdea createRandomProductIdea() throws UserNotFoundException {
         ProductIdea idea = new ProductIdea();
 
@@ -165,6 +171,7 @@ public class IdeaControllerIntegTest {
         return idea;
     }
 
+    //Autor: JF
     private String createIdeaAsUri(Idea idea) throws Exception {
         String ideaJson = parseIdeaToJson(idea);
 
@@ -177,6 +184,7 @@ public class IdeaControllerIntegTest {
         return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
     }
 
+    //Autor: PR
     @BeforeEach
     public void prepareSetup() throws Exception {
         if (!setupDone) { //Workaround used here because @Before is depreceated and BeforeAll need static method
@@ -221,6 +229,7 @@ public class IdeaControllerIntegTest {
         }
     }
 
+    //Autor: JF
     @Test
     public void whenGetAllIdeas_thenOK() throws Exception {
         mockMvc.perform(get(API_ROOT)
@@ -229,6 +238,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isOk());
     }
 
+    //Autor: JF
     @Test
     public void whenGetIdeasByTitle_thenOK() throws Exception {
         InternalIdea idea = createRandomInternalIdea();
@@ -244,6 +254,7 @@ public class IdeaControllerIntegTest {
         assertThat(response).isNotNull();
     }
 
+    //Autor: PR
     @Test
     public void whenGetCreatedInternalIdeaById_thenOK() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -266,6 +277,7 @@ public class IdeaControllerIntegTest {
         assertEquals(internalIdea.getField().getTitle(), persistedIdea.getField().getTitle());
     }
 
+    //Autor: PR
     @Test
     public void whenGetCreatedProductIdeaById_thenOK() throws Exception {
         ProductIdea productIdea = createRandomProductIdea();
@@ -291,6 +303,7 @@ public class IdeaControllerIntegTest {
                 productIdea.getDistributionChannels().stream().findFirst().get().getTitle());
     }
 
+    //Autor: JF
     @Test
     public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
         mockMvc.perform(
@@ -299,6 +312,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isNotFound());
     }
 
+    //Autor: JF
     @Test
     public void whenCreateNewInternalIdea_thenCreated() throws Exception {
         Idea idea = createRandomInternalIdea();
@@ -312,6 +326,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isCreated());
     }
 
+    //Autor: PR
     @Test
     public void whenCreateNewInternalIdeaWithSpecialist_thenCreated() throws Exception {
         Idea idea = createRandomInternalIdea();
@@ -327,6 +342,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isCreated());
     }
 
+    //Autor: JS
     @Test
     public void whenCreateNewProductIdea_thenCreated() throws Exception {
         ProductIdea idea = createRandomProductIdea();
@@ -340,6 +356,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isCreated());
     }
 
+    //Autor: PR
     @Test
     public void whenCreateNewIdeaNotLoggedIn_thenNotAuthorized() throws Exception {
         InternalIdea idea = createRandomInternalIdea();
@@ -352,6 +369,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isForbidden());
     }
 
+    //Autor: JF
     @Test
     public void whenInvalidInternalIdea_thenError() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -367,6 +385,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isBadRequest());
     }
 
+    //Autor: JF
     @Test
     public void whenUpdateCreatedInternalIdea_thenUpdated() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -397,6 +416,7 @@ public class IdeaControllerIntegTest {
         assertEquals(newDescription, getJsonObjectFromReturn(mvcResult).get("description"));
     }
 
+    //Autor: JF
     @Test
     public void whenInternalIdeaCreated_thenTimestampShouldBeSetCorrect() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -417,6 +437,7 @@ public class IdeaControllerIntegTest {
         assertEquals (jsonReturn.get("creationDate"),today.toString());
     }
 
+    //Autor: JF
     @Test
     public void whenDeleteCreatedInternalIdea_thenDeleted() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -436,6 +457,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isNotFound());
     }
 
+    //Autor: JF
     @Test
     public void whenDeleteWithoutAuthorization_thenError() throws Exception {
         Idea idea = createRandomInternalIdea();
@@ -455,6 +477,7 @@ public class IdeaControllerIntegTest {
                 .andExpect(status().isOk());
     }
 
+    //Autor: JF
     @Test
     public void whenInternalCreated_thenDefaultStatusShouldBeSet() throws Exception {
         InternalIdea internalIdea = createRandomInternalIdea();
@@ -475,6 +498,7 @@ public class IdeaControllerIntegTest {
         assertFalse(jsonReturn.has("statusJustification"));
     }
 
+    //Autor: PR
     @Test
     public void whenGetTestUserAndSpecialist_thenOkay() throws UserNotFoundException {
         //Created in setup method before
@@ -486,6 +510,7 @@ public class IdeaControllerIntegTest {
         assertEquals(testProductLineId, persistedTestProductLineId);
     }
 
+    //Autor: PR
     @Test
     public void whenGetSpecialistOfNewInternalIdea_ThenOkay() throws Exception {
         final String TEST_PASSWORD = randomAlphabetic(10);
@@ -506,7 +531,7 @@ public class IdeaControllerIntegTest {
         assertEquals(internalSpecialist.getId(), specialist.getId());
     }
 
-
+    //Autor: PR
     @Test
     public void whenGetSpecialistOfNewProductIdea_ThenOkay() throws Exception {
         final String TEST_PASSWORD = randomAlphabetic(10);
@@ -527,6 +552,7 @@ public class IdeaControllerIntegTest {
         assertEquals(productSpecialist.getId(), specialist.getId());
     }
 
+    //Autor: PR
     @Test
     public void whenGetSpecialistWithLeastSubmittedIdeasForNewProductIdea_ThenOkay() throws Exception {
         final String TEST_PASSWORD = randomAlphabetic(10);

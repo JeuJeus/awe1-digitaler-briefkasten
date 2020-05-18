@@ -1,3 +1,4 @@
+//Autor: JB
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

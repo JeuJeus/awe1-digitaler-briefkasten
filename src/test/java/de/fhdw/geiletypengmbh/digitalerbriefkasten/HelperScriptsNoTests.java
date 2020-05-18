@@ -62,6 +62,7 @@ public class HelperScriptsNoTests {
 
     private final static String[] fields = {"Kostensenkung", "Ertragssteigerung", "Zukunftsfähigkeit"};
 
+    //Autor: JF
     @Ignore
     @Test
     public void createAdminIfNotExists() {
@@ -78,6 +79,7 @@ public class HelperScriptsNoTests {
         userService.save(admin);
     }
 
+    //Autor: PR
     @Ignore
     @Test
     public void createDefaultDatabaseEntrys() {
@@ -109,6 +111,7 @@ public class HelperScriptsNoTests {
         });
     }
 
+    //Autor: PR
     @Ignore
     @Test
     public void createTestSpecialists() {
@@ -117,6 +120,7 @@ public class HelperScriptsNoTests {
         Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             ProductLine pLine = productLineRepository.findByTitle(productLine);
             if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
+                //TODO CHANGE PASSWORT -> AND IN MANUAL.MD TO
                 Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "testssss",
                         "testssss", "Spezius", "Maximus");
                 specialist.setProductLines(new ArrayList<>() {

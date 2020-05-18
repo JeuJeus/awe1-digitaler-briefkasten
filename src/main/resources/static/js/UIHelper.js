@@ -1,3 +1,4 @@
+//Autor: PR
 function getStatusIcon(status) {
     let svgs = [];
     svgs['ACCEPTED'] = "<svg class=\"bi bi-check-circle\" width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -27,7 +28,7 @@ function getStatusIcon(status) {
 function getStatusIconColor(status) {
     let colors = [];
     colors['ACCEPTED'] = "green";
-    colors['PENDING'] = "#CBB942";
+    colors['PENDING'] = "#cbb942";
     colors['IDEA_STORAGE'] = "brown";
     colors['DECLINED'] = "red";
     colors['NOT_SUBMITTED'] = "blue";

@@ -1,3 +1,4 @@
+//Autor: JB
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;

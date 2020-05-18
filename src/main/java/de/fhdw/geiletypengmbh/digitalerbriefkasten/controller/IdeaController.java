@@ -18,18 +18,21 @@ public class IdeaController {
     @Autowired
     private IdeaService ideaService;
 
+    //Autor: JB
     @PostMapping("/createInternal")
     public String createInternalIdea(@ModelAttribute InternalIdea idea) {
         ideaService.createByForm(idea);
         return "redirect:/ideas";
     }
 
+    //Autor: JB
     @PostMapping("/createProduct")
     public String createProductIdea(@ModelAttribute ProductIdea idea) {
         ideaService.createByForm(idea);
         return "redirect:/ideas";
     }
 
+    //Autor: JF
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @PostMapping("/decideIdea/{id}")
     public String decideIdea(@ModelAttribute Idea emptyIdeaWithDecision, @PathVariable Long id) {
@@ -37,24 +40,28 @@ public class IdeaController {
         return "redirect:/specialist";
     }
 
+    //Autor: JB
     @PostMapping("/submitIdea/{id}")
     public String submitIdea(@PathVariable Long id) throws InternalProductLineNotExistingException {
         ideaService.submitIdea(id);
         return "redirect:/ideas";
     }
 
+    //Autor: PR
     @PostMapping("/updateIdea/internal/{id}")
     public String updateInternalIdeaByForm(@ModelAttribute InternalIdea idea, @PathVariable Long id) {
         ideaService.updateIdea(idea, id);
         return "redirect:/ideas";
     }
 
+    //Autor: PR
     @PostMapping("/updateIdea/product/{id}")
     public String updateProductIdeaByForm(@ModelAttribute ProductIdea idea, @PathVariable Long id) {
         ideaService.updateIdea(idea, id);
         return "redirect:/ideas";
     }
 
+    //Autor: PR
     @PostMapping("/deleteIdea/{id}")
     public void deleteByUI(@PathVariable Long id, HttpServletRequest request) {
         ideaService.delete(id, request);

@@ -1,3 +1,4 @@
+//Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.log;
 
 import org.slf4j.Logger;

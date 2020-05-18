@@ -1,3 +1,4 @@
+//Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.config;
 
 import org.springframework.beans.factory.annotation.Autowired;

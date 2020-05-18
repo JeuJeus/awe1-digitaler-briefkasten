@@ -1,3 +1,4 @@
+//Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;

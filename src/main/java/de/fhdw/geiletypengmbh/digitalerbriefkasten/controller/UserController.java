@@ -44,6 +44,7 @@ public class UserController {
     @Autowired
     private SecurityServiceImpl securityService;
 
+    //Autor: JF
     @GetMapping("/registration")
     public String registration(Model model, @ModelAttribute("errors") ArrayList<String> errors) {
         model.addAttribute("userForm", new User());
@@ -52,6 +53,7 @@ public class UserController {
         return "account/registration";
     }
 
+    //Autor: PR
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
@@ -75,6 +77,7 @@ public class UserController {
         return "redirect:/welcome";
     }
 
+    //Autor: JF
     @GetMapping("/login")
     public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) {
         //in regards to transmission of password in clear see registration()
@@ -85,6 +88,7 @@ public class UserController {
         return "account/login";
     }
 
+    //Autor: JF
     @GetMapping("/logout")
     public String redirectLogout(HttpServletRequest request, HttpServletResponse response) {
 
@@ -98,6 +102,7 @@ public class UserController {
         return "redirect:/login?logout";
     }
 
+    //Autor: JF
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model, HttpServletRequest request) {
         //returns landing page -> if admin=admin else if specialist=specialist else welcome (user landing page)
@@ -108,6 +113,7 @@ public class UserController {
         }
     }
 
+    //Autor: JF
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @GetMapping("/specialist")
     public String specialist(Model model) throws UserNotFoundException {

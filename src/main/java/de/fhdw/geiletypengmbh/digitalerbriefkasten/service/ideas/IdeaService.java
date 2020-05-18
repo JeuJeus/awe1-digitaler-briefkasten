@@ -35,6 +35,7 @@ public class IdeaService {
     @Autowired
     private ProductLineService productLineService;
 
+    //Autor: JF
     public List<Idea> findAll() {
         List<Idea> allIdeas = new ArrayList<>();
         allIdeas.addAll(internalIdeaIdeaRepository.findAll());
@@ -42,6 +43,7 @@ public class IdeaService {
         return allIdeas;
     }
 
+    //Autor: JF
     public List<Idea> findByTitle(String ideaTitle) {
         List<Idea> ideas = new ArrayList<>();
         ideas.addAll(internalIdeaIdeaRepository.findByTitle(ideaTitle));
@@ -50,7 +52,7 @@ public class IdeaService {
         return ideas;
     }
 
-
+    //Autor: PR
     public Idea findById(Long id) {
         Idea idea = ideaRepository.findById(id).orElseThrow(IdeaNotFoundException::new);
         // Only subtypes of Idea should be found
@@ -61,6 +63,7 @@ public class IdeaService {
         return idea;
     }
 
+    //Autor: JF
     private void assureIdeaAccessRightsForList(List<Idea> ideas) {
         for (Idea idea : ideas) {
             try {
@@ -71,6 +74,7 @@ public class IdeaService {
         }
     }
 
+    //Autor: JF
     private void assureIdeaAccessRights(Idea idea) {
 
         boolean ideaIsSubmitted = !idea.getStatus().equals(Status.NOT_SUBMITTED);
@@ -91,6 +95,7 @@ public class IdeaService {
         }
     }
 
+    //Autor: JF
     private User getUser() {
         User currentUser = null;
         try {
@@ -100,6 +105,7 @@ public class IdeaService {
         return currentUser;
     }
 
+    //Autor: JF
     public Idea save(Idea idea) {
         //Only logged in Users are able to create Ideas
         try {
@@ -114,7 +120,7 @@ public class IdeaService {
         }
     }
 
-
+    //Autor: PR
     public void delete(Long id, HttpServletRequest request) {
         Idea toDelete = this.findById(id);
         /* There are 2 legitimate states to delete a Idea
@@ -136,6 +142,7 @@ public class IdeaService {
 
     }
 
+    //Autor: PR
     public Idea updateIdea(Idea idea, Long id) {
         if (idea.getId() != id) {
             throw new IdeaIdMismatchException();
@@ -163,6 +170,7 @@ public class IdeaService {
         }
     }
 
+    //Autor: PR
     public Idea createByForm(Idea idea) {
         try {
             if (idea instanceof InternalIdea) {
@@ -175,6 +183,7 @@ public class IdeaService {
         return save(idea);
     }
 
+    //Autor: JF
     public List<Idea> getSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
 
@@ -187,6 +196,7 @@ public class IdeaService {
                 .collect(Collectors.toList());
     }
 
+    //Autor: PR
     public List<Idea> filterProductIdeas(List<Idea> ideas) {
         Predicate<Idea> ideaIsProductIdea = idea -> idea instanceof ProductIdea;
 
@@ -195,6 +205,7 @@ public class IdeaService {
                 .collect(Collectors.toList());
     }
 
+    //Autor: PR
     public List<Idea> filterInternalIdeas(List<Idea> ideas) {
         Predicate<Idea> ideaIsInternalIdea = idea -> idea instanceof InternalIdea;
 
@@ -203,6 +214,7 @@ public class IdeaService {
                 .collect(Collectors.toList());
     }
 
+    //Autor: PR
     public List<Idea> getOwnNotSubmittedIdeas() {
         List<Idea> allIdeas = findAll();
 
@@ -220,6 +232,7 @@ public class IdeaService {
                 .collect(Collectors.toList());
     }
 
+    //Autor: PR
     public Specialist getSpecialistOfNewIdea(Idea idea) throws UserNotFoundException, InternalProductLineNotExistingException {
         Optional<Specialist> specialist;
         if (idea instanceof ProductIdea) {
@@ -238,6 +251,7 @@ public class IdeaService {
     }
 
 
+    //Autor: PR
     private Optional<Specialist> getSpecialistOfNewInternalIdea() throws InternalProductLineNotExistingException {
         Optional<Specialist> specialist;
         ProductLine internalProductLine =
@@ -250,7 +264,7 @@ public class IdeaService {
         return specialist;
     }
 
-
+    //Autor: PR
     private Optional<Specialist> getSpecialistOfNewProductlIdea(ProductIdea idea) {
         Optional<Specialist> specialist = Optional.empty();
         ProductLine productLine = productLineService.findById(idea.getProductLine().getId());
@@ -260,6 +274,7 @@ public class IdeaService {
         return specialist;
     }
 
+    //Autor: PR
     private Optional<Specialist> getSpecialistsByProductLine(ProductLine productLine) {
         Optional<Specialist> specialist = Optional.empty();
         List<Specialist> specialists = userService.findSpecialistByProductLine_id(productLine.getId());
@@ -274,6 +289,7 @@ public class IdeaService {
         return specialist;
     }
 
+    //Autor: PR
     public List<Idea> findBySpecialistIdAndStatus(Long specialist_id, Status status) {
         List<Idea> ideas;
         ideas = ideaRepository.findBySpecialistIdAndStatus(specialist_id, status);
@@ -281,6 +297,7 @@ public class IdeaService {
         return ideas;
     }
 
+    //Autor: JF
     public List<Idea> findByStatus(Status status) {
         List<Idea> ideas;
         ideas = ideaRepository.findByStatus(status);
@@ -288,10 +305,12 @@ public class IdeaService {
         return ideas;
     }
 
+    //Autor: PR
     public String getDefaultInternalProductLineTitle() {
         return DEFAULT_INTERNAL_PRODUCTLINE_TITLE;
     }
 
+    //Autor: JF
     public Idea saveDecision(Long id, Idea emptyIdeaWithDecision) {
         Idea persistedVersion = findById(id);
         //Idea needs to be :
@@ -308,6 +327,7 @@ public class IdeaService {
         } else throw new NotAuthorizedException();
     }
 
+    //Autor: JF
     public Idea submitIdea(long ideaId) throws InternalProductLineNotExistingException {
         try {
             Idea toSubmit = findById(ideaId);
@@ -328,6 +348,7 @@ public class IdeaService {
         }
     }
 
+    //Autor: PR
     public boolean getIfIdeaCanBeEdited(Idea idea) {
         User currentUser = null;
         boolean ideaCanBeEdited = false;

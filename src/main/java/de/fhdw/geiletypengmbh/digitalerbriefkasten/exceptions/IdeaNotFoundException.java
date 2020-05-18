@@ -1,3 +1,4 @@
+//Autor: JB
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions;
 
 import org.springframework.http.HttpStatus;

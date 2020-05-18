@@ -48,6 +48,7 @@ public class UserControllerIntegTest {
     @Autowired
     private ProductLineService productLineService;
 
+    //Autor: JF
     @BeforeEach
     public void prepareSetup() {
         if (!SETUPDONE) { //Workaround used here because @Before is depreceated and BeforeAll need static method
@@ -59,7 +60,7 @@ public class UserControllerIntegTest {
         }
     }
 
-
+    //Autor: JB
     @Test
     public void whenLogin_thenAuthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
@@ -69,6 +70,7 @@ public class UserControllerIntegTest {
                 .andExpect(authenticated());
     }
 
+    //Autor: JB
     @Test
     public void whenLoginWithoutCSRF_thenUnauthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
@@ -77,6 +79,7 @@ public class UserControllerIntegTest {
                 .andExpect(unauthenticated());
     }
 
+    //Autor: JB
     @Test
     public void whenLoginWithoutPassword_thenUnauthenticated() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
@@ -85,6 +88,7 @@ public class UserControllerIntegTest {
                 .andExpect(unauthenticated());
     }
 
+    //Autor: JB
     @Test
     public void whenRegister_thenRegistered() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/registration")
@@ -95,6 +99,7 @@ public class UserControllerIntegTest {
                 .andExpect(authenticated());
     }
 
+    //Autor: JB
     @Test
     public void whenRegisterWithShortPassword_thenError() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/registration")
@@ -105,6 +110,7 @@ public class UserControllerIntegTest {
                 .andExpect(unauthenticated());
     }
 
+    //Autor: JB
     @Test
     public void whenLogout_ThenLoggedOut() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
@@ -117,6 +123,7 @@ public class UserControllerIntegTest {
                 .andExpect(unauthenticated());
     }
 
+    //Autor: JF
     @Test
     public void whenLoggedInAsUser_ThenRoleShouldBeUser() throws Exception {
         mockMvc.perform(post(SITE_ROOT + "/login")
@@ -126,9 +133,10 @@ public class UserControllerIntegTest {
                 .andExpect(authenticated().withRoles("USER"));
     }
 
-    //Test Crud Method find specialist via n:m mapping
+    //Autor: PR
     @Test
     public void whenCreatedSpecialistFoundByProductLine_thenOkay() {
+        //Test Crud Method find specialist via n:m mapping
         Set<Role> emptyRoles = emptySet();
         Specialist specialist = new Specialist("testSpecialist_" + randomAlphabetic(5), TEST_PASSWORD, TEST_PASSWORD);
         Long testProductLineId = productLineService.save(

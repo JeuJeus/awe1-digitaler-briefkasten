@@ -1,3 +1,4 @@
+//Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;

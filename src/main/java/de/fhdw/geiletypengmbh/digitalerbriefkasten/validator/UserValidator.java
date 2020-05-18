@@ -24,6 +24,7 @@ public class UserValidator implements Validator {
         return User.class.equals(aClass);
     }
 
+    //Autor: JF
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
@@ -51,6 +52,7 @@ public class UserValidator implements Validator {
         }
     }
 
+    //Autor: JB
     public void validateSpecialist(Object o, Errors errors) {
         //TOD DUPLICATE BLOCK OF CODE ->  REFACTOR? -> JONATHAN
         Specialist specialist = (Specialist) o;

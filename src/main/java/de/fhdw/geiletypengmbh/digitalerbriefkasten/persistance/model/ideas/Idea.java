@@ -1,3 +1,4 @@
+//Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
 import com.fasterxml.jackson.annotation.*;

@@ -27,8 +27,8 @@ Ein *Spezialist-Account* kann falls nicht bereits vorhanden entweder mithilfe de
  
 ### Admin-Credentials 
 - **Username:** admin
-- **Password:** hierKönnteIhreWerbungStehen
+- **Passwort:** hierKönnteIhreWerbungStehen
 
 ### Specialist-Credentials 
-- **Username:** specialist
-- **Password:** specialistpw
+- **Username:** SpeciusMaximus_$JEWEILIGERNAME
+- **Passwort:** testssss

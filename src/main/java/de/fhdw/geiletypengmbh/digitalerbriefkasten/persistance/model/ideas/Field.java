@@ -1,3 +1,4 @@
+//Autor: PR
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas;
 
 import javax.persistence.*;

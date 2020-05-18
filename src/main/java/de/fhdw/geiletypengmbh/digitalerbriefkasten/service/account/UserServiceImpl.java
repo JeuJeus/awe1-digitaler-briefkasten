@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //Autor: JF
     @Override
     public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.saveAndFlush(user);
     }
 
+    //Autor: JB
     public Specialist save(Specialist specialist) {
         specialist.setPassword(bCryptPasswordEncoder.encode(specialist.getPassword()));
         if (specialist.getRoles() == null) {
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.saveAndFlush(specialist);
     }
 
+    //Autor: PR
     @Override
     public User findByUsername(String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -55,20 +58,23 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //Autor: PR
     @Override
     public User findById(Long id) throws UserNotFoundException {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-
+    //Autor: PR
     public List<Specialist> findAllSpecialists() {
         return specialistRepository.findAll();
     }
 
+    //Autor: PR
     public List<Specialist> findSpecialistByProductLine_id(Long productLine_id) {
         return specialistRepository.findByProductLinesId(productLine_id);
     }
 
+    //Autor: JF
     public User getCurrentUser() throws UserNotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal == "anonymousUser") return null;

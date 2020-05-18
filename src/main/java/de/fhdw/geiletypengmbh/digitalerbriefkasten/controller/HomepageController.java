@@ -1,3 +1,4 @@
+
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
@@ -36,7 +37,7 @@ public class HomepageController {
     @Autowired
     private UserServiceImpl userService;
 
-
+    //Autor: PR
     @GetMapping("/ideas/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);
@@ -46,6 +47,7 @@ public class HomepageController {
         return mav;
     }
 
+    //Autor: JF
     @PreAuthorize("hasRole('ROLE_SPECIALIST')")
     @GetMapping("/decideIdea/{id}")
     public ModelAndView getOneToDecide(@PathVariable Long id) {
@@ -57,6 +59,7 @@ public class HomepageController {
         return mav;
     }
 
+    //Autor: PR
     @GetMapping("/ideas")
     public ModelAndView showAllForLoggedInUser(Principal user) {
         List<Idea> submittedIdeas = ideaService.getSubmittedIdeas();
@@ -75,6 +78,7 @@ public class HomepageController {
         return mav;
     }
 
+    //Autor: JB
     @GetMapping("/createIdea/internal")
     public ModelAndView createInternalIdea() {
         List<Field> fields = fieldService.findAll();
@@ -87,6 +91,7 @@ public class HomepageController {
         return mav;
     }
 
+    //Autor: JB
     @GetMapping("/createIdea/product")
     public ModelAndView createProductIdea() {
         List<DistributionChannel> distributionChannels = distributionChannelService.findAll();
@@ -105,6 +110,7 @@ public class HomepageController {
         return mav;
     }
 
+    //Autor: PR
     @GetMapping("/ideas/edit/{id}")
     public ModelAndView editOne(@PathVariable Long id) {
         Idea idea = ideaService.findById(id);

@@ -18,15 +18,16 @@ public class ProductLineService {
     @Autowired
     private IdeaService ideaService;
 
-
+    //Autor: PR
     public ProductLine findById(Long id) {
         return productLineRepository.findById(id).orElseThrow(ProductLineNotFoundException::new);
     }
-
+    //Autor: JB
     public ProductLine findByTitle(String title) {
         return productLineRepository.findByTitle(title);
     }
 
+    //Autor: JB
     public ProductLine save(ProductLine productLine) {
         if (findByTitle(productLine.getTitle()) == null) {
             return productLineRepository.save(productLine);
@@ -35,14 +36,17 @@ public class ProductLineService {
         }
     }
 
+    //Autor: PR
     public List<ProductLine> findAll() {
         return productLineRepository.findAll();
     }
 
+    //Autor: PR
     public List<ProductLine> findAllByTitleNot(String title) {
         return productLineRepository.findAllByTitleNot(title);
     }
 
+    //Autor: PR
     public List<ProductLine> findAllExceptInternal() {
         return productLineRepository.findAllByTitleNot(ideaService.getDefaultInternalProductLineTitle());
     }

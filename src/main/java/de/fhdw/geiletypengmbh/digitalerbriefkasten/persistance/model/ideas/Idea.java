@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
         @JsonSubTypes.Type(value = InternalIdea.class, name = "internalIdea"),
         @JsonSubTypes.Type(value = ProductIdea.class, name = "productIdea")
 })
-// TODO MAKE IDEA EVENTUALLY ABSTRACT?
-public class Idea {
+public abstract class Idea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

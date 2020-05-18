@@ -7,9 +7,11 @@
 
     <link rel="stylesheet" th:href="@{../../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}" type="text/css"/>
+    <script th:src="@{/js/fontawesome.js}" type="text/javascript"></script>
 </head>
 
 <div th:replace="pageParts/navbar :: navbar"></div>
+<th:block th:replace="pageParts/backButton :: back-button"></th:block>
 
 <section class="jumbotron text-center">
     <div class="container">
@@ -23,10 +25,6 @@
         </p>
     </div>
 </section>
-
-<div class="container">
-    <button class="btn btn-dark btn-block" onclick="history.back()">Zurück gehen</button>
-</div>
 
 <div th:replace="pageParts/footer :: footer"></div>
 

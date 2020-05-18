@@ -149,3 +149,11 @@ th {
     text-decoration: none;
     color: black;
 }
+
+.btn-circle {
+    border-radius: 50% !important;
+}
+
+#back-button {
+    position: fixed;
+}

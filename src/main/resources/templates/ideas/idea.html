@@ -14,15 +14,13 @@
     </th:block>
 </head>
 <body>
-
+<div th:replace="pageParts/navbar :: navbar"></div>
+<th:block th:replace="pageParts/backButton :: back-button"></th:block>
 <div th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea'">
     <div th:replace="pageParts/internalIdea :: internal"></div>
 </div>
 <div th:if="${idea.class.name} == 'de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea'">
     <div th:replace="pageParts/productIdea :: product"></div>
-</div>
-<div class="container">
-    <button class="btn btn-dark btn-block" onclick="history.back()">Zurück gehen</button>
 </div>
 
 <div th:replace="pageParts/footer :: footer"></div>

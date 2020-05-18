@@ -14,7 +14,7 @@
 <body>
 
 <div th:replace="pageParts/navbar :: navbar"></div>
-
+<th:block th:replace="pageParts/backButton :: back-button"></th:block>
 <main class="container">
     <form action="#" method="post" th:action="@{/updateIdea/product/} + ${idea.getId()}" th:object="${idea}">
         <h2 class="form-heading">

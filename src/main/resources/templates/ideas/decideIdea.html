@@ -31,7 +31,7 @@
 
     <div class="form-group">
             <textarea class="form-control" id="statusJustification" name="statusJustification"
-                      placeholder="Beschreibung" required="required"
+                      placeholder="Begründung" required="required"
                       rows="4"
                       th:field="${idea.statusJustification}"></textarea>
     </div>
@@ -42,9 +42,13 @@
                     th:if="${status} !=
                             ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).PENDING}
                             and ${status} !=
-                             ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).NOT_SUBMITTED}"
-                    th:text="${status.getDisplayValue()}"
-                    th:value="${status}"></option>
+                             ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).NOT_SUBMITTED}
+                             and ${status} !=
+                             ${idea.getStatus()}">
+                <!-- TODO ADD PENDING WHEN IDEA IS IN STORAGE @PHILIPP-->
+                th:text="${status.getDisplayValue()}"
+                th:value="${status}">
+            </option>
         </select>
     </div>
 

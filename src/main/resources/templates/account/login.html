@@ -3,8 +3,7 @@
 <meta charset="utf-8"/>
 
 <head>
-    <title>Log in with your account</title>
-
+    <title>Einloggen</title>
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
 </head>
@@ -19,19 +18,17 @@
             <img th:class="img-responsive" th:src="@{../images/logo.png}"/>
             Digitaler Briefkasten
         </h2>
-
         <div th:if="${param.error}">
             <div class="alert alert-danger">
-                Invalid username or password.
+                Ungültiger Benutzername oder Passwort.
             </div>
         </div>
-
         <div class="form-group">
-            <input class="form-control" id="username" name="username" placeholder="Username" required="required"
+            <input class="form-control" id="username" name="username" placeholder="Benutzername" required="required"
                    type="text">
         </div>
         <div class="form-group">
-            <input class="form-control" id="password" name="password" placeholder="Password" required="required"
+            <input class="form-control" id="password" name="password" placeholder="Passwort" required="required"
                    type="password">
         </div>
         <div class="form-group">

@@ -28,26 +28,26 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME, NOT_EMPTY, "Username is empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME, NOT_EMPTY, "Benutzernamefeld ist leer.");
         if (user.getUsername().length() < 3 || user.getUsername().length() > 32) {
             //Implemented here for practical value -> "max"=ok | "Äteritsiputeritsipuolilautatsijänkä"!=ok (place in finland)
-            errors.rejectValue(USERNAME, "Size.userForm.username", "Username is too short." +
-                    "\n (Should be at least 4 characters long.)");
+            errors.rejectValue(USERNAME, "Size.userForm.username", "Benutzername ist zu kurz." +
+                    "\n (Der Benutzername muss mindestens vier Zeichen lang sein.)");
         }
         try {
             if (userService.findByUsername(user.getUsername()) != null) {
-                errors.rejectValue(USERNAME, "Duplicate.userForm.username", "Username already exists");
+                errors.rejectValue(USERNAME, "Duplicate.userForm.username", "Benutzername existiert bereits.");
             }
         } catch (UserNotFoundException e) {
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, NOT_EMPTY, "Password is empty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue(PASSWORD, "Size.userForm.password", "Password is too short." +
-                    "\n (Should be at least 3 characters.)");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, NOT_EMPTY, "Passwortfeld ist leer.");
+        if (user.getPassword().length() < 7 || user.getPassword().length() > 32) {
+            errors.rejectValue(PASSWORD, "Size.userForm.password", "Passwort ist zu kurz." +
+                    "\n (Das Passwort muss mindestens acht Zeichen lang sein)");
         }
         if (!user.getPasswordConfirmation().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirmation", "Diff.userForm.passwordConfirmation", "Passwords do not match.");
+            errors.rejectValue("passwordConfirmation", "Diff.userForm.passwordConfirmation", "Passwörter stimmen nicht überein.");
         }
     }
 
@@ -55,23 +55,23 @@ public class UserValidator implements Validator {
         //TOD DUPLICATE BLOCK OF CODE ->  REFACTOR? -> JONATHAN
         Specialist specialist = (Specialist) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME, NOT_EMPTY, "Username is empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME, NOT_EMPTY, "Benutzernamefeld ist leer.");
         if (specialist.getUsername().length() < 3 || specialist.getUsername().length() > 32) {
             //Implemented here for practical value -> "max"=ok | "Äteritsiputeritsipuolilautatsijänkä"!=ok (place in finland)
-            errors.rejectValue(USERNAME, "Size.userForm.username", "Username is too short." +
-                    "\n (Should be at least 4 characters long.)");
+            errors.rejectValue(USERNAME, "Size.userForm.username", "Benutzername ist zu kurz." +
+                    "\n (Der Benutzername muss mindestens vier Zeichen lang sein)");
         }
         try {
             if (userService.findByUsername(specialist.getUsername()) != null) {
-                errors.rejectValue(USERNAME, "Duplicate.userForm.username", "Username already exists");
+                errors.rejectValue(USERNAME, "Duplicate.userForm.username", "Benutzername existiert bereits");
             }
         } catch (UserNotFoundException e) {
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, NOT_EMPTY, "Password is empty");
-        if (specialist.getPassword().length() < 8 || specialist.getPassword().length() > 32) {
-            errors.rejectValue(PASSWORD, "Size.userForm.password", "Password is too short." +
-                    "\n (Should be at least 3 characters.)");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, NOT_EMPTY, "Passwortfeld ist leer.");
+        if (specialist.getPassword().length() < 7 || specialist.getPassword().length() > 32) {
+            errors.rejectValue(PASSWORD, "Size.userForm.password", "Passwort ist zu kurz" +
+                    "\n (Das Passwort muss mindestens acht Zeichen lang sein.)");
         }
     }
 }

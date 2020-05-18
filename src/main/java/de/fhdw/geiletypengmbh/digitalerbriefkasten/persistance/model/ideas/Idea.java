@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
         @JsonSubTypes.Type(value = InternalIdea.class, name = "internalIdea"),
         @JsonSubTypes.Type(value = ProductIdea.class, name = "productIdea")
 })
-public abstract class Idea {
+public class Idea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -40,8 +40,14 @@
                         </button>
                     </td>
                     <td>
-                        <span th:if="${idea.getType()}=='ProductIdea'"><i class="far fa-lightbulb"></i></span>
-                        <span th:if="${idea.getType()}=='InternalIdea'"><i class="fas fa-sitemap"></i></span>
+                        <span th:if="${idea.getType()}=='ProductIdea'">
+                            <i class="far fa-lightbulb"></i>
+                            <span class="d-none">Produkt-Idee</span>
+                        </span>
+                        <span th:if="${idea.getType()}=='InternalIdea'">
+                            <i class="fas fa-sitemap"></i>
+                            <span class="d-none">Interne Idee</span>
+                        </span>
                     </td>
                     <td class="hover-icon">
                         <span th:utext="${idea.getTitle()}"></span>

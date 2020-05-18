@@ -21,4 +21,4 @@ jobs:
         with:
           java-version: 11
       - name: Tests and Build
-        run: chmod +x mvnw && ./mvnw package
+        run: chmod +x mvnw && ./mvnw clean compile package

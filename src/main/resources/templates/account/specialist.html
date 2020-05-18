@@ -37,13 +37,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="idea: ${pendingIdeas}">
-                    <td class="hover-icon"
-                        th:onclick="'window.location.assign(\'/decideIdea/' + ${idea.getId()} + '\');'">
+                    <td th:onclick="'window.location.assign(\'/decideIdea/' + ${idea.getId()} + '\');'">
                         <a href="#" th:utext="${idea.getTitle()}"></a>
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>
                     <td th:utext="${idea.getDescription()}"></td>
-                    <td class="hover-icon">
+                    <td>
                         <a href="#" th:utext="${idea.getCreator()?.getFullName()}"></a>
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>
@@ -75,13 +74,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="idea: ${ideaStorageIdeas}">
-                    <td class="hover-icon"
-                        th:onclick="'window.location.assign(\'/decideIdea/' + ${idea.getId()} + '\');'">
+                    <td th:onclick="'window.location.assign(\'/decideIdea/' + ${idea.getId()} + '\');'">
                         <a href="#" th:utext="${idea.getTitle()}"></a>
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>
                     <td th:utext="${idea.getDescription()}"></td>
-                    <td class="hover-icon">
+                    <td>
                         <a href="#" th:utext="${idea.getCreator()?.getFullName()}"></a>
                         <i class="fas fa-mouse float-right only-show-on-table-cell-hover"></i>
                     </td>

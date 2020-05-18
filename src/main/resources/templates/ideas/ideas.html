@@ -49,13 +49,13 @@
                             <span class="d-none">Interne Idee</span>
                         </span>
                     </td>
-                    <td class="hover-icon">
-                        <span th:utext="${idea.getTitle()}"></span>
+                    <td>
+                        <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
                     </td>
-                    <td class="hover-icon">
+                    <td>
                         <span th:utext="${idea.getDescription()}"></span>
                     </td>
-                    <td class="hover-icon">
+                    <td>
                         <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                     </td>
                     <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
@@ -93,13 +93,13 @@
                         <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
                     </button>
                 </td>
-                <td class="hover-icon">
-                    <span th:utext="${idea.getTitle()}"></span>
+                <td>
+                    <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
                 </td>
-                <td class="hover-icon">
+                <td>
                     <span th:utext="${idea.getDescription()}"></span>
                 </td>
-                <td class="hover-icon">
+                <td>
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
                 <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
@@ -137,13 +137,13 @@
                         <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
                     </button>
                 </td>
-                <td class="hover-icon">
-                    <span th:utext="${idea.getTitle()}"></span>
+                <td>
+                    <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
                 </td>
-                <td class="hover-icon">
+                <td>
                     <span th:utext="${idea.getDescription()}"></span>
                 </td>
-                <td class="hover-icon">
+                <td>
                     <span th:utext="${idea.getCreator()?.getFullName()}"></span>
                 </td>
                 <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>

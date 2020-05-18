@@ -95,10 +95,6 @@ th {
     transition: opacity 0.25s linear;
 }
 
-.hover-icon:hover .only-show-on-table-cell-hover {
-    opacity: 1;
-}
-
 /*CSS FIXES FOR SELECT2 FIELDS*/
 
 .form-group.row {

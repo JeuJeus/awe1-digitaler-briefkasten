@@ -39,16 +39,9 @@
     <p>Neuen Status für Idee auswählen:</p>
     <div class="form-group row">
         <select class="form-control" id="status" name="status" required="required">
-            <option th:each="status : ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).values()}"
-                    th:if="${status} !=
-                            ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).PENDING}
-                            and ${status} !=
-                             ${T(de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Status).NOT_SUBMITTED}
-                             and ${status} !=
-                             ${idea.getStatus()}">
-                <!-- TODO ADD PENDING WHEN IDEA IS IN STORAGE @PHILIPP-->
-                th:text="${status.getDisplayValue()}"
-                th:value="${status}">
+            <option th:each="status: ${statuses}"
+                    th:text="${status.getDisplayValue()}"
+                    th:value="${status}">
             </option>
         </select>
     </div>

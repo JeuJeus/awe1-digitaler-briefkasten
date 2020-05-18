@@ -13,10 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -360,5 +357,13 @@ public class IdeaService {
         } catch (UserNotFoundException ignored) {
         }
         return ideaCanBeEdited;
+    }
+
+    //Autor: PR
+    public ArrayList<Status> getViableStatusesForDecision(Status currentStatus) {
+        ArrayList statuses = new ArrayList(Arrays.asList(Status.values()));
+        statuses.remove(currentStatus);
+        statuses.remove(Status.NOT_SUBMITTED);
+        return statuses;
     }
 }

@@ -56,6 +56,7 @@ public class HomepageController {
         String view = "ideas/decideIdea";
         ModelAndView mav = new ModelAndView(view);
         mav.addObject("idea", idea);
+        mav.addObject("statuses", ideaService.getViableStatusesForDecision(idea.getStatus()));
         return mav;
     }
 

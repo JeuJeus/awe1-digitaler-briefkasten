@@ -78,7 +78,6 @@ public class IdeaService {
         boolean ideaIsPublic = (idea.getStatus().equals(Status.PENDING) || idea.getStatus().equals(Status.ACCEPTED) || idea.getStatus().equals(Status.DECLINED));
 
         User currentUser = getUser();
-        //TODO REFACTOR NULL AWAY
         if (currentUser != null) {
             boolean currentUserIsCreator = idea.getCreator().getId() == currentUser.getId();
             boolean currentUserIsAdmin = currentUser.isRole("ADMIN");

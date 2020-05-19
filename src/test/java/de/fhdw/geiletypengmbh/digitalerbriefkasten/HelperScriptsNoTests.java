@@ -120,9 +120,8 @@ public class HelperScriptsNoTests {
         Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             ProductLine pLine = productLineRepository.findByTitle(productLine);
             if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
-                //TODO CHANGE PASSWORT -> AND IN MANUAL.MD TO
-                Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "testssss",
-                        "testssss", "Spezius", "Maximus");
+                Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "boringProphet",
+                        "boringProphet", "Spezius", "Maximus");
                 specialist.setProductLines(new ArrayList<>() {
                     {
                         add(pLine);

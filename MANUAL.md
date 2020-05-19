@@ -31,4 +31,4 @@ Ein *Spezialist-Account* kann falls nicht bereits vorhanden entweder mithilfe de
 
 ### Specialist-Credentials 
 - **Username:** SpeciusMaximus_$JEWEILIGERNAME
-- **Passwort:** testssss
+- **Passwort:** boringProphet

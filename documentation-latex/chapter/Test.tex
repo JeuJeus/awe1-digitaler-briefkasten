@@ -26,49 +26,110 @@ Diese sollen dokumentiert werden um Fehler möglichst gezielt beheben zu können
 \end{enumerate}
 
 \subsubsection*{Testdurchführung}
-\begin{enumerate}
-\item \textbf{Registrieren} eines neuen Nutzers
-	\subitem Bereits bestehenden Nutzernamen verwenden (admin)
-	\subitem Mit nicht den Richtlinien entsprechendem Nutzernamen
-	\subitem Mit nicht den Richtlinien entsprechendem Passwort
-	\subitem Mit nicht übereinstimmenden Passwörtern
-	\subitem Korrektes Passwort
-\item \textbf{Ausloggen} aus dem Account
-\item \textbf{Einloggen} in den erstellten Account
-	\subitem Mit falschem Nutzernamen
-	\subitem Mit falschem Passwort
-	\subitem Mit richtigem Passwort
-\item \textbf{Erstellen} von beispielhaften \textbf{Ideen}
-	\subitem Erstellen einer \enquote{internen Idee}
-	\subitem Erstellen einer \enquote{Projekt-Idee}
-	\subitem Erstellen einer beliebigen Idee mit fehlerhaften / fehlenden Werten
-	\subitem Bereits bestehenden Namen verwenden
-\item Ideenübersicht \textbf{prüfen}
-\item \textbf{Bearbeiten} der Werte beider \textbf{Ideen}
-\item Ideenübersicht \textbf{prüfen}
-	\subitem Filtern der Tabelle nicht eingereichter Ideen nach nach allen Spalten (und Typ)
-\item \textbf{Einreichen} beider \textbf{Ideen} zur Bearbeitung
-\item Ideenübersicht \textbf{prüfen}
-\item \textbf{Ausloggen}
-\item \textbf{Ansicht der Ideen} als nicht eingeloggter Nutzer
-	\subitem Filtern der Ideen als nicht eingeloggter Nutzer
-\item \textbf{Einloggen als Spezialist} für \enquote{internen Idee}
-\item \textbf{Übersicht} zu entscheidender Ideen \textbf{ansehen}
-	\subitem Übersicht zu entscheidender Ideen filtern
-	\subitem Entscheiden über Idee mit fehlerhafter Eingabe
-	\subitem Verschieben der Idee in Ideenspeicher
-\item Ideenübersicht \textbf{prüfen}
-\item \textbf{Ausloggen}
-\item \textbf{Einloggen als Spezialist} für vorgehend eingereichte \enquote{Projekt-Idee}
-\item Idee aus Ideenspeicher \textbf{annehmen}
-\item Idee aus Entscheidungsübersicht \textbf{bewerten}
-\item Ideenübersicht \textbf{prüfen}
-\item \textbf{Ausloggen}
-\item \textbf{Einloggen} als \enquote{admin}
-\item Existierende \textbf{User prüfen}
-\item Alle möglichen \textbf{anzulegenden Felder durchgehen}
- \subitem Zuerst Bereits bestehenden Namen beim anlegen verwenden
- \subitem Danach neuen Namen verwenden
-\item \textbf{Ausloggen}
-\item Fertig!
-\end{enumerate}
+
+\begin{center}
+\begin{longtable}{|p{0.4\textwidth}|p{0.3\textwidth}|p{0.2\textwidth}|}
+\caption{GUI-Testdurchführung}\\
+\hline
+Aktion & erwartetes Ergebnis & Reaktion\\
+\hline
+\hline
+
+\textbf{Registrieren eines neuen Nutzers} & &\\
+\hline
+Bereits bestehenden Nutzernamen verwenden (admin) & Fehlermeldung - Nutzername existiert bereits &\\
+\hline
+zu kurzer Nutzername (<3) & Fehlermeldung - Daten falsch &\\
+\hline
+zu kurzes Passwort (<=7) & Fehlermeldung - zu kurzes Passwort &\\
+\hline
+nicht übereinstimmende Passwörter & Fehlermeldung - nicht stimmende Passwort &\\
+\hline
+mit korrekten Daten & eingeloggt sein &\\
+\hline
+\hline
+
+\textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+\hline
+\hline
+
+\textbf{Einloggen in erstellten Account} & &\\
+\hline
+mit falschem Passwort & Fehlermeldung &\\
+\hline
+mit falschem Nutzernamen & Fehlermeldung &\\
+\hline
+mit richtigem Passwort & eingeloggt sein &\\
+\hline
+\hline
+
+\textbf{Erstellen von beispielhaften Ideen} & &\\
+\hline
+Erstellen einer \enquote{internen Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+\hline
+Erstellen einer \enquote{Produkt-Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+\hline
+Erstellen einer beliebigen Idee mit fehlerhaften Werten & Fehlerhafte Attribute werden hervorgehoben &\\
+\hline
+Erstellen einer Idee von der bereits selber Name bei selbem Typ vorhanden & Fehlermeldung über Duplikat &\\
+\hline
+Bearbeitend der internen Idee & Änderungen werden übernommen &\\
+\hline
+Bearbeitend der Produkt-Idee & Änderungen werden übernommen &\\
+\hline
+\hline
+
+\textbf{Ideenübersicht} & &\\
+\hline
+Filtern der nicht eingereichten Ideen nach Attributen & nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline 
+Einreichen der erstellten Ideen & erfolgreicher Transfer in jeweilige Tabelle &\\
+\hline
+\hline
+
+\textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+\hline
+\hline
+
+\textbf{Idee Übersicht als nicht eingeloggter Nutzer} & &\\
+\hline 
+Filtern der Ideen in beiden Tabellen & nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline
+\hline
+
+\textbf{Spezialist für \enquote{internen Idee}} & &\\
+\hline
+Einloggen als passender (Ideen sollten ihm zugewiesen sein) Spezialist (Zugangsdaten siehe \texttt{Manual.md})& eingeloggt sein &\\
+\hline
+Übersicht zu entscheidender Ideen filtern &  nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline
+Entscheiden ohne Begründung & fehlendes Attribut wird hervorgehoben &\\
+\hline
+Idee in Ideenspeicher verschieben & Idee liegt in Ideenspeicher &\\
+\hline
+\hline
+
+\textbf{Spezialist für \enquote{Produkt-Idee}} & &\\
+\hline
+Account zu anderem Spezialist wechseln & Idee liegt in Ideenspeicher &\\
+\hline
+Entscheiden über Idee aus Ideenspeicher mit Auswahl  \enquote{zur Entscheidung freigegeben} & Idee liegt in eigenen zu entscheidenden Ideen &\\
+\hline
+Idee aus Entscheidungsübersicht bewerten & Idee erscheint auf passender Tabelle in Ideenübersicht &\\
+\hline
+\hline
+
+\textbf{Administrator} & &\\
+\hline
+Account zu Administrator wechseln (Zugangsdaten siehe \texttt{Manual.md})& &\\
+\hline
+Existierende User prüfen & registrierter Account sowie alle Spezialisten werden aufgelistet &\\
+\hline 
+Alle möglichen anzulegenden Felder durchgehen, bereits bestehenden Namen eingeben & bei jedem Feld wird ein Fehler angezeigt &\\
+\hline 
+Alle möglichen anzulegenden Felder durchgehen & Feld wird angelegt &\\
+\hline
+Ausloggen & \textbf{FERTIG!} &\\
+\hline
+\end{longtable}
+\end{center}

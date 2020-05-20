@@ -15,7 +15,7 @@ public class ContactMessageController {
 
     @PostMapping("/contact")
     public String saveContactMessage(@ModelAttribute ContactMessage contactMessage) {
-        contactMessageService.save(contactMessage);
+        contactMessageService.saveByUI(contactMessage);
         return "redirect:/welcome";
     }
 

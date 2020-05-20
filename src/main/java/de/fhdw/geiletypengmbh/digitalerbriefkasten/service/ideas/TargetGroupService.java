@@ -32,7 +32,7 @@ public class TargetGroupService {
         if (findByTitle(targetGroup.getTitle()) == null) {
             return targetGroupRepository.save(targetGroup);
         } else {
-            throw new AlreadyExistsException("Zielgruppe existiert bereits");
+            throw new AlreadyExistsException("Zielgruppe existiert bereits.");
         }
     }
 }

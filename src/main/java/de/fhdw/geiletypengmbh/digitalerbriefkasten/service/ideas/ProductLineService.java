@@ -32,7 +32,7 @@ public class ProductLineService {
         if (findByTitle(productLine.getTitle()) == null) {
             return productLineRepository.save(productLine);
         } else {
-            throw new AlreadyExistsException("Produktsparte existiert bereits");
+            throw new AlreadyExistsException("Produktsparte existiert bereits.");
         }
     }
 

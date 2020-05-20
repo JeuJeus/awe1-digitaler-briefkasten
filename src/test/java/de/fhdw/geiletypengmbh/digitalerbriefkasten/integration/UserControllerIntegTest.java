@@ -174,6 +174,7 @@ public class UserControllerIntegTest {
         assertThat(matchingSpecialists.get(0).getId() == specialist.getId());
     }
 
+    //Autor: JB
     @Test
     @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
     public void whenCreateSpecialistInAdmin_thenOkay() throws Exception {
@@ -187,6 +188,7 @@ public class UserControllerIntegTest {
 
     }
 
+    //Autor: JB
     @Test
     @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
     public void whenCreateSpecialistWithoutPassword_thenError() throws Exception {
@@ -199,6 +201,7 @@ public class UserControllerIntegTest {
 
     }
 
+    //Autor: JB
     @Test //THIS SERVES AS TEST FOR ALL FOUR THINGS CREATED BY ADMIN SINCE LOGIC IS THE SAME
     @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
     public void whenCreateProductLine_thenOkay() throws Exception {
@@ -208,6 +211,7 @@ public class UserControllerIntegTest {
                 .andExpect(MockMvcResultMatchers.flash().attributeExists("success"));
     }
 
+    //Autor: JB
     @Test //THIS SERVES AS TEST FOR ALL FOUR THINGS CREATED BY ADMIN SINCE LOGIC IS THE SAME
     @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
     public void whenCreateDuplicateProductLine_thenError() throws Exception {

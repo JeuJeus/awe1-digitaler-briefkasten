@@ -24,45 +24,25 @@
             <table class="table table-striped table-bordered table-hover right-click-table" id="notSubmittedIdeasTable">
                 <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Titel</th>
-                    <th scope="col">Beschreibung</th>
-                    <th scope="col">Ersteller</th>
-                    <th scope="col">Erstellungsdatum</th>
-                    <th scope="col">Status</th>
+                    <th:block th:replace="pageParts/ideasTableParts :: context-menu-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-type-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-title-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-description-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-creator-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-th"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-status-th"></th:block>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="idea: ${notSubmittedIdeas}" th:data="${idea.getId()}">
-                    <td class="p-1">
-                        <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
-                            <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <span th:if="${idea.getType()}=='ProductIdea'">
-                            <i class="far fa-lightbulb"></i>
-                            <span class="d-none">Produkt-Idee</span>
-                        </span>
-                        <span th:if="${idea.getType()}=='InternalIdea'">
-                            <i class="fas fa-sitemap"></i>
-                            <span class="d-none">Interne Idee</span>
-                        </span>
-                    </td>
-                    <td>
-                        <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
-                    </td>
-                    <td>
-                        <span th:utext="${idea.getDescription()}"></span>
-                    </td>
-                    <td>
-                        <span th:utext="${idea.getCreator()?.getFullName()}"></span>
-                    </td>
-                    <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                    <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
-                        <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
-                    </td>
+                    <th:block th:replace="pageParts/ideasTableParts :: context-menu-td"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-type-with-fa-filterable-td"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-title-hyperlink-td"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-description-td"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-creator-td"></th:block>
+                    <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-formatted-td"></th:block>
+                    <th:block
+                            th:replace="pageParts/ideasTableParts :: idea-status-display-value-with-icon-td"></th:block>
                 </tr>
                 </tbody>
             </table>
@@ -78,36 +58,24 @@
         <table class="table table-striped table-bordered table-hover right-click-table" id="productIdeasTable">
             <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col">Titel</th>
-                <th scope="col">Beschreibung</th>
-                <th scope="col">Ersteller</th>
-                <th scope="col">Erstellungsdatum</th>
-                <th scope="col">Status</th>
-                <th scope="col">Status Begründung</th>
+                <th:block th:replace="pageParts/ideasTableParts :: context-menu-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-title-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-description-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creator-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-justification-th"></th:block>
             </tr>
             </thead>
             <tbody>
             <tr th:each="idea: ${productIdeas}" th:data="${idea.getId()}">
-                <td class="p-1">
-                    <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
-                        <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
-                    </button>
-                </td>
-                <td>
-                    <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
-                </td>
-                <td>
-                    <span th:utext="${idea.getDescription()}"></span>
-                </td>
-                <td>
-                    <span th:utext="${idea.getCreator()?.getFullName()}"></span>
-                </td>
-                <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
-                    <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
-                </td>
-                <td th:utext="${idea.getStatusJustification()}"></td>
+                <th:block th:replace="pageParts/ideasTableParts :: context-menu-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-title-hyperlink-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-description-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creator-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-formatted-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-display-value-with-icon-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-justification-td"></th:block>
             </tr>
             </tbody>
         </table>
@@ -122,36 +90,24 @@
         <table class="table table-striped table-bordered table-hover right-click-table" id="internalIdeasTable">
             <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col">Titel</th>
-                <th scope="col">Beschreibung</th>
-                <th scope="col">Ersteller</th>
-                <th scope="col">Erstellungsdatum</th>
-                <th scope="col">Status</th>
-                <th scope="col">Status Begründung</th>
+                <th:block th:replace="pageParts/ideasTableParts :: context-menu-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-title-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-description-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creator-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-th"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-justification-th"></th:block>
             </tr>
             </thead>
             <tbody>
             <tr th:each="idea: ${internalIdeas}" th:data="${idea.getId()}">
-                <td class="p-1">
-                    <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
-                        <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
-                    </button>
-                </td>
-                <td>
-                    <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
-                </td>
-                <td>
-                    <span th:utext="${idea.getDescription()}"></span>
-                </td>
-                <td>
-                    <span th:utext="${idea.getCreator()?.getFullName()}"></span>
-                </td>
-                <td th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}"></td>
-                <td><span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
-                    <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
-                </td>
-                <td th:utext="${idea.getStatusJustification()}"></td>
+                <th:block th:replace="pageParts/ideasTableParts :: context-menu-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-title-hyperlink-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-description-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creator-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-creation-date-formatted-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-display-value-with-icon-td"></th:block>
+                <th:block th:replace="pageParts/ideasTableParts :: idea-status-justification-td"></th:block>
             </tr>
             </tbody>
         </table>

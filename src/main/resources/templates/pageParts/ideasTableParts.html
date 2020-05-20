@@ -1,0 +1,70 @@
+<!--Autor: PR-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/rightClickMenu.css}" type="text/css"/>
+    <script th:src="@{../js/fontawesome.js}" type="text/javascript"></script>
+</head>
+<body>
+<table>
+    <thead>
+    <th th:fragment="context-menu-th" scope="col"></th>
+    <th th:fragment="idea-type-th" scope="col">Typ</th>
+    <th th:fragment="idea-title-th" scope="col">Titel</th>
+    <th th:fragment="idea-description-th" scope="col">Beschreibung</th>
+    <th th:fragment="idea-creator-th" scope="col">Ersteller</th>
+    <th th:fragment="idea-creation-date-th" scope="col">Erstellungsdatum</th>
+    <th th:fragment="idea-status-th" scope="col">Status</th>
+    <th th:fragment="idea-status-justification-th" scope="col">Status Begründung</th>
+    </thead>
+    <tbody>
+    <!--        requires fontAwesome, rightClickMenu.css/js-->
+    <td th:fragment="context-menu-td" class="p-1">
+        <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
+            <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
+        </button>
+    </td>
+    <!--        requires fontAwesome, hidden spans are used be filterTable.js-->
+    <td th:fragment="idea-type-with-fa-filterable-td">
+            <span th:if="${idea.getType()}=='ProductIdea'">
+                <i class="far fa-lightbulb"></i>
+                <span class="d-none">Produkt-Idee</span>
+            </span>
+        <span th:if="${idea.getType()}=='InternalIdea'">
+                <i class="fas fa-sitemap"></i>
+                <span class="d-none">Interne Idee</span>
+            </span>
+    </td>
+    <td th:fragment="idea-title-td" th:utext="${idea.getTitle()}">
+    </td>
+    <td th:fragment="idea-title-hyperlink-td">
+        <a th:href="${'/ideas/' + idea.getId()}" th:utext="${idea.getTitle()}"></a>
+    </td>
+    <td th:fragment="idea-description-td">
+        <span th:utext="${idea.getDescription()}"></span>
+    </td>
+    <td th:fragment="idea-creator-td">
+        <span th:utext="${idea.getCreator()?.getFullName()}"></span>
+    </td>
+    <td th:fragment="idea-creation-date-formatted-td"
+        th:utext="${#dates.format(idea.getCreationDate(), 'dd.MM.yyyy')}">
+    </td>
+    <!--    requires UIHelper.js-->
+    <td th:fragment="idea-status-display-value-with-icon-td">
+        <span class="status-icon mr-1" th:attr="data-status=${idea.getStatus()}"></span>
+        <span th:utext="${idea.getStatus().getDisplayValue()}"></span>
+    </td>
+    <td th:fragment="idea-status-justification-td" th:utext="${idea.getStatusJustification()}"></td>
+    </tbody>
+</table>
+
+<script th:src="@{../js/UIHelper.js}" type="text/javascript"></script>
+<script th:src="@{../js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{../js/rightClickMenu.js}" type="text/javascript"></script>
+<script th:src="@{../js/filterTable.js}" type="text/javascript"></script>
+</body>
+</html>

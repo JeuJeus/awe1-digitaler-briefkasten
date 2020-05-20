@@ -1,0 +1,38 @@
+<!--Autor: JF-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8"/>
+
+<head>
+    <title>Kontaktformular</title>
+    <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:replace="pageParts/navbar :: navbar"></div>
+<main class="container">
+    <form th:action="@{/contact}" th:object="${contactMessage}" method="post">
+        <h2 class="form-heading">Kontaktformular</h2>
+        <div class="form-group form-row">
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="message">Nachricht</label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
+                <textarea class="form-control" th:field="*{message}"
+                          placeholder="Ihre Nachricht" required>
+                </textarea>
+            </div>
+        </div>
+        <button class="btn btn-dark btn-block" type="submit">Kontakt-Nachricht einreichen</button>
+    </form>
+</main>
+
+
+<div th:replace="pageParts/footer :: footer"></div>
+
+<script th:src="@{../js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{../js/bootstrap.min.js}" type="text/javascript"></script>
+
+</body>
+
+</html>

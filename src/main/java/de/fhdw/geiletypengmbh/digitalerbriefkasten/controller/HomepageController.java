@@ -2,6 +2,7 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ContactMessage;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -139,6 +139,14 @@ public class HomepageController {
         mav.setViewName(view);
         mav.addObject("productLines", productLines);
         mav.addObject("idea", idea);
+        return mav;
+    }
+
+    @GetMapping("/contact")
+    public ModelAndView contactForm() {
+        ContactMessage contactMessage = new ContactMessage();
+        ModelAndView mav = new ModelAndView("/contactForm");
+        mav.addObject("contactMessage", contactMessage);
         return mav;
     }
 }

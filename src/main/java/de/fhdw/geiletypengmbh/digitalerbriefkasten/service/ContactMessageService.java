@@ -36,8 +36,8 @@ public class ContactMessageService {
     public ContactMessage saveByUI(ContactMessage contactMessage) {
         try {
             contactMessage.setUser(userService.getCurrentUser());
-        } catch (UserNotFoundException e) {
-            throw new NotAuthorizedException();
+        } catch (UserNotFoundException ignored) {
+            // Unregistered users are allowed
         }
         return save(contactMessage);
     }

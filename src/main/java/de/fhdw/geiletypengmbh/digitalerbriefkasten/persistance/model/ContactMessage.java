@@ -1,3 +1,4 @@
+//Autor: PR
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -19,6 +20,9 @@ public class ContactMessage {
     @ManyToOne
     private User user;
 
+    @Column(nullable = false)
+    private String emailAddress;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Date creationDate;
@@ -27,10 +31,17 @@ public class ContactMessage {
         super();
     }
 
-    public ContactMessage(String message, User user) {
+    public ContactMessage(String message, String emailAddress) {
+        super();
+        this.message = message;
+        this.emailAddress = emailAddress;
+    }
+
+    public ContactMessage(String message, User user, String emailAddress) {
         super();
         this.message = message;
         this.user = user;
+        this.emailAddress = emailAddress;
     }
 
 
@@ -64,5 +75,13 @@ public class ContactMessage {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }

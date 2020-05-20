@@ -310,13 +310,21 @@ public class IdeaService {
     //Autor: JF
     public Idea saveDecision(Long id, StatusDecision statusDecision) {
         Idea persistedVersion = findById(id);
+        User currentUser = getUser();
         //Idea needs to be :
         // 1. pending and creator should be current editor
         // or 2. in idea-storage and editor shall be specialist
         if ((persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING)
-                || (getUser().isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
+                || (currentUser.isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
+            //Every Specialist has te ability to assign idea from idea storage to himself
+            if(statusDecision.getStatus() == Status.PENDING && persistedVersion.getStatus() == Status.IDEA_STORAGE){
+                persistedVersion.setSpecialist((Specialist) currentUser);
+                persistedVersion.setStatus(statusDecision.getStatus());
+                persistedVersion.setStatusJustification(statusDecision.getStatusJustification());
+                return save(persistedVersion);
+            }
             //status should only be set to : Accepted, Declined, Idea_Storage
-            if (statusDecision.getStatus() != Status.PENDING && statusDecision.getStatus() != Status.NOT_SUBMITTED) {
+            else if (statusDecision.getStatus() != Status.PENDING && statusDecision.getStatus() != Status.NOT_SUBMITTED) {
                 persistedVersion.setStatus(statusDecision.getStatus());
                 persistedVersion.setStatusJustification(statusDecision.getStatusJustification());
                 return save(persistedVersion);

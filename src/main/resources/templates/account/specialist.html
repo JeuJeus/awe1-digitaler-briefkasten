@@ -1,5 +1,5 @@
 <!--Autor: JF-->
-//TODO Erstellungsdatum format, Status display value, Ersteller Link
+<!--TODO Erstellungsdatum format, Status display value, Ersteller Link-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8"/>
@@ -39,7 +39,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="idea: ${pendingIdeas}">
+                <tr th:each="idea: ${pendingIdeas}" th:data="${idea.getId()}">
                     <td class="p-1">
                         <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
                             <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
@@ -82,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="idea: ${ideaStorageIdeas}">
+                <tr th:each="idea: ${ideaStorageIdeas}" th:data="${idea.getId()}">
                     <td class="p-1">
                         <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
                             <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>

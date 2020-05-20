@@ -32,7 +32,7 @@ public class DistributionChannelService {
         if (findByTitle(distributionChannel.getTitle()) == null) {
             return distributionChannelRepository.save(distributionChannel);
         } else {
-            throw new AlreadyExistsException("Vertriebskanal existiert bereits");
+            throw new AlreadyExistsException("Vertriebskanal existiert bereits.");
         }
     }
 }

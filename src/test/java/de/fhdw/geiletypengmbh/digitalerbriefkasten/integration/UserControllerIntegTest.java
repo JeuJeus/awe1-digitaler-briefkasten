@@ -4,6 +4,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Rol
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductLine;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.RoleRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.ProductLineService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +36,16 @@ public class UserControllerIntegTest {
 
     private static final String SITE_ROOT
             = "http://localhost:8080/";
+    private static final String ADMIN_ROOT
+            = "http://localhost:8080/admin/";
     private final static String TEST_USERNAME = randomAlphabetic(20);
     private final static String TO_REGISTER_USERNAME = randomAlphabetic(20);
     private final static String TEST_PASSWORD = "testPassword";
     private final static String TEST_PASSWORD_TOO_SHORT = "test";
+    private final static String TEST_ADMINNAME = "ADMINTEST";
+    private final static String TEST_SPECIALISTNAME = "testSpecialist_" + randomAlphabetic(5);
+    private final static String TEST_DUPLICATEPRODUCTLINETITLE = "PRODUCTLINETEST";
+    private static long testProductLineId;
     private static Boolean SETUPDONE = false;
 
     @Autowired
@@ -48,6 +57,9 @@ public class UserControllerIntegTest {
     @Autowired
     private ProductLineService productLineService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     //Autor: JF
     @BeforeEach
     public void prepareSetup() {
@@ -55,6 +67,15 @@ public class UserControllerIntegTest {
             Set<Role> emptyRoles = emptySet();
             User testUser = new User(TEST_USERNAME, TEST_PASSWORD, TEST_PASSWORD);
             userService.save(testUser);
+
+            User testAdmin = new User(TEST_ADMINNAME, TEST_PASSWORD, TEST_PASSWORD);
+            Role adminRole = roleRepository.findByName("ADMIN");
+            testAdmin.setRoles((Set<Role>) adminRole);
+            userService.save(testAdmin);
+
+            testProductLineId = productLineService.save(
+                    new ProductLine(randomAlphabetic(10))
+            ).getId();
 
             SETUPDONE = true;
         }
@@ -152,4 +173,56 @@ public class UserControllerIntegTest {
         assertThat(specialist.getId() != 0); // means that specialist has been persisted
         assertThat(matchingSpecialists.get(0).getId() == specialist.getId());
     }
+
+    //Autor: JB
+    @Test
+    @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
+    public void whenCreateSpecialistInAdmin_thenOkay() throws Exception {
+        mockMvc.perform(post(ADMIN_ROOT + "/createSpecialist")
+                .param("username", TEST_SPECIALISTNAME)
+                .param("password", TEST_PASSWORD)
+                .param("passwordConfirmation", TEST_PASSWORD)
+                .param("productLines", String.valueOf(testProductLineId))
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("success"));
+
+    }
+
+    //Autor: JB
+    @Test
+    @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
+    public void whenCreateSpecialistWithoutPassword_thenError() throws Exception {
+        mockMvc.perform(post(ADMIN_ROOT + "/createSpecialist")
+                .param("username", TEST_SPECIALISTNAME)
+                .param("password", "")
+                .param("productLines", String.valueOf(testProductLineId))
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("errors"));
+
+    }
+
+    //Autor: JB
+    @Test //THIS SERVES AS TEST FOR ALL FOUR THINGS CREATED BY ADMIN SINCE LOGIC IS THE SAME
+    @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
+    public void whenCreateProductLine_thenOkay() throws Exception {
+        mockMvc.perform(post(ADMIN_ROOT + "/createProductLine")
+                .param("title", randomAlphabetic(10))
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("success"));
+    }
+
+    //Autor: JB
+    @Test //THIS SERVES AS TEST FOR ALL FOUR THINGS CREATED BY ADMIN SINCE LOGIC IS THE SAME
+    @WithMockUser(username = "ADMINTEST", roles = {"ADMIN"})
+    public void whenCreateDuplicateProductLine_thenError() throws Exception {
+        mockMvc.perform(post(ADMIN_ROOT + "/createProductLine")
+                .param("title", TEST_DUPLICATEPRODUCTLINETITLE)
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("success"));
+        mockMvc.perform(post(ADMIN_ROOT + "/createProductLine")
+                .param("title", TEST_DUPLICATEPRODUCTLINETITLE)
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.flash().attributeExists("errors"));
+    }
+
 }

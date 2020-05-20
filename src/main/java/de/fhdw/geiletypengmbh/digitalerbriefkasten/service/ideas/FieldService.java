@@ -32,7 +32,7 @@ public class FieldService {
         if (findByTitle(field.getTitle()) == null) {
             return fieldRepository.save(field);
         } else {
-            throw new AlreadyExistsException("Handlungsfeld existiert bereits");
+            throw new AlreadyExistsException("Handlungsfeld existiert bereits.");
         }
     }
 }

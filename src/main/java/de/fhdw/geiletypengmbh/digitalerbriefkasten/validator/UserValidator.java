@@ -43,7 +43,7 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD, NOT_EMPTY, "Passwortfeld ist leer.");
-        if (user.getPassword().length() < 7 || user.getPassword().length() > 32) {
+        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue(PASSWORD, "Size.userForm.password", "Passwort ist zu kurz." +
                     "\n (Das Passwort muss mindestens acht Zeichen lang sein)");
         }

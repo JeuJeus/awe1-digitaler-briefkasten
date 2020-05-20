@@ -1,7 +1,26 @@
 %!TEX root = ../Thesis.tex
-
-
 \section{Security}
 \label{Security}
 
-%
+Die Security unseres Programmes wird durch mehrere Bestandteile sichergestellt.\\
+Dazu gehören zum einen aktiv absicherende Elemente.\footnote{Zu beachten ist, dass wir das Programm unter der Prämisse entwickelt haben, dass im Livebetrieb eine zusätzliche SSL-Verschlüsselung für den Traffic genutzt wird.}
+Diese bestehen aus mehreren Komponenten.\\
+Zuerst ist der Login sowie die Registrierung abgesichert. Nutzer müssen ihr Passwort mit mindestens 8 Zeichen wählen. Dieses wird im Backend verschlüsselt gespeichert. Hierzu benutzen wir BCrypt als Passwort Encoder. Diesen verwenden wir mit einer Stärke von 10, diese bietet für uns die beste Balance zwischen Sicherheit und Performance. Mit dem Login erhalten Nutzer eine JSession ID zugewiesen mit der sie sich in weiteren Requests authentifizieren und über die sie identifiziert werden können.\\
+Die nächste ist die URL-Zugriffskontrolle in der Klasse \enquote{SecurityConfig} im Package \enquote{config}. In dieser wird festgelegt welche Requests durch Spring Security zugelassen werden. Nicht authentifizierte Nutzer haben hier nur Zugriff auf statische Elemente (wie z.B. Grafiken, Javascript und CSS), die Registrierung und der Ideenansicht.
+Authentifizierte Nutzer werden anhand ihrer Rolle unterschieden welche im Backend überprüft wird. Nutzer, Spezialisten und Administrator können nur auf die jeweils für sie relevanten Seiten zugreifen. D
+Der durch Spring Security erstellte JSession-Cookie wird beim ausloggen an dieser Stelle invalidiert und gelöscht.\\
+Darüber hinaus ist die Anwendung so konfiguriert, dass ein automatischer Session Timeout nach 15 Minuten erfolgt, auch hierbei wird die Session invalidiert.\\
+Darüber hinaus werden alle Abfragen durch das Backend geprüft. An relevanten Stellen wird in den jeweiligen Controllern bereits vor der Bearbeitung des Requests die Rolle des aktuellen Users überprüft. Damit wird sichergestelltm, dass Funktionen die insbesondere dem Administrator oder Spezialisten vorbehalten sind, nur durch diese durchgeführt werden können. \\
+Außerdem werden übertragene Informationen in den bearbeitenden Services um die Berechtigung diese anzufragen, zu verändern oder zu speichern geprüft.\\
+Durch diese Kontrolle an mehreren Stellen erreichen wir es zu kontrollieren und sicherzustellen welche Art von Requests ( un-, authentifiziert), welcher User, welcher Rolle, welche Daten wie verwenden (lesen, bearbeiten, schreiben) dürfen.\\
+
+
+
+Zum anderen wird die Sicherheit im weiteren durch passive Sicherheitselemente unterstützt. 
+Hierzu gehört das Loggen von (versuchte-) anmelden, registrieren, und abmelden vom System.\footnote{Das Loggen von Session Timeouts konnte aufgrund von Komplikationen zum Abgabezeitpunkt nicht fertiggestellt werden.}
+Dies wird duch mehrere Klassen im Package \enquote{log} sichergestellt. Diese implementieren einen jeweiligen Application-Listener, beispielhaft für den fehlerhaften Login der ApplicationListener \texttt{AuthenticationFailureBadCredentialsEvent}. Beim auftreten eines passenden Applicationevents wird mit Hilfe eines Loggers, den \enquote{slf4j} bereitgestellt wird ein Zeitstempel sowie Nutzername und IP-Adresse geloggt.
+Hierbei ist anzumerken, dass die Logs zusätzlich außerhalb der Konsole in eine Datei geschrieben werden. Diese ist auf 5Mb begrenzt und rotiert oberhalb dieser Grenze automatisch. 
+Zudem sind die zu schreibenden Logs eingeschränkt. 
+Damit stellen wir sicher, dass nur relevante Informationen festgehalten werden und diese auch unabhängig vom Programm zur Auswertung zur Verfügung stehen.
+Desweiteren sind Fehlermeldungen eingeschränkt um nicht aus versehen Informationen durchsickern zu lassen. Beispielhaft zeigt der Login ausschließlich eine Fehlermeldung bei fehlerhaften Daten an - jedoch nicht ob der Nutzername oder das Passwort falsch war.
+\textcolor{red}{Darüber hinaus werden Exceptions gefiltert und nur ausgewählte (respektive unsere eigenen) auf der Error-Seite angezeigt. Damit stellen wir sicher, dass nicht ausversehen Exceptions, Stacktraces oder Debug-Logs an das Frontend gelangen und für den Nuter sichtbar sein könnten.}

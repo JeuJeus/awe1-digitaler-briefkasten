@@ -7,8 +7,11 @@ Das Programm kann mit Hilfe des Maven Wrappers kompiliert werden:
 - unter Windows mit: 
     ```.\mvnw.cmd clean compile package  ```
 
-Danach kann die Zieldatei welche im Unterordner **target** liegt ausgeführt werden.
-- ```java -jar digitaler-briefkasten-1.0.0-FINAL.jar``` (Die Versionsnummer kann abweichen!)
+Danach kann die Zieldatei aus dem Projekt Root ausgeführt werden.
+- ```java -jar target/digitaler-briefkasten-1.0.0-FINAL.jar``` (Die Versionsnummer kann abweichen!)
+
+Alternativ lässt sich das Programm auch direkt starten:
+- ```./mvnw spring-boot:run ``` (respektive die Windows Notation)
 
 Nach dem erfolgreichen Start ist die Oberfläche unter :
 ````http://localhost:8080```` erreichbar.

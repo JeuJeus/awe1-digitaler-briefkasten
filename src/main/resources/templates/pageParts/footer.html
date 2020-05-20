@@ -24,7 +24,7 @@
             <span sec:authorize="hasRole('ROLE_USER')"> Nutzer </span>
             ]
         </div>
-        <div class="float-left">
+        <div class="float-left" sec:authorize="isAuthenticated()">>
             <span><a th:href="@{/contact}">Kontaktformular</a></span>
         </div>
     </div>

@@ -10,8 +10,9 @@
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
 </head>
 
-<body>
+<div th:replace="pageParts/navbar :: navbar"></div>
 
+<body>
 <div class="container">
     <form class="form-signin" enctype="utf8" method="POST" th:action="@{/registration}">
         <h2 class="form-heading">

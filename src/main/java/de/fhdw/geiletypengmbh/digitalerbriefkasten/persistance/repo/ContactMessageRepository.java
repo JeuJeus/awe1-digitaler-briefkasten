@@ -11,4 +11,6 @@ public interface ContactMessageRepository extends JpaRepository<ContactMessage, 
     Optional<ContactMessage> findById(Long id);
 
     List<ContactMessage> findAll();
+
+    List<ContactMessage> findAllByAnswered(Boolean answered);
 }

@@ -23,11 +23,16 @@ public class ContactMessageService {
     private UserServiceImpl userService;
 
     public ContactMessage findById(Long id) {
+        System.out.println(id);
         return contactMessageRepository.findById(id).orElseThrow(ContactMessageNotFoundException::new);
     }
 
     public List<ContactMessage> findAll() {
         return contactMessageRepository.findAll();
+    }
+
+    public List<ContactMessage> findAllNotAnswered() {
+        return contactMessageRepository.findAllByAnswered(false);
     }
 
     //Autor: JF
@@ -47,6 +52,12 @@ public class ContactMessageService {
         } catch (UserNotFoundException ignored) {
             // Unregistered users are allowed
         }
+        return save(contactMessage);
+    }
+
+    public ContactMessage setToAnswered(Long id) {
+        ContactMessage contactMessage = findById(id);
+        contactMessage.setAnswered(true);
         return save(contactMessage);
     }
 }

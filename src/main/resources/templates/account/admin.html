@@ -221,6 +221,41 @@
                 </div>
             </div>
         </div>
+        <div class="card mb-2">
+            <div class="card-header" id="headingSeven">
+                <h5 class="mb-0">
+                    <button aria-controls="collapseSeven" class="btn btn-link collapsed" data-target="#collapseSeven"
+                            data-toggle="collapse">
+                        Kontakt-Nachrichten ansehen
+                    </button>
+                </h5>
+            </div>
+            <div aria-labelledby="headingSeven" class="collapse" data-parent="#accordion" id="collapseSeven">
+                <div class="card-body">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Benutzername</th>
+                                <th scope="col">E-Mail Adresse</th>
+                                <th scope="col">Titel</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="contactMessage: ${contactMessages}">
+                                <td th:utext="${contactMessage.getUser()?.getFullName()}"></td>
+                                <td th:utext="${contactMessage.getEmailAddress()}">
+                                <td><a th:href="@{/contact/{id}(id=${contactMessage.getId()})}"
+                                       th:utext="${contactMessage.getTitle()}">
+                                </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 

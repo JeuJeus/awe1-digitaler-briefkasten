@@ -16,6 +16,9 @@ public class ContactMessage {
     private long id;
 
     @Column(nullable = false, updatable = false)
+    private String title;
+
+    @Column(nullable = false, updatable = false)
     private String message;
 
     @ManyToOne
@@ -29,23 +32,30 @@ public class ContactMessage {
     @CreationTimestamp
     private java.sql.Date creationDate;
 
+    @Column(nullable = false)
+    private Boolean answered;
+
     public ContactMessage() {
         super();
+        this.answered = false;
     }
 
-    public ContactMessage(String message, String emailAddress) {
+    public ContactMessage(String title, String message, String emailAddress) {
         super();
+        this.title = title;
         this.message = message;
         this.emailAddress = emailAddress;
+        this.answered = false;
     }
 
-    public ContactMessage(String message, User user, String emailAddress) {
+    public ContactMessage(String title, String message, User user, String emailAddress) {
         super();
+        this.title = title;
         this.message = message;
         this.user = user;
         this.emailAddress = emailAddress;
+        this.answered = false;
     }
-
 
     public long getId() {
         return id;
@@ -53,6 +63,14 @@ public class ContactMessage {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {
@@ -71,6 +89,14 @@ public class ContactMessage {
         this.user = user;
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
@@ -79,11 +105,11 @@ public class ContactMessage {
         this.creationDate = creationDate;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public Boolean getAnswered() {
+        return answered;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setAnswered(Boolean answered) {
+        this.answered = answered;
     }
 }

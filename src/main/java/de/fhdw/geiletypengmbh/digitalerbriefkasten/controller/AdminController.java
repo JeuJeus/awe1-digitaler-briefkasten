@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ContactMessage;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.DistributionChannel;
@@ -8,6 +9,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Produ
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ContactMessageService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.validator.UserValidator;
@@ -27,6 +29,7 @@ import java.util.List;
 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
+//TODO REMOVE USAGE OF REPOSITORIES -> JB/JF
 public class AdminController {
 
     public static final String REDIRECT_ADMIN = "redirect:/admin";
@@ -48,6 +51,8 @@ public class AdminController {
     private ProductLineRepository productLineRepository;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private ContactMessageService contactMessageService;
 
     //Autor: JF
     @GetMapping("/admin")
@@ -55,10 +60,12 @@ public class AdminController {
 
         List<User> userList = userRepository.findAll();
         List<ProductLine> productLines = productLineRepository.findAll();
+        List<ContactMessage> contactMessages = contactMessageService.findAllNotAnswered();
 
         ModelAndView mav = new ModelAndView("account/admin");
         mav.addObject("userList", userList);
         mav.addObject("productLines", productLines);
+        mav.addObject("contactMessages", contactMessages);
 
         return mav;
     }

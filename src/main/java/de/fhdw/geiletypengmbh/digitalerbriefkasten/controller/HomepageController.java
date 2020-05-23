@@ -4,8 +4,10 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ContactMessage;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ContactMessageService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.StatusDecision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,9 @@ public class HomepageController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private ContactMessageService contactMessageService;
 
     //Autor: PR
     @GetMapping("/ideas/{id}")
@@ -146,6 +151,14 @@ public class HomepageController {
     public ModelAndView contactForm() {
         ContactMessage contactMessage = new ContactMessage();
         ModelAndView mav = new ModelAndView("/contactForm");
+        mav.addObject("contactMessage", contactMessage);
+        return mav;
+    }
+
+    @GetMapping("/contact/{id}")
+    public ModelAndView contactMessage(@PathVariable Long id) {
+        ContactMessage contactMessage = contactMessageService.findById(id);
+        ModelAndView mav = new ModelAndView("/contactMessage");
         mav.addObject("contactMessage", contactMessage);
         return mav;
     }

@@ -7,18 +7,20 @@
     <title>Kontaktformular</title>
     <link rel="stylesheet" th:href="@{../css/common.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}" type="text/css"/>
+    <script th:src="@{/js/fontawesome.js}" type="text/javascript"></script>
 </head>
 
 <body>
 <div th:replace="pageParts/navbar :: navbar"></div>
+<div th:replace="pageParts/backButton :: back-button"></div>
 <main class="container">
-    <form th:action="@{/contact}" th:object="${contactMessage}" method="post">
+    <form th:action="@{/contact/answered/} + ${contactMessage.getId()}" th:object="${contactMessage}" method="post">
         <h2 class="form-heading">Kontaktformular</h2>
         <div class="form-group form-row">
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="title">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" type="text" th:field="*{title}" required>
+                <input class="form-control" type="text" th:field="*{title}" readonly>
             </div>
         </div>
         <div class="form-group form-row">
@@ -26,7 +28,7 @@
                    for="message">Nachricht</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
                     <textarea class="form-control" th:field="*{message}"
-                              placeholder="Ihre Nachricht" required>
+                              placeholder="Ihre Nachricht" readonly>
                     </textarea>
             </div>
         </div>
@@ -34,11 +36,19 @@
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="emailAddress">Ihre E-Mail Adresse</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" type="text" th:field="*{emailAddress}" required>
+                <input class="form-control" type="text" th:field="*{emailAddress}" readonly>
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
+                   for="user">Benutzer</label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
+                <input class="form-control" type="text" th:name="user" th:id="user"
+                       th:value="*{user?.getFullName()}" readonly>
             </div>
         </div>
 
-        <button class="btn btn-dark btn-block" type="submit">Kontakt-Nachricht einreichen</button>
+        <button class="btn btn-dark btn-block" type="submit">Kontakt-Nachricht als beantwortet setzen</button>
     </form>
 </main>
 

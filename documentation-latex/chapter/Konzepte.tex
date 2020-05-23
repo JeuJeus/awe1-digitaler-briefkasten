@@ -1,10 +1,6 @@
 %!TEX root = ../Thesis.tex
 \section{Konzepte \textcolor{blue}{[Julius Figge]}}
 
-\subsection{MVC-Pattern}
-In unserer Anwendung benutzen wir das Architekturmuster Model View Controller.
-Dieses Muster haben wir explizit ausgewählt, da Springboot zusammen mit Thymeleaf als Frontend hierfür sehr gut geeignet ist.
-
 \subsection{Arbeitskonzept}%TODO Rename me ya
 Unsere Team Arbeit haben wir auf den Austausch untereinander ausgerichtet.
 So konnten wir uns unsere unterschiedlichen Kompetenzen zu Nutze machen und haben besipielhaft im Mob-Programming\footnote{Hiermit ist das gemeinse Programmieren über ein Videotelefonat gemeint, bei dem abwechselnd eine Person den Bildschirm teilt.} Wissen vermittelt und uns gegenseitig unterstützt.\\
@@ -15,3 +11,9 @@ Ausserdem haben wir \enquote{Sonarlint} eingesetzt um unsere Code-Qualität zu �
 Dadurch haben wir nicht nur unsere Code Qualität sichergestellt, sondern konnten auch auftretenden Probleme möglichst schnell erkennen und beheben.\\
 Als netter Nebeneffekt lässt sich festhalten, dass durch das gemeinsame arbeiten Wissensilos effektiv aufgebrochen wurden und der Lerneffekt im Zuge des Projekts für alle beteiligten maximiert wurde.
 
+\subsection{MVC-Pattern}
+In unserer Anwendung benutzen wir das Architekturmuster Model View Controller.
+Dieses Muster haben wir explizit ausgewählt, da Springboot zusammen mit Thymeleaf als Frontend hierfür sehr gut geeignet ist. Dadurch erreichen wir eine strikte Trennung der verschiedenen Ebenen und eine bessere Anpassbarkeit des Programmes.
+
+\subsection{Jackson-JSON}
+Wir haben uns für die Nutzung der \enquote{Jackson}-JSON library entschieden unter anderem, da diese Annotations mitliefert welche wir direkt in unseren Code einbinden können. Diese benutzen wir um die Serealisierung und Deserealisierung von Datenbank-Einträgen zu verwalten. Dadurch ist es einfach und gut im Code lesbar möglich zu kontrollieren welche Einträge wie serealisiert werden. Das ist insbesondere für die Entwicklung der API relevant.

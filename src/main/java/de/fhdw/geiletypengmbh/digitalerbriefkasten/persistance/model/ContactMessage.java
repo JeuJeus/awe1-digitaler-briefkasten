@@ -5,6 +5,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Use
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.sql.Date;
 
 @Entity
@@ -21,6 +22,7 @@ public class ContactMessage {
     private User user;
 
     @Column(nullable = false)
+    @Email
     private String emailAddress;
 
     @Column(nullable = false, updatable = false)

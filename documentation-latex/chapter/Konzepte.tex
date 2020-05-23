@@ -1,7 +1,17 @@
-%!TEX root = ../Thesis.tex
+\usepackage{csquotes}%!TEX root = ../Thesis.tex
 \section{Konzepte}
 
 \subsection{MVC-Pattern}
 In unserer Anwendung benutzen wir das Architekturmuster Model View Controller.
 Dieses Muster haben wir explizit ausgewählt, da Springboot zusammen mit Thymeleaf als Frontend hierfür sehr gut geeignet ist.
+
+\subsection{Teamarbeit und Tests}%TODO Rename me ya
+Unsere Team Arbeit haben wir auf den Austausch untereinander ausgerichtet.
+So konnten wir uns unsere unterschiedlichen Kompetenzen zu Nutze machen und besipielhaft im Mob-Programming\footnote{Hiermit ist das gemeinse Programmieren über ein Videotelefonat gemeint, bei dem abwechselnd eine Person den Bildschirm teilt.} Wissen vermittelt und uns gegenseitig unterstützt.
+Darüber hinaus haben wir nach dem \enquote{All hands on Deck}-Prinzip\footnote{Dieses bezeichnet den Ansatz, bei auftretenden Problemen und Fehlern sich zuerst auf die Behebung dieser zu konzentrieren, bevor weitergehende Aufgaben bearbeitet werden.} gearbeitet.
+Dies haben wir zum einen aufbauen auf Teaminterne Kommunikation (beispielhaft über Telegram), aber insbesondere auch über die \enquote{Github CI} erreicht.
+Diese war konfiguriert bei jedem Commit alle Tests durchzuführen und bei Problemen Email-Benachrichtigungen zu versenden.
+Ausserdem haben wir \enquote{Sonarlint} eingesetzt um unsere Code-Qualität zu überprüfen und stetig zu verbessern.
+Dadurch haben wir nicht nur unsere Code Qualität sichergestellt, sondern konnten auch auftretenden Probleme möglichst schnell erkennen und beheben.
+Als netter Nebeneffekt lässt sich festhalten, dass durch das gemeinsame arbeiten Wissensilos effektiv aufgebrochen wurden und der Lerneffekt im Zuge des Projekts für alle beteiligten maximiert wurde.
 

@@ -5,6 +5,119 @@
 
 \anhangsverzeichnis
 
+\anhang{Testdurchführung}
+
+\begin{center}
+\label{fig:testdurchf}
+\begin{longtable}{|p{0.4\textwidth}|p{0.3\textwidth}|p{0.2\textwidth}|}
+\caption{GUI-Testdurchführung}\\
+\hline
+Aktion & erwartetes Ergebnis & Reaktion\\
+\hline
+\hline
+
+\textbf{Registrieren eines neuen Nutzers} & &\\
+\hline
+Bereits bestehenden Nutzernamen verwenden (admin) & Fehlermeldung - Nutzername existiert bereits &\\
+\hline
+zu kurzer Nutzername (<3) & Fehlermeldung - Daten falsch &\\
+\hline
+zu kurzes Passwort (<=7) & Fehlermeldung - zu kurzes Passwort &\\
+\hline
+nicht übereinstimmende Passwörter & Fehlermeldung - nicht stimmende Passwort &\\
+\hline
+mit korrekten Daten & eingeloggt sein &\\
+\hline
+\hline
+
+\textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+\hline
+\hline
+
+\textbf{Einloggen in erstellten Account} & &\\
+\hline
+mit falschem Passwort & Fehlermeldung &\\
+\hline
+mit falschem Nutzernamen & Fehlermeldung &\\
+\hline
+mit richtigem Passwort & eingeloggt sein &\\
+\hline
+\hline
+
+\textbf{Erstellen von beispielhaften Ideen} & &\\
+\hline
+Erstellen einer \enquote{internen Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+\hline
+Erstellen einer \enquote{Produkt-Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+\hline
+Erstellen einer beliebigen Idee mit fehlerhaften Werten & Fehlerhafte Attribute werden hervorgehoben &\\
+\hline
+Erstellen einer Idee von der bereits selber Name bei selbem Typ vorhanden & Fehlermeldung über Duplikat &\\
+\hline
+Bearbeitend der internen Idee & Änderungen werden übernommen &\\
+\hline
+Bearbeitend der Produkt-Idee & Änderungen werden übernommen &\\
+\hline
+\hline
+
+\textbf{Ideenübersicht} & &\\
+\hline
+Filtern der nicht eingereichten Ideen nach Attributen & nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline 
+Einreichen der erstellten Ideen & erfolgreicher Transfer in jeweilige Tabelle &\\
+\hline
+\hline
+
+\textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+\hline
+\hline
+
+\textbf{Idee Übersicht als nicht eingeloggter Nutzer} & &\\
+\hline 
+Filtern der Ideen in beiden Tabellen & nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline
+\hline
+
+\textbf{Spezialist für \enquote{internen Idee}} & &\\
+\hline
+Einloggen als passender (Ideen sollten ihm zugewiesen sein) Spezialist (Zugangsdaten siehe \texttt{Manual.md})& eingeloggt sein &\\
+\hline
+Übersicht zu entscheidender Ideen filtern &  nur Ideen mit passenden Attributen werden angezeigt &\\
+\hline
+Entscheiden ohne Begründung & fehlendes Attribut wird hervorgehoben &\\
+\hline
+Idee in Ideenspeicher verschieben & Idee liegt in Ideenspeicher &\\
+\hline
+\hline
+
+\textbf{Spezialist für \enquote{Produkt-Idee}} & &\\
+\hline
+Account zu anderem Spezialist wechseln & Idee liegt in Ideenspeicher &\\
+\hline
+Entscheiden über Idee aus Ideenspeicher mit Auswahl  \enquote{zur Entscheidung freigegeben} & Idee liegt in eigenen zu entscheidenden Ideen &\\
+\hline
+Idee aus Entscheidungsübersicht bewerten & Idee erscheint auf passender Tabelle in Ideenübersicht &\\
+\hline
+\hline
+
+\textbf{Administrator} & &\\
+\hline
+Account zu Administrator wechseln (Zugangsdaten siehe \texttt{Manual.md})& &\\
+\hline
+Existierende User prüfen & registrierter Account sowie alle Spezialisten werden aufgelistet &\\
+\hline 
+Alle möglichen anzulegenden Felder durchgehen, bereits bestehenden Namen eingeben & bei jedem Feld wird ein Fehler angezeigt &\\
+\hline 
+Alle möglichen anzulegenden Felder durchgehen & Feld wird angelegt &\\
+\hline
+Ausloggen & \textbf{FERTIG!} &\\
+\hline
+\end{longtable}
+\end{center}
+
+\clearpage
+\pagebreak
+
 \anhang{Weitere Use-Cases}\label{Anhang-Use-Cases}
 
 \subanhang{Administrator}\label{Anhang-Admin}

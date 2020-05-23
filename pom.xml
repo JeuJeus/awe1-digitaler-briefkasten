@@ -14,7 +14,7 @@
     <groupId>de.fhdw.geiletypengmbh</groupId>
     <artifactId>digitaler-briefkasten</artifactId>
     <!--TODO CHANGE VERSION NUMBER FOR FINAL TO : digitaler-briefkasten-1.0.0-FINAL.jar    -->
-    <version>0.9.4-FEATURE_COMPLETE</version>
+    <version>0.9.5-FEATURE_COMPLETE</version>
     <name>digitaler-briefkasten</name>
     <description>digitaler Briefkasten WebApp der geile Typen GmbH</description>
 

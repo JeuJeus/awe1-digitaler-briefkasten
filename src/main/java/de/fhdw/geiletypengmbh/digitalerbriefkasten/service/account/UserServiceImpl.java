@@ -82,4 +82,8 @@ public class  UserServiceImpl implements UserService {
         return this.findByUsername(username);
     }
 
+    //Autor: JF
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }

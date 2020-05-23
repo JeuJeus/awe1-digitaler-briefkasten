@@ -1,5 +1,6 @@
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ContactMessage;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
@@ -29,7 +30,6 @@ import java.util.List;
 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
-//TODO REMOVE USAGE OF REPOSITORIES -> JB/JF
 public class AdminController {
 
     public static final String REDIRECT_ADMIN = "redirect:/admin";
@@ -46,10 +46,6 @@ public class AdminController {
     @Autowired
     ProductLineService productLineService;
     @Autowired
-    private UserRepository<User> userRepository;
-    @Autowired
-    private ProductLineRepository productLineRepository;
-    @Autowired
     private UserServiceImpl userService;
     @Autowired
     private ContactMessageService contactMessageService;
@@ -58,8 +54,8 @@ public class AdminController {
     @GetMapping("/admin")
     public ModelAndView adminPanel() {
 
-        List<User> userList = userRepository.findAll();
-        List<ProductLine> productLines = productLineRepository.findAll();
+        List<User> userList = userService.findAll();
+        List<ProductLine> productLines = productLineService.findAll();
         List<ContactMessage> contactMessages = contactMessageService.findAllNotAnswered();
 
         ModelAndView mav = new ModelAndView("account/admin");
@@ -72,8 +68,8 @@ public class AdminController {
 
     //Autor: JF
     @GetMapping("/admin/userDetails/{username}")
-    public ModelAndView listUserDetails(@PathVariable String username) {
-        User user = userRepository.findByUsername(username);
+    public ModelAndView listUserDetails(@PathVariable String username) throws UserNotFoundException {
+        User user = userService.findByUsername(username);
 
         ModelAndView mav = new ModelAndView("account/userDetails");
         mav.addObject("user", user);

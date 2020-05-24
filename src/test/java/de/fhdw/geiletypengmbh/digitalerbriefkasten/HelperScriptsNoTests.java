@@ -82,6 +82,23 @@ public class HelperScriptsNoTests {
     //Autor: PR
     @Ignore
     @Test
+    public void createAPIUserIfNotExists() {
+        /* Used to create Admin if not already available in production DB*/
+        Role adminRole = new Role();
+        adminRole.setName("API_USER");
+        roleRepository.saveAndFlush(adminRole);
+        User admin = new User("API_USER",
+                "API-usus-maximus-passwortus-securitus",
+                "API-usus-maximus-passwortus-securitus",
+                "API",
+                "USER");
+        admin.setRoles(Collections.singleton(adminRole));
+        userService.save(admin);
+    }
+
+    //Autor: PR
+    @Ignore
+    @Test
     public void createDefaultDatabaseEntrys() {
         if (productLineRepository.findByTitle(ideaService.getDefaultInternalProductLineTitle()) == null) {
             productLineRepository.save(new ProductLine(ideaService.getDefaultInternalProductLineTitle()));

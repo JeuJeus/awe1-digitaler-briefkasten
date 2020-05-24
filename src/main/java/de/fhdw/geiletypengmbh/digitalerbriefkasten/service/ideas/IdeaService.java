@@ -127,7 +127,7 @@ public class IdeaService {
         try {
             User currentUser = userService.getCurrentUser();
             if (request.isUserInRole("ADMIN") ||
-                    (toDelete.getCreator().equals(currentUser)
+                    (toDelete.getCreator().getId() == currentUser.getId()
                             && toDelete.getStatus().equals(Status.NOT_SUBMITTED))) {
                 ideaRepository.delete(toDelete);
             } else {

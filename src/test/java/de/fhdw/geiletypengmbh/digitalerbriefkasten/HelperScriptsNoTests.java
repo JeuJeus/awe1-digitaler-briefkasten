@@ -83,7 +83,7 @@ public class HelperScriptsNoTests {
     @Ignore
     @Test
     public void createAPIUserIfNotExists() {
-        /* Used to create Admin if not already available in production DB*/
+        /* Used to create API User if not already available in production DB*/
         Role role = new Role();
         role.setName("API_USER");
         roleRepository.saveAndFlush(role);

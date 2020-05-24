@@ -84,16 +84,16 @@ public class HelperScriptsNoTests {
     @Test
     public void createAPIUserIfNotExists() {
         /* Used to create Admin if not already available in production DB*/
-        Role adminRole = new Role();
-        adminRole.setName("API_USER");
-        roleRepository.saveAndFlush(adminRole);
-        User admin = new User("API_USER",
+        Role role = new Role();
+        role.setName("API_USER");
+        roleRepository.saveAndFlush(role);
+        User user = new User("API_USER",
                 "API-usus-maximus-passwortus-securitus",
                 "API-usus-maximus-passwortus-securitus",
                 "API",
                 "USER");
-        admin.setRoles(Collections.singleton(adminRole));
-        userService.save(admin);
+        user.setRoles(Collections.singleton(role));
+        userService.save(user);
     }
 
     //Autor: PR

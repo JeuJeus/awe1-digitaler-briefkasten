@@ -28,4 +28,8 @@ public class RoleService {
         } else return singleton(toProvide);
     }
 
+    public Role save(Role role) {
+        return roleRepository.saveAndFlush(role);
+    }
+
 }

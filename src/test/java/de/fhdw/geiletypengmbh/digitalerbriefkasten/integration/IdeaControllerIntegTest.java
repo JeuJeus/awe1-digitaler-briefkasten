@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UserNotFoundException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Role;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.RoleService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
 import org.json.JSONException;
@@ -90,6 +92,9 @@ public class IdeaControllerIntegTest {
 
     @Autowired
     private IdeaService ideaService;
+
+    @Autowired
+    private RoleService roleService;
 
 
 //HELPER FUNCTIONS
@@ -178,7 +183,7 @@ public class IdeaControllerIntegTest {
         MvcResult mvcResult = mockMvc.perform(post(API_ROOT)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(ideaJson)
-                .with(user(TEST_USER))
+                .with(user(TEST_USER).roles("API_USER"))
                 .with(csrf()))
                 .andReturn();
         return API_ROOT + "/" + getJsonObjectFromReturn(mvcResult).get("id");
@@ -191,13 +196,16 @@ public class IdeaControllerIntegTest {
 
             mockMvc = MockMvcBuilders
                     .webAppContextSetup(context)
-                    .defaultRequest(get("/").with(user(TEST_USER)))
+                    .defaultRequest(get("/").with(user(TEST_USER).roles("API_USER")))
                     .addFilters(springSecurityFilterChain)
                     .build();
 
+            Role apiRole = new Role("API_USER");
+            roleService.save(apiRole);
             //be aware of extremly rare condition where random seed of possibility 10^26 is equal in several cases. So username reocurres and breaks test. WTF jonathan
             String tempPassword = randomAlphabetic(10);
             User testUser = new User(IdeaControllerIntegTest.TEST_USER, tempPassword, tempPassword);
+            testUser.setRoles(Collections.singleton(apiRole));
             userService.save(testUser);
 
             testFieldId = fieldService.save(
@@ -233,7 +241,7 @@ public class IdeaControllerIntegTest {
     @Test
     public void whenGetAllIdeas_thenOK() throws Exception {
         mockMvc.perform(get(API_ROOT)
-                .with(user(TEST_USER)))
+                .with(user(TEST_USER).roles("API_USER")))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -246,7 +254,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(API_ROOT + "/title/" + idea.getTitle())
-                        .with(user(TEST_USER)))
+                        .with(user(TEST_USER).roles("API_USER")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -262,7 +270,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(TEST_USER)))
+                        .with(user(TEST_USER).roles("API_USER")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -285,7 +293,7 @@ public class IdeaControllerIntegTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(TEST_USER)))
+                        .with(user(TEST_USER).roles("API_USER")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -308,7 +316,7 @@ public class IdeaControllerIntegTest {
     public void whenGetNotExistIdeaById_thenNotFound() throws Exception {
         mockMvc.perform(
                 get(API_ROOT + "/" + randomNumeric(5))
-                        .with(user(TEST_USER)))
+                        .with(user(TEST_USER).roles("API_USER")))
                 .andExpect(status().isNotFound());
     }
 
@@ -321,7 +329,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -337,7 +345,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -351,7 +359,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isCreated());
     }
@@ -380,7 +388,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
@@ -400,13 +408,13 @@ public class IdeaControllerIntegTest {
                 put(location)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         MvcResult mvcResult = mockMvc.perform(
                 get(location)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -426,7 +434,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andReturn();
 
@@ -446,13 +454,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user(TEST_USER).roles("ADMIN"))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isOk());
 
         mockMvc.perform(
                 get(location)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
     }
@@ -466,13 +474,13 @@ public class IdeaControllerIntegTest {
 
         mockMvc.perform(
                 delete(location)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
 
         mockMvc.perform(
                 get(location)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andExpect(status().isOk());
     }
@@ -487,7 +495,7 @@ public class IdeaControllerIntegTest {
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(ideaJson)
-                        .with(user(TEST_USER))
+                        .with(user(TEST_USER).roles("API_USER"))
                         .with(csrf()))
                 .andReturn();
 

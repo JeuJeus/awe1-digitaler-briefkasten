@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechender Benutzer gefunden")
-public class UserNotFoundException extends Exception implements InternalException {
+public class UserNotFoundException extends Exception implements UIForwardable {
 
     public UserNotFoundException() {
         super();

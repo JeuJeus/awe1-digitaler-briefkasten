@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Kontakt-Nachricht gefunden")
-public class ContactMessageNotFoundException extends RuntimeException implements InternalException {
+public class ContactMessageNotFoundException extends RuntimeException implements UIForwardable {
 
     public ContactMessageNotFoundException() {
         super();

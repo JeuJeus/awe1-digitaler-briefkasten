@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Nicht berechtigt")
-public class NotAuthorizedException extends RuntimeException implements InternalException {
+public class NotAuthorizedException extends RuntimeException implements UIForwardable {
 
     public NotAuthorizedException() {
         super();

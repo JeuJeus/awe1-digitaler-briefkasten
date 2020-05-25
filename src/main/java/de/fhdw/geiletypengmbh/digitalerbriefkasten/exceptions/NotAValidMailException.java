@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Eingegebene Mailadresse ist fehlerhaft")
-public class NotAValidMailException extends RuntimeException implements InternalException {
+public class NotAValidMailException extends RuntimeException implements UIForwardable {
 
     public NotAValidMailException() {
         super();

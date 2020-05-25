@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Idee gefunden")
-public class IdeaNotFoundException extends RuntimeException {
+public class IdeaNotFoundException extends RuntimeException implements InternalException {
 
     public IdeaNotFoundException() {
         super();

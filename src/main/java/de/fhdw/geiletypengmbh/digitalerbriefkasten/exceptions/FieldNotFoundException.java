@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechendes Handlungsfeld gefunden")
-public class FieldNotFoundException extends RuntimeException {
+public class FieldNotFoundException extends RuntimeException implements InternalException {
 
     public FieldNotFoundException() {
         super();

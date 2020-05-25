@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Zielgruppe gefunden")
-public class TargetGroupNotFoundException extends RuntimeException {
+public class TargetGroupNotFoundException extends RuntimeException implements InternalException {
 
     public TargetGroupNotFoundException() {
         super();

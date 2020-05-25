@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "ID der eingegebenen Idee ist nicht korrekt")
-public class IdeaIdMismatchException extends RuntimeException {
+public class IdeaIdMismatchException extends RuntimeException implements InternalException {
 
     public IdeaIdMismatchException() {
         super();

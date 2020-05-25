@@ -18,7 +18,16 @@
     <div class="container">
         <p class="lead text-muted">
             OOPS!<br>
-            <span th:text="${message}">status</span>
+            <span th:text="${message}">status</span>1
+            <span th:text="${exception}">status</span>2
+            <span th:text="${error.class}">status</span>3
+            <th:block
+                    th:if="${exception instanceof T(de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalException)}">
+            </th:block>
+            <!--<th:block th:unless="${error instanceof T(de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalException)}">
+                <span>Ein interner Fehler ist aufgetreten. Bitte kontaktieren Sie Ihren Administrator.</span>
+            </th:block>-->
+
             <!--            TODO ASSURE ONLY OWN EXCEPTIONS ARE THROWN-->
         </p>
     </div>

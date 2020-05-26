@@ -91,7 +91,8 @@
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="existsComparable">Existiert bereits Vergleichbares?</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input type="checkbox" disabled="true" name="existsComparable" th:checked="${idea.isExistsComparable()}">
+                <input disabled="true" name="existsComparable" th:checked="${idea.isExistsComparable()}"
+                       type="checkbox">
             </div>
         </div>
         <div class="form-group form-row">

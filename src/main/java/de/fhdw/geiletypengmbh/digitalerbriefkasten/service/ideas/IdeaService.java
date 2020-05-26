@@ -317,7 +317,7 @@ public class IdeaService {
         if ((persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING)
                 || (currentUser.isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
             //Every Specialist has te ability to assign idea from idea storage to himself
-            if(statusDecision.getStatus() == Status.PENDING && persistedVersion.getStatus() == Status.IDEA_STORAGE){
+            if (statusDecision.getStatus() == Status.PENDING && persistedVersion.getStatus() == Status.IDEA_STORAGE) {
                 persistedVersion.setSpecialist((Specialist) currentUser);
                 persistedVersion.setStatus(statusDecision.getStatus());
                 persistedVersion.setStatusJustification(statusDecision.getStatusJustification());

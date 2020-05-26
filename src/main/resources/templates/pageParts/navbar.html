@@ -33,7 +33,8 @@
             <li class="nav-item dropdown navbar-dark bg-dark"
                 sec:authorize="isAuthenticated()"
                 th:classappend="${#httpServletRequest.getRequestURI() == '/createIdea' ? 'active':''}">
-                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                   href="#"
                    id="navbarDropdown1" role="button">
                     Idee erstellen
                 </a>

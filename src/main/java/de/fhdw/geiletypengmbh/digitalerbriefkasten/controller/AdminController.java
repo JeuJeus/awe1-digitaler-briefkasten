@@ -8,8 +8,6 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Distr
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.Field;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductLine;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.TargetGroup;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.account.UserRepository;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ContactMessageService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;

@@ -171,7 +171,7 @@ public abstract class Idea {
     }
 
     @JsonIgnore
-    public String getType(){
-        return  this.getClass().getSimpleName();
+    public String getType() {
+        return this.getClass().getSimpleName();
     }
 }

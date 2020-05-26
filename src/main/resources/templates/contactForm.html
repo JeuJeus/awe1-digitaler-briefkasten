@@ -12,21 +12,21 @@
 <body>
 <div th:replace="pageParts/navbar :: navbar"></div>
 <main class="container">
-    <form th:action="@{/contact}" th:object="${contactMessage}" method="post">
+    <form method="post" th:action="@{/contact}" th:object="${contactMessage}">
         <h2 class="form-heading">Kontaktformular</h2>
         <div class="form-group form-row">
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="title">Titel</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" type="text" th:field="*{title}" required>
+                <input class="form-control" required th:field="*{title}" type="text">
             </div>
         </div>
         <div class="form-group form-row">
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="message">Nachricht</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                    <textarea class="form-control" th:field="*{message}"
-                              placeholder="Ihre Nachricht" required>
+                    <textarea class="form-control" placeholder="Ihre Nachricht"
+                              required th:field="*{message}">
                     </textarea>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <label class="col-form-label col-xs-12- col-sm-12 col-md-3 col-lg-2 col-xl-2"
                    for="emailAddress">Ihre E-Mail Adresse</label>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-10">
-                <input class="form-control" type="text" th:field="*{emailAddress}" required>
+                <input class="form-control" required th:field="*{emailAddress}" type="text">
             </div>
         </div>
 

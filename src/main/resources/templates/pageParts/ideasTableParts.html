@@ -11,18 +11,18 @@
 <body>
 <table>
     <thead>
-    <th th:fragment="context-menu-th" scope="col"></th>
-    <th th:fragment="idea-type-th" scope="col">Typ</th>
-    <th th:fragment="idea-title-th" scope="col">Titel</th>
-    <th th:fragment="idea-description-th" scope="col">Beschreibung</th>
-    <th th:fragment="idea-creator-th" scope="col">Ersteller</th>
-    <th th:fragment="idea-creation-date-th" scope="col">Erstellungsdatum</th>
-    <th th:fragment="idea-status-th" scope="col">Status</th>
-    <th th:fragment="idea-status-justification-th" scope="col">Status Begründung</th>
+    <th scope="col" th:fragment="context-menu-th"></th>
+    <th scope="col" th:fragment="idea-type-th">Typ</th>
+    <th scope="col" th:fragment="idea-title-th">Titel</th>
+    <th scope="col" th:fragment="idea-description-th">Beschreibung</th>
+    <th scope="col" th:fragment="idea-creator-th">Ersteller</th>
+    <th scope="col" th:fragment="idea-creation-date-th">Erstellungsdatum</th>
+    <th scope="col" th:fragment="idea-status-th">Status</th>
+    <th scope="col" th:fragment="idea-status-justification-th">Status Begründung</th>
     </thead>
     <tbody>
     <!--        requires fontAwesome, rightClickMenu.css/js-->
-    <td th:fragment="context-menu-td" class="p-1">
+    <td class="p-1" th:fragment="context-menu-td">
         <button class="btn btn-light context-opener no-body-onclick" th:data="${idea.getId()}">
             <i class="fas fa-ellipsis-v no-body-onclick text-secondary" th:data="${idea.getId()}"></i>
         </button>

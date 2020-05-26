@@ -1,7 +1,8 @@
 //Autor: JF
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalErrorException;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.UIForwardable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;

@@ -9,7 +9,9 @@ public class DistributionChannelNotFoundException extends RuntimeException imple
 
     public static final String reason = "Kein entsprechender Vertriebskanal gefunden";
 
-    public DistributionChannelNotFoundException() { super(reason);}
+    public DistributionChannelNotFoundException() {
+        super(reason);
+    }
 
     public DistributionChannelNotFoundException(final String message, final Throwable cause) {
         super(message, cause);

@@ -22,6 +22,7 @@ public class ProductLineService {
     public ProductLine findById(Long id) {
         return productLineRepository.findById(id).orElseThrow(ProductLineNotFoundException::new);
     }
+
     //Autor: JB
     public ProductLine findByTitle(String title) {
         return productLineRepository.findByTitle(title);

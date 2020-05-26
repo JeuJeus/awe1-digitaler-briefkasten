@@ -1,4 +1,3 @@
-
 package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.NotAuthorizedException;
@@ -7,7 +6,6 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.*;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ContactMessageService;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.StatusDecision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -150,7 +148,7 @@ public class HomepageController {
     @GetMapping("/contact")
     public ModelAndView contactForm() {
         ContactMessage contactMessage = new ContactMessage();
-        ModelAndView mav = new ModelAndView("/contactForm");
+        ModelAndView mav = new ModelAndView("contactForm");
         mav.addObject("contactMessage", contactMessage);
         return mav;
     }
@@ -158,7 +156,7 @@ public class HomepageController {
     @GetMapping("/contact/{id}")
     public ModelAndView contactMessage(@PathVariable Long id) {
         ContactMessage contactMessage = contactMessageService.findById(id);
-        ModelAndView mav = new ModelAndView("/contactMessage");
+        ModelAndView mav = new ModelAndView("contactMessage");
         mav.addObject("contactMessage", contactMessage);
         return mav;
     }

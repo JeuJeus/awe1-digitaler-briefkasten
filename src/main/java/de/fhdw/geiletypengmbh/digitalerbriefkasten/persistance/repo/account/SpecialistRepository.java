@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SpecialistRepository extends UserRepository<Specialist> {
 
-    public List<Specialist> findByProductLinesId(Long productLine_id);
+    public List<Specialist> findByProductLinesId(Long productLineId);
 }

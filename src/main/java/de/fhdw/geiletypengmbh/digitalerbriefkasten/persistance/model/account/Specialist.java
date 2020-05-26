@@ -19,8 +19,8 @@ public class Specialist extends User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "specialist_productLines",
-            joinColumns = @JoinColumn(name = "specialist_id"),
-            inverseJoinColumns = @JoinColumn(name = "productLine_id"))
+            joinColumns = @JoinColumn(name = "specialistId"),
+            inverseJoinColumns = @JoinColumn(name = "productLineId"))
     private List<ProductLine> productLines;
 
     public Specialist() {

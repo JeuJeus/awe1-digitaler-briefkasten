@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class IdeaControllerIntegTest {
-
+    //TODO FIX TESTS REGARDING HTTP STATUS PRODUCED BY EXCEPTION HANDLER
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";
 
@@ -442,7 +442,7 @@ public class IdeaControllerIntegTest {
         long millis = System.currentTimeMillis();
         java.sql.Date today = new java.sql.Date(millis);
 
-        assertEquals (jsonReturn.get("creationDate"),today.toString());
+        assertEquals(jsonReturn.get("creationDate"), today.toString());
     }
 
     //Autor: JF
@@ -501,7 +501,7 @@ public class IdeaControllerIntegTest {
 
         JSONObject jsonReturn = getJsonObjectFromReturn(mvcResult);
 
-        assertEquals(jsonReturn.get("status"),"NOT_SUBMITTED");
+        assertEquals(jsonReturn.get("status"), "NOT_SUBMITTED");
         //Status Justification should only be included if set
         assertFalse(jsonReturn.has("statusJustification"));
     }

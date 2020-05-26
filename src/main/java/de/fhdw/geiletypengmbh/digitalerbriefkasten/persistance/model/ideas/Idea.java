@@ -62,7 +62,7 @@ public abstract class Idea {
     private List<Advantage> advantages;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "specialist_id")
+    @JoinColumn(name = "specialistId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Specialist specialist;
 
@@ -171,7 +171,7 @@ public abstract class Idea {
     }
 
     @JsonIgnore
-    public String getType(){
-        return  this.getClass().getSimpleName();
+    public String getType() {
+        return this.getClass().getSimpleName();
     }
 }

@@ -169,7 +169,7 @@ public class UserControllerIntegTest {
             }
         });
         userService.save(specialist);
-        List<Specialist> matchingSpecialists = userService.findSpecialistByProductLine_id(testProductLineId);
+        List<Specialist> matchingSpecialists = userService.findSpecialistByproductLineId(testProductLineId);
         assertThat(specialist.getId() != 0); // means that specialist has been persisted
         assertThat(matchingSpecialists.get(0).getId() == specialist.getId());
     }

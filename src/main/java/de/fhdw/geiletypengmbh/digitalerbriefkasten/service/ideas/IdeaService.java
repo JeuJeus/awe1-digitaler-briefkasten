@@ -274,12 +274,12 @@ public class IdeaService {
     //Autor: PR
     private Optional<Specialist> getSpecialistsByProductLine(ProductLine productLine) {
         Optional<Specialist> specialist = Optional.empty();
-        List<Specialist> specialists = userService.findSpecialistByProductLine_id(productLine.getId());
+        List<Specialist> specialists = userService.findSpecialistByproductLineId(productLine.getId());
         if (!specialists.isEmpty()) {
             // when multiple specialists found, then return the one with least not submitted ideas (least work to do)
             specialists = specialists.stream().sorted(
                     Comparator.comparing(
-                            s -> ideaRepository.countBySpecialist_idAndStatus(s.getId(), Status.NOT_SUBMITTED))).
+                            s -> ideaRepository.countByspecialistIdAndStatus(s.getId(), Status.NOT_SUBMITTED))).
                     collect(Collectors.toCollection(ArrayList::new));
             specialist = Optional.ofNullable(specialists.get(0));
         }
@@ -287,9 +287,9 @@ public class IdeaService {
     }
 
     //Autor: PR
-    public List<Idea> findBySpecialistIdAndStatus(Long specialist_id, Status status) {
+    public List<Idea> findBySpecialistIdAndStatus(Long specialistId, Status status) {
         List<Idea> ideas;
-        ideas = ideaRepository.findBySpecialistIdAndStatus(specialist_id, status);
+        ideas = ideaRepository.findBySpecialistIdAndStatus(specialistId, status);
 
         return ideas;
     }
@@ -317,7 +317,7 @@ public class IdeaService {
         if ((persistedVersion.getSpecialist().getId() == getUser().getId() && persistedVersion.getStatus() == Status.PENDING)
                 || (currentUser.isRole("SPECIALIST") && persistedVersion.getStatus() == Status.IDEA_STORAGE)) {
             //Every Specialist has te ability to assign idea from idea storage to himself
-            if(statusDecision.getStatus() == Status.PENDING && persistedVersion.getStatus() == Status.IDEA_STORAGE){
+            if (statusDecision.getStatus() == Status.PENDING && persistedVersion.getStatus() == Status.IDEA_STORAGE) {
                 persistedVersion.setSpecialist((Specialist) currentUser);
                 persistedVersion.setStatus(statusDecision.getStatus());
                 persistedVersion.setStatusJustification(statusDecision.getStatusJustification());
@@ -369,7 +369,7 @@ public class IdeaService {
 
     //Autor: PR
     public ArrayList<Status> getViableStatusesForDecision(Status currentStatus) {
-        ArrayList statuses = new ArrayList(Arrays.asList(Status.values()));
+        ArrayList<Status> statuses = new ArrayList(Arrays.asList(Status.values()));
         statuses.remove(currentStatus);
         statuses.remove(Status.NOT_SUBMITTED);
         return statuses;

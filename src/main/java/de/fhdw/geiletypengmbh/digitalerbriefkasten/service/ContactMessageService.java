@@ -23,7 +23,6 @@ public class ContactMessageService {
     private UserServiceImpl userService;
 
     public ContactMessage findById(Long id) {
-        System.out.println(id);
         return contactMessageRepository.findById(id).orElseThrow(ContactMessageNotFoundException::new);
     }
 

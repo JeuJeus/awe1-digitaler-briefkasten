@@ -13,7 +13,7 @@ import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.FieldR
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.ProductLineRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.repo.ideas.TargetGroupRepository;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.account.UserServiceImpl;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.*;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,36 +31,26 @@ import java.util.stream.Stream;
 @SpringBootTest
 public class HelperScriptsNoTests {
 
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    IdeaService ideaService;
-
-    @Autowired
-    ProductLineRepository productLineRepository;
-
-    @Autowired
-    DistributionChannelRepository distributionChannelRepository;
-
-    @Autowired
-    TargetGroupRepository targetGroupRepository;
-
-    @Autowired
-    FieldRepository fieldRepository;
-
     private final static String[] productLines = {"KFZ", "Unfall", "Krankenversicherung", "Rechtsschutz", "Lebensversicherung",
             "Rentenversicherung", "Haftpflicht", "Hausrat", "Wohngebäudeversicherung"};
-
     private final static String[] distributionChannels = {"Stationärer Vertrieb", "Versicherungsmakler",
             "Kooperation mit Kreditinstituten", "Direktversicherung"};
-
     private final static String[] targetGroups = {"Kinder / Jugendliche", "Singles", "Paare", "Personen 50+", "Gewerbetreibende"};
-
     private final static String[] fields = {"Kostensenkung", "Ertragssteigerung", "Zukunftsfähigkeit"};
+    @Autowired
+    IdeaService ideaService;
+    @Autowired
+    ProductLineRepository productLineRepository;
+    @Autowired
+    DistributionChannelRepository distributionChannelRepository;
+    @Autowired
+    TargetGroupRepository targetGroupRepository;
+    @Autowired
+    FieldRepository fieldRepository;
+    @Autowired
+    private UserServiceImpl userService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     //Autor: JF
     @Ignore
@@ -136,7 +126,7 @@ public class HelperScriptsNoTests {
         AtomicInteger i = new AtomicInteger(2000);
         Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             ProductLine pLine = productLineRepository.findByTitle(productLine);
-            if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
+            if (pLine != null && userService.findSpecialistByproductLineId(pLine.getId()).size() == 0) {
                 Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "boringProphet",
                         "boringProphet", "Spezius", "Maximus");
                 specialist.setProductLines(new ArrayList<>() {

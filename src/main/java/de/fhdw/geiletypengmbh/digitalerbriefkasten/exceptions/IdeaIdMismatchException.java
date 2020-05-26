@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "ID der eingegebenen Idee ist nicht korrekt")
 public class IdeaIdMismatchException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "ID der eingegebenen Idee ist nicht korrekt";
+    public static final String REASON = "ID der eingegebenen Idee ist nicht korrekt";
 
     public IdeaIdMismatchException() {
-        super(reason);
+        super(REASON);
     }
 
     public IdeaIdMismatchException(final String message, final Throwable cause) {

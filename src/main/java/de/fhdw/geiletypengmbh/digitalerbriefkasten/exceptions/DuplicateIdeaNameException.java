@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Es existiert bereits eine Idee mit diesem Namen")
 public class DuplicateIdeaNameException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "Es existiert bereits eine Idee mit diesem Namen";
+    public static final String REASON = "Es existiert bereits eine Idee mit diesem Namen";
 
     public DuplicateIdeaNameException() {
-        super(reason);
+        super(REASON);
     }
 
     public DuplicateIdeaNameException(final String message, final Throwable cause) {

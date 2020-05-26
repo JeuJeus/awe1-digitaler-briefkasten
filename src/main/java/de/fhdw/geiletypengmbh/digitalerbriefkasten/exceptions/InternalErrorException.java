@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Es ist ein interner Fehler aufgetreten")
 public class InternalErrorException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "Es ist ein interner Fehler aufgetreten";
+    public static final String REASON = "Es ist ein interner Fehler aufgetreten";
 
     public InternalErrorException() {
-        super(reason);
+        super(REASON);
     }
 
     public InternalErrorException(final String message, final Throwable cause) {

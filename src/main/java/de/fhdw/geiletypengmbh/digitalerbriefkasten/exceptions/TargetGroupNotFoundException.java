@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Zielgruppe gefunden")
 public class TargetGroupNotFoundException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "Keine entsprechende Zielgruppe gefunden";
+    public static final String REASON = "Keine entsprechende Zielgruppe gefunden";
 
     public TargetGroupNotFoundException() {
-        super(reason);
+        super(REASON);
     }
 
     public TargetGroupNotFoundException(final String message, final Throwable cause) {

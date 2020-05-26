@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     //Autor: PR
-    public List<Specialist> findSpecialistByProductLine_id(Long productLine_id) {
-        return specialistRepository.findByProductLinesId(productLine_id);
+    public List<Specialist> findSpecialistByproductLineId(Long productLineId) {
+        return specialistRepository.findByProductLinesId(productLineId);
     }
 
     //Autor: JF

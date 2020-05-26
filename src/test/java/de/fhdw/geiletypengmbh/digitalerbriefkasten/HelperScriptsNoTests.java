@@ -126,7 +126,7 @@ public class HelperScriptsNoTests {
         AtomicInteger i = new AtomicInteger(2000);
         Stream.concat(Arrays.stream(productLines), Stream.of(ideaService.getDefaultInternalProductLineTitle())).forEach(productLine -> {
             ProductLine pLine = productLineRepository.findByTitle(productLine);
-            if (pLine != null && userService.findSpecialistByProductLine_id(pLine.getId()).size() == 0) {
+            if (pLine != null && userService.findSpecialistByproductLineId(pLine.getId()).size() == 0) {
                 Specialist specialist = new Specialist("SpeziusMaximus_" + pLine.getTitle(), "boringProphet",
                         "boringProphet", "Spezius", "Maximus");
                 specialist.setProductLines(new ArrayList<>() {

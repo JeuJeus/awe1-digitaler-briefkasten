@@ -46,7 +46,7 @@ public class UserController {
 
     //Autor: JF
     @GetMapping("/registration")
-    public String registration(Model model, @ModelAttribute("errors") ArrayList<String> errors) {
+    public String registration(Model model, @ModelAttribute("errors") List<String> errors) {
         model.addAttribute("userForm", new User());
         model.addAttribute("errors", errors);
 

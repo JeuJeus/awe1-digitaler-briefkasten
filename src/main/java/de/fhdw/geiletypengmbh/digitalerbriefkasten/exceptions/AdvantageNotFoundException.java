@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechender Vorteil gefunden")
 public class AdvantageNotFoundException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "Kein entsprechender Vorteil gefunden";
+    public static final String REASON = "Kein entsprechender Vorteil gefunden";
 
     public AdvantageNotFoundException() {
-        super(reason);
+        super(REASON);
     }
 
     public AdvantageNotFoundException(final String message, final Throwable cause) {

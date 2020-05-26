@@ -62,7 +62,7 @@ public abstract class Idea {
     private List<Advantage> advantages;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "specialist_id")
+    @JoinColumn(name = "specialistId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Specialist specialist;
 

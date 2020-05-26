@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Fehler im Aufbau der Idee")
 public class IdeaMalformedException extends RuntimeException implements UIForwardable {
 
-    public static final String reason = "Fehler im Aufbau der Idee";
+    public static final String REASON = "Fehler im Aufbau der Idee";
 
     public IdeaMalformedException() {
-        super(reason);
+        super(REASON);
     }
 
     public IdeaMalformedException(final String message, final Throwable cause) {

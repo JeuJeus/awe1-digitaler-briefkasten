@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.CONFLICT, reason = "Es wurde noch kein Vertriebskanal für interne Ideen angelegt")
 public class InternalProductLineNotExistingException extends Exception implements UIForwardable {
 
-    public static final String reason = "Es wurde noch kein Vertriebskanal für interne Ideen angelegt";
+    public static final String REASON = "Es wurde noch kein Vertriebskanal für interne Ideen angelegt";
 
     public InternalProductLineNotExistingException() {
-        super(reason);
+        super(REASON);
     }
 
     public InternalProductLineNotExistingException(final String message, final Throwable cause) {

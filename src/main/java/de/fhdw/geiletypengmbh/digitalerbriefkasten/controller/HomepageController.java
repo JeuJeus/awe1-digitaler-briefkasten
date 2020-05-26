@@ -150,7 +150,7 @@ public class HomepageController {
     @GetMapping("/contact")
     public ModelAndView contactForm() {
         ContactMessage contactMessage = new ContactMessage();
-        ModelAndView mav = new ModelAndView("/contactForm");
+        ModelAndView mav = new ModelAndView("contactForm");
         mav.addObject("contactMessage", contactMessage);
         return mav;
     }
@@ -158,7 +158,7 @@ public class HomepageController {
     @GetMapping("/contact/{id}")
     public ModelAndView contactMessage(@PathVariable Long id) {
         ContactMessage contactMessage = contactMessageService.findById(id);
-        ModelAndView mav = new ModelAndView("/contactMessage");
+        ModelAndView mav = new ModelAndView("contactMessage");
         mav.addObject("contactMessage", contactMessage);
         return mav;
     }

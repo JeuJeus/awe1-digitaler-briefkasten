@@ -112,51 +112,43 @@ public class AdminController {
 
     //Autor: JB
     @PostMapping("/admin/createField")
-    public String createField(@ModelAttribute Field field, BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+    public String createField(@ModelAttribute Field field, RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
-            ArrayList<String> errors = new ArrayList<>();
-            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute(ERRORS, errors);
+        try {
+            fieldService.save(field);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute(ERRORS, e.getMessage());
             return REDIRECT_ADMIN;
         }
-
-        fieldService.save(field);
         redirectAttributes.addFlashAttribute(SUCCESS, "Handlungsfeld erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
     //Autor: JB
     @PostMapping("/admin/createTargetGroup")
-    public String createTargetGroup(@ModelAttribute TargetGroup targetGroup, BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes) {
+    public String createTargetGroup(@ModelAttribute TargetGroup targetGroup, RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
-            ArrayList<String> errors = new ArrayList<>();
-            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute(ERRORS, errors);
+        try {
+            targetGroupService.save(targetGroup);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute(ERRORS, e.getMessage());
             return REDIRECT_ADMIN;
         }
-
-        targetGroupService.save(targetGroup);
         redirectAttributes.addFlashAttribute(SUCCESS, "Zielgruppe erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
     //Autor: JB
     @PostMapping("/admin/createDistributionChannel")
-    public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel, BindingResult bindingResult,
+    public String createDistributionChannel(@ModelAttribute DistributionChannel distributionChannel,
                                             RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
-            ArrayList<String> errors = new ArrayList<>();
-            bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute(ERRORS, errors);
+        try {
+            distributionChannelService.save(distributionChannel);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute(ERRORS, e.getMessage());
             return REDIRECT_ADMIN;
         }
-
-        distributionChannelService.save(distributionChannel);
         redirectAttributes.addFlashAttribute(SUCCESS, "Vertriebskanal erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }

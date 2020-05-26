@@ -45,7 +45,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class IdeaControllerIntegTest {
-    //TODO FIX TESTS REGARDING HTTP STATUS PRODUCED BY EXCEPTION HANDLER
     private static final String API_ROOT
             = "http://localhost:8080/api/ideas";
 

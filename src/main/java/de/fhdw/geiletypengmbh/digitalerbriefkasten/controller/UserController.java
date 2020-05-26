@@ -80,7 +80,8 @@ public class UserController {
     //Autor: JF
     @GetMapping("/login")
     public String login(@ModelAttribute("userForm") User userForm, Model model, String logout) {
-        //in regards to transmission of password in clear see registration()
+        //1.in regards to transmission of password in clear see registration()
+        //2. multiple logins from same account concurrently are allowed -> possibility of multiple devices per user
         //Note that login Post Controller is provided automatically by Spring Security
         if (logout != null) {
             model.addAttribute("message", "Logout was successfull");

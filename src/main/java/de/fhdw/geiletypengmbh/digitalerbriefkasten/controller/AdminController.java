@@ -30,6 +30,8 @@ import java.util.List;
 @Controller
 public class AdminController {
 
+    public static final String ERRORS = "errors";
+    public static final String SUCCESS = "success";
     public static final String REDIRECT_ADMIN = "redirect:/admin";
     @Autowired
     UserValidator userValidator;
@@ -85,12 +87,12 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute(ERRORS, errors);
             return REDIRECT_ADMIN;
         }
 
         userService.save(userForm);
-        redirectAttributes.addFlashAttribute("success", "Spezialist erfolgreich angelegt.");
+        redirectAttributes.addFlashAttribute(SUCCESS, "Spezialist erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
@@ -101,10 +103,10 @@ public class AdminController {
         try {
             productLineService.save(productLine);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errors", e.getMessage());
+            redirectAttributes.addFlashAttribute(ERRORS, e.getMessage());
             return REDIRECT_ADMIN;
         }
-        redirectAttributes.addFlashAttribute("success", "Produktlinie erfolgreich angelegt.");
+        redirectAttributes.addFlashAttribute(SUCCESS, "Produktlinie erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
@@ -116,12 +118,12 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute(ERRORS, errors);
             return REDIRECT_ADMIN;
         }
 
         fieldService.save(field);
-        redirectAttributes.addFlashAttribute("success", "Handlungsfeld erfolgreich angelegt.");
+        redirectAttributes.addFlashAttribute(SUCCESS, "Handlungsfeld erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
@@ -133,12 +135,12 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute(ERRORS, errors);
             return REDIRECT_ADMIN;
         }
 
         targetGroupService.save(targetGroup);
-        redirectAttributes.addFlashAttribute("success", "Zielgruppe erfolgreich angelegt.");
+        redirectAttributes.addFlashAttribute(SUCCESS, "Zielgruppe erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 
@@ -150,12 +152,12 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
-            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute(ERRORS, errors);
             return REDIRECT_ADMIN;
         }
 
         distributionChannelService.save(distributionChannel);
-        redirectAttributes.addFlashAttribute("success", "Vertriebskanal erfolgreich angelegt.");
+        redirectAttributes.addFlashAttribute(SUCCESS, "Vertriebskanal erfolgreich angelegt.");
         return REDIRECT_ADMIN;
     }
 }

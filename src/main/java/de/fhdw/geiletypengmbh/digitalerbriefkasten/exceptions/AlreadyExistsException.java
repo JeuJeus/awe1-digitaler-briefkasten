@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Titel existiert bereits")
 public class AlreadyExistsException extends RuntimeException implements UIForwardable {
 
+    public static final String reason = "Titel existiert bereits";
+
     public AlreadyExistsException() {
-        super();
+        super(reason);
     }
 
     public AlreadyExistsException(final String message, final Throwable cause) {

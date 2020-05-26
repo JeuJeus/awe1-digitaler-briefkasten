@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Nicht berechtigt")
 public class NotAuthorizedException extends RuntimeException implements UIForwardable {
 
+    public static final String reason = "Nicht berechtigt";
+
     public NotAuthorizedException() {
-        super();
+        super(reason);
     }
 
     public NotAuthorizedException(final String message, final Throwable cause) {

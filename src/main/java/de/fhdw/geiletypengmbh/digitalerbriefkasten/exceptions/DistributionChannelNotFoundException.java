@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechender Vertriebskanal gefunden")
 public class DistributionChannelNotFoundException extends RuntimeException implements UIForwardable {
 
-    public DistributionChannelNotFoundException() {
+    public static final String reason = "Kein entsprechender Vertriebskanal gefunden";
 
-    }
+    public DistributionChannelNotFoundException() { super(reason);}
 
     public DistributionChannelNotFoundException(final String message, final Throwable cause) {
         super(message, cause);

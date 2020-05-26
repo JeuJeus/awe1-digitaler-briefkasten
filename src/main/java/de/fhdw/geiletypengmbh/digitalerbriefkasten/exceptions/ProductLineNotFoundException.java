@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Keine entsprechende Produktsparte gefunden")
 public class ProductLineNotFoundException extends RuntimeException implements UIForwardable {
 
+    public static final String reason = "Keine entsprechende Produktsparte gefunden";
+
     public ProductLineNotFoundException() {
-        super();
+        super(reason);
     }
 
     public ProductLineNotFoundException(final String message, final Throwable cause) {

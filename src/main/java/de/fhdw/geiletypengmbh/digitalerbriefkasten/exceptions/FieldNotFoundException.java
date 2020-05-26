@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Kein entsprechendes Handlungsfeld gefunden")
 public class FieldNotFoundException extends RuntimeException implements UIForwardable {
 
+    public static final String reason = "Kein entsprechendes Handlungsfeld gefunden";
+
     public FieldNotFoundException() {
-        super();
+        super(reason);
     }
 
     public FieldNotFoundException(final String message, final Throwable cause) {

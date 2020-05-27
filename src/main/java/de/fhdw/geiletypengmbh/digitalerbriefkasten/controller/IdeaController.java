@@ -66,8 +66,9 @@ public class IdeaController {
 
     //Autor: PR
     @PostMapping("/deleteIdea/{id}")
-    public void deleteByUI(@PathVariable Long id, HttpServletRequest request) {
+    public String deleteByUI(@PathVariable Long id, HttpServletRequest request) {
         ideaService.delete(id, request);
+        return REDIRECT_IDEAS;
     }
 }
 

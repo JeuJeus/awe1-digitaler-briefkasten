@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{../css/select2.min.css}" type="text/css"/>
 </head>
 
+<!--TODO SOMETHING WITH THIS LINE IS BROKEN -> PRODUCES '{' ERROR IN WEB CONSOLE. PLEASE EVALUATE AND FIX ME-->
 <body th:onload="${distributionChannels == null}? 'ensureTableContent()'; ${targetGroups == null}? 'ensureTableContent()'">
 <div th:replace="pageParts/navbar :: navbar"></div>
 

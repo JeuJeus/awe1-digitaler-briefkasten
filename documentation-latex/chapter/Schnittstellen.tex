@@ -40,15 +40,17 @@ Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Fo
     \item HTTP Methode: POST
     \subitem Relativer Pfad: /api/ideas/
     \subitem Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
-    \subitem Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
-    \subitem Beispielantwort: todo
+    \subitem Bei Erfolg
+    \subsubitem HTTP-Status 201 im HTTP-Header, sowie die erstellte Idee als Json im HTTP-Body
+    \subitem Bei Fehler
+    \subsubitem Fehlerrückmeldung
+    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: DELETE
     \subitem Relativer Pfad: /api/ideas/{id}
     \subitem Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
-    \subitem Beispielantwort: todo
 \end{itemize}
 
 \begin{itemize}
@@ -56,7 +58,6 @@ Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Fo
     \subitem Relativer Pfad: /api/ideas/{id}
     \subitem Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
     \subitem Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
-    \subitem Beispielantwort: todo
 \end{itemize}
 
 \begin{itemize}

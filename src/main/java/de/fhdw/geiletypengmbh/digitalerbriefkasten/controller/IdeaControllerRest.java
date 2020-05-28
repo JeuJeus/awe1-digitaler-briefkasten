@@ -61,11 +61,14 @@ public class IdeaControllerRest {
         return ideaService.findById(id);
     }
 
+
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, HttpServletRequest request) {
         ideaService.delete(id, request);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public Idea updateIdea(@RequestBody Idea idea, @PathVariable Long id) {
         return ideaService.updateIdea(idea, id);

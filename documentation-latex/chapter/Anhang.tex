@@ -341,3 +341,181 @@ Die im folgenden dargestellten GUI Bestandteile stellen die wichtigsten Teile de
     \end{tabularx}
 \end{center}
 
+\pagebreak
+\clearpage
+\anhang{Schnittstellen}
+\label{Anhang_Schnittstellen}
+\subanhang{Antwort /api/ideas/}
+\label{Anhang_Schnittstellen_1}
+\begin{verbatim}
+[
+    {
+        "id": 145,
+        "title": "Nachmieter für Häuschen in Detmold gesucht!",
+        "description": "Och joa ich habe da 'ne Idee",
+        "creator": {
+        "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.
+        persistance.model.account.User",
+        "id": 1,
+        "username": "API_USER",
+        "roles": [
+            {
+                "name": "API_USER"
+            }
+        ],
+        "lastName": "USER",
+        "firstName": "API",
+        "creationDate": "2020-05-24"
+    },
+    "creationDate": "2020-05-27",
+    "status": "NOT_SUBMITTED",
+    "productLine": {
+        "id": 2,
+        "title": "INTERNAL",
+        "specialists": []
+    },
+    "advantages": [
+        {
+            "id": 146,
+            "description": "Nur"
+        },
+        {
+            "id": 147,
+            "description": "Ein"
+        },
+        {
+            "id": 148,
+            "description": "Vorteil"
+        }
+    ],
+    "specialist": null,
+    "field": {
+        "id": 21,
+        "title": "Kostensenkung"
+    }
+    },
+    {
+        "id": 149,
+        "title": "[Reserviert] Nachmieter für Häuschen in Detmold gesucht!",
+    "description": "Hmmm.. Naja irgendwas wird es schon werden.",
+    "creator": {
+        "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.
+        persistance.model.account.User",
+        "id": 1,
+        "username": "API_USER",
+        "roles": [
+            {
+                "name": "API_USER"
+            }
+        ],
+        "lastName": "USER",
+        "firstName": "API",
+        "creationDate": "2020-05-24"
+    },
+    "creationDate": "2020-05-27",
+    "status": "NOT_SUBMITTED",
+    "productLine": {
+        "id": 3,
+        "title": "KFZ",
+        "specialists": []
+    },
+    "advantages": [
+        {
+            "id": 150,
+            "description": ""
+        },
+        {
+            "id": 151,
+            "description": ""
+        },
+        {
+            "id": 152,
+            "description": ""
+        }
+    ],
+    "specialist": null,
+    "targetGroups": [
+        {
+            "id": 17,
+            "title": "Singles"
+        }
+    ],
+    "distributionChannels": [
+        {
+            "id": 14,
+            "title": "Kooperation mit Kreditinstituten"
+        }
+    ],
+    "existsComparable": true
+    }
+]
+\end{verbatim}
+
+\subanhang{Antwort /api/ideas/{}}
+\label{Anhang_Schnittstellen_2}
+\begin{verbatim}
+{
+    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea",
+    "id": 149,
+    "title": "[Reserviert] Nachmieter für Häuschen in Detmold gesucht!",
+"description": "Hmmm.. Naja irgendwas wird es schon werden.",
+"creator": {
+    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User",
+    "id": 1,
+    "username": "API_USER",
+    "roles": [
+        {
+            "name": "API_USER"
+        }
+    ],
+    "lastName": "USER",
+    "firstName": "API",
+    "creationDate": "2020-05-24"
+},
+"creationDate": "2020-05-27",
+"status": "NOT_SUBMITTED",
+"productLine": {
+    "id": 3,
+    "title": "KFZ",
+    "specialists": [
+        {
+            "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist",
+            "id": 153,
+            "username": "SpeziusMaximus_KFZ",
+            "roles": [
+            {
+                "name": "SPECIALIST"
+            }
+        ],
+        "lastName": "Maximus",
+        "firstName": "Spezius",
+        "creationDate": "2020-05-27"
+        }
+    ]
+},
+"advantages": [],
+"specialist": null,
+"targetGroups": [
+    {
+        "id": 17,
+        "title": "Singles"
+    }
+],
+"distributionChannels": [
+    {
+        "id": 12,
+        "title": "Stationärer Vertrieb"
+    },
+    {
+        "id": 14,
+        "title": "Kooperation mit Kreditinstituten"
+    }
+],
+"existsComparable": true
+}
+\end{verbatim}
+
+
+
+
+

@@ -117,6 +117,12 @@ public class IdeaService {
         }
     }
 
+    public Idea clearIdAndSave(Idea idea) {
+        // This prevents from updating an existing idea when id is given from client
+        idea.setId(0);
+        return save(idea);
+    }
+
     //Autor: PR
     public void delete(Long id, HttpServletRequest request) {
         Idea toDelete = this.findById(id);

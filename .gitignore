@@ -57,3 +57,4 @@ build/
 
 /log/logfile.**.gz
 /log/logfile
+/texput.log

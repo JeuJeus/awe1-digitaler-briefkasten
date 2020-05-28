@@ -3,8 +3,8 @@ package de.fhdw.geiletypengmbh.digitalerbriefkasten.controller;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.exceptions.InternalProductLineNotExistingException;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.InternalIdea;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea;
-import de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.StatusDecision;
 import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.IdeaService;
+import de.fhdw.geiletypengmbh.digitalerbriefkasten.service.ideas.StatusDecision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -66,8 +66,9 @@ public class IdeaController {
 
     //Autor: PR
     @PostMapping("/deleteIdea/{id}")
-    public void deleteByUI(@PathVariable Long id, HttpServletRequest request) {
+    public String deleteByUI(@PathVariable Long id, HttpServletRequest request) {
         ideaService.delete(id, request);
+        return REDIRECT_IDEAS;
     }
 }
 

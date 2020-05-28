@@ -46,6 +46,8 @@ public class IdeaControllerRest {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
+        // This prevents from updating an existing idea when id is given from client
+        idea.setId(0);
         return ideaService.save(idea);
     }
 

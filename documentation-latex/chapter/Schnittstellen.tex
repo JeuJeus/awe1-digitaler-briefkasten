@@ -11,7 +11,7 @@ Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Fo
 \begin{itemize}
     \item HTTP Methode: GET
     \item Relativer Pfad: /api/ideas/
-    \item Antwort: Array aus Ideen (Proukt-/ Interne Ideen).
+    \item Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen) beinhaltet.
     \item Beispielantwort:
     \begin{verbatim}
     [
@@ -116,8 +116,43 @@ Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Fo
         }
     ]
     \end{verbatim}
+\end{itemize}
 
+\begin{itemize}
+    \item HTTP Methode: GET
+    \item Relativer Pfad: /api/ideas/title/{ideaTitle}
+    \item Antwort: Array, das Ideen (Proukt-/ Interne Ideen), nach dem Titel gefiltert, beinhaltet.
+    \item Beispielantwort: siehe /api/ideas/
+\end{itemize}
 
+\begin{itemize}
+    \item HTTP Methode: GET
+    \item Relativer Pfad: /api/ideas/submitted
+    \item Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen), die veröffentlicht sind, beinhaltet.
+    \item Beispielantwort: siehe /api/ideas/
+\end{itemize}
+
+\begin{itemize}
+    \item HTTP Methode: POST
+    \item Relativer Pfad: /api/ideas/
+    \item Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
+    \item Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
+    \item Beispielantwort: todo
+\end{itemize}
+
+\begin{itemize}
+    \item HTTP Methode: DELETE
+    \item Relativer Pfad: /api/ideas/{id}
+    \item Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
+    \item Beispielantwort: todo
+\end{itemize}
+
+\begin{itemize}
+    \item HTTP Methode: PUT
+    \item Relativer Pfad: /api/ideas/{id}
+    \item Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
+    \item Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
+    \item Beispielantwort: todo
 \end{itemize}
 
 %

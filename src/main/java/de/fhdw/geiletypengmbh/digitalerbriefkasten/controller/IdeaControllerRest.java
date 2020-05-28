@@ -43,7 +43,7 @@ public class IdeaControllerRest {
         return ideaService.findByTitle(ideaTitle);
     }
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Idea create(@RequestBody Idea idea) {
         return ideaService.save(idea);
@@ -70,6 +70,7 @@ public class IdeaControllerRest {
     }
 
 
+    // Autor: PR
     // Overwrites global Exceptionhandler
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e, HttpServletRequest request) throws Exception {
@@ -81,6 +82,7 @@ public class IdeaControllerRest {
         }
     }
 
+    // Autor: PR
     private ResponseEntity<String> error(Exception e, HttpServletRequest request) {
         ResponseStatus responseStatus = e.getClass().getAnnotation(ResponseStatus.class);
         ObjectMapper mapper = new ObjectMapper();

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class UIExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler({Exception.class})

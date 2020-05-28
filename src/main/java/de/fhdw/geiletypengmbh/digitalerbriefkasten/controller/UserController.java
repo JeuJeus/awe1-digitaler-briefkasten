@@ -65,7 +65,7 @@ public class UserController {
             ArrayList<String> errors = new ArrayList<>();
             bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/account/registration";
+            return "redirect:/registration";
         }
 
         userService.save(userForm);

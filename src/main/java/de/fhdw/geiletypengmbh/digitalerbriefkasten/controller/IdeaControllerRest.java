@@ -26,13 +26,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/ideas")
-@PreAuthorize("hasRole('ROLE_API_USER')")
 public class IdeaControllerRest {
 
     @Autowired
     private IdeaService ideaService;
 
-    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_API_USER')")
     @GetMapping
     public Iterable<Idea> findAll() {
         return ideaService.findAll();
@@ -61,12 +60,14 @@ public class IdeaControllerRest {
 
 
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_API_USER')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, HttpServletRequest request) {
         ideaService.delete(id, request);
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_API_USER')")
     @PutMapping("/{id}")
     public Idea updateIdea(@RequestBody Idea idea, @PathVariable Long id) {
         return ideaService.updateIdea(idea, id);

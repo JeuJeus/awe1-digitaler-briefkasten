@@ -191,11 +191,11 @@ public class IdeaService {
         List<Idea> allIdeas = findAll();
 
         Predicate<Idea> ideaIsNotSubmitted = idea -> idea.getStatus().equals(Status.NOT_SUBMITTED);
-        Predicate<Idea> ideaIsNotPublic = idea -> idea.getStatus().equals(Status.IDEA_STORAGE);
+//        Predicate<Idea> ideaIsNotPublic = idea -> idea.getStatus().equals(Status.IDEA_STORAGE);
 
         return allIdeas.stream()
                 .filter(Predicate.not(ideaIsNotSubmitted))
-                .filter(Predicate.not(ideaIsNotPublic))
+//                .filter(Predicate.not(ideaIsNotPublic))
                 .collect(Collectors.toList());
     }
 

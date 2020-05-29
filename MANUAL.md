@@ -1,20 +1,19 @@
 # Anleitung
 
 ## Kompilieren und Starten des Programmes
-Das Programm kann mit Hilfe des Maven Wrappers kompiliert werden:
-- unter Linux/ Mac OS Systemen mit:
-    ```chmod +x mvnw & ./mvnw clean compile package```
-- unter Windows mit: 
-    ```.\mvnw.cmd clean compile package  ```
+- Wenn bereits eine JAR vorhanden ist, kann direkt zu Punkt 2 gegangen werden.
 
-Danach kann die Zieldatei aus dem Projekt Root ausgeführt werden.
-- ```java -jar target/digitaler-briefkasten-1.0.0-FINAL.jar``` (Die Versionsnummer kann abweichen!)
+1. Das Programm kann mit Hilfe des Maven Wrappers kompiliert werden:
+    - unter Linux/ Mac OS Systemen mit:
+        ```chmod +x mvnw & ./mvnw clean compile package```
+    - unter Windows mit: 
+        ```.\mvnw.cmd clean compile package  ```
 
-Alternativ lässt sich das Programm auch direkt starten:
-- ```./mvnw spring-boot:run ``` (respektive die Windows Notation)
+2. Danach kann die Zieldatei aus dem Projekt Root ausgeführt werden.
+    - ```java -jar target/digitaler-briefkasten-1.0.0-FINAL.jar``` (Die Versionsnummer kann abweichen!)
 
-Nach dem erfolgreichen Start ist die Oberfläche unter :
-````http://localhost:8080```` erreichbar.
+3. Nach dem erfolgreichen Start ist die Oberfläche unter :
+    ````http://localhost:8080```` erreichbar.
 
 ## Test Zugangsdaten
 Grundsätzlich exisiteren drei verschiedene Arten von Accounts:

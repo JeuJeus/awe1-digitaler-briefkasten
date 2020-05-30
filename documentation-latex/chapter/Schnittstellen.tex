@@ -1,61 +1,62 @@
-\usepackage{cleveref}
-
 %!TEX root = ../Thesis.tex
 %! Author = PR
 %! Date = 27.05.2020
 
 
-\section{Schnittstellen}
+\section{Schnittstellen \textcolor{blue}{[Philipp Röring]}}
 
-Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Format. Die Schnittstelle stellt folgende Services bereit:
+Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Format.
+
+\subsection{Schnittstellenbeschreibung REST-API}
+Die Schnittstelle stellt folgende Services bereit:
 \begin{itemize}
     \item HTTP Methode: GET
-    \subitem Relativer Pfad: /api/ideas/
+    \subitem Relativer Pfad: \textit{/api/ideas/}
     \subitem Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen) beinhaltet.
-    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_1}
+    \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen1}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: GET
-    \subitem Relativer Pfad: /api/ideas/{id}
+    \subitem Relativer Pfad: \textit{/api/ideas/\{id\}}
     \subitem Antwort: Idee (Proukt-/ Interne Idee) in JSON-Format
-    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_2}
+    \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: GET
-    \subitem Relativer Pfad: /api/ideas/title/{title}
+    \subitem Relativer Pfad: \textit{/api/ideas/title/\{title\}}
     \subitem Antwort: Idee (Proukt-/ Interne Idee) in JSON-Format
-    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_2}
+    \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: GET
-    \subitem Relativer Pfad: /api/ideas/submitted
+    \subitem Relativer Pfad: \textit{/api/ideas/submitted}
     \subitem Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen), die veröffentlicht sind, beinhaltet.
-    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_1}
+    \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen1}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: POST
-    \subitem Relativer Pfad: /api/ideas/
+    \subitem Relativer Pfad: \textit{/api/ideas/}
     \subitem Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
     \subitem Bei Erfolg
     \subsubitem HTTP-Status 201 im HTTP-Header, sowie die erstellte Idee als Json im HTTP-Body
     \subitem Bei Fehler
     \subsubitem Fehlerrückmeldung
-    \subitem Beispielantwort: siehe Anhang \cref{Anhang_Schnittstellen_2}
+    \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: DELETE
-    \subitem Relativer Pfad: /api/ideas/{id}
+    \subitem Relativer Pfad: \textit{/api/ideas/\{id\}}
     \subitem Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
 \end{itemize}
 
 \begin{itemize}
     \item HTTP Methode: PUT
-    \subitem Relativer Pfad: /api/ideas/{id}
+    \subitem Relativer Pfad: \textit{/api/ideas/\{id\}}
     \subitem Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
     \subitem Antwort: HTTP-Status 200 bei Erfolg, ansonsten Fehlerrückmeldung
 \end{itemize}
@@ -72,5 +73,19 @@ Die Anwendung ist über eine REST-API erreichbar. Alle Antworten sind im JSON-Fo
         "path": "/api/ideas/111"
     }
     \end{verbatim}
-    \subitem Der Status der Antwort entspricht dem Status des HTTP-Header der Anwort.
+    \subitem Der Status der Antwort entspricht dem Status des HTTP-Header der Antwort.
 \end{itemize}
+
+\subsection{Login}
+Um die GET- \textit{/api/ideas/} sowie die POST, DELETE und PUT Aufrufe der API nutzen zu können, muss sich mit einem Benutzer der Rolle \textit{API\_USER} angemeldet werden.
+Dies wird hier nicht genauer spezifiert, da es keine Anforderung war.
+Die Funktionalität wurde aber bereits in der Basis für zuhünftige Erweiterungen hinzugefügt und kann mit einem REST-Client getestet werden.
+Ein \textit{API\_USER} kann mit Hilfe des Skripts HelperScriptNoTests erstellt werden.
+Die restlichen GET-Methoden können ohne Authentifizierung aufgerufen werden. Diese entsprechen den Ideen, die auch in der Benutzeroberfläche ohne Anmeldung angesehen werden können.
+
+\subsection{Webschnittstelle}
+Die restlichen Schnittstellen, die von der Benutzeroberfläche verwendet werden verwenden das Format \textit{application/x-www-form-urlencoded}.
+Jenes Format ermöglicht die native Verwendung von HTML-Forms, ohne die Formulardaten per JavaScript umformen zu müssen.
+Um diese Aufrufe testen zu können, kann auf die Entwickleroptionen eines Webbrowsers oder ein REST-Client verwendet werden.
+Dazu muss in den HTTP-Header des Requests der Cookie \textit{JSESSIONID} und das \textit{X-CSRF-TOKEN} eingefügt werden.
+Diese können dem Browser in den Entwickleroptionen nach einem Login entnommen werden.

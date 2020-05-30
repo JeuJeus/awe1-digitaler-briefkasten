@@ -3,21 +3,21 @@
 %! Date = 27.05.2020
 
 
-\section{Projekt-Architektur}
+\section{Projekt-Architektur \textcolor{blue}{[Philipp Röring]}}
 
 In \cref{fig:root-ordner} ist die grobe Ordnerstruktur des Quellcodes dargestellt.
 
-\begin{figure}[hbt]
+\begin{figure}[htb]
     \centering
     \begin{minipage}[t]{1\textwidth}
         \caption{Grobe Ordnerstruktur}
-        \includegraphics[width=1\textwidth]{img/Projekt-root-ordner.png}\\
+        \includegraphics[width=0.5\textwidth]{img/Projekt-root-ordner.png}\\
         \source{Eigene Darstellung}
         \label{fig:root-ordner}
     \end{minipage}
 \end{figure}
 
-In dem Projektordner befinden sich der Unterordner src/main/java/de/fhdw/geiletypengmbh/digitalerbriefkasten. In diesem
+In dem Projektordner befinden sich der Unterordner \textit{src/main/java/de/fhdw/geiletypengmbh/digitalerbriefkasten}. In diesem
 befindet sich der erstellte Quelltext. Die Unterordner (Packages) dessen werden folgend grob erklärt.
 \begin{itemize}
     \item config
@@ -42,12 +42,12 @@ befindet sich der erstellte Quelltext. Die Unterordner (Packages) dessen werden 
     \item validator
     \subitem Hierin liegt die Validationsklasse für die Benutzerstellung. Sie enthält Prüfungen, wie z.B. ob das Passwort lang genug ist.
 \end{itemize}
-Darüber hinaus befindet sich in dem Package noch die Hauptklasse der Anwendung DigitalerBriefkastenApplication, durch welche sie gestartet wird.
+Darüber hinaus befindet sich in dem Package noch die Hauptklasse der Anwendung \textit{DigitalerBriefkastenApplication}, durch welche sie gestartet wird.
 \newline
-Neben src/main/java existiert auch der Ordner src/main/resources. In diesem sind die Komponenten für die Weboberfläche der Anwendung enhalten.
+Neben \textit{src/main/java} existiert auch der Ordner \textit{src/main/resources}. In diesem sind die Komponenten für die Weboberfläche der Anwendung enhalten.
 In \cref{fig:resources-ordner} wird die Struktur von resources dargestellt.
 
-\begin{figure}[H]
+\begin{figure}[htb]
     \centering
     \begin{minipage}[H]{1\textwidth}
         \caption{Grobe Ordnerstruktur}
@@ -58,5 +58,27 @@ In \cref{fig:resources-ordner} wird die Struktur von resources dargestellt.
 \end{figure}
 
 Der Unterordner static beinhaltet css-, Bild- und JavaScript-Dateien. In Templates befinden sich die HTML Dateien.
+
+\subsection{Klassendiagramm}
+In \cref{fig:advantage-klassendiagramm} wird die Architektur beispielhaft erklärt:
+
+\begin{figure}[htb]
+    \centering
+    \begin{minipage}[H]{1\textwidth}
+        \caption{Klassendiagramm Advantage}
+        \includegraphics[width=0.75\textwidth]{img/advantage-klassendiagramm.png}\\
+        \source{Eigene Darstellung}
+        \label{fig:advantage-klassendiagramm}
+    \end{minipage}
+\end{figure}
+
+Die Klasse \textit{Advantage} stellt die Entität dar, welche die gesamte Anwendung durchläuft.
+Das \textit{AdvantageRepository} ist eine Erweiterung des \textit{JPARepositories} und dient somit zur Interaktion mit der Datenbank und Advantage-Objekten.
+Darauf aufbauende Logik wird in dem \textit{AdvantageService} implementiert. Dieser wirft z.B. eine \textit{AdvantageNotFoundException} in der
+Methode \textit{findById()}, wenn keine Advantage in der Datenbank gefunden wird.
+\\
+Auf ein Klassendiagramm der gesamten Anwendung wurde verzichtet, da es zu unüberischtlich ist.
+In Anhang \ref{Anhang:Klassendiagramme} sind Klassendiagramme des Models zu finden, die dem ER-Diagramm entsprechen.
+
 
 

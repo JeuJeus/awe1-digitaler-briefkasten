@@ -13,8 +13,8 @@ Authentifizierte Nutzer werden anhand ihrer Rolle unterschieden, welche im Backe
 Der durch Spring Security erstellte JSession-Cookie wird beim ausloggen invalidiert und gelöscht.\\
 Darüber hinaus ist die Anwendung so konfiguriert, dass ein automatischer Session Timeout nach 15 Minuten erfolgt, auch hierbei wird die Session invalidiert.\\
 Außerdem werden alle Abfragen durch das Backend geprüft. An relevanten Stellen wird in den jeweiligen Controllern bereits vor der Bearbeitung des Requests die Rolle des aktuellen Users überprüft. Damit wird sichergestellt, dass Funktionen die insbesondere dem Administrator oder Spezialisten vorbehalten sind, nur durch diese durchgeführt werden können. \\
-Außerdem werden übertragene Informationen in den bearbeitenden Services um die Berechtigung diese anzufragen, zu verändern oder zu speichern geprüft.\\
-Durch diese Kontrolle an mehreren Stellen erreichen wir es zu kontrollieren und sicherzustellen welche Art von Requests ( un-, authentifiziert), welcher User, welcher Rolle, welche Daten wie verwenden (lesen, bearbeiten, schreiben) dürfen.\\
+Des weiteren werden übertragene Informationen in den bearbeitenden Services um die Berechtigung diese anzufragen, zu verändern oder zu speichern geprüft.\\
+Durch diese Kontrolle an mehreren Stellen erreichen wir es sicherzustellen welche Art von Requests ( un-, authentifiziert), welcher User mit welcher Rolle auf welche Daten wie stattfinden (lesen, bearbeiten, schreiben) dürfen.\\
 
 \subsection{Passive Security Bestandteile}
 Zu den passiven Bestandteilen gehört das Loggen von Anmeldeversuchen, Anmeldung, Registrierung, und Abmeldung vom System.\footnote{Das Loggen von Session Timeouts konnte aufgrund von Komplikationen zum Abgabezeitpunkt nicht fertiggestellt werden.}

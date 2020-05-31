@@ -1,6 +1,27 @@
 %!TEX root = ../Thesis.tex
 
 
+\section{Testklassen}
+
+Als Testframework haben wir JUnit verwendet. Wir haben dedizierte Testklassen, in denen wir große Teile der geschriebenen Programmlogik mit Tests abdecken können. Wie in \cref{Arbeitskonzept} bereits geschrieben wurde, können wir durch die Einbindung der GitHub CI eine Sicherstellung der Funktionalität erreichen.
+Im Folgenden werden die konkreten Testklassen und die Abdeckung erläutert. Die Testabdeckung der Kern-Anwendung ist in \cref{fig:coverage} dargestellt.
+
+\begin{figure}[hbt]
+    \centering
+    \begin{minipage}[t]{1\textwidth}
+        \caption{Testanwendung der Kern-Anwendung}
+        \includegraphics[width=1\textwidth]{img/coverage.png}\\
+        \source{Eigene Darstellung}
+        \label{fig:coverage}
+    \end{minipage}
+\end{figure}
+
+Insgesamt erreichen wir eine Testabdeckung von 78\%. Von den Tests wird nahezu die gesamte Funktionalität des Programms abgedeckt. Elemente, die nicht getestet werden, sind im wesentlichen die Exceptions und Teile der Controller, in denen beispielsweise das funktionell identische Anlegen von Produktsparten, Zielgruppen, Vertriebskanälen und Handlungsfeldern nur einmal stellvertretend getestet werden.
+
+Die Tests sind auf zwei Klassen aufgeteilt, \texttt{IdeaControllerIntegTest} und \texttt{UserControllerIntegTest}. Wir trennen damit die Integrationstests von Ideen- und Benutzerfunktionalität voneinander. In beiden Testklassen werden zunächst mit Helfermethoden einige Objekte und Variablen geschaffen, die von den Tests genutzt werden.
+Die tatsächlichen Testmethoden sind jeweils sprechend beschrieben und benutzen größtenteils die vom Spring-Framework bereitgestellten Mock-Funktionalitäten um gemockte Anfragen zu senden und die Antworten auszuwerten. Aufgrund des logisch zusammenhängenden Aufbaus der Testklassen und -Methoden wird auf eine detaillierte Erläuterung verzichtet.
+
+
 \section{Test \textcolor{blue}{[Julius Figge]}}
 
 \subsection{manuelle-\enquote{Klicktests}}

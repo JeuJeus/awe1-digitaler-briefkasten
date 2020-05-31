@@ -16,10 +16,11 @@ Im Folgenden werden die konkreten Testklassen und die Abdeckung erläutert. Die 
     \end{minipage}
 \end{figure}
 
-Insgesamt erreichen wir eine Testabdeckung von 78\%. Von den Tests wird nahezu die gesamte Funktionalität des Programms abgedeckt. Elemente, die nicht getestet werden, sind im wesentlichen die Exceptions und Teile der Controller, in denen beispielsweise das funktionell identische Anlegen von Produktsparten, Zielgruppen, Vertriebskanälen und Handlungsfeldern nur einmal stellvertretend getestet werden.
+Insgesamt erreichen wir eine Testabdeckung von 78\%. Von den Tests wird nahezu die gesamte Funktionalität des Programms abgedeckt. Elemente, die nicht getestet werden, sind im wesentlichen die Exceptions und Teile der Controller, in denen beispielsweise das funktionell identische Anlegen von Produktsparten, Zielgruppen, Vertriebskanälen und Handlungsfeldern nur einmal stellvertretend getestet wird.
 
 Die Tests sind auf zwei Klassen aufgeteilt, \texttt{IdeaControllerIntegTest} und \texttt{UserControllerIntegTest}. Wir trennen damit die Integrationstests von Ideen- und Benutzerfunktionalität voneinander. In beiden Testklassen werden zunächst mit Helfermethoden einige Objekte und Variablen geschaffen, die von den Tests genutzt werden.
-Die tatsächlichen Testmethoden sind jeweils sprechend beschrieben und benutzen größtenteils die vom Spring-Framework bereitgestellten Mock-Funktionalitäten um gemockte Anfragen zu senden und die Antworten auszuwerten. Aufgrund des logisch zusammenhängenden Aufbaus der Testklassen und -Methoden wird auf eine detaillierte Erläuterung verzichtet.
+Die tatsächlichen Testmethoden sind jeweils sprechend benannt und benutzen größtenteils die vom Spring-Framework bereitgestellten MockMvc-Funktionalitäten um gemockte Anfragen zu senden und die Antworten auszuwerten. Die einzelnen Tests testen jeweils eine vollständige Funktionalität des Programms. Es kann mehrere Tests geben, die eine Funktionalität mit deren Abwandlungen testen.
+Aufgrund des logisch zusammenhängenden Aufbaus der Testklassen und -Methoden wird auf eine detaillierte Erläuterung verzichtet.
 
 
 \section{Test \textcolor{blue}{[Julius Figge]}}

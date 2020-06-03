@@ -3,5 +3,43 @@
 
 \section{Installation}
 \label{instal}
-%TODO JONATHAN ADD INSTALLATION
 
+\subsubsection*{Kompilieren und Starten des Programmes}
+\textit{Wenn bereits eine JAR vorhanden ist, kann direkt zu Punkt 2 gegangen werden.}
+\begin{enumerate}
+	\item{Das Programm kann mithilfe des Maven Wrappers kompiliert werden:}
+	\begin{enumerate}
+		\item{unter Linux / MacOS Systemen mit: \texttt{chmod +x mvnw \& ./mvnw clean compile compile package}}
+		\item{unter Windows mit: \texttt{.\\mvnw.cmd clean compile package}}
+	\end{enumerate}
+	\item{Danach kann die Zieldatei aus dem Projekt Root-Verzeichnis ausgeführt werden.}
+	\begin{enumerate}
+		\item{\texttt{java -jar target/digitaler-briefkasten-1.0.1-ABGABE.jar} (Die Versionsnummer kann abweichen!)}
+	\end{enumerate}
+	\item{Nach dem erfolgreichen Start ist die Oberfläche unter \texttt{http://localhost:8080} erreichbar.}
+\end{enumerate}
+
+\subsubsection*{Test-Zugangsdaten}
+Grundsätzlich existieren drei verschiedene Arten von Accounts:
+\begin{enumerate}
+	\item{Administrator}
+	\item{Spezialist}
+	\item{User}
+\end{enumerate}
+
+Zur Nutzung des Systems als User kann ein neuer User-Account angelegt werden.\\
+Ein Administrator-Account kann mithilfe der Methoden in der Klasse \texttt{HelperScriptsNoTests} angelegt werden. Die Zugangsdaten befinden sich unten.\\
+Ein Spezialisten-Account kann mithilfe der Methoden in der Klasse \texttt{HelperScriptsNoTests} angelegt werden. Alternativ lassen sich im Administrator-Interface Spezialisten-Accounts anlegen. Die Zugangsdaten befinden sich unten.
+
+\textbf{Administrator}
+\begin{enumerate}
+	\item{\textbf{Username:} admin}
+	\item{\textbf{Passwort:} hierKönnteIhreWerbungStehen}
+\end{enumerate}
+
+\textbf{Spezialist}
+\begin{enumerate}
+	\item{\textbf{Username:} SpeziusMaximus\textunderscore[Bezeichnung der jeweiligen Produktsparte]}
+	\item[]{Beispiel: SpeziusMaxismus\textunderscore{}INTERNAL}
+	\item{\textbf{Passwort:} boringProphet}
+\end{enumerate}

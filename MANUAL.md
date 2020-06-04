@@ -1,6 +1,8 @@
 # Anleitung
 
 ## Kompilieren und Starten des Programmes
+**Zur Ausführung des Programmes muss die Java JDK in Version 11 installiert sein.**
+
 - Wenn bereits eine JAR vorhanden ist, kann direkt zu Punkt 2 gegangen werden.
 
 1. Das Programm kann mit Hilfe des Maven Wrappers kompiliert werden:

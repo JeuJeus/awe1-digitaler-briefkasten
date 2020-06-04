@@ -345,7 +345,7 @@ Die im folgenden dargestellten GUI Bestandteile stellen die wichtigsten Teile de
 \subanhang{Antwort /api/ideas/}
 \label{Anhang:Schnittstellen1}
 %TODO ANNOTATE ME AS LISTING TO BE ADDED TO LISTING LISTING
-\begin{verbatim}
+\begin{lstlisting}[language=json, caption=Antwort /api/ideas/, label=list:schnittstellen1]
 [
     {
         "id": 145,
@@ -447,18 +447,20 @@ Die im folgenden dargestellten GUI Bestandteile stellen die wichtigsten Teile de
     "existsComparable": true
     }
 ]
-\end{verbatim}
+\end{lstlisting}
 
-\subanhang{Antwort /api/ideas/{}}
+\subanhang{Antwort /api/ideas/\{id\}}
 \label{Anhang:Schnittstellen2}
-\begin{verbatim}
+\begin{lstlisting}[language=json, caption=Antwort /api/ideas/\{id\}, label=list:schnittstellen2]
 {
-    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.ideas.ProductIdea",
+    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.
+    persistance.model.ideas.ProductIdea",
     "id": 149,
     "title": "[Reserviert] Nachmieter für Häuschen in Detmold gesucht!",
 "description": "Hmmm.. Naja irgendwas wird es schon werden.",
 "creator": {
-    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.User",
+    "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.
+    persistance.model.account.User",
     "id": 1,
     "username": "API_USER",
     "roles": [
@@ -477,7 +479,8 @@ Die im folgenden dargestellten GUI Bestandteile stellen die wichtigsten Teile de
     "title": "KFZ",
     "specialists": [
         {
-            "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.persistance.model.account.Specialist",
+            "type": "de.fhdw.geiletypengmbh.digitalerbriefkasten.
+            persistance.model.account.Specialist",
             "id": 153,
             "username": "SpeziusMaximus_KFZ",
             "roles": [
@@ -511,7 +514,7 @@ Die im folgenden dargestellten GUI Bestandteile stellen die wichtigsten Teile de
 ],
 "existsComparable": true
 }
-\end{verbatim}
+\end{lstlisting}
 \anhang{Klassendiagramme \textcolor{blue}{[Philipp Röring]}}
 \label{Anhang:Klassendiagramme}
 \subanhang{Model}

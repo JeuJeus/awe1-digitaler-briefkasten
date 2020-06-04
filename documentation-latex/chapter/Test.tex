@@ -1,7 +1,7 @@
 %!TEX root = ../Thesis.tex
+\section{Test}
 
-
-\section{Testklassen}
+\subsection{Testklassen \textcolor{blue}{[Jonathan Brockhausen]}}
 
 Als Testframework haben wir JUnit verwendet. Wir haben dedizierte Testklassen, in denen wir große Teile der geschriebenen Programmlogik mit Tests abdecken können. Wie in \cref{Arbeitskonzept} bereits geschrieben wurde, können wir durch die Einbindung der GitHub CI eine Sicherstellung der Funktionalität erreichen.
 Im Folgenden werden die konkreten Testklassen und die Abdeckung erläutert. Die Testabdeckung der Kern-Anwendung ist in \cref{fig:coverage} dargestellt.
@@ -22,16 +22,13 @@ Die Tests sind auf zwei Klassen aufgeteilt, \texttt{IdeaControllerIntegTest} und
 Die tatsächlichen Testmethoden sind jeweils sprechend benannt und benutzen größtenteils die vom Spring-Framework bereitgestellten MockMvc-Funktionalitäten um gemockte Anfragen zu senden und die Antworten auszuwerten. Die einzelnen Tests testen jeweils eine vollständige Funktionalität des Programms. Es kann mehrere Tests geben, die eine Funktionalität mit deren Abwandlungen testen.
 Aufgrund des logisch zusammenhängenden Aufbaus der Testklassen und -Methoden wird auf eine detaillierte Erläuterung verzichtet.
 
+\subsection{manuelle-\enquote{Klicktests} \textcolor{blue}{[Julius Figge]}}
 
-\section{Test \textcolor{blue}{[Julius Figge]}}
-
-\subsection{manuelle-\enquote{Klicktests}}
-
-Zur Überprüfung der \enquote{GUI} sollen manuelle Klicktests durchgeführt werden.
+Zur Überprüfung der GUI sollen manuelle Klicktests durchgeführt werden.
 Diese sollen dokumentiert werden um Fehler möglichst gezielt beheben zu können.\\
 
 \subsubsection*{Zu notierende Informationen}
-Zu den notierenden Informationen gehören zum einen die Programmrevision (Git Commit Hash, Datum) sowie der verwendete Branch. Darüber hinaus ist das genutzte Betriebssystem sowie der genutzte Browser (inklusive Build zu notieren).
+Für die Auswertung relevant sind zum einen die Programmrevision (Git Commit Hash, Datum) sowie der verwendete Branch. Darüber hinaus ist das genutzte Betriebssystem sowie der genutzte Browser (inklusive Build zu notieren).
 Bei Darstellungsfehlern ist es sinnvoll, zudem Screenshots zu hinterlegen sowie die Bildschirmauflösung zu notieren.
 Diese Informationen sammeln wir gezielt sehr detailliert, um Fehler besser eingrenzen zu können.
 

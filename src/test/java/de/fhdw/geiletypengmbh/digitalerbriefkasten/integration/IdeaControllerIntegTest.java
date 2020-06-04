@@ -57,7 +57,7 @@ public class IdeaControllerIntegTest {
         }
     };
     private static Boolean setupDone = false;
-    private static List<Advantage> advantages = new ArrayList<>();
+    private static final List<Advantage> advantages = new ArrayList<>();
     private static Long testFieldId;
     private static Long testDistributionChannelId;
     private static Long testTargetGroupId;

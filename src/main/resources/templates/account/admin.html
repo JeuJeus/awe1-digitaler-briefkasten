@@ -228,7 +228,7 @@
                             data-toggle="collapse">
                         Kontakt-Nachrichten ansehen
                     </button>
-                    <span  th:unless="${#lists.isEmpty(contactMessages)}" class="badge badge-danger" >
+                    <span class="badge badge-danger" th:unless="${#lists.isEmpty(contactMessages)}">
                         <span th:text="${#lists.size(contactMessages)}"></span>
                     </span>
                 </h5>

@@ -199,6 +199,7 @@ public class IdeaControllerIntegTest {
                     .addFilters(springSecurityFilterChain)
                     .build();
 
+            //testuser
             Role apiRole = new Role("API_USER");
             roleService.save(apiRole);
             //be aware of extremly rare condition where random seed of possibility 10^26 is equal in several cases. So username reocurres and breaks test. WTF jonathan
@@ -207,6 +208,7 @@ public class IdeaControllerIntegTest {
             testUser.setRoles(Collections.singleton(apiRole));
             userService.save(testUser);
 
+            //test entites
             testFieldId = fieldService.save(
                     new Field(randomAlphabetic(10))
             ).getId();
@@ -219,10 +221,12 @@ public class IdeaControllerIntegTest {
             testProductLineId = productLineService.save(
                     new ProductLine(randomAlphabetic(10))
             ).getId();
+            // test advantages
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
             advantages.add(new Advantage(randomAlphabetic(10)));
 
+            //test specialist
             tempPassword = randomAlphabetic(10);
             Specialist testSpecialist = new Specialist(TEST_SPECIALIST, tempPassword, tempPassword);
             testSpecialist.setProductLines(new ArrayList<ProductLine>() {
@@ -277,6 +281,7 @@ public class IdeaControllerIntegTest {
         int advSize = Math.max(internalIdea.getAdvantages().size(), persistedIdea.getAdvantages().size());
         Collections.sort(internalIdea.getAdvantages(), compareById);
         Collections.sort(persistedIdea.getAdvantages(), compareById);
+
         for (int i = 0; i < advSize; i++) {
             assertEquals(internalIdea.getAdvantages().get(i).getDescription(), persistedIdea.getAdvantages().get(i).getDescription());
         }
@@ -300,6 +305,7 @@ public class IdeaControllerIntegTest {
         int advSize = Math.max(productIdea.getAdvantages().size(), persistedIdea.getAdvantages().size());
         Collections.sort(productIdea.getAdvantages(), compareById);
         Collections.sort(persistedIdea.getAdvantages(), compareById);
+
         for (int i = 0; i < advSize; i++) {
             assertEquals(productIdea.getAdvantages().get(i).getDescription(), persistedIdea.getAdvantages().get(i).getDescription());
         }
@@ -340,6 +346,7 @@ public class IdeaControllerIntegTest {
         idea.setCreator(userService.findByUsername(TEST_SPECIALIST));
         idea.setSpecialist((Specialist) idea.getCreator());
         String ideaJson = parseIdeaToJson(idea);
+
         mockMvc.perform(
                 post(API_ROOT)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -531,10 +538,12 @@ public class IdeaControllerIntegTest {
             }
         });
         userService.save(specialist);
+
         InternalIdea idea = createRandomInternalIdea();
         idea.setProductLine(productLineService.findById(internalProductLineId));
         createIdeaAsUri(idea);
         Specialist internalSpecialist = ideaService.getSpecialistOfNewIdea(idea);
+
         assertEquals(internalSpecialist.getId(), specialist.getId());
     }
 
@@ -552,10 +561,12 @@ public class IdeaControllerIntegTest {
             }
         });
         userService.save(specialist);
+
         ProductIdea idea = createRandomProductIdea();
         idea.setProductLine(productLineService.findById(productLineId));
         createIdeaAsUri(idea);
         Specialist productSpecialist = ideaService.getSpecialistOfNewIdea(idea);
+
         assertEquals(productSpecialist.getId(), specialist.getId());
     }
 
@@ -593,8 +604,9 @@ public class IdeaControllerIntegTest {
         // New Idea for testing assignment
         ProductIdea idea = createRandomProductIdea();
         idea.setProductLine(productLineService.findById(productLineId));
-
         Specialist productSpecialist = ideaService.getSpecialistOfNewIdea(idea);
+
+        //specialists(1) has least ideas -> he should get assigned for new idea
         assertEquals(productSpecialist.getId(), specialists.get(1).getId());
     }
 }

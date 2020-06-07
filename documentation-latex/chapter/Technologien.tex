@@ -6,14 +6,14 @@
 
 Im Folgenden werden die im Projekt verwendeten Technologien aufgeführt.
 
-\subsection{Grundlagen}
+\subsection{Technologien}
 
 \subsubsection*{Java 11}
-Zum Ziele der größten Kompatibilität sowohl mit den weiteren Technologien haben wir uns für Version 11 des Java Development Kits als grundlegende Java-Version entschieden.
+Zum Ziele der größten Kompatibilität mit den weiteren Technologien haben wir uns für Version 11 des Java Development Kits als grundlegende Java-Version entschieden. Unter Java 11 können wir die ordnungsgemäße Funktionalität unserer Software garantieren, ein Update auf neuere Versionen kann zu Fehlern mit den Dependencies führen.
 \subsubsection*{Maven (Wrapper)}
-Um die notwendigen Dependencies des Projekts bereitzustellen nutzen wir Maven mit einem Wrapper. Maven erlaubt in der POM.XML-Datei die einfache und übersichtliche Verwaltung von Dependencies. Die wichtigsten Dependencies sind im nächsten Überabschnitt aufgeführt.
+Um die notwendigen Dependencies des Projekts bereitzustellen nutzen wir Maven mit einem Wrapper. Maven erlaubt in der POM.XML-Datei die einfache und übersichtliche Verwaltung von Dependencies. Die wichtigsten Dependencies sind im nächsten Überabschnitt aufgeführt. Der Wrapper erlaubt das problemlose Kompilieren des Projekts, ohne vorher manuell Dependecies zu installieren, sie werden beim Ausführen des Wrappers automatisch geladen.
 \subsubsection*{GitHub}
-GitHub ist die populärste und weitverbreiteste Plattform für Kollaboration auf Basis der Open-Source-Versionsverwaltung Git. Da wir auch alle drei mit der Plattform zumindest ansatzweise vertraut sind und die Integration in die verwendete IDE problemlos möglich ist, wird GitHub für das Projekt genutzt.
+GitHub ist die populärste und weitverbreiteste Plattform für Kollaboration auf Basis der Open-Source-Versionsverwaltung Git. Da alle drei Gruppenmitglieder mit der Plattform ansatzweise vertraut sind und die Integration in die verwendete IDE problemlos möglich ist, ist GitHub die ideale Plattform für das Projekt. Durch die GitHub CI-Tools wird die Funktionalität der Programmbestandteile automatisiert mit jedem Commit sichergestellt. Diese Funktion ist in \cref{Arbeitskonzepte} näher dargestellt.
 \subsubsection*{OpenProject, Teams, Telegram}
 Für das Projektmanagement wurde OpenProject genutzt, eine Open-Source webbasierte Projektmanagement~Suite. Auf OpenProject wird in \autoref{Arbeitsaufteilung} weiter eingegangen.
 Für die Kommunikation während des Projekts wurden Microsoft Teams für die Synchronisations-Calls und Telegram für Messaging genutzt.
@@ -21,9 +21,10 @@ Für die Kommunikation während des Projekts wurden Microsoft Teams für die Syn
 \subsection{Frameworks}
 %
 \subsubsection*{Springboot}
-Springboot wird genutzt um unseren Spring-basierten Code auf den Webserver zu bringen. Springboot ist ein in der Branche übliches Framework, um die Produktion von Enterprise-Web-Anwendungen zu vereinfachen. Die bereitgestellte Standardkonfiguration bietet eine gute Grundlage. Zusätzlich dazu wurden in den \glqq{}application.properties\grqq{} einige weitere Einstellungen vorgenommen, die beispielsweise den Port und die Adresse des Webservers angeben.
+Springboot wird genutzt um unseren Spring-basierten Code auf den Webserver zu bringen. Es ist ein in der Branche übliches Framework, um die Produktion von Enterprise-Web-Anwendungen zu vereinfachen. Die bereitgestellte Standardkonfiguration bietet eine gut auf die Bedürfnisse der Anwendung anpassbare Grundlage. Dazu wurden in den \glqq{}application.properties\grqq{} unter anderem die Konfiguration der Programmbezeichnung, Port und Datenbankanbindung vorgenommen.
 \subsubsection*{Thymeleaf}
-Kurzgesagt macht Thymeleaf HTML-Dateien intelligent. Das Framework erlaubt es uns, Informationen im Frontend sauber anzuzeigen und gleichzeitig sauber zu implementieren. Mithilfe von Thymeleaf vermeiden wir an einigen Stellen Konflikte oder Umwege. Weiterhin bietet Thymeleaf gute Integration mit Spring und dessen Security-Tools.
+Kurzgesagt macht Thymeleaf HTML-Dateien intelligent. Das Framework erlaubt es uns, Informationen im Frontend sauber anzuzeigen und gleichzeitig sauber zu implementieren. Mithilfe von Thymeleaf vermeiden wir an einigen Stellen Konflikte oder Umwege. Dadurch, dass Java-Objekte und -Logik direkt in die HTML-Dateien eingebunden werden können und Thymeleaf daraus sichere Frontend-Seiten rendert, fließen Front- und Backend zwar in der Programmierung dichter zusammen, sind jedoch im Betrieb sauber getrennt.
+Weiterhin bietet Thymeleaf gute Integration mit Spring und dessen Security-Tools.
 
 \subsection{Datenbank}
 h2 ist eine auf Java basierte SQL-Datenbank-Engine. Die Verwendung von h2 für die Java-Anwendung macht die Einbindung der Datenstruktur direkt in Java möglich und macht somit eine externe Datenbank überflüssig. Wir haben uns bewusst gegen eine Lösung wie MSSQL oder MySQL entschieden, da diese bei weitem nicht so spurlos in Java integrierbar sind. Besonders die Vermeidung von hardcodetem SQL wollten wir in unserer Anwendung vermeiden. Trotzdem lässt h2 normale Auswertungen und Anbindungen sowie das Absetzen von SQL-Statements zu. Damit sind externe Zugriffe auf die Datenbank trotzdem umsetzbar.

@@ -77,15 +77,15 @@ Die Schnittstelle stellt folgende Services bereit:
 \end{itemize}
 
 \subsection{Login}
-Um die GET- \textit{/api/ideas/} sowie die POST, DELETE und PUT Aufrufe der API nutzen zu können, muss sich mit einem Benutzer der Rolle \textit{API\_USER} angemeldet werden.
+Um die GET- \textit{/api/ideas/} sowie die POST-, DELETE- und PUT- Aufrufe der API nutzen zu können, muss sich mit einem Benutzer der Rolle \textit{API\_USER} angemeldet werden.
 Dies wird hier nicht genauer spezifiert, da es keine Anforderung war.
-Die Funktionalität wurde aber bereits in der Basis für zuhünftige Erweiterungen hinzugefügt und kann mit einem REST-Client getestet werden.
+Die Funktionalität wurde aber bereits in der Basis für zukünftige Erweiterungen hinzugefügt und kann mit einem REST-Client getestet werden.
 Ein \textit{API\_USER} kann mit Hilfe des Skripts HelperScriptNoTests erstellt werden.
 Die restlichen GET-Methoden können ohne Authentifizierung aufgerufen werden. Diese entsprechen den Ideen, die auch in der Benutzeroberfläche ohne Anmeldung angesehen werden können.
 
 \subsection{Webschnittstelle}
-Die restlichen Schnittstellen, die von der Benutzeroberfläche verwendet werden verwenden das Format \textit{application/x-www-form-urlencoded}.
+Die restlichen Schnittstellen, die von der Benutzeroberfläche verwendet werden, verwenden das Format \textit{application/x-www-form-urlencoded}.
 Jenes Format ermöglicht die native Verwendung von HTML-Forms, ohne die Formulardaten per JavaScript umformen zu müssen.
-Um diese Aufrufe testen zu können, kann auf die Entwickleroptionen eines Webbrowsers oder ein REST-Client verwendet werden.
+Um diese Aufrufe testen zu können, können die Entwickleroptionen eines Webbrowsers oder ein REST-Client verwendet werden.
 Dazu muss in den HTTP-Header des Requests der Cookie \textit{JSESSIONID} und das \textit{X-CSRF-TOKEN} eingefügt werden.
 Diese können dem Browser in den Entwickleroptionen nach einem Login entnommen werden.

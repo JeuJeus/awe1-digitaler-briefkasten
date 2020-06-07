@@ -17,35 +17,35 @@ In \cref{fig:root-ordner} ist die grobe Ordnerstruktur des Quellcodes dargestell
     \end{minipage}
 \end{figure}
 
-In dem Projektordner befinden sich der Unterordner \textit{src/main/java/de/fhdw/geiletypengmbh/digitalerbriefkasten}. In diesem
+In dem Projektordner befindet sich der Unterordner \textit{src/main/java/de/fhdw/geiletypengmbh/digitalerbriefkasten}. In diesem
 befindet sich der erstellte Quelltext. Die Unterordner (Packages) dessen werden folgend grob erklärt.
 \begin{itemize}
     \item config
-    \subitem Hierin ist die SecurityConfig der Anwendung enthalten.
+    \subitem Hierin ist die \textit{SecurityConfig} der Anwendung enthalten.
     \item controller
     \subitem Hierin liegen die Controller. Diese stellen die erreichbaren Endpunkte für die Benutzeroberfläche sowie die REST-API zur Verfügung.
     \item exceptions
-    \subitem Hierin sind eigene Exceptions. Diese werden an die Benutzeroberfläche im Fehlerfall weitergeleitet. Ein Beispiel dafür ist die "IdeaNotFoundException".
+    \subitem Hierin sind eigene Exceptions. Diese werden an die Benutzeroberfläche im Fehlerfall weitergeleitet. Ein Beispiel dafür ist die \textit{IdeaNotFoundException}.
     \item log
     \subitem Hierin liegen alle Klassen, die zum Logging von Ereignissen dienen.
     \item persistance
-    \subitem Das Package persistance dient zum Speichern der Daten (Objekte bzw. Entities) in der Datenbank. Es ist untergliedert
+    \subitem Das Package \textit{persistance} dient zum Speichern der Daten (Objekte bzw. Entities) in der Datenbank. Es ist untergliedert
     in die packages
     \begin{itemize}
         \item model
         \subitem Hierin liegen die Datenklassen (Entities). Sie entsprechen dem ER-Diagramm.
         \item repo
-        \subitem Hierin liegen die Repositories. Sie dienen zum Lesen, Schreiben, etc. der Datenklassen in die Datenbank.
+        \subitem Hierin liegen die \textit{Repositories}. Sie dienen zum Lesen, Schreiben, etc. der Datenklassen in die Datenbank.
     \end{itemize}
     \item service
-    \subitem Hierin liegen die Services. Sie dienen als Abstraktionsschicht über den Repositories. Damit kann zusätzliche Logik z.B. vor dem Speichern einer Entität implementiert werden. Auch Hilfsmethoden befinden sich in den Services.
+    \subitem Hierin liegen die \textit{Services}. Sie dienen als Abstraktionsschicht über den \textit{Repositories}. Damit kann zusätzliche Logik z.B. vor dem Speichern einer Entität implementiert werden. Auch Hilfsmethoden befinden sich in den Services.
     \item validator
     \subitem Hierin liegt die Validationsklasse für die Benutzerstellung. Sie enthält Prüfungen, wie z.B. ob das Passwort lang genug ist.
 \end{itemize}
 Darüber hinaus befindet sich in dem Package noch die Hauptklasse der Anwendung \textit{DigitalerBriefkastenApplication}, durch welche sie gestartet wird.
 \newline
 Neben \textit{src/main/java} existiert auch der Ordner \textit{src/main/resources}. In diesem sind die Komponenten für die Weboberfläche der Anwendung enhalten.
-In \cref{fig:resources-ordner} wird die Struktur von resources dargestellt.
+In \cref{fig:resources-ordner} wird die Struktur von \textit{resources} dargestellt.
 
 \begin{figure}[htb]
     \centering
@@ -57,7 +57,8 @@ In \cref{fig:resources-ordner} wird die Struktur von resources dargestellt.
     \end{minipage}
 \end{figure}
 
-Der Unterordner static beinhaltet css-, Bild- und JavaScript-Dateien. In Templates befinden sich die HTML Dateien.
+Der Unterordner \textit{static} beinhaltet css-, Bild- und JavaScript-Dateien. In \textit{Templates} befinden sich die HTML Dateien.
+Die Testklassen der Anwendung befinden sich in dem Ordner \textit{src/test/java/de/fhdw/geiletypengmbh/digitalerbriefkasten}.
 
 \subsection{Klassendiagramm}
 In \cref{fig:advantage-klassendiagramm} wird die Architektur beispielhaft erklärt:

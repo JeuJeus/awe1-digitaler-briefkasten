@@ -9,7 +9,7 @@
 
 \begin{center}
     \label{fig:testdurchf}
-    \begin{longtable}{|p{0.4\textwidth}|p{0.3\textwidth}|p{0.2\textwidth}|}
+    \begin{longtable}{|p{0.45\textwidth}|p{0.35\textwidth}|p{0.1\textwidth}|}
         \caption{GUI-Testdurchführung}\\
         \hline
         Aktion & erwartetes Ergebnis & Reaktion\\
@@ -18,121 +18,121 @@
 
         \textbf{Registrieren eines neuen Nutzers} & &\\
         \hline
-        Bereits bestehenden Nutzernamen verwenden (admin) & Fehlermeldung - Nutzername existiert bereits &\\
+        Bereits bestehenden Nutzernamen verwenden (admin) & Fehlermeldung - Nutzername existiert bereits & \ding{51}\\
         \hline
-        zu kurzer Nutzername (<3) & Fehlermeldung - Daten falsch &\\
+        zu kurzer Nutzername (<3) & Fehlermeldung - Daten falsch & \ding{51}\\
         \hline
-        zu kurzes Passwort (<=7) & Fehlermeldung - zu kurzes Passwort &\\
+        zu kurzes Passwort (<=7) & Fehlermeldung - zu kurzes Passwort & \ding{51}\\
         \hline
-        nicht übereinstimmende Passwörter & Fehlermeldung - nicht stimmende Passwort &\\
+        nicht übereinstimmende Passwörter & Fehlermeldung - nicht stimmende Passwort & \ding{51}\\
         \hline
-        mit korrekten Daten & eingeloggt sein &\\
+        mit korrekten Daten & eingeloggt sein & \ding{51}\\
         \hline
         \hline
 
-        \textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+        \textbf{Ausloggen aus dem Account} & ausgeloggt sein & \ding{51}\\
         \hline
         \hline
 
         \textbf{Einloggen in erstellten Account} & &\\
         \hline
-        mit falschem Passwort & Fehlermeldung &\\
+        mit falschem Passwort & Fehlermeldung & \ding{51}\\
         \hline
-        mit falschem Nutzernamen & Fehlermeldung &\\
+        mit falschem Nutzernamen & Fehlermeldung & \ding{51}\\
         \hline
-        mit richtigem Passwort & eingeloggt sein &\\
+        mit richtigem Passwort & eingeloggt sein & \ding{51}\\
         \hline
         \hline
 
         \textbf{Erstellen von beispielhaften Ideen} & &\\
         \hline
-        Erstellen einer \enquote{internen Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+        Erstellen einer \enquote{internen Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen & \ding{51}\\
         \hline
-        Erstellen einer \enquote{Produkt-Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen &\\
+        Erstellen einer \enquote{Produkt-Idee} & Idee erscheint in Tabelle nicht eingereichter Ideen & \ding{51}\\
         \hline
-        Erstellen einer beliebigen Idee mit fehlerhaften Werten & Fehlerhafte Attribute werden hervorgehoben &\\
+        Erstellen einer beliebigen Idee mit fehlerhaften Werten & Fehlerhafte Attribute werden hervorgehoben & \ding{51}\\
         \hline
-        Erstellen einer Idee von der bereits selber Name bei selbem Typ vorhanden & Fehlermeldung über Duplikat &\\
+        Erstellen einer Idee von der bereits selber Name bei selbem Typ vorhanden & Fehlermeldung über Duplikat &\ding{51}\\
         \hline
-        Bearbeiten der internen Idee & Änderungen werden übernommen &\\
+        Bearbeiten der internen Idee & Änderungen werden übernommen & \ding{51}\\
         \hline
-        Bearbeiten der Produkt-Idee & Änderungen werden übernommen &\\
+        Bearbeiten der Produkt-Idee & Änderungen werden übernommen & \ding{51}\\
         \hline
         \hline
 
         \textbf{Ideenübersicht} & &\\
         \hline
-        Filtern der nicht eingereichten Ideen nach Attributen & nur Ideen mit passenden Attributen werden angezeigt &\\
+        Filtern der nicht eingereichten Ideen nach Attributen & nur Ideen mit passenden Attributen werden angezeigt & \ding{51}\\
         \hline
-        Einreichen der erstellten Ideen & erfolgreicher Transfer in jeweilige Tabelle &\\
+        Einreichen der erstellten Ideen & erfolgreicher Transfer in jeweilige Tabelle & \ding{51}\\
         \hline
         \hline
 
-        \textbf{Ausloggen aus dem Account} & ausgeloggt sein &\\
+        \textbf{Ausloggen aus dem Account} & ausgeloggt sein & \ding{51}\\
         \hline
         \hline
 
         \textbf{Idee Übersicht als nicht eingeloggter Nutzer} & &\\
         \hline
-        Filtern der Ideen in beiden Tabellen & nur Ideen mit passenden Attributen werden angezeigt &\\
+        Filtern der Ideen in beiden Tabellen & nur Ideen mit passenden Attributen werden angezeigt & \ding{51}\\
         \hline
         \hline
 
         \textbf{Kontaktformular} & & \\
         \hline
-        Kontaktformular im Footer aufrufen & Kontaktformular erscheint & \\
+        Kontaktformular im Footer aufrufen & Kontaktformular erscheint & \ding{51}\\
         \hline
-        Nachricht mit Titel, Nachricht und eigener E-Mail-Adresse absenden & Nachricht abgesendet & \\
+        Nachricht mit Titel, Nachricht und eigener E-Mail-Adresse absenden & Nachricht abgesendet & \ding{51}\\
         \hline
-        Nachricht mit Titel, Nachricht und falsch formatierter E-Mail-Adresse absenden & Fehler & \\
+        Nachricht mit Titel, Nachricht und falsch formatierter E-Mail-Adresse absenden & Fehler & \ding{51}\\
         \hline
         \hline
 
         \textbf{Spezialist für \enquote{internen Idee}} & &\\
         \hline
-        Einloggen als passender (Ideen sollten ihm zugewiesen sein) Spezialist (Zugangsdaten siehe \texttt{Manual.md})& eingeloggt sein &\\
+        Einloggen als passender (Ideen sollten ihm zugewiesen sein) Spezialist (Zugangsdaten siehe \texttt{Manual.md})& eingeloggt sein & \ding{51}\\
         \hline
-        Übersicht zu entscheidender Ideen filtern & nur Ideen mit passenden Attributen werden angezeigt &\\
+        Übersicht zu entscheidender Ideen filtern & nur Ideen mit passenden Attributen werden angezeigt & \ding{51}\\
         \hline
-        Entscheiden ohne Begründung & fehlendes Attribut wird hervorgehoben &\\
+        Entscheiden ohne Begründung & fehlendes Attribut wird hervorgehoben & \ding{51}\\
         \hline
-        Idee in Ideenspeicher verschieben & Idee liegt in Ideenspeicher &\\
+        Idee in Ideenspeicher verschieben & Idee liegt in Ideenspeicher & \ding{51}\\
         \hline
         \hline
 
         \textbf{Spezialist für \enquote{Produkt-Idee}} & &\\
         \hline
-        Account zu anderem Spezialist wechseln & Eingeloggt und Idee liegt in Ideenspeicher &\\
+        Account zu anderem Spezialist wechseln & Eingeloggt und Idee liegt in Ideenspeicher & \ding{51}\\
         \hline
-        Entscheiden über Idee aus Ideenspeicher mit Auswahl  \enquote{zur Entscheidung freigegeben} & Idee liegt in eigenen zu entscheidenden Ideen &\\
+        Entscheiden über Idee aus Ideenspeicher mit Auswahl  \enquote{zur Entscheidung freigegeben} & Idee liegt in eigenen zu entscheidenden Ideen & \ding{51}\\
         \hline
-        Idee aus Entscheidungsübersicht bewerten & Idee erscheint auf passender Tabelle in Ideenübersicht &\\
+        Idee aus Entscheidungsübersicht bewerten & Idee erscheint auf passender Tabelle in Ideenübersicht & \ding{51}\\
         \hline
-        Ausloggen & Ausgeloggt und angenommene Idee mit Begründung in Ideenübersicht &\\
+        Ausloggen & Ausgeloggt und angenommene Idee mit Begründung in Ideenübersicht & \ding{51}\\
         \hline
         \hline
 
         \textbf{Administrator} & &\\
         \hline
-        Account zu Administrator wechseln (Zugangsdaten siehe \texttt{Manual.md})& Eingeloggt auf Admin-Seite &\\
+        Account zu Administrator wechseln (Zugangsdaten siehe \texttt{Manual.md})& Eingeloggt auf Admin-Seite & \ding{51}\\
         \hline
-        Existierende User anschauen & registrierter Account sowie alle Spezialisten werden aufgelistet &\\
+        Existierende User anschauen & registrierter Account sowie alle Spezialisten werden aufgelistet & \ding{51}\\
         \hline
-        Neuen Fachspezialisten anlegen & Spezialist taucht in Userliste auf &\\
+        Neuen Fachspezialisten anlegen & Spezialist taucht in Userliste auf & \ding{51}\\
         \hline
-        Neue Produktsparte anlegen & Produktsparte angelegt &\\
+        Neue Produktsparte anlegen & Produktsparte angelegt & \ding{51}\\
         \hline
-        Neue Handlungsfeld anlegen & Handlungsfeld angelegt &\\
+        Neue Handlungsfeld anlegen & Handlungsfeld angelegt & \ding{51}\\
         \hline
-        Neue Zielgruppe anlegen & Zielgruppe angelegt &\\
+        Neue Zielgruppe anlegen & Zielgruppe angelegt & \ding{51}\\
         \hline
-        Neue Vertriebskanal anlegen & Vertriebskanal angelegt &\\
+        Neue Vertriebskanal anlegen & Vertriebskanal angelegt & \ding{51}\\
         \hline
-        Vertriebskanal mit dem selben Titel anlegen & Fehler wird angezeigt &\\
+        Vertriebskanal mit dem selben Titel anlegen & Fehler wird angezeigt & \ding{51}\\
         \hline
-        Kontaktnachricht ansehen und als beantwortet kennzeichnen & Keine ungelesenen Nachrichten &\\
+        Kontaktnachricht ansehen und als beantwortet kennzeichnen & Keine ungelesenen Nachrichten & \ding{51}\\
         \hline
-        Ausloggen & Ausgeloggt &\\
+        Ausloggen & Ausgeloggt & \ding{51}\\
         \hline
     \end{longtable}
 \end{center}

@@ -6,17 +6,17 @@
 Wir haben uns entschieden, statt eines GUI-Mockups unser GUI-Konzept direkt im Prototypen mit auszuliefern.
 Das lässt sich durch mehrere Punkte begründen.
 Zuerst hatten wir zum Zeitpunkt der ersten Präsentation bereits einen funktionierenden Prototypen und konnten diesen direkt mit dem GUI-Konzept ausstatten. Dadurch war nicht nur ein Mockup vorhanden, sondern es konnte bereits während der Konzeptpräsentation mit der GUI interagiert werden.
-Des weiteren hatten wir dadurch die Möglichkeit die Zeit für die Erstellung eines Konzeptes direkt in die Entwicklung funktionierender GUI zu stecken.
+Des weiteren hatten wir dadurch die Möglichkeit die Zeit für die Erstellung eines Konzeptes direkt in die Entwicklung der GUI zu stecken.
 
 Die GUI wurde unter Nutzung von Bootstrap 4 in Kombination mit Font-Awesome für die Icons entwickelt.
 Dadurch war es uns möglich eine konsistente, verständliche und klare Oberfläche zu entwickeln.
-Hierbei haben wir uns darauf konzentriert \enquote{eine klare Linie zu fahren}, dabei wurde viel Wert auf Einheitlichkeit und Konsistenz gelegt. Alle Seiten werden auf weißem Hintergrund dargestellt. Buttons und Informationen sind generell in grau (beziehungsweise Schwarz) gehalten.
+Hierbei wurde viel Wert auf Einheitlichkeit und Konsistenz gelegt. Alle Seiten werden auf weißem Hintergrund dargestellt. Buttons und Informationen sind generell in grau (beziehungsweise Schwarz) gehalten.
 Abweichend hiervon treten Farben nur auf, um die Aufmerksamkeit des Nutzers auf sich zu ziehen oder um Hinweise hervorzuheben. Diese Farben sind in \cref{fig:farbmuster} abgebildet. Die Verwendung wird im weiteren näher erläutert.
 
 \begin{figure}[h!!]
     \centering
     \begin{minipage}[t]{1\textwidth}
-        \caption{Farben Konzept}
+        \caption{Farben-Konzept}
         \includegraphics[width=0.5\textwidth]{img/Farbmuster.png}\\
         \source{Eigene Darstellung}
         \label{fig:farbmuster}
@@ -24,14 +24,14 @@ Abweichend hiervon treten Farben nur auf, um die Aufmerksamkeit des Nutzers auf 
 \end{figure}
 
 
-Grundlegend sind die Elemente der Anwendung zentriert wie im Weiteren zu sehen. Damit erreichen wir in Kombination mit der Nutzung von Bootstrap eine nahezu 100 prozentige Kompatibilität zu mobilen Endgeräten.\footnote{Hierbei ist jedoch anzumerken, dass dieses Feature nicht gefordert war und somit auch nicht weitergehend getestet wurde. Allerdings sind bereits die Voraussetzungen für eine mögliche Erweiterung der Anwendung geschaffen.}
+Grundlegend sind die Elemente der Anwendung zentriert, wie im Weiteren zu sehen ist. Damit erreichen wir in Kombination mit der Nutzung von Bootstrap eine nahezu 100-prozentige Kompatibilität zu mobilen Endgeräten.\footnote{Hierbei ist jedoch anzumerken, dass dieses Feature nicht gefordert war und somit auch nicht weitergehend getestet wurde. Allerdings sind bereits die Voraussetzungen für eine mögliche Erweiterung der Anwendung geschaffen.}
 
-Grundlegende Elemente dieses Konzeptes sind zum einen der Login-Screen (Siehe \ref{GUI-Konzept} im Anhang auf S.\pageref{GUI-Konzept}).
-In diesem Screenshot ist auch das Logo der Anwendung zu sehen welches ebenfalls in den typischen Farben gehalten wurde. Dieses soll der Anwendung einen Wiedererkennungswert geben durch seine gleichzeitig humorvolle als auch simple Darstellung.
+Grundlegende Elemente dieses Konzeptes sind zum einen der Login-Screen (siehe \ref{GUI-Konzept} im Anhang auf S.\pageref{GUI-Konzept}).
+In diesem Screenshot ist auch das Logo der Anwendung zu sehen, welches ebenfalls in den typischen Farben gehalten wurde. Dieses soll durch seine gleichzeitig humorvolle als auch simple Darstellung der Anwendung einen hohen Wiedererkennungswert geben.
 
-Die zweite zentrale Komponente des Konzeptes ist die Übersicht aller Ideen (Siehe \cref{fig:ideen}).
+Die zweite zentrale Komponente des Konzeptes ist die Übersicht aller Ideen (siehe \cref{fig:ideen}).
 Auffallend ist hier die Gliederung der Ideen in Tabellen. Bereits zu diesem Zeitpunkt war geplant die Ideen nach Typ zu gliedern und in einer Übersicht mit ihren wichtigsten Eigenschaften darzustellen.
-Zu diesem Zeitpunkt noch per Klick\footnote{Diese Funktionalität wurde im weiteren durch ein Rechtsklick Menü erweitert (Siehe \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}).}, sollte es möglich sein die Idee im Detail inklusive aller Informationen darzustellen. Diese Entscheidung begründet sich damit, das Gleichgewicht zwischen der verfügbaren Information auf einer Seitenansicht und der Übersichtlichkeit zu wahren.
+Zu diesem Zeitpunkt noch per Klick\footnote{Diese Funktionalität wurde im weiteren durch ein Rechtsklickmenü erweitert (siehe \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}).}, sollte es möglich sein die Idee im Detail inklusive aller Informationen darzustellen. Diese Entscheidung begründet sich damit, das Gleichgewicht zwischen der verfügbaren Information auf einer Seite und der Übersichtlichkeit zu wahren.
 Darüber hinaus findet sich auch hier die Farbgestaltung wieder. Grundsätzlich ist die Oberfläche monochrom gehalten. Icons dienen der schnelleren Identifikation der verschiedenen Tabellen und der Übersichtlichkeit. Farbakzente sind zum einen zur Führung der Nutzer gedacht, siehe beispielhaft in dem Hyperlink auf den Ersteller der Ideen\footnote{Dieser Hyperlink stand beispielhaft für die Weiterleitung auf eine Detailseite auf der Tabellensicht.}. Zum anderen sind diese in den Status der Ideen mit einbezogen, hierdurch lässt sich erheblich schneller ein Überblick verschaffen.
 
 \begin{figure}[h!!]
@@ -44,8 +44,8 @@ Darüber hinaus findet sich auch hier die Farbgestaltung wieder. Grundsätzlich 
     \end{minipage}
 \end{figure}
 
-Ein weiterer relevanter Punkt der sich beispielhaft in dieser Abbildung (Siehe \cref{fig:ideen}) findet, ist die Navigationsleiste. Diese ist im Konzept nur nach dem Login vorhanden. Im fertigen Produkt wurde diese aber auf jeder Seite inkludiert.\footnote{Ebenso wurde ein Footer eingefügt. Vgl. \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}}
-Zugleich ist sie zentrales Steuerelement der Anwendung. Auf der linken Seite findet sich das Logo dauerhaft präsent wieder. Daneben werden zur Verfügung stehende Seiten angezeigt, wobei die aktuelle hervorgehoben ist.\footnote{Im fertigen Produkt ist diese Sicht abhängig von den verschiedenen Rollen. Vgl. \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}} Auf der rechten Seite findet sich der Logout Button, auch dieser ist hervorgehoben um vom Nutzer wahrgenommen zu werden.
+Ein weiterer relevanter Punkt der sich beispielhaft in dieser Abbildung (siehe \cref{fig:ideen}) findet, ist die Navigationsleiste. Diese ist im Konzept nur nach dem Login vorhanden. Im fertigen Produkt wurde diese aber auf jeder Seite inkludiert.\footnote{Ebenso wurde ein Footer eingefügt. Vgl. \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}}
+Zugleich ist sie zentrales Steuerelement der Anwendung. Auf der linken Seite findet sich das Logo dauerhaft präsent wieder. Daneben werden zur Verfügung stehende Seiten angezeigt, wobei die aktuelle hervorgehoben ist.\footnote{Im fertigen Produkt ist diese Sicht abhängig von den verschiedenen Rollen. Vgl. \ref{GUI-Umsetzung} S.\pageref{GUI-Umsetzung}} Auf der rechten Seite findet sich der Logout-Button, auch dieser ist hervorgehoben um vom Nutzer wahrgenommen zu werden.
 
 Die weiteren Konzeptteile der GUI finden sich im Anhang \ref{GUI-Konzept} auf S.\pageref{GUI-Konzept}.
 
@@ -69,5 +69,5 @@ Die weiteren Konzeptteile der GUI finden sich im Anhang \ref{GUI-Konzept} auf S.
     \end{minipage}
 \end{figure}
 
-Hervorzuheben ist, dass gegenüber des Konzeptes in der Umsetzung\footnote{Siehe Anhang \ref{GUI-Umsetzung} auf S.\pageref{GUI-Umsetzung}} einige Elemente hinzugekommen sind. Die wichtigsten hierbei sind das bereits genannte Rechtsklick Menü (Siehe \cref{fig:rechtsklick}). Sowie intelligente Dropdown Menüs (Siehe \cref{fig:dropdown}).
+Hervorzuheben ist, dass gegenüber des Konzeptes in der Umsetzung\footnote{Siehe Anhang \ref{GUI-Umsetzung} auf S. \pageref{GUI-Umsetzung}} einige Elemente hinzugekommen sind. Die wichtigsten hierbei sind das bereits genannte Rechtsklick-Menü (siehe \cref{fig:rechtsklick}). Sowie intelligente Dropdown Menüs (Siehe \cref{fig:dropdown}).
 Diese sollen dem Nutzer die Möglichkeit geben intuitiv die Anwendung zu bedienen und erweitern diese durch dynamische Menüs welche sich in die Oberfläche einpassen.

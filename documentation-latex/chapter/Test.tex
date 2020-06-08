@@ -20,14 +20,15 @@ Im Folgenden werden die konkreten Testklassen und die Abdeckung erläutert. Die 
 
 Insgesamt erreichen wir eine Testabdeckung von 78\%. Von den Tests wird nahezu die gesamte Funktionalität des Programms abgedeckt. Elemente, die nicht getestet werden, sind im wesentlichen die Exceptions und Teile der Controller, in denen beispielsweise das funktionell identische Anlegen von Produktsparten, Zielgruppen, Vertriebskanälen und Handlungsfeldern nur einmal stellvertretend getestet wird.
 
-Die Tests sind auf zwei Klassen aufgeteilt, \texttt{IdeaControllerIntegTest} und \texttt{UserControllerIntegTest}. Wir trennen damit die Integrationstests von Ideen- und Benutzerfunktionalität voneinander. In beiden Testklassen wird zunächst mit Helfermethoden die Testumgebung vorbereitet indem Objekte und Klassen geschaffen werden, die von den Tests genutzt werden.
-Die tatsächlichen Testmethoden sind jeweils sprechend benannt und benutzen größtenteils die vom Spring-Framework bereitgestellten MockMvc-Funktionalitäten um gemockte Anfragen zu senden und die Antworten auszuwerten. Die einzelnen Tests testen jeweils eine vollständige Funktionalität des Programms. Es kann mehrere Tests geben, die eine Funktionalität mit deren Abwandlungen testen.
+Die Tests sind auf zwei Klassen aufgeteilt: \\
+\texttt{IdeaControllerIntegTest} und \texttt{UserControllerIntegTest}. Wir trennen damit die Integrationstests von Ideen- und Benutzerfunktionalität voneinander. In beiden Testklassen wird zunächst mit Helfermethoden die Testumgebung vorbereitet indem Objekte und Variablen initialisiert werden, die von den Tests genutzt werden.
+Die tatsächlichen Testmethoden sind jeweils sprechend benannt und benutzen größtenteils die vom Spring-Framework bereitgestellten MockMvc-Funktionalitäten um Anfragen zu senden und die Antworten auszuwerten. Die einzelnen Tests testen jeweils eine vollständige Funktionalität des Programms. Es kann mehrere Tests geben, die eine Funktionalität mit deren Abwandlungen testen.
 Aufgrund des logisch zusammenhängenden Aufbaus der Testklassen und -Methoden wird auf eine detaillierte Erläuterung verzichtet.
 
 \subsection{manuelle-\enquote{Klicktests} \textcolor{blue}{[Julius Figge]}}
 
 Zur Überprüfung der GUI sollen manuelle Klicktests durchgeführt werden.
-Diese sollen dokumentiert werden um Fehler möglichst gezielt beheben zu können.\\
+Diese sollen dokumentiert werden um Fehler möglichst gezielt beheben zu können.
 
 \subsubsection*{Zu notierende Informationen}
 Für die Auswertung relevant sind zum einen die Programmrevision (Git Commit Hash, Datum) sowie der verwendete Branch. Darüber hinaus ist das genutzte Betriebssystem sowie der genutzte Browser (inklusive Build zu notieren).

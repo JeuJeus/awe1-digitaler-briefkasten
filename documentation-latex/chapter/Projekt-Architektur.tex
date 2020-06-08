@@ -42,7 +42,7 @@ befindet sich der erstellte Quelltext. Die Unterordner (Packages) dessen werden 
     \item validator
     \subitem Hierin liegt die Validationsklasse für die Benutzerstellung. Sie enthält Prüfungen, wie z.B. die Prüfung auf Mindest-Passwortlänge.
 \end{itemize}
-Darüber hinaus befindet sich in dem Package noch die Hauptklasse der Anwendung, \textit{DigitalerBriefkastenApplication}, durch welche sie gestartet wird.
+Darüber hinaus befindet sich in dem Package noch die Hauptklasse der Anwendung \textit{DigitalerBriefkastenApplication}, durch welche sie gestartet wird.
 \newline
 Neben \textit{src/main/java} existiert auch der Ordner \textit{src/main/resources}. In diesem sind die Komponenten für die Weboberfläche der Anwendung enhalten.
 In \cref{fig:resources-ordner} wird die Struktur von \textit{resources} dargestellt.
@@ -50,7 +50,7 @@ In \cref{fig:resources-ordner} wird die Struktur von \textit{resources} dargeste
 \begin{figure}[htb]
     \centering
     \begin{minipage}[H]{1\textwidth}
-        \caption{Grobe Ordnerstruktur}
+        \caption{Ordnerstruktur der Ressourcen}
         \includegraphics[width=0.5\textwidth]{img/resources-ordner.png}\\
         \source{Eigene Darstellung}
         \label{fig:resources-ordner}
@@ -61,7 +61,7 @@ Der Unterordner \textit{static} beinhaltet css-, Bild- und JavaScript-Dateien. I
 Die Testklassen der Anwendung befinden sich in dem Ordner \textit{src/test/java/de/fhdw/geiletypengmbh/digitalerbriefkasten}.
 
 \subsection{Klassendiagramm}
-In \cref{fig:advantage-klassendiagramm} wird die Architektur beispielhaft erklärt:
+In \cref{fig:advantage-klassendiagramm} wird die Architektur am Beispiel der Klasse \textit{Advantage} erklärt:
 
 \begin{figure}[htb]
     \centering
@@ -73,13 +73,13 @@ In \cref{fig:advantage-klassendiagramm} wird die Architektur beispielhaft erklä
     \end{minipage}
 \end{figure}
 
-Die Klasse \textit{Advantage} stellt die Entität dar, welche die gesamte Anwendung durchläuft.
+Die Klasse \textit{Advantage} stellt die Entität dar, welche von den verschiedenen Schichten der Anwendung verwendet wird.
 Das \textit{AdvantageRepository} ist eine Erweiterung des \textit{JPARepositories} und dient somit zur Interaktion mit der Datenbank und Advantage-Objekten.
-Darauf aufbauende Logik wird in dem \textit{AdvantageService} implementiert. Dieser wirft z.B. eine \textit{AdvantageNotFoundException} in der
+Darauf aufbauende Logik wird in dem \textit{AdvantageService} implementiert. Dieser wirft zum Beispiel eine \textit{AdvantageNotFoundException} in der
 Methode \textit{findById()}, wenn keine Advantage in der Datenbank gefunden wird.
 \\
 Auf ein Klassendiagramm der gesamten Anwendung wurde verzichtet, da es zu unüberischtlich ist.
-In Anhang \ref{Anhang:Klassendiagramme} sind Klassendiagramme des Models zu finden, die dem ER-Diagramm entsprechen.
+In Anhang \ref{Anhang:Klassendiagramme} sind Klassendiagramme des \textit{Models} zu finden, die dem ER-Diagramm entsprechen.
 
 
 

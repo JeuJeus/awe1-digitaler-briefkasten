@@ -12,28 +12,28 @@ Die Schnittstelle stellt folgende Services bereit:
 \begin{itemize}
     \item HTTP-Methode: GET
     \subitem Relativer Pfad: \textit{/api/ideas/}
-    \subitem Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen) beinhaltet.
+    \subitem Antwort: Array, das alle Ideen (Produkt-/ Interne Ideen) beinhaltet.
     \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen1}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP-Methode: GET
     \subitem Relativer Pfad: \textit{/api/ideas/\{id\}}
-    \subitem Antwort: Idee (Proukt-/ Interne Idee) in JSON-Format
+    \subitem Antwort: Idee (Produkt-/ Interne Idee) in JSON-Format
     \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP-Methode: GET
     \subitem Relativer Pfad: \textit{/api/ideas/title/\{title\}}
-    \subitem Antwort: Idee (Proukt-/ Interne Idee) in JSON-Format
+    \subitem Antwort: Idee (Produkt-/ Interne Idee) in JSON-Format
     \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
 \end{itemize}
 
 \begin{itemize}
     \item HTTP-Methode: GET
     \subitem Relativer Pfad: \textit{/api/ideas/submitted}
-    \subitem Antwort: Array, das alle Ideen (Proukt-/ Interne Ideen), die veröffentlicht sind, beinhaltet.
+    \subitem Antwort: Array, das alle Ideen (Produkt-/ Interne Ideen), die veröffentlicht sind, beinhaltet.
     \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen1}
 \end{itemize}
 
@@ -42,7 +42,7 @@ Die Schnittstelle stellt folgende Services bereit:
     \subitem Relativer Pfad: \textit{/api/ideas/}
     \subitem Mitzugebener HTTP-Body: Idee in JSON-Format (Syntax siehe GET-Methoden)
     \subitem Bei Erfolg
-    \subsubitem HTTP-Status 201 im HTTP-Header, sowie die erstellte Idee als Json im HTTP-Body
+    \subsubitem HTTP-Status 201 im HTTP-Header, sowie die erstellte Idee als JSON im HTTP-Body
     \subitem Bei Fehler
     \subsubitem Fehlerrückmeldung
     \subitem Beispielantwort: siehe Anhang \ref{Anhang:Schnittstellen2}
@@ -78,10 +78,10 @@ Die Schnittstelle stellt folgende Services bereit:
 
 \subsection{Login}
 Um die GET- \textit{/api/ideas/} sowie die POST-, DELETE- und PUT- Aufrufe der API nutzen zu können, muss sich mit einem Benutzer der Rolle \textit{API\_USER} angemeldet werden.
-Dies wird hier nicht genauer spezifiert, da es keine Anforderung war.
+Dies wird hier nicht genauer spezifiziert, da es keine Anforderung war.
 Die Funktionalität wurde aber bereits in der Basis für zukünftige Erweiterungen hinzugefügt und kann mit einem REST-Client getestet werden.
 Ein \textit{API\_USER} kann mit Hilfe des Skripts \textit{HelperScriptNoTests} erstellt werden.
-Die restlichen GET-Methoden können ohne Authentifizierung aufgerufen werden. Diese entsprechen den Ideen, die auch in der Benutzeroberfläche ohne Anmeldung angesehen werden können.
+Die restlichen GET-Methoden können ohne Authentifizierung aufgerufen werden. Diese entsprechen den Ansichten, die auch in der Benutzeroberfläche ohne Anmeldung angesehen werden können.
 
 \subsection{Webschnittstelle}
 Die restlichen Schnittstellen, die von der Benutzeroberfläche verwendet werden, verwenden das Format \textit{application/x-www-form-urlencoded}.

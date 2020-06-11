@@ -1,4 +1,4 @@
-# Uniprojekt "Digitaler Briefkasten"
+# Uniprojekt "Digitaler Briefkasten" <img src="src/main/resources/static/images/logo.png" height="48" width="48">
 ## Anwendungsentwicklung 1 - FHDW Paderborn 
 
 Ziel dieses Moduls war es eine "digitale Briefkasten"-Webanwendung für einen fiktiven Versicherungskunden zu entwickeln.
